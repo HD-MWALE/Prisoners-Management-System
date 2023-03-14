@@ -34,6 +34,7 @@
             this.cartesianChart2 = new LiveCharts.WinForms.CartesianChart();
             this.cartesianChart3 = new LiveCharts.WinForms.CartesianChart();
             this.label17 = new System.Windows.Forms.Label();
+            this.cartesianChartrollcall = new LiveCharts.WinForms.CartesianChart();
             this.flowLayoutPanelBody.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.flowLayoutPanelBody.Controls.Add(this.pieChart1);
             this.flowLayoutPanelBody.Controls.Add(this.cartesianChart2);
             this.flowLayoutPanelBody.Controls.Add(this.cartesianChart3);
+            this.flowLayoutPanelBody.Controls.Add(this.cartesianChartrollcall);
             this.flowLayoutPanelBody.Location = new System.Drawing.Point(45, 72);
             this.flowLayoutPanelBody.Name = "flowLayoutPanelBody";
             this.flowLayoutPanelBody.Size = new System.Drawing.Size(801, 382);
@@ -99,6 +101,15 @@
             this.label17.TabIndex = 82;
             this.label17.Text = "Statistical Reports";
             // 
+            // cartesianChartrollcall
+            // 
+            this.cartesianChartrollcall.BackColorTransparent = true;
+            this.cartesianChartrollcall.Location = new System.Drawing.Point(3, 1447);
+            this.cartesianChartrollcall.Name = "cartesianChartrollcall";
+            this.cartesianChartrollcall.Size = new System.Drawing.Size(527, 355);
+            this.cartesianChartrollcall.TabIndex = 13;
+            this.cartesianChartrollcall.Text = "cartesianChart4";
+            // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,5 +134,6 @@
         public LiveCharts.WinForms.PieChart pieChart1;
         public LiveCharts.WinForms.CartesianChart cartesianChart2;
         public LiveCharts.WinForms.CartesianChart cartesianChart3;
+        public LiveCharts.WinForms.CartesianChart cartesianChartrollcall;
     }
 }

@@ -53,7 +53,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             Config.ClickSound();
             Roll_Call = new Roll_Call("RC" + DormitoryId + "-" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"), 1, DormitoryId);
             Roll_Call.dataSet = Roll_Call.Save();
-            scan = new facial.scan(Roll_Call, this);
+            scan = new facial.scan(dashboard, Roll_Call, this);
             modal.popup popup = new modal.popup(dashboard, scan);
             popup.Size = scan.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);

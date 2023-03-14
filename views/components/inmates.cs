@@ -26,6 +26,7 @@ namespace Roll_Call_And_Management_System.views.components
         }
         Inmate Inmate = new Inmate();
         Dormitory Dormitory = new Dormitory();
+        public inmate row;
         public int Id;
         public void inmates_Load(object sender, EventArgs e)
         {
@@ -47,7 +48,7 @@ namespace Roll_Call_And_Management_System.views.components
                 int number = 1;
                 foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
                 {
-                    inmate row = new inmate(dashboard, this);
+                    row = new inmate(dashboard, this);
                     row.Id = Convert.ToInt32(dataRow["id"]);
                     row.lblNo.Text = number.ToString();
                     row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);

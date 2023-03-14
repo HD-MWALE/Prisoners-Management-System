@@ -21,9 +21,11 @@ namespace Roll_Call_And_Management_System.views.components.facial
     {
         Inmate Inmate = new Inmate();
         inputs.rollcall rollcall;
-        public scan(Roll_Call Roll_Call, inputs.rollcall rollcall)
+        public views.dashboard dashboard;
+        public scan(views.dashboard dashboard, Roll_Call Roll_Call, inputs.rollcall rollcall)
         {
             InitializeComponent();
+            this.dashboard = dashboard;
             this.Roll_Call = Roll_Call;
             this.rollcall = rollcall;
             Inmate.dataSet = Inmate.GetInmates();
@@ -59,7 +61,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
 
                 for (int i = 1; i < NumNames + 1; i++)
                 {
-                    LoadFaces = Inmates[i] + " - " + i + ".bmp";
+                    LoadFaces = "Inmate" + i + ".bmp";
                     CapturingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/Face/" + LoadFaces));
                     inmates.Add(Inmates[i]);
                 }
@@ -85,12 +87,12 @@ namespace Roll_Call_And_Management_System.views.components.facial
         {
             foreach (sub.inmate control in flowLayoutPanelScanned.Controls)
             {
-                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 1, "Scanned");
+                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 1, "Scanned", dashboard.user.Auth);
                 Roll_Call.SaveInmate();
             }
             foreach (sub.inmate control in flowLayoutPanelRemaining.Controls)
             {
-                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 0, "Not Scanned");
+                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 0, "Not Scanned", dashboard.user.Auth);
                 Roll_Call.SaveInmate();
             }
         }

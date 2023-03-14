@@ -44,7 +44,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                 foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
                     this.dpnCrimes.Items.Add(AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase));
             }
-            Config.LoadTheme(this.Controls);
+            Config.LoadTheme(this.inmates.Controls);
         }
         public int Id = 0;
         public int ButtonCount = 0;

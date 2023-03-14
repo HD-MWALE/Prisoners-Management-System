@@ -100,7 +100,7 @@
             this.btnCapture.BackColor = System.Drawing.Color.DarkGreen;
             this.btnCapture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCapture.BorderRadius = 5;
-            this.btnCapture.ButtonText = "Capture 0";
+            this.btnCapture.ButtonText = "Capture";
             this.btnCapture.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCapture.DisabledColor = System.Drawing.Color.Gray;
             this.btnCapture.Iconcolor = System.Drawing.Color.Transparent;
@@ -115,15 +115,15 @@
             this.btnCapture.IconVisible = true;
             this.btnCapture.IconZoom = 50D;
             this.btnCapture.IsTab = true;
-            this.btnCapture.Location = new System.Drawing.Point(554, 524);
+            this.btnCapture.Location = new System.Drawing.Point(564, 524);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnCapture.OnHovercolor = System.Drawing.Color.Green;
             this.btnCapture.OnHoverTextColor = System.Drawing.Color.White;
             this.btnCapture.selected = false;
-            this.btnCapture.Size = new System.Drawing.Size(120, 45);
+            this.btnCapture.Size = new System.Drawing.Size(110, 45);
             this.btnCapture.TabIndex = 53;
-            this.btnCapture.Text = "Capture 0";
+            this.btnCapture.Text = "Capture";
             this.btnCapture.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCapture.Textcolor = System.Drawing.Color.White;
             this.btnCapture.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);

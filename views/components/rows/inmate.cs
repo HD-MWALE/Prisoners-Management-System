@@ -109,7 +109,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Dashboard.Blur(true);*/
         }
         ArrayList Crimes = new ArrayList();
-        view.inmate viewinmate;  
+        public view.inmate viewinmate;  
         
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -130,6 +130,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
                 this.inmates.Controls.Add(_inmate);
                 _inmate.Dock = DockStyle.Fill;
                 _inmate.BringToFront();
+                Config.LoadTheme(this.inmates.Controls);
                 dashboard.SetLoading(false);
             }
         }

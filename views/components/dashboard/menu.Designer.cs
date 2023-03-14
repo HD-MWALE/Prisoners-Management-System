@@ -236,7 +236,7 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.DisabledColor = System.Drawing.Color.Gray;
             this.btnExit.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnExit.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.shutdown;
+            //this.btnExit.Iconimage = global::Roll_Call_And_Management_System.Properties.Icon.shutdown;
             this.btnExit.Iconimage_right = null;
             this.btnExit.Iconimage_right_Selected = null;
             this.btnExit.Iconimage_Selected = null;

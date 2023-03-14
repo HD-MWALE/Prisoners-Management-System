@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.SqlServer.Dac.Model;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -52,14 +55,16 @@ namespace Roll_Call_And_Management_System.classes
             get { return _Inmate; }
             set { _Inmate = value; }
         }
+        ArrayList Warden; 
         public Roll_Call()
         {
         }
-        public Roll_Call(string code, int inmate_id, int status, string rollcall)  
+        public Roll_Call(string code, int inmate_id, int status, string rollcall, ArrayList warden)  
         {
             Code = code;
             Status = status;
             InmateId = inmate_id;
+            Warden = warden;
         }
         public Roll_Call(string code, int status, int dormitory_id)
         {
@@ -86,10 +91,17 @@ namespace Roll_Call_And_Management_System.classes
         }
         public bool SaveInmate() 
         {
+            Inmate = new Inmate();
+            if(Status == 0)
+                if (Config.IsInternet())
+                {
+                    DataSet set = Inmate.GetInmates();
+                    Config.RollCallEmail((Code, set, InmateId), Warden[1].ToString());
+                } 
             string fields = "`inmate_id`, `roll_call_id`, `status`";
             string data = InmateId + "," + GetId(Code) + ", '" + Status + "'";
             if (database.Execute.Insert(Properties.Resources.RollCallnmateTable, fields, data))
-                return true;
+                return true; 
             return false;
         }
         public int GetId(string code) 
@@ -121,8 +133,8 @@ namespace Roll_Call_And_Management_System.classes
         }
         public DataSet GetFeedBack() 
         {
-            string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`";
-            string Condition = "rollcall.`inmate_id` = inmate.`id`";
+            string data = "inmate.id, inmate.code, inmate.first_name, inmate.middle_name, inmate.last_name, inmate.gender, inmate.dob, inmate.dormitory_id, inmate.date_created, inmate.address, inmate.marital_status, inmate.eye_color, inmate.complexion, inmate.emergency_name, inmate.emergency_contact, inmate.emergency_relation, inmate.visiting_privilege, rollcall.status";
+            string Condition = "rollcall.inmate_id =  inmate.id";
             (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.RollCallnmateTable + " rollcall WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
@@ -134,8 +146,8 @@ namespace Roll_Call_And_Management_System.classes
         }
         public DataSet GetDetails(string code)   
         {
-            string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`";
-            string Condition = "rollcall.`inmate_id` = inmate.`id` AND rollcall.`roll_call_id` = " + GetId(code) + ""; 
+            string data = "`id`,  `code`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `dormitory_id`, `date_created`, `address`, `marital_status`, `eye_color`, `complexion`, `emergency_name`, `emergency_contact`, `emergency_relation`, `visiting_privilege`";
+            string Condition = "rollcall.`inmate_id` =  `id` AND rollcall.`roll_call_id` = " + GetId(code) + ""; 
             (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.RollCallnmateTable + " rollcall WHERE " + Condition);
             if (response.Item2 != "server-error")
             {

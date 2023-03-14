@@ -1,13 +1,16 @@
 ﻿using Bunifu.Framework.UI;
 using Bunifu.UI.WinForms;
 using Bunifu.UI.WinForms.BunifuTextbox;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Emgu.CV.Structure;
 using Google.Protobuf.WellKnownTypes;
 using Roll_Call_And_Management_System.Properties;
 using Roll_Call_And_Management_System.views.components.dashboard;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -22,6 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Roll_Call_And_Management_System.views.components.dashboard.alert;
+using Color = System.Drawing.Color;
 
 namespace Roll_Call_And_Management_System
 {
@@ -143,15 +147,97 @@ namespace Roll_Call_And_Management_System
                 return false;
             }
         }
+        public static void RollCallEmail((string, DataSet, int) htmlString, string ToMailAddress) 
+        {
+            try
+            {
+                string inmate = "";
+                foreach (DataRow dataRow in htmlString.Item2.Tables["result"].Rows)
+                {
+                    if (Convert.ToInt32(dataRow["id"]) == htmlString.Item3)
+                    {
+                        //Id = Convert.ToInt32(dataRow["id"].ToString());
+                        classes.Dormitory Dormitory = new classes.Dormitory();
+                        classes.Crimes_Committed Committed = new classes.Crimes_Committed();
+                        var converter = new GroupDocs.Conversion.Converter(startupPath + "\\Face\\" + AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + ".bmp");
+                        var convertOptions = converter.GetPossibleConversions()["svg"].ConvertOptions;
+                        converter.Convert(startupPath + "\\Face\\svg.svg", convertOptions);
+
+                        inmate = "<font>" + File.ReadAllText(startupPath + "\\Face\\svg.svg") + "</font><br><br>";
+                        inmate += "<font>Inmate Code : <strong>" + AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Dormitory : <strong>" + AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Fullname : <strong>" + AES.Decrypt(dataRow["last_name"].ToString(), Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Gender : <strong>" + AES.Decrypt(dataRow["gender"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Date of Birth : <strong>" + Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy") + "</strong></font><br>";
+                        inmate += "<font>Address : <strong>" + AES.Decrypt(dataRow["address"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Marital Status : <strong>" + AES.Decrypt(dataRow["marital_status"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Eye Color : <strong>" + AES.Decrypt(dataRow["eye_color"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Complexion : <strong>" + AES.Decrypt(dataRow["complexion"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        bool Isfirst = true;
+                        string crimes = "";
+                        Committed.dataSet = Committed.GetCrimes();
+                        if (Committed.dataSet != null)
+                            foreach (DataRow data in Committed.dataSet.Tables["result"].Rows)
+                            {
+                                if (Convert.ToInt32(dataRow["id"]) == Convert.ToInt32(data["inmate_id"]))
+                                {
+                                    if (Isfirst)
+                                    {
+                                        crimes = AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
+                                        Isfirst = false;
+                                    }
+                                    else
+                                        crimes = crimes + ", " + AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
+                                }
+                            }
+                        inmate += "<font>Crimes Committed : <strong>" + crimes + "</strong></font><br>";
+                        inmate += "<font>Sentence Start Date : <strong>" + Convert.ToDateTime(dataRow["start_date"]).ToString("dd/MM/yyyy") + "</strong></font><br>";
+                        inmate += "<font>Sentence End Date : <strong>" + Convert.ToDateTime(dataRow["end_date"]).ToString("dd/MM/yyyy") + "</strong></font><br>";
+
+                        DateTimePicker Start = new DateTimePicker();
+                        DateTimePicker End = new DateTimePicker();
+                        Start.Value = Convert.ToDateTime(dataRow["start_date"]);
+                        End.Value = Convert.ToDateTime(dataRow["end_date"]);
+
+                        inmate += "<font>Sentence : <strong>" + Calculate.Sentence(Start, End) + "</strong></font><br>";
+                        inmate += "<font>Emergency Name : <strong>" + AES.Decrypt(dataRow["emergency_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Emergency Contact : <strong>" + AES.Decrypt(dataRow["emergency_contact"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Emergency Relation : <strong>" + AES.Decrypt(dataRow["emergency_relation"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                    }
+                }
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress(Resources.SenderEmail);
+                message.To.Add(new MailAddress(ToMailAddress));
+                message.Subject = "Inmate Details - Escaped";
+                message.IsBodyHtml = true; //to make message body as html
+                message.Body = "<font>Roll Call Code : <strong>" + htmlString.Item1 + "</strong></font><br><br>";
+                message.Body += inmate + "<br>";
+                message.Body += "<font>Please do not reply for this email was auto-generated by the Maula Prisoners Management System.</font><br><br>";
+                message.Body += "<font>Regards</font><br>";
+                message.Body += "<font><strong>Maula Prisoners Management System</strong></font>";
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; //for gmail host
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(Resources.SenderEmail, Resources.SenderPassword);
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+            }
+            catch (Exception ex)
+            {
+                ServerMessage(ex.ToString());
+            }
+        }
         public static void Email((string, string) htmlString, string ToMailAddress)
         {
             try
             {
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress(Properties.Resources.SenderEmail);
+                message.From = new MailAddress(Resources.SenderEmail);
                 message.To.Add(new MailAddress(ToMailAddress));
-                message.Subject = Properties.Resources.OTPSubject;
+                message.Subject = Resources.OTPSubject;
                 message.IsBodyHtml = true; //to make message body as html
                 message.Body = "<font>This is your Username: <strong>" + htmlString.Item1 + "</strong></font><br>";
                 message.Body += "<font>This is your One-Time Password: <strong>" + htmlString.Item2 + "</strong></font><br><br>";
@@ -165,7 +251,7 @@ namespace Roll_Call_And_Management_System
                 smtp.Host = "smtp.gmail.com"; //for gmail host
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential(Properties.Resources.SenderEmail, Properties.Resources.SenderPassword);
+                smtp.Credentials = new NetworkCredential(Resources.SenderEmail, Resources.SenderPassword);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
             }

@@ -1,9 +1,11 @@
 ﻿using BunifuVSIX.forms;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Presentation;
 using Roll_Call_And_Management_System.classes;
 using Roll_Call_And_Management_System.views.components;
 using Roll_Call_And_Management_System.views.components.dashboard;
 using Roll_Call_And_Management_System.views.components.modal;
+using Roll_Call_And_Management_System.views.components.view;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
 
 namespace Roll_Call_And_Management_System.views
 {
@@ -60,7 +63,7 @@ namespace Roll_Call_And_Management_System.views
         reports reports;
         crimes crimes;
         dormitories dormitories;
-        rollcall rollcall;
+        components.rollcall rollcall;
         public menu menu;
         public notifications notifications;  
         public search search;
@@ -68,7 +71,6 @@ namespace Roll_Call_And_Management_System.views
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            timer.Start();
             try
             {
                 thread = new Thread(LoadData);
@@ -80,6 +82,7 @@ namespace Roll_Call_And_Management_System.views
             }
             lblFullName.Text = (string)user.Auth[3] + " " + (string)user.Auth[4];
             btnDashboard_Click(sender, e);
+            timer.Start();
         }
         void Declare()
         {
@@ -95,7 +98,7 @@ namespace Roll_Call_And_Management_System.views
             crimes = new crimes(this);
             reports = new reports(this);
             users = new users(this);
-            rollcall = new rollcall(this);
+            rollcall = new components.rollcall(this);
             dormitories = new dormitories(this);
             inmates = new inmates(this);
             visitors = new visitors(this);
@@ -241,9 +244,11 @@ namespace Roll_Call_And_Management_System.views
 
         public void Notification(object sender, int id) 
         {
+            inmateid = id;
             btnInmate_Click(sender, new EventArgs());
         }
-
+        int inmateid = 0;
+        components.view.inmate viewinmate;
         public void btnInmate_Click(object sender, EventArgs e)
         {
             SetLoading(true);
@@ -253,8 +258,20 @@ namespace Roll_Call_And_Management_System.views
             Path(true);
             if (pnlBody.Contains(inmates))
             {
-                if (inmates.inmate != null)
-                    inmates.Controls.Remove(inmates.inmate);
+                inmates.Controls.Remove(inmates.row.viewinmate);
+                inmates.Controls.Remove(inmates.inmate);
+                if (inmateid != 0)
+                {
+                    viewinmate = new components.view.inmate(this, this.inmates);
+                    viewinmate.Id = inmateid;
+                    this.PathSeparator.Visible = true;
+                    this.lblAction.Visible = true;
+                    this.lblAction.Text = "View";
+                    this.inmates.Controls.Add(viewinmate);
+                    viewinmate.Dock = DockStyle.Fill;
+                    viewinmate.AutoScroll = true;
+                    viewinmate.BringToFront();
+                }
                 inmates.inmates_Load(sender, e);
                 inmates.BringToFront();
             }
@@ -308,8 +325,7 @@ namespace Roll_Call_And_Management_System.views
             Path(true);
             if (pnlBody.Contains(users))
             {
-                if (users.user != null)
-                    users.Controls.Remove(users.user);
+                users.Controls.Remove(new components.inputs.user(this, users));
                 users.users_Load(sender, e);
                 users.BringToFront();
             }
@@ -427,10 +443,33 @@ namespace Roll_Call_And_Management_System.views
         {
             Config.ClickSound();
             timer.Start();
+            if (roll_Call.dataSet != null)
+            {
+                this.notifications.NotificationflowLayoutPanel.Controls.Clear();
+                foreach (DataRow data in roll_Call.dataSet.Tables["result"].Rows)
+                {
+                    if (data["status"].ToString() == "0")
+                    {
+                        message = new message(this, inmates);
+                        message.Id = Convert.ToInt32(data["id"]);
+                        message.lblTitle.Text = "Roll Call";
+                        message.lblMessage.Text = AES.Decrypt(data["code"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += " - " + AES.Decrypt(data["last_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += ", " + AES.Decrypt(data["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += " " + AES.Decrypt(data["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.Icon.Image = Properties.Resources.prisoner;
+                        this.notifications.NotificationflowLayoutPanel.Controls.Add(message);
+                    }
+                }
+                Config.LoadTheme(this.notifications.Controls);
+                this.notifications.lblModel.BackColor = Color.White;  
+                this.notifications.panel2.BackColor = Color.White;
+                this.notifications.NotificationflowLayoutPanel.BackColor = Color.White;
+            }
             if (sidebar)
-                notifications.Location = new Point(btnNotification.Location.X - 70, btnNotification.Location.Y + 32);
+                notifications.Location = new Point(btnNotification.Location.X - 100, btnNotification.Location.Y + 32);
             else
-                notifications.Location = new Point(btnNotification.Location.X - 190, btnNotification.Location.Y + 32);
+                notifications.Location = new Point(btnNotification.Location.X - 220, btnNotification.Location.Y + 32);
             NotificationIconTimer.Start();
             if (ProfileExpand)
                 menuTimer.Start();
@@ -515,26 +554,50 @@ namespace Roll_Call_And_Management_System.views
         {
             roll_Call = new Roll_Call();
             roll_Call.dataSet = roll_Call.GetFeedBack();
-            this.notifications.NotificationflowLayoutPanel.Controls.Clear();
             if (roll_Call.dataSet != null)
             {
                 int count = 0;
                 foreach (DataRow data in roll_Call.dataSet.Tables["result"].Rows)
-                {
-                    message = new message(this, inmates);
-                    message.Id = Convert.ToInt32(data["id"]);
-                    message.lblMessage.Text = AES.Decrypt(data["code"].ToString(), Properties.Resources.PassPhrase);
-                    message.lblMessage.Text += " - " + AES.Decrypt(data["last_name"].ToString(), Properties.Resources.PassPhrase);
-                    message.lblMessage.Text += ", " + AES.Decrypt(data["first_name"].ToString(), Properties.Resources.PassPhrase);
-                    message.lblMessage.Text += " " + AES.Decrypt(data["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                    message.Icon.Image = Properties.Resources.prisoner;
-                    this.notifications.NotificationflowLayoutPanel.Controls.Add(message);
-                    count++;
-                }
+                    if (data["status"].ToString() == "0")
+                        count++;
                 lblAlert.Text = count.ToString();
-                timer.Stop();
+                //timer.Stop();
             }
-            Config.LoadTheme(this.notifications.Controls);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            Config.ClickSound();
+            switch (lblModel.Text)
+            {
+                case "Crimes":
+                    btnCrimes_Click(sender, e);
+                    break;
+                case "Dormitory":
+                    btnDormitory_Click(sender, e);
+                    break;
+                case "Inmates":
+                    btnInmate_Click(sender, e);
+                    break;
+                case "Sentences":
+                    //btnCrimes_Click(sender, e);
+                    break;
+                case "Users":
+                    btnUsers_Click(sender, e);
+                    break;
+                case "Visitors":
+                    btnVisitors_Click(sender, e);
+                    break;
+                case "Roll Call":
+                    btnRollCall_Click(sender, e);
+                    break;
+                case "Dashboard":
+                    btnDashboard_Click(sender, e);
+                    break;
+                case "Reports":
+                    btnReports_Click(sender, e);
+                    break;
+            }
         }
 
         private void lblModel_Click(object sender, EventArgs e)
@@ -548,7 +611,8 @@ namespace Roll_Call_And_Management_System.views
                 case "Dormitory":
                     btnDormitory_Click(sender, e);
                     break;
-                case "Inmates": 
+                case "Inmates":
+                    inmates.Controls.Remove(inmates.inmate);
                     btnInmate_Click(sender, e);
                     break;
                 case "Sentences":

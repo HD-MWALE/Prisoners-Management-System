@@ -62,6 +62,7 @@
             this.NotificationIconTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnBack = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnToggleMenu)).BeginInit();
@@ -69,6 +70,7 @@
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -483,6 +485,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.flowLayoutPanel1.Controls.Add(this.btnBack);
             this.flowLayoutPanel1.Controls.Add(this.lblModel);
             this.flowLayoutPanel1.Controls.Add(this.PathSeparator);
             this.flowLayoutPanel1.Controls.Add(this.lblAction);
@@ -498,8 +501,8 @@
             this.MenuTransition.SetDecoration(this.lblModel, BunifuAnimatorNS.DecorationType.None);
             this.lblModel.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModel.ForeColor = System.Drawing.Color.Silver;
-            this.lblModel.Location = new System.Drawing.Point(20, 8);
-            this.lblModel.Margin = new System.Windows.Forms.Padding(20, 8, 5, 5);
+            this.lblModel.Location = new System.Drawing.Point(56, 8);
+            this.lblModel.Margin = new System.Windows.Forms.Padding(8, 8, 5, 5);
             this.lblModel.Name = "lblModel";
             this.lblModel.Size = new System.Drawing.Size(97, 23);
             this.lblModel.TabIndex = 5;
@@ -512,7 +515,7 @@
             this.MenuTransition.SetDecoration(this.PathSeparator, BunifuAnimatorNS.DecorationType.None);
             this.PathSeparator.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
             this.PathSeparator.ForeColor = System.Drawing.Color.Silver;
-            this.PathSeparator.Location = new System.Drawing.Point(122, 5);
+            this.PathSeparator.Location = new System.Drawing.Point(158, 5);
             this.PathSeparator.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.PathSeparator.Name = "PathSeparator";
             this.PathSeparator.Size = new System.Drawing.Size(22, 23);
@@ -525,7 +528,7 @@
             this.MenuTransition.SetDecoration(this.lblAction, BunifuAnimatorNS.DecorationType.None);
             this.lblAction.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
             this.lblAction.ForeColor = System.Drawing.Color.Silver;
-            this.lblAction.Location = new System.Drawing.Point(149, 8);
+            this.lblAction.Location = new System.Drawing.Point(185, 8);
             this.lblAction.Margin = new System.Windows.Forms.Padding(5, 8, 5, 5);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(73, 23);
@@ -537,12 +540,13 @@
             // 
             this.lblAlert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAlert.AutoSize = true;
-            this.lblAlert.BackColor = System.Drawing.Color.Firebrick;
+            this.lblAlert.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
             this.MenuTransition.SetDecoration(this.lblAlert, BunifuAnimatorNS.DecorationType.None);
-            this.lblAlert.ForeColor = System.Drawing.Color.White;
-            this.lblAlert.Location = new System.Drawing.Point(564, 9);
+            this.lblAlert.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlert.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblAlert.Location = new System.Drawing.Point(568, 3);
             this.lblAlert.Name = "lblAlert";
-            this.lblAlert.Size = new System.Drawing.Size(13, 13);
+            this.lblAlert.Size = new System.Drawing.Size(15, 17);
             this.lblAlert.TabIndex = 3;
             this.lblAlert.Text = "0";
             // 
@@ -574,7 +578,7 @@
             this.btnNotification.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnNotification.TabIndex = 2;
             this.btnNotification.TabStop = false;
-            this.btnNotification.Zoom = 10;
+            this.btnNotification.Zoom = 5;
             this.btnNotification.Click += new System.EventHandler(this.btnNotification_Click);
             // 
             // btnProfile
@@ -590,7 +594,7 @@
             this.btnProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnProfile.TabIndex = 1;
             this.btnProfile.TabStop = false;
-            this.btnProfile.Zoom = 10;
+            this.btnProfile.Zoom = 5;
             this.btnProfile.Click += new System.EventHandler(this.btnProfile_Click);
             this.btnProfile.MouseLeave += new System.EventHandler(this.btnProfile_MouseLeave);
             this.btnProfile.MouseHover += new System.EventHandler(this.BtnClose_MouseHover);
@@ -670,6 +674,23 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // btnBack
+            // 
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MenuTransition.SetDecoration(this.btnBack, BunifuAnimatorNS.DecorationType.None);
+            this.btnBack.Image = global::Roll_Call_And_Management_System.Properties.Resources.back;
+            this.btnBack.ImageActive = null;
+            this.btnBack.Location = new System.Drawing.Point(20, 7);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(20, 7, 3, 3);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(25, 25);
+            this.btnBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnBack.TabIndex = 8;
+            this.btnBack.TabStop = false;
+            this.btnBack.Zoom = 5;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -698,6 +719,7 @@
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -735,5 +757,6 @@
         private System.Windows.Forms.Timer SearchTimer;
         public System.ComponentModel.BackgroundWorker backgroundWorker1;
         public System.Windows.Forms.Label PathSeparator;
+        private Bunifu.Framework.UI.BunifuImageButton btnBack;
     }
 }

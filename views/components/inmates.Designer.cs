@@ -114,7 +114,7 @@
             this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 189);
             this.InmateflowLayoutPanel.Name = "InmateflowLayoutPanel";
             this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 301);
+            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 250);
             this.InmateflowLayoutPanel.TabIndex = 70;
             // 
             // label3

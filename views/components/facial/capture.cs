@@ -66,7 +66,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
 
                 for (int i = 1; i < NumNames + 1; i++)
                 {
-                    LoadFaces = Inmates[i] + " - " + i + ".bmp";
+                    LoadFaces = "Inmate" + i + ".bmp";
                     CapturingImages.Add(new Image<Gray, byte>(Application.StartupPath + "/Face/" + LoadFaces));
                     inmates.Add(Inmates[i]);
                 }
@@ -175,11 +175,9 @@ namespace Roll_Call_And_Management_System.views.components.facial
             NameInmates.Clear();
 
         }
-        int i = 0;
         private void btnCapture_Click(object sender, EventArgs e)
         {
             Config.ClickSound();
-            btnCapture.Text = "Capture " + i++;
             try
             {
                 //Captured face counter
@@ -206,7 +204,8 @@ namespace Roll_Call_And_Management_System.views.components.facial
 
                 //Show face added in gray scale
                 imageBox1.Image = FaceCaptured;
-                //InmateModel.InmateFace = imageBox1;
+
+                //inmate.ibxFace.Image = FaceCaptured;
 
                 //Write the number of triained faces in a file text for further load
                 File.WriteAllText(Application.StartupPath + "/Face/Inmates.txt", CapturingImages.ToArray().Length.ToString() + "%");
@@ -214,8 +213,20 @@ namespace Roll_Call_And_Management_System.views.components.facial
                 //Write the labels of triained faces in a file text for further load
                 for (int i = 1; i < CapturingImages.ToArray().Length + 1; i++)
                 {
-                    CapturingImages.ToArray()[i - 1].Save(Application.StartupPath + "/Face/" + lblCode.Text + " - " + lblFullname.Text + " - " + i + ".bmp");
+                    CapturingImages.ToArray()[i - 1].Save(Application.StartupPath + "/Face/Inmate" + i + ".bmp");
                     File.AppendAllText(Application.StartupPath + "/Face/Inmates.txt", inmates.ToArray()[i - 1] + "%");
+
+                    //string src = Application.StartupPath + "/Face/" + lblCode.Text + " - " + lblFullname.Text + " - " + i + ".bmp";
+                    /*Color[] colors = ColorBuilder.GetColorDiagram(new List<ControlPoint>());
+                    for (int ii = 0; ii < imageBox1.Image.Bitmap.Width; ii++)
+                    {
+                        for (int j = 0; j < imageBox1.Image.Bitmap.Height; j++)
+                        {
+                            int level = imageBox1.Image.Bitmap.GetPixel(ii, j).B;
+                            imageBox1.Image.Bitmap.SetPixel(ii, j, colors[level]);
+                        }
+                    }
+                    inmate.pictureBox1.Image = imageBox1.Image.Bitmap;*/
                 }
                 Config.Alert("Face Characteristics Captured.", dashboard.alert.enmType.Success);
             }
@@ -226,8 +237,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
                 this.Enabled = true;
                 Config.Alert("Enable the face detection first.", dashboard.alert.enmType.Error);
             }
-            if(i == 3)
-                inmate.popup.btnClose_Click(sender, new EventArgs());
+            inmate.popup.btnClose_Click(sender, new EventArgs());
         }
     }
 }

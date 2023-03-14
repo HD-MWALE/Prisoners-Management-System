@@ -28,32 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.LineAnnotation lineAnnotation1 = new System.Windows.Forms.DataVisualization.Charting.LineAnnotation();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.label17 = new System.Windows.Forms.Label();
-            this.chartInmatesInDormitories = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.flowLayoutPanelTop = new System.Windows.Forms.FlowLayoutPanel();
             this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             this.flowLayoutPanelBody = new System.Windows.Forms.FlowLayoutPanel();
-            this.chartCrimesCommitted = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dpnMonth = new Bunifu.UI.WinForms.BunifuDropdown();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.chartInmatesInDormitories)).BeginInit();
+            this.Population = new LiveCharts.WinForms.CartesianChart();
             this.flowLayoutPanelBody.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCrimesCommitted)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // label17
@@ -66,31 +48,6 @@
             this.label17.Size = new System.Drawing.Size(111, 24);
             this.label17.TabIndex = 5;
             this.label17.Text = "Dashboard";
-            // 
-            // chartInmatesInDormitories
-            // 
-            lineAnnotation1.Name = "LineAnnotation1";
-            this.chartInmatesInDormitories.Annotations.Add(lineAnnotation1);
-            chartArea1.Name = "ChartArea1";
-            this.chartInmatesInDormitories.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartInmatesInDormitories.Legends.Add(legend1);
-            this.chartInmatesInDormitories.Location = new System.Drawing.Point(5, 5);
-            this.chartInmatesInDormitories.Margin = new System.Windows.Forms.Padding(5);
-            this.chartInmatesInDormitories.Name = "chartInmatesInDormitories";
-            this.chartInmatesInDormitories.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series1.Legend = "Legend1";
-            series1.Name = "Dormitory";
-            this.chartInmatesInDormitories.Series.Add(series1);
-            this.chartInmatesInDormitories.Size = new System.Drawing.Size(355, 355);
-            this.chartInmatesInDormitories.TabIndex = 6;
-            this.chartInmatesInDormitories.Text = "chart1";
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Title1";
-            title1.Text = "Number of Inmates In Dormitories";
-            this.chartInmatesInDormitories.Titles.Add(title1);
             // 
             // flowLayoutPanelTop
             // 
@@ -121,58 +78,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanelBody.AutoScroll = true;
-            this.flowLayoutPanelBody.Controls.Add(this.chartInmatesInDormitories);
-            this.flowLayoutPanelBody.Controls.Add(this.chartCrimesCommitted);
-            this.flowLayoutPanelBody.Controls.Add(this.chart1);
+            this.flowLayoutPanelBody.Controls.Add(this.Population);
             this.flowLayoutPanelBody.Location = new System.Drawing.Point(45, 323);
             this.flowLayoutPanelBody.Name = "flowLayoutPanelBody";
             this.flowLayoutPanelBody.Size = new System.Drawing.Size(830, 448);
             this.flowLayoutPanelBody.TabIndex = 9;
-            // 
-            // chartCrimesCommitted
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCrimesCommitted.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCrimesCommitted.Legends.Add(legend2);
-            this.chartCrimesCommitted.Location = new System.Drawing.Point(5, 370);
-            this.chartCrimesCommitted.Margin = new System.Windows.Forms.Padding(5);
-            this.chartCrimesCommitted.Name = "chartCrimesCommitted";
-            this.chartCrimesCommitted.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Inmates";
-            this.chartCrimesCommitted.Series.Add(series2);
-            this.chartCrimesCommitted.Size = new System.Drawing.Size(700, 355);
-            this.chartCrimesCommitted.TabIndex = 7;
-            this.chartCrimesCommitted.Text = "chart2";
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title2.Name = "Title1";
-            title2.Text = "Crimes Committed By Inmates";
-            this.chartCrimesCommitted.Titles.Add(title2);
-            // 
-            // chart1
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
-            this.chart1.Location = new System.Drawing.Point(5, 735);
-            this.chart1.Margin = new System.Windows.Forms.Padding(5);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "Dormitory";
-            this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(355, 355);
-            this.chart1.TabIndex = 8;
-            this.chart1.Text = "chart2";
-            title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title3.Name = "Title1";
-            title3.Text = "Crimes Committed By Inmates";
-            this.chart1.Titles.Add(title3);
             // 
             // dpnMonth
             // 
@@ -231,6 +141,15 @@
             this.panel1.Size = new System.Drawing.Size(76, 21);
             this.panel1.TabIndex = 38;
             // 
+            // Population
+            // 
+            this.Population.BackColorTransparent = true;
+            this.Population.Location = new System.Drawing.Point(3, 3);
+            this.Population.Name = "Population";
+            this.Population.Size = new System.Drawing.Size(527, 355);
+            this.Population.TabIndex = 14;
+            this.Population.Text = "cartesianChart4";
+            // 
             // dashboardControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,10 +165,7 @@
             this.Name = "dashboardControl";
             this.Size = new System.Drawing.Size(900, 798);
             this.Load += new System.EventHandler(this.dashboardControl_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.chartInmatesInDormitories)).EndInit();
             this.flowLayoutPanelBody.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chartCrimesCommitted)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,11 +176,9 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTop;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelBody;
         public Bunifu.UI.WinForms.BunifuDropdown dpnMonth;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.DataVisualization.Charting.Chart chartInmatesInDormitories;
-        public System.Windows.Forms.DataVisualization.Charting.Chart chartCrimesCommitted;
+        public LiveCharts.WinForms.CartesianChart Population;
+        public System.Windows.Forms.FlowLayoutPanel flowLayoutPanelBody;
     }
 }

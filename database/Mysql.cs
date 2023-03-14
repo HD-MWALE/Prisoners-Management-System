@@ -42,9 +42,9 @@ namespace Roll_Call_And_Management_System.database
                     using (MySqlBackup mb = new MySqlBackup(cmd))
                     {
                         cmd.Connection = conn;
-                        conn.Open();
+                        //conn.Open();
                         mb.ExportToFile(Config.Backup);
-                        conn.Close();
+                        //conn.Close();
                     }
                 }
             }
@@ -102,6 +102,7 @@ namespace Roll_Call_And_Management_System.database
                 MySqlDataReader reader;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 reader = cmd.ExecuteReader();
+                Backup();
                 return reader;
             }
             catch (Exception ex)
@@ -120,6 +121,7 @@ namespace Roll_Call_And_Management_System.database
                 cmd.CommandText = sql;
                 affected = cmd.ExecuteNonQuery();
                 mytransaction.Commit();
+                Backup();
                 return affected;
             }
             catch (Exception ex)

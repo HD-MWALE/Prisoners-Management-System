@@ -95,7 +95,7 @@
             this.btnEdit.IconRightVisible = true;
             this.btnEdit.IconRightZoom = 0D;
             this.btnEdit.IconVisible = true;
-            this.btnEdit.IconZoom = 50D;
+            this.btnEdit.IconZoom = 40D;
             this.btnEdit.IsTab = true;
             this.btnEdit.Location = new System.Drawing.Point(750, 0);
             this.btnEdit.Name = "btnEdit";
@@ -131,7 +131,7 @@
             this.btnView.IconRightVisible = true;
             this.btnView.IconRightZoom = 0D;
             this.btnView.IconVisible = true;
-            this.btnView.IconZoom = 50D;
+            this.btnView.IconZoom = 40D;
             this.btnView.IsTab = true;
             this.btnView.Location = new System.Drawing.Point(836, 0);
             this.btnView.Name = "btnView";
@@ -167,7 +167,7 @@
             this.btnDelete.IconRightVisible = true;
             this.btnDelete.IconRightZoom = 0D;
             this.btnDelete.IconVisible = true;
-            this.btnDelete.IconZoom = 50D;
+            this.btnDelete.IconZoom = 40D;
             this.btnDelete.IsTab = true;
             this.btnDelete.Location = new System.Drawing.Point(922, 0);
             this.btnDelete.Name = "btnDelete";

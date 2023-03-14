@@ -15,7 +15,7 @@ namespace Roll_Call_And_Management_System.views.components
     public partial class users : UserControl
     {
         public views.dashboard dashboard;
-        public user user; 
+        //public user user; 
         classes.User User = new classes.User();
         public users(views.dashboard dashboard)
         { 

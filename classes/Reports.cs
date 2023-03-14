@@ -1,4 +1,5 @@
 ﻿using LiveCharts.Wpf;
+using LiveCharts.WinForms;
 using LiveCharts;
 using Roll_Call_And_Management_System.database;
 using Roll_Call_And_Management_System.views;
@@ -15,6 +16,7 @@ using DocumentFormat.OpenXml.Drawing.Diagrams;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Windows.Media;
 using Microsoft.Data.Analysis;
+using System.Drawing;
 
 namespace Roll_Call_And_Management_System.classes
 {
@@ -184,18 +186,23 @@ namespace Roll_Call_And_Management_System.classes
                 {
                     new LineSeries
                     {
-                        Title = "Number of Inmates",
+                        Title = "Inmates",
+                        DataLabels = true,
                         Values = valuesInPrison
                     },
                     new LineSeries
                     {
-                        Title = "Number of Inmates",
+                        Title = "Inmates",
+                        DataLabels = true,
                         Values = valuesInDorms
                     }
                 };
 
                 reports.cartesianChart3.AxisX.Add(new Axis
                 {
+                    Title = "Years",
+                    FontSize = 18,
+                    FontWeight = new System.Windows.FontWeight(),
                     Labels = strings,
                     IsMerged = true,
                     Separator = new Separator
@@ -203,9 +210,11 @@ namespace Roll_Call_And_Management_System.classes
                         StrokeThickness = 1,
                         StrokeDashArray = new DoubleCollection(2)
                     }
-                });
+                }); 
                 reports.cartesianChart3.AxisY.Add(new Axis
                 {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
                     Separator = new Separator
@@ -215,34 +224,36 @@ namespace Roll_Call_And_Management_System.classes
 
                     }
                 });
-                /*
-                reports.cartesianChart3.Series.Clear();
-                reports.cartesianChart3.AxisX.Clear();
-                reports.cartesianChart3.AxisY.Clear();
-                
-                reports.cartesianChart3.Series.Add(new LineSeries
+
+                Roll_Call.dataSet = GetRollCall(); 
+                //dataSet = GetRollCall();
+                IChartValues valuesInRollCall = new ChartValues<double>();
+                IList<string> rollcallmonth = new List<string>(); 
+
+                reports.cartesianChartrollcall.Series.Clear();
+                reports.cartesianChartrollcall.AxisX.Clear();
+                reports.cartesianChartrollcall.AxisY.Clear();
+
+                foreach (DataRow data in Roll_Call.dataSet.Tables["result"].Rows)
                 {
-                    Values = new ChartValues<double> { 3, 4, 6, 3, 2, 6 }
+                    rollcallmonth.Add(data["month"].ToString());
+                    valuesInRollCall.Add(Convert.ToDouble(data["total"]));
                 }
-                );
 
-
-                reports.cartesianChart3.Series.Add(new LineSeries
+                reports.cartesianChartrollcall.Series = new SeriesCollection
                 {
-                    Values = new ChartValues<double> { 5, 3, 5, 7, 3, 9 }
-                });
+                    new LineSeries
+                    {
+                        Title = "Roll Call",
+                        DataLabels = true,
+                        Values = valuesInRollCall
+                    }
+                };
 
-
-                reports.cartesianChart3.Series.Add(new LineSeries
+                reports.cartesianChartrollcall.AxisX.Add(new Axis
                 {
-                    Values = new ChartValues<double> { 6, 2, 4, 3, 7, 9 },
-                });
-
-
-
-                //reports.cartesianChart3.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(55, 32, 49));
-                reports.cartesianChart3.AxisX.Add(new Axis
-                {
+                    Title = "AxisX",
+                    Labels = rollcallmonth, 
                     IsMerged = true,
                     Separator = new Separator
                     {
@@ -250,8 +261,10 @@ namespace Roll_Call_And_Management_System.classes
                         StrokeDashArray = new DoubleCollection(2)
                     }
                 });
-                reports.cartesianChart3.AxisY.Add(new Axis
+                reports.cartesianChartrollcall.AxisY.Add(new Axis
                 {
+                    Title = "AxisY",
+                    MinValue = 0,
                     IsMerged = true,
                     Separator = new Separator
                     {
@@ -259,12 +272,147 @@ namespace Roll_Call_And_Management_System.classes
                         StrokeDashArray = new DoubleCollection(4)
 
                     }
-                });*/
-
+                });
             }
             else if (control is dashboardControl)
             {
                 dashboardControl = (dashboardControl)control;
+            }
+        }
+
+        public void Report(UserControl control)  
+        {
+            if (control is dashboardControl)
+            {
+                dashboardControl = (dashboardControl)control;
+                DataSet dataSet = new DataSet();
+
+                dataSet = GetInmatesPopulation();
+
+                IChartValues valuesPrison = new ChartValues<double>();
+                IList<string> labelsPrison = new List<string>();
+
+                dashboardControl.Population.Series.Clear();
+                dashboardControl.Population.AxisX.Clear();
+                dashboardControl.Population.AxisY.Clear();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    labelsPrison.Add(data["year"].ToString());
+                    valuesPrison.Add(Convert.ToDouble(data["total"]));
+                }
+
+                dashboardControl.Population.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
+                    }
+                };
+
+                dashboardControl.Population.AxisX.Add(new Axis
+                {
+                    Title = "Years",
+                    FontSize = 18,
+                    FontWeight = new System.Windows.FontWeight(),
+                    Labels = labelsPrison,
+                    IsMerged = true,
+                    Separator = new Separator
+                    {
+                        StrokeThickness = 1,
+                        StrokeDashArray = new DoubleCollection(2)
+                    }
+                });
+                dashboardControl.Population.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
+                    MinValue = 0,
+                    IsMerged = true,
+                    Separator = new Separator
+                    {
+                        StrokeThickness = 1.5,
+                        StrokeDashArray = new DoubleCollection(4)
+
+                    }
+                });
+
+                dataSet = GetDormsPopulation();
+                Dormitory.dataSet = Dormitory.GetDormitories();
+
+                IChartValues valuesDorms = new ChartValues<double>();
+                IList<string> labelsDorms = new List<string>(); 
+                IList<string> Dorms = new List<string>();
+
+                foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+                {
+                    if (!Dorms.Contains(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase)))
+                        Dorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                }
+
+                foreach(string name in Dorms)
+                {
+                    LiveCharts.WinForms.CartesianChart cartesianChart = dashboardControl.Population;
+                    dashboardControl.flowLayoutPanelBody.Controls.Add(cartesianChart);
+                    dashboardControl.flowLayoutPanelBody.Controls.Add(new Button() { Text = "Button", Name = "btn1" });
+                    dashboardControl.flowLayoutPanelBody.AutoScroll = true;
+                    /*
+                    cartesianChart.Series.Clear();
+                    cartesianChart.AxisX.Clear();
+                    cartesianChart.AxisY.Clear();
+
+                    foreach (DataRow data in dataSet.Tables["result"].Rows)
+                    {
+                        if (name == AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase))
+                        {
+                            labelsDorms.Add(data["year"].ToString());
+                            valuesDorms.Add(Convert.ToDouble(data["total"]));
+                        }
+                    }
+
+                    cartesianChart.Series = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Title = "Inmates",
+                            DataLabels = true,
+                            Values = valuesDorms
+                        }
+                    };
+
+                    cartesianChart.AxisX.Add(new Axis
+                    {
+                        Title = "Years",
+                        FontSize = 18,
+                        FontWeight = new System.Windows.FontWeight(),
+                        Labels = labelsDorms,
+                        IsMerged = true,
+                        Separator = new Separator
+                        {
+                            StrokeThickness = 1,
+                            StrokeDashArray = new DoubleCollection(2)
+                        }
+                    });
+
+                    cartesianChart.AxisY.Add(new Axis
+                    {
+                        Title = "Number of Inmates",
+                        FontSize = 18,
+                        MinValue = 0,
+                        IsMerged = true,
+                        Separator = new Separator
+                        {
+                            StrokeThickness = 1.5,
+                            StrokeDashArray = new DoubleCollection(4)
+
+                        }
+                    });*/
+
+                    /*valuesDorms.Clear();
+                    labelsDorms.Clear();*/
+                }
             }
         }
 
@@ -279,6 +427,7 @@ namespace Roll_Call_And_Management_System.classes
         }
 
         Dormitory Dormitory = new Dormitory();
+        Roll_Call Roll_Call = new Roll_Call();
         public DataSet GetDormitories() 
         {
             return Dormitory.GetDormitories();
@@ -308,9 +457,10 @@ namespace Roll_Call_And_Management_System.classes
         }
         public DataSet GetDormsPopulation()  
         {
-            string query = "SELECT COUNT(*) AS total, YEAR(date_created) AS year, MONTH(date_created) AS month, DAY(date_created) AS day";
-            query += " FROM `inmate`";
-            query += " GROUP BY YEAR(date_created)";
+            string query = "SELECT dormitory.name, COUNT(inmate.id) AS total, YEAR(inmate.date_created) AS year, MONTH(inmate.date_created) AS month, DAY(inmate.date_created) AS day";
+            query += " FROM `inmate`, `dormitory`";
+            query += " WHERE inmate.dormitory_id = dormitory.id";
+            query += " GROUP BY YEAR(inmate.date_created)";
             return Execute.ExecuteDataSet(query);
         }
         public DataSet GetRollCall() 
@@ -318,7 +468,7 @@ namespace Roll_Call_And_Management_System.classes
             string query = "SELECT COUNT(roll_calloninmate.id) AS total, YEAR(roll_call.date_created) AS year, MONTH(roll_call.date_created) AS month, DAY(roll_call.date_created) AS day";
             query += " FROM `roll_call`, `roll_calloninmate`";
             query += " WHERE roll_call.id = roll_calloninmate.roll_call_id";
-            query += " GROUP BY YEAR(roll_call.date_created)";
+            query += " GROUP BY MONTH(roll_call.date_created)";
             return Execute.ExecuteDataSet(query);
         }
     }

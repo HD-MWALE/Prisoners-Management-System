@@ -35,6 +35,7 @@ namespace Roll_Call_And_Management_System.views.components
         public void dashboardControl_Load(object sender, EventArgs e)
         {
             Mouth();
+            Reports.Report(this);
         }
         void Mouth() 
         {
