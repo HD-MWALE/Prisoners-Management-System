@@ -85,7 +85,7 @@ namespace Roll_Call_And_Management_System.classes
             Inmate = new Inmate();
             string fields = "`code`, `dormitory_id`, `total_inmates`, `status`";
             string data = "'" + Code + "'," + DormitoryId + ", " + Inmate.Count(DormitoryId) + ", 'Status'";
-            if (database.Execute.Insert(Properties.Resources.RollCallTable, fields, data))
+            if (database.Execute.Insert("roll_call", fields, data))
                 return GetRollCall();
             return null;
         }
@@ -100,7 +100,7 @@ namespace Roll_Call_And_Management_System.classes
                 } 
             string fields = "`inmate_id`, `roll_call_id`, `status`";
             string data = InmateId + "," + GetId(Code) + ", '" + Status + "'";
-            if (database.Execute.Insert(Properties.Resources.RollCallnmateTable, fields, data))
+            if (database.Execute.Insert("roll_calloninmate", fields, data))
                 return true; 
             return false;
         }
@@ -108,7 +108,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`";
             string Condition = "`code` = '" + code + "'"; 
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.RollCallTable + " WHERE " + Condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM roll_call WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -122,7 +122,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created`";
             string Condition = "`code` = '" + Code + "'";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.RollCallTable + " WHERE " + Condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM roll_call WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -135,7 +135,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "inmate.id, inmate.code, inmate.first_name, inmate.middle_name, inmate.last_name, inmate.gender, inmate.dob, inmate.dormitory_id, inmate.date_created, inmate.address, inmate.marital_status, inmate.eye_color, inmate.complexion, inmate.emergency_name, inmate.emergency_contact, inmate.emergency_relation, inmate.visiting_privilege, rollcall.status";
             string Condition = "rollcall.inmate_id =  inmate.id";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.RollCallnmateTable + " rollcall WHERE " + Condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate, roll_calloninmate rollcall WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -148,7 +148,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`,  `code`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `dormitory_id`, `date_created`, `address`, `marital_status`, `eye_color`, `complexion`, `emergency_name`, `emergency_contact`, `emergency_relation`, `visiting_privilege`";
             string Condition = "rollcall.`inmate_id` =  `id` AND rollcall.`roll_call_id` = " + GetId(code) + ""; 
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.RollCallnmateTable + " rollcall WHERE " + Condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate, roll_calloninmate rollcall WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -160,7 +160,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetRollCalls() 
         {
             string data = "`id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.RollCallTable);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM roll_call");
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -172,7 +172,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetRollCallDetails(int id) 
         {
             string data = "`id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.RollCallTable + " WHERE `id` = " + id);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM `roll_call` WHERE `id` = " + id);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -187,7 +187,7 @@ namespace Roll_Call_And_Management_System.classes
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.RollCallTable, id))
+            if (database.Execute.Delete("roll_call", id))
                 return true;
             else
                 return false;

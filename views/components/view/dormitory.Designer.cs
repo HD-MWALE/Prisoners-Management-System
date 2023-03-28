@@ -55,7 +55,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblCapacity = new System.Windows.Forms.Label();
             this.lblDormitoryName = new System.Windows.Forms.Label();
-            this.btnBack = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).BeginInit();
             this.panel2.SuspendLayout();
@@ -271,7 +270,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bunifuSeparator5.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator5.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator5.LineThickness = 102;
+            this.bunifuSeparator5.LineThickness = 157;
             this.bunifuSeparator5.Location = new System.Drawing.Point(26, 82);
             this.bunifuSeparator5.Margin = new System.Windows.Forms.Padding(21, 28, 21, 28);
             this.bunifuSeparator5.Name = "bunifuSeparator5";
@@ -286,7 +285,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bunifuSeparator4.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator4.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator4.LineThickness = 66;
+            this.bunifuSeparator4.LineThickness = 102;
             this.bunifuSeparator4.Location = new System.Drawing.Point(26, 48);
             this.bunifuSeparator4.Margin = new System.Windows.Forms.Padding(14, 18, 14, 18);
             this.bunifuSeparator4.Name = "bunifuSeparator4";
@@ -315,7 +314,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator1.LineThickness = 43;
+            this.bunifuSeparator1.LineThickness = 66;
             this.bunifuSeparator1.Location = new System.Drawing.Point(26, 275);
             this.bunifuSeparator1.Margin = new System.Windows.Forms.Padding(9, 12, 9, 12);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
@@ -388,7 +387,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator2.LineThickness = 28;
+            this.bunifuSeparator2.LineThickness = 43;
             this.bunifuSeparator2.Location = new System.Drawing.Point(26, 192);
             this.bunifuSeparator2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.bunifuSeparator2.Name = "bunifuSeparator2";
@@ -453,49 +452,11 @@
             this.lblDormitoryName.TabIndex = 62;
             this.lblDormitoryName.Text = "Male Ward";
             // 
-            // btnBack
-            // 
-            this.btnBack.Active = false;
-            this.btnBack.Activecolor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
-            this.btnBack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnBack.BorderRadius = 5;
-            this.btnBack.ButtonText = "Back";
-            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBack.DisabledColor = System.Drawing.Color.Gray;
-            this.btnBack.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnBack.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.back;
-            this.btnBack.Iconimage_right = null;
-            this.btnBack.Iconimage_right_Selected = null;
-            this.btnBack.Iconimage_Selected = null;
-            this.btnBack.IconMarginLeft = 0;
-            this.btnBack.IconMarginRight = 0;
-            this.btnBack.IconRightVisible = true;
-            this.btnBack.IconRightZoom = 0D;
-            this.btnBack.IconVisible = true;
-            this.btnBack.IconZoom = 50D;
-            this.btnBack.IsTab = true;
-            this.btnBack.Location = new System.Drawing.Point(39, 29);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(5);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.btnBack.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
-            this.btnBack.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnBack.selected = false;
-            this.btnBack.Size = new System.Drawing.Size(91, 32);
-            this.btnBack.TabIndex = 112;
-            this.btnBack.Text = "Back";
-            this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBack.Textcolor = System.Drawing.Color.White;
-            this.btnBack.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
             // dormitory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label17);
             this.Name = "dormitory";
@@ -530,7 +491,6 @@
         private System.Windows.Forms.RichTextBox rtxtDescrption;
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.Label lblPrison;
-        public Bunifu.Framework.UI.BunifuFlatButton btnBack;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

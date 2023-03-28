@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.views;
 
 namespace Roll_Call_And_Management_System
 {
@@ -17,23 +15,12 @@ namespace Roll_Call_And_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            try
-            {
-                thread = new Thread(Me);
-                thread.Start();
-            }
-            catch (Exception ex)
-            {
+            Dummy.RollCall();
+            //Dummy.Get();
+            //Dummy.SetYear();
+            //Dummy.Sentence(); 
 
-            }
-            views.dashboard dashboard = new views.dashboard(thread, user);
-            Application.Run(new views.login(dashboard, user));
-        }
-        static classes.User user = new classes.User();
-        static Thread thread;
-        static void Me()
-        {
-           
+            //Application.Run(new login(new User()));
         }
     }
 }

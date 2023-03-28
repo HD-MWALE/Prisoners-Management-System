@@ -17,6 +17,8 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System.Windows.Media;
 using Microsoft.Data.Analysis;
 using System.Drawing;
+using DocumentFormat.OpenXml.Wordprocessing;
+using LiveCharts.Definitions.Charts;
 
 namespace Roll_Call_And_Management_System.classes
 {
@@ -37,125 +39,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 //DataSet dataSet = GetDormitories();
                 DataSet dataSet = new DataSet();
-                dataSet = GetDormitories("SELECT dormitory.`name`, COUNT(inmate.`id`) AS count FROM `dormitory`, `inmate` WHERE inmate.dormitory_id = dormitory.id GROUP BY dormitory.name ORDER BY dormitory.`id`");
-
-                reports.pieChart1.Series.Clear();
-
-                // bind the chart to your dataset
-                reports.pieChart1.Series = new SeriesCollection();
-                reports.pieChart1.Text = "Number of Inmates In Dormitories";
-                PieSeries myPieSeries;
-                ChartValues<double> myChartValues;
-                bool t = true;
-                foreach (DataRow row in dataSet.Tables["result"].Rows)
-                {
-                    myPieSeries = new PieSeries();
-
-                    myPieSeries.Foreground = System.Windows.Media.Brushes.Black;
-
-                    myPieSeries.Title = AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
-                    reports.pieChart1.Series.Add(myPieSeries);
-
-
-                    myChartValues = new ChartValues<double>
-                    {
-                        Convert.ToDouble(row["count"])
-                    };
-
-                    myPieSeries.Values = myChartValues;
-
-                    // set the labels of the slices to the categories in the dataset
-                    myPieSeries.LabelPoint = point => $"{point.Y} ({AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
-
-                    // define the location of the legend and set the data labels to display
-                    reports.pieChart1.LegendLocation = LegendLocation.Right;
-                    myPieSeries.DataLabels = true;
-
-                    /*
-                    reports.cartesianChart1.Series.Clear();
-
-                    reports.cartesianChart1.Series = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Series 1",
-                            Values = new ChartValues<double> {4, 6, 5, 2, 7}
-                        },
-                        new LineSeries
-                        {
-                            Title = "Series 2",
-                            Values = new ChartValues<double> {6, 7, 3, 4, 6},
-                            PointGeometry = null
-                        },
-                        new LineSeries
-                        {
-                            Title = "Series 2",
-                            Values = new ChartValues<double> {5, 2, 8, 3 },
-                            PointGeometry = DefaultGeometries.Square,
-                            PointGeometrySize = 15
-                        }
-                    };
-
-                    reports.cartesianChart1.AxisX.Add(new Axis
-                    {
-                        Title = "Month",
-                        Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
-                    });
-
-                    reports.cartesianChart1.AxisY.Add(new Axis
-                    {
-                        Title = "Sales",
-                        LabelFormatter = value => value.ToString("C")
-                    });
-
-                    reports.cartesianChart1.LegendLocation = LegendLocation.Right;
-
-                    //modifying the series collection will animate and update the chart
-                    reports.cartesianChart1.Series.Add(new LineSeries
-                    {
-                        Values = new ChartValues<double> { 5, 3, 2, 4, 5 },
-                        LineSmoothness = 0, //straight lines, 1 really smooth lines
-                        PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-                        PointGeometrySize = 50,
-                        PointForeground = Brushes.Gray
-                    });
-
-                    //modifying any series values will also animate and update the chart
-                    reports.cartesianChart1.Series[2].Values.Add(5d);
-
-
-                    reports.cartesianChart1.DataClick += CartesianChart1_DataClick;*/
-                    
-                }
-
-                dataSet = GetInmatesPopulation();
-
-                reports.cartesianChart1.Series.Clear();
-                reports.cartesianChart1.AxisX.Clear();
-                reports.cartesianChart1.AxisY.Clear();
-
-                reports.cartesianChart1.Series = new SeriesCollection();
-
-                foreach (DataRow data in dataSet.Tables["result"].Rows)
-                {
-                    reports.cartesianChart1.Series.Add(new ColumnSeries
-                    {
-                        Title = data["year"].ToString(),
-                        Values = new ChartValues<double> { Convert.ToDouble(data["total"]) }
-                    });
-                }
-
-                reports.cartesianChart1.AxisX.Add(new Axis
-                {
-                    Title = "Inmates Population",
-                    Labels = new[] { "Years" }
-                });
-
-                reports.cartesianChart1.AxisY.Add(new Axis
-                {
-                    Title = "Number of Inmates",
-                    LabelFormatter = value => value.ToString("N"),
-                });
+                
 
                 Dormitory.dataSet = Dormitory.GetDormitories();
                 //dataSet = GetRollCall();
@@ -163,9 +47,9 @@ namespace Roll_Call_And_Management_System.classes
                 IChartValues valuesInDorms = new ChartValues<double>();
                 IList<string> strings = new List<string>();
 
-                reports.cartesianChart3.Series.Clear();
-                reports.cartesianChart3.AxisX.Clear();
-                reports.cartesianChart3.AxisY.Clear();
+                reports.DormitoryPopulationBar.Series.Clear();
+                reports.DormitoryPopulationBar.AxisX.Clear();
+                reports.DormitoryPopulationBar.AxisY.Clear();
 
                 foreach (DataRow data in dataSet.Tables["result"].Rows)
                 {
@@ -182,7 +66,7 @@ namespace Roll_Call_And_Management_System.classes
                     }*/
                 }
 
-                reports.cartesianChart3.Series = new SeriesCollection
+                reports.DormitoryPopulationBar.Series = new SeriesCollection
                 {
                     new LineSeries
                     {
@@ -198,7 +82,7 @@ namespace Roll_Call_And_Management_System.classes
                     }
                 };
 
-                reports.cartesianChart3.AxisX.Add(new Axis
+                reports.DormitoryPopulationBar.AxisX.Add(new Axis
                 {
                     Title = "Years",
                     FontSize = 18,
@@ -211,7 +95,7 @@ namespace Roll_Call_And_Management_System.classes
                         StrokeDashArray = new DoubleCollection(2)
                     }
                 }); 
-                reports.cartesianChart3.AxisY.Add(new Axis
+                reports.DormitoryPopulationBar.AxisY.Add(new Axis
                 {
                     Title = "Number of Inmates",
                     FontSize = 18,
@@ -285,9 +169,306 @@ namespace Roll_Call_And_Management_System.classes
             if (control is dashboardControl)
             {
                 dashboardControl = (dashboardControl)control;
-                DataSet dataSet = new DataSet();
+                DataSet dataSet = GetInmatesPopulation();
 
-                dataSet = GetInmatesPopulation();
+                IChartValues valuesPrison = new ChartValues<double>();
+                IList<string> labelsPrison = new List<string>();
+
+                dashboardControl.Population.Series.Clear();
+                dashboardControl.Population.AxisX.Clear();
+                dashboardControl.Population.AxisY.Clear();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    labelsPrison.Add(data["year"].ToString());
+                    valuesPrison.Add(Convert.ToDouble(data["total"]));
+                }
+
+                dashboardControl.Population.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
+                    }
+                };
+
+                dashboardControl.Population.AxisX.Add(new Axis
+                {
+                    Title = "Population of Inmates",
+                    FontSize = 18,
+                    FontWeight = new System.Windows.FontWeight(),
+                    Labels = labelsPrison,
+                    IsMerged = true,
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+                dashboardControl.Population.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
+                    MinValue = 0,
+                    IsMerged = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+
+                dataSet = GetDormsPopulation();
+                Dormitory.dataSet = Dormitory.GetDormitories();
+
+                IChartValues valuesDorms = new ChartValues<double>();
+                IList<string> labelsDorms = new List<string>();
+
+                foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+                {
+                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
+                    foreach (DataRow row in dataSet.Tables["result"].Rows)
+                    {
+                        valuesDorms.Add(Convert.ToDouble(row["total"]));
+                        break;
+                    }
+                }
+
+                dashboardControl.DormitoryPopulation.Series.Clear();
+                dashboardControl.DormitoryPopulation.AxisX.Clear();
+                dashboardControl.DormitoryPopulation.AxisY.Clear();
+
+                dashboardControl.DormitoryPopulation.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Number of Inmates",
+                        FontSize = 16,
+                        Values = valuesDorms
+                    }
+                };
+
+                //also adding values updates and animates the chart automatically
+                //dashboardControl.DormitoryPopulation.Series[1].Values.Add(48d);
+
+                dashboardControl.DormitoryPopulation.AxisX.Add(new Axis
+                {
+                    Title = "Dormitories",
+                    Labels = labelsDorms,
+                    ShowLabels= true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                    FontSize = 16,
+                    Separator = new Separator { Step = 1 },
+                });
+
+                dashboardControl.DormitoryPopulation.AxisY.Add(new Axis
+                {
+                    FontSize = 18,
+                    Title = "Inmates",
+                    MinValue = 0,
+                    LabelFormatter = value => value.ToString("N")
+                });
+            }
+        }
+
+        public void DormitoryPopulation(UserControl control) 
+        {
+            if (control is dashboardControl)
+            {
+                dashboardControl = (dashboardControl)control;
+                DataSet dataSet = GetDormsPopulation(); 
+                Dormitory.dataSet = Dormitory.GetDormitories();
+
+                IChartValues valuesDorms = new ChartValues<double>();
+                IList<string> labelsDorms = new List<string>();
+
+                foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+                {
+                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
+                    foreach (DataRow row in dataSet.Tables["result"].Rows)
+                    {
+                        valuesDorms.Add(Convert.ToDouble(row["total"]));
+                        break;
+                    }
+                }
+
+                dashboardControl.DormitoryPopulation.Series.Clear();
+                dashboardControl.DormitoryPopulation.AxisX.Clear();
+                dashboardControl.DormitoryPopulation.AxisY.Clear();
+
+                dashboardControl.DormitoryPopulation.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Number of Inmates",
+                        FontSize = 16,
+                        Values = valuesDorms
+                    }
+                };
+
+                //also adding values updates and animates the chart automatically
+                //dashboardControl.DormitoryPopulation.Series[1].Values.Add(48d);
+
+                dashboardControl.DormitoryPopulation.AxisX.Add(new Axis
+                {
+                    Title = "Dormitories",
+                    Labels = labelsDorms,
+                    ShowLabels = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                    FontSize = 16,
+                    Separator = new Separator { Step = 1 },
+                });
+
+                dashboardControl.DormitoryPopulation.AxisY.Add(new Axis
+                {
+                    FontSize = 18,
+                    Title = "Inmates",
+                    MinValue = 0,
+                    LabelFormatter = value => value.ToString("N")
+                });
+            }
+            else if (control is reports)
+            {
+                reports = (reports)control;
+                DataSet dataSet = GetDormsPopulation();
+                Dormitory.dataSet = Dormitory.GetDormitories();
+
+                IChartValues valuesDorms = new ChartValues<double>();
+                IList<string> labelsDorms = new List<string>();
+
+                reports.DormitoryPopulationBar.Series.Clear();
+                reports.DormitoryPopulationBar.AxisX.Clear();
+                reports.DormitoryPopulationBar.AxisY.Clear();
+
+                // Bar Graph
+                reports.DormitoryPopulationBar.Series = new SeriesCollection();
+
+                foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+                {
+                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
+                    foreach (DataRow row in dataSet.Tables["result"].Rows)
+                    {
+                        //valuesDorms.Add(Convert.ToDouble(row["total"]));
+                        reports.DormitoryPopulationBar.Series.Add(new ColumnSeries
+                        {
+                            Title = AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase),
+                            Values = new ChartValues<double> { Convert.ToDouble(row["total"]) }
+                        });
+                        break;
+                    }
+                }
+                /*
+                reports.DormitoryPopulationBar.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Number of Inmates",
+                        FontSize = 16,
+                        Values = valuesDorms
+                    }
+                };*/
+
+                reports.DormitoryPopulationBar.AxisX.Add(new Axis
+                {
+                    Title = "Dormitories",
+                    Labels = labelsDorms,
+                    ShowLabels = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                    FontSize = 16,
+                    Separator = new Separator { Step = 1 },
+                });
+
+                reports.DormitoryPopulationBar.AxisY.Add(new Axis
+                {
+                    FontSize = 18,
+                    Title = "Inmates",
+                    MinValue = 0,
+                    LabelFormatter = value => value.ToString("N")
+                });
+
+                dataSet = GetDormitories("SELECT dormitory.`name`, COUNT(inmate.`id`) AS count FROM `dormitory`, `inmate` WHERE inmate.dormitory_id = dormitory.id GROUP BY dormitory.name ORDER BY dormitory.`id`");
+
+                reports.DormitoryPopulationPie.Series.Clear();
+
+                // Pie Chart
+                // bind the chart to your dataset
+                reports.DormitoryPopulationPie.Series = new SeriesCollection();
+                reports.DormitoryPopulationPie.Text = "Number of Inmates In Dormitories";
+                PieSeries myPieSeries;
+                ChartValues<double> myChartValues;
+                bool t = true;
+                foreach (DataRow row in dataSet.Tables["result"].Rows)
+                {
+                    myPieSeries = new PieSeries();
+
+                    myPieSeries.Foreground = System.Windows.Media.Brushes.Black;
+
+                    myPieSeries.Title = AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                    reports.DormitoryPopulationPie.Series.Add(myPieSeries);
+
+                    myChartValues = new ChartValues<double>
+                    {
+                        Convert.ToDouble(row["count"])
+                    };
+
+                    myPieSeries.Values = myChartValues;
+
+                    // set the labels of the slices to the categories in the dataset
+                    myPieSeries.LabelPoint = point => $"{point.Y} ({AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
+
+                    // define the location of the legend and set the data labels to display
+                    reports.DormitoryPopulationPie.LegendLocation = LegendLocation.Right;
+                    myPieSeries.DataLabels = true;
+                }
+
+                IChartValues valuesPrison = new ChartValues<double>();
+                IList<string> labelsPrison = new List<string>();
+                // Line Graph
+                reports.DormitoryPopulationLine.Series.Clear(); 
+                reports.DormitoryPopulationLine.AxisX.Clear();
+                reports.DormitoryPopulationLine.AxisY.Clear();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    labelsPrison.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    valuesPrison.Add(Convert.ToDouble(data["count"]));
+                }
+
+                reports.DormitoryPopulationLine.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
+                    }
+                };
+
+                reports.DormitoryPopulationLine.AxisX.Add(new Axis
+                {
+                    Title = "Dormitories",
+                    FontWeight = new System.Windows.FontWeight(),
+                    Labels = labelsPrison,
+                    IsMerged = true,
+                    FontSize = 18,
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+                reports.DormitoryPopulationLine.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
+                    MinValue = 0,
+                    IsMerged = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+            }
+        }
+
+        public void PrisonPopulation(UserControl control)  
+        {
+            if (control is dashboardControl)
+            {
+                dashboardControl = (dashboardControl)control;
+                DataSet dataSet = GetInmatesPopulation();
 
                 IChartValues valuesPrison = new ChartValues<double>();
                 IList<string> labelsPrison = new List<string>();
@@ -319,11 +500,8 @@ namespace Roll_Call_And_Management_System.classes
                     FontWeight = new System.Windows.FontWeight(),
                     Labels = labelsPrison,
                     IsMerged = true,
-                    Separator = new Separator
-                    {
-                        StrokeThickness = 1,
-                        StrokeDashArray = new DoubleCollection(2)
-                    }
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
                 });
                 dashboardControl.Population.AxisY.Add(new Axis
                 {
@@ -331,88 +509,193 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
-                    Separator = new Separator
-                    {
-                        StrokeThickness = 1.5,
-                        StrokeDashArray = new DoubleCollection(4)
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+            }
+            else if (control is reports)
+            {
+                reports = (reports)control; 
+                DataSet dataSet = GetInmatesPopulation();
+                dataSet = GetInmatesPopulation();
 
+                // Bar Graph
+                reports.PopulationBar.Series.Clear();
+                reports.PopulationBar.AxisX.Clear();
+                reports.PopulationBar.AxisY.Clear();
+
+                reports.PopulationBar.Series = new SeriesCollection();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    reports.PopulationBar.Series.Add(new ColumnSeries
+                    {
+                        Title = data["year"].ToString(),
+                        Values = new ChartValues<double> { Convert.ToDouble(data["total"]) }
+                    });
+                }
+
+                reports.PopulationBar.AxisX.Add(new Axis
+                {
+                    Title = "Inmates Population",
+                    Labels = new[] { "Years" },
+                    FontSize = 18,
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+
+                reports.PopulationBar.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    LabelFormatter = value => value.ToString("N"),
+                    FontSize = 18,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+
+                IChartValues valuesPrison = new ChartValues<double>();
+                IList<string> labelsPrison = new List<string>();
+
+                // Line Graph
+                reports.PopulationLine.Series.Clear();
+                reports.PopulationLine.AxisX.Clear();
+                reports.PopulationLine.AxisY.Clear();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    labelsPrison.Add(data["year"].ToString());
+                    valuesPrison.Add(Convert.ToDouble(data["total"]));
+                }
+
+                reports.PopulationLine.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
                     }
+                };
+
+                reports.PopulationLine.AxisX.Add(new Axis
+                {
+                    Title = "Years",
+                    FontSize = 18,
+                    FontWeight = new System.Windows.FontWeight(),
+                    Labels = labelsPrison,
+                    IsMerged = true,
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+                reports.PopulationLine.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
+                    MinValue = 0,
+                    IsMerged = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+            }
+        }
+
+        public void CrimesCommitted(UserControl control) 
+        {
+            if (control is dashboardControl)
+            {
+                dashboardControl = (dashboardControl)control;
+                DataSet dataSet = GetInmatesPopulation();
+
+                IChartValues valuesPrison = new ChartValues<double>();
+                IList<string> labelsPrison = new List<string>();
+
+                dashboardControl.Population.Series.Clear();
+                dashboardControl.Population.AxisX.Clear();
+                dashboardControl.Population.AxisY.Clear();
+
+                foreach (DataRow data in dataSet.Tables["result"].Rows)
+                {
+                    labelsPrison.Add(data["year"].ToString());
+                    valuesPrison.Add(Convert.ToDouble(data["total"]));
+                }
+
+                dashboardControl.Population.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
+                    }
+                };
+
+                dashboardControl.Population.AxisX.Add(new Axis
+                {
+                    Title = "Population of Inmates",
+                    FontSize = 18,
+                    FontWeight = new System.Windows.FontWeight(),
+                    Labels = labelsPrison,
+                    IsMerged = true,
+                    Separator = new Separator { Step = 1 },
+                    Foreground = System.Windows.Media.Brushes.Black,
+                });
+                dashboardControl.Population.AxisY.Add(new Axis
+                {
+                    Title = "Number of Inmates",
+                    FontSize = 18,
+                    MinValue = 0,
+                    IsMerged = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
                 });
 
                 dataSet = GetDormsPopulation();
                 Dormitory.dataSet = Dormitory.GetDormitories();
 
                 IChartValues valuesDorms = new ChartValues<double>();
-                IList<string> labelsDorms = new List<string>(); 
-                IList<string> Dorms = new List<string>();
+                IList<string> labelsDorms = new List<string>();
 
                 foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    if (!Dorms.Contains(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase)))
-                        Dorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
+                    foreach (DataRow row in dataSet.Tables["result"].Rows)
+                    {
+                        valuesDorms.Add(Convert.ToDouble(row["total"]));
+                        break;
+                    }
                 }
 
-                foreach(string name in Dorms)
+                dashboardControl.DormitoryPopulation.Series.Clear();
+                dashboardControl.DormitoryPopulation.AxisX.Clear();
+                dashboardControl.DormitoryPopulation.AxisY.Clear();
+
+                dashboardControl.DormitoryPopulation.Series = new SeriesCollection
                 {
-                    LiveCharts.WinForms.CartesianChart cartesianChart = dashboardControl.Population;
-                    dashboardControl.flowLayoutPanelBody.Controls.Add(cartesianChart);
-                    dashboardControl.flowLayoutPanelBody.Controls.Add(new Button() { Text = "Button", Name = "btn1" });
-                    dashboardControl.flowLayoutPanelBody.AutoScroll = true;
-                    /*
-                    cartesianChart.Series.Clear();
-                    cartesianChart.AxisX.Clear();
-                    cartesianChart.AxisY.Clear();
-
-                    foreach (DataRow data in dataSet.Tables["result"].Rows)
-                    {
-                        if (name == AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase))
-                        {
-                            labelsDorms.Add(data["year"].ToString());
-                            valuesDorms.Add(Convert.ToDouble(data["total"]));
-                        }
-                    }
-
-                    cartesianChart.Series = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Inmates",
-                            DataLabels = true,
-                            Values = valuesDorms
-                        }
-                    };
-
-                    cartesianChart.AxisX.Add(new Axis
-                    {
-                        Title = "Years",
-                        FontSize = 18,
-                        FontWeight = new System.Windows.FontWeight(),
-                        Labels = labelsDorms,
-                        IsMerged = true,
-                        Separator = new Separator
-                        {
-                            StrokeThickness = 1,
-                            StrokeDashArray = new DoubleCollection(2)
-                        }
-                    });
-
-                    cartesianChart.AxisY.Add(new Axis
+                    new ColumnSeries
                     {
                         Title = "Number of Inmates",
-                        FontSize = 18,
-                        MinValue = 0,
-                        IsMerged = true,
-                        Separator = new Separator
-                        {
-                            StrokeThickness = 1.5,
-                            StrokeDashArray = new DoubleCollection(4)
+                        FontSize = 16,
+                        Values = valuesDorms
+                    }
+                };
 
-                        }
-                    });*/
+                //also adding values updates and animates the chart automatically
+                //dashboardControl.DormitoryPopulation.Series[1].Values.Add(48d);
 
-                    /*valuesDorms.Clear();
-                    labelsDorms.Clear();*/
-                }
+                dashboardControl.DormitoryPopulation.AxisX.Add(new Axis
+                {
+                    Title = "Dormitories",
+                    Labels = labelsDorms,
+                    ShowLabels = true,
+                    Foreground = System.Windows.Media.Brushes.Black,
+                    FontSize = 16,
+                    Separator = new Separator { Step = 1 },
+                });
+
+                dashboardControl.DormitoryPopulation.AxisY.Add(new Axis
+                {
+                    FontSize = 18,
+                    Title = "Inmates",
+                    MinValue = 0,
+                    LabelFormatter = value => value.ToString("N")
+                });
             }
         }
 
@@ -455,11 +738,18 @@ namespace Roll_Call_And_Management_System.classes
             query += " GROUP BY YEAR(date_created)";
             return Execute.ExecuteDataSet(query);
         }
+        public DataSet GetInmatesPopulation(int dormitory)
+        {
+            string query = "SELECT COUNT(*) AS total";
+            query += " FROM `inmate`";
+            query += " WHERE dormitory_id = " + dormitory;
+            return Execute.ExecuteDataSet(query);
+        }
         public DataSet GetDormsPopulation()  
         {
-            string query = "SELECT dormitory.name, COUNT(inmate.id) AS total, YEAR(inmate.date_created) AS year, MONTH(inmate.date_created) AS month, DAY(inmate.date_created) AS day";
-            query += " FROM `inmate`, `dormitory`";
-            query += " WHERE inmate.dormitory_id = dormitory.id";
+            string query = "SELECT dormitory.name, inmate.dormitory_id, COUNT(inmate.id) AS total, YEAR(inmate.date_created) AS year, MONTH(inmate.date_created) AS month, DAY(inmate.date_created) AS day";
+            query += " FROM `inmate` INNER JOIN dormitory";
+            query += " ON inmate.dormitory_id = dormitory.id";
             query += " GROUP BY YEAR(inmate.date_created)";
             return Execute.ExecuteDataSet(query);
         }

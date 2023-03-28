@@ -277,7 +277,7 @@
             this.Controls.Add(this.lblFullname);
             this.Controls.Add(this.lblGender);
             this.Name = "viewvisitor";
-            this.Size = new System.Drawing.Size(356, 285);
+            this.Size = new System.Drawing.Size(356, 302);
             this.ResumeLayout(false);
             this.PerformLayout();
 

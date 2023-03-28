@@ -11,7 +11,8 @@ namespace Roll_Call_And_Management_System.database
     internal class Mysql
     {
         static MySqlConnection conn;
-        public static string strProvider = "server=localhost;Database=prcms_db;User ID=root;Password=";
+        //public static string strProvider = "server=localhost;Database=prcms_db;User ID=root;Password=";
+        public static string strProvider = "server=localhost;Database=prisoners_management_system;User ID=root;Password=";
         public bool Open()
         {
             try
@@ -23,7 +24,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                //Config.ServerMessage(ex.ToString());
+                Config.ServerMessage(ex.ToString());
                 return false;
             }
 
@@ -42,9 +43,9 @@ namespace Roll_Call_And_Management_System.database
                     using (MySqlBackup mb = new MySqlBackup(cmd))
                     {
                         cmd.Connection = conn;
-                        //conn.Open();
+                        conn.Open();
                         mb.ExportToFile(Config.Backup);
-                        //conn.Close();
+                        conn.Close();
                     }
                 }
             }

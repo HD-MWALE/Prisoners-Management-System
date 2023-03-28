@@ -320,7 +320,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lable);
             this.Name = "user";
-            this.Size = new System.Drawing.Size(440, 320);
+            this.Size = new System.Drawing.Size(440, 358);
+            this.Load += new System.EventHandler(this.user_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

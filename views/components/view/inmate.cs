@@ -143,7 +143,7 @@ namespace Roll_Call_And_Management_System.views.components.view
             Config.ClickSound();
             history = new inputs.history();
             history.InmateId = Id.ToString();
-            modal.popup popup = new modal.popup(dashboard, history);
+            modal.popup popup = new modal.popup(history);
             popup.Size = history.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -151,22 +151,19 @@ namespace Roll_Call_And_Management_System.views.components.view
             dashboard.SetLoading(false);
         }
 
-        private void bunifuFlatButton1_Click(object sender, EventArgs e)
-        {
-            Config.ClickSound();
-
-        }
         bool IsAllowed = false;
         private void VisitingPrivilege_Click(object sender, EventArgs e)
         {
             if (IsAllowed)
             {
                 VisitingPrivilege.Image = Properties.Resources.toggle_off;
+                Inmate.SetVisitingPrivilege(Id, 0); 
                 IsAllowed = false;
             }
             else
             {
                 VisitingPrivilege.Image = Properties.Resources.toggle_on;
+                Inmate.SetVisitingPrivilege(Id, 1); 
                 IsAllowed = true;
             }
         }

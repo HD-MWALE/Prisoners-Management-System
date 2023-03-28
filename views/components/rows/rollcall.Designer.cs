@@ -54,7 +54,7 @@
             this.btnDelete.Iconimage_right = null;
             this.btnDelete.Iconimage_right_Selected = null;
             this.btnDelete.Iconimage_Selected = null;
-            this.btnDelete.IconMarginLeft = 5;
+            this.btnDelete.IconMarginLeft = 8;
             this.btnDelete.IconMarginRight = 0;
             this.btnDelete.IconRightVisible = true;
             this.btnDelete.IconRightZoom = 0D;
@@ -67,7 +67,7 @@
             this.btnDelete.OnHovercolor = System.Drawing.Color.Green;
             this.btnDelete.OnHoverTextColor = System.Drawing.Color.White;
             this.btnDelete.selected = false;
-            this.btnDelete.Size = new System.Drawing.Size(85, 30);
+            this.btnDelete.Size = new System.Drawing.Size(85, 45);
             this.btnDelete.TabIndex = 91;
             this.btnDelete.Text = "Delete";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -90,20 +90,20 @@
             this.btnView.Iconimage_right = null;
             this.btnView.Iconimage_right_Selected = null;
             this.btnView.Iconimage_Selected = null;
-            this.btnView.IconMarginLeft = 5;
+            this.btnView.IconMarginLeft = 12;
             this.btnView.IconMarginRight = 0;
             this.btnView.IconRightVisible = true;
             this.btnView.IconRightZoom = 0D;
             this.btnView.IconVisible = true;
             this.btnView.IconZoom = 40D;
             this.btnView.IsTab = true;
-            this.btnView.Location = new System.Drawing.Point(823, 0);
+            this.btnView.Location = new System.Drawing.Point(818, 0);
             this.btnView.Name = "btnView";
             this.btnView.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnView.OnHovercolor = System.Drawing.Color.Green;
             this.btnView.OnHoverTextColor = System.Drawing.Color.White;
             this.btnView.selected = false;
-            this.btnView.Size = new System.Drawing.Size(85, 30);
+            this.btnView.Size = new System.Drawing.Size(85, 45);
             this.btnView.TabIndex = 90;
             this.btnView.Text = "View";
             this.btnView.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -118,7 +118,7 @@
             this.lblNo.AutoSize = true;
             this.lblNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNo.ForeColor = System.Drawing.Color.White;
-            this.lblNo.Location = new System.Drawing.Point(4, 7);
+            this.lblNo.Location = new System.Drawing.Point(4, 16);
             this.lblNo.Name = "lblNo";
             this.lblNo.Size = new System.Drawing.Size(27, 16);
             this.lblNo.TabIndex = 103;
@@ -131,7 +131,7 @@
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDate.ForeColor = System.Drawing.Color.White;
-            this.lblDate.Location = new System.Drawing.Point(266, 7);
+            this.lblDate.Location = new System.Drawing.Point(266, 16);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(40, 16);
             this.lblDate.TabIndex = 102;
@@ -144,7 +144,7 @@
             this.lblScannedInmates.AutoSize = true;
             this.lblScannedInmates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScannedInmates.ForeColor = System.Drawing.Color.White;
-            this.lblScannedInmates.Location = new System.Drawing.Point(721, 7);
+            this.lblScannedInmates.Location = new System.Drawing.Point(721, 16);
             this.lblScannedInmates.Name = "lblScannedInmates";
             this.lblScannedInmates.Size = new System.Drawing.Size(68, 16);
             this.lblScannedInmates.TabIndex = 101;
@@ -157,7 +157,7 @@
             this.lblTotalInmates.AutoSize = true;
             this.lblTotalInmates.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalInmates.ForeColor = System.Drawing.Color.White;
-            this.lblTotalInmates.Location = new System.Drawing.Point(649, 7);
+            this.lblTotalInmates.Location = new System.Drawing.Point(649, 16);
             this.lblTotalInmates.Name = "lblTotalInmates";
             this.lblTotalInmates.Size = new System.Drawing.Size(43, 16);
             this.lblTotalInmates.TabIndex = 100;
@@ -170,7 +170,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.White;
-            this.lblStatus.Location = new System.Drawing.Point(561, 7);
+            this.lblStatus.Location = new System.Drawing.Point(561, 16);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(50, 16);
             this.lblStatus.TabIndex = 99;
@@ -183,7 +183,7 @@
             this.lblCode.AutoSize = true;
             this.lblCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCode.ForeColor = System.Drawing.Color.White;
-            this.lblCode.Location = new System.Drawing.Point(49, 7);
+            this.lblCode.Location = new System.Drawing.Point(49, 16);
             this.lblCode.Name = "lblCode";
             this.lblCode.Size = new System.Drawing.Size(44, 16);
             this.lblCode.TabIndex = 98;
@@ -196,7 +196,7 @@
             this.lblDormitory.AutoSize = true;
             this.lblDormitory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDormitory.ForeColor = System.Drawing.Color.White;
-            this.lblDormitory.Location = new System.Drawing.Point(446, 7);
+            this.lblDormitory.Location = new System.Drawing.Point(446, 16);
             this.lblDormitory.Name = "lblDormitory";
             this.lblDormitory.Size = new System.Drawing.Size(74, 16);
             this.lblDormitory.TabIndex = 97;
@@ -217,7 +217,7 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnView);
             this.Name = "rollcall";
-            this.Size = new System.Drawing.Size(1000, 30);
+            this.Size = new System.Drawing.Size(1000, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 

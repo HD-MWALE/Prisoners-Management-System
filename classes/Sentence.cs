@@ -54,14 +54,14 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`start_date`, `end_date`, `status`, `inmate_id`";
             string data = "'" + StartDate.ToString("yyyy/MM/dd hh:mm:ss tt") + "','" + EndDate.ToString("yyyy/MM/dd hh:mm:ss tt") + "', 1," + inmateid;
-            if (database.Execute.Insert(Properties.Resources.SentenceTable, fields, data))
+            if (database.Execute.Insert("sentence", fields, data))
                 return true;
             return false;
         }
         public DataSet GetSentences()
         {
             string data = "*";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.SentenceTable);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM sentence");
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -74,7 +74,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`";
             string condition = " `inmate_id` = " + inmateid + " LIMIT 1;";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.SentenceTable + " WHERE " + condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM sentence WHERE " + condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -87,7 +87,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetSentenceDetails(int id) 
         {
             string data = "`id`, `name`, `type`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.SentenceTable + "WHERE `id` = " + id);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM sentence WHERE `id` = " + id);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -99,13 +99,13 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int inmateid)
         {
             string data = "`start_date` = '" + StartDate + "', `end_date` = '" + EndDate + "', `status` = " + Status;
-            if (database.Execute.Update(Properties.Resources.SentenceTable, data, GetId(inmateid)))
+            if (database.Execute.Update("sentence", data, GetId(inmateid)))
                 return true;
             return false;
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.SentenceTable, id))
+            if (database.Execute.Delete("sentence", id))
                 return true;
             else
                 return false;

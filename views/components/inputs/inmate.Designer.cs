@@ -75,10 +75,6 @@
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties42 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties43 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties44 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties45 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties46 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties47 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties48 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -120,11 +116,9 @@
             this.txtMiddleName = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.txtFirstName = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.dpnCrimes = new Bunifu.UI.WinForms.BunifuDropdown();
-            this.txtDormitory = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.dpnDormitory = new Bunifu.UI.WinForms.BunifuDropdown();
             ((System.ComponentModel.ISupportInitialize)(this.ibxFace)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -134,7 +128,7 @@
             this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(104, 245);
+            this.label7.Location = new System.Drawing.Point(87, 245);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 21);
             this.label7.TabIndex = 8;
@@ -147,7 +141,7 @@
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(436, 245);
+            this.label5.Location = new System.Drawing.Point(419, 245);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 21);
             this.label5.TabIndex = 10;
@@ -160,7 +154,7 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(104, 98);
+            this.label2.Location = new System.Drawing.Point(87, 98);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 21);
             this.label2.TabIndex = 0;
@@ -173,7 +167,7 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(104, 171);
+            this.label1.Location = new System.Drawing.Point(87, 171);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 21);
             this.label1.TabIndex = 2;
@@ -186,7 +180,7 @@
             this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(549, 171);
+            this.label9.Location = new System.Drawing.Point(532, 171);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 21);
             this.label9.TabIndex = 6;
@@ -199,7 +193,7 @@
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(328, 171);
+            this.label10.Location = new System.Drawing.Point(311, 171);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(114, 21);
             this.label10.TabIndex = 4;
@@ -212,7 +206,7 @@
             this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(104, 323);
+            this.label11.Location = new System.Drawing.Point(87, 323);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(70, 21);
             this.label11.TabIndex = 12;
@@ -225,7 +219,7 @@
             this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(104, 403);
+            this.label12.Location = new System.Drawing.Point(87, 403);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(116, 21);
             this.label12.TabIndex = 14;
@@ -238,7 +232,7 @@
             this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label13.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(104, 482);
+            this.label13.Location = new System.Drawing.Point(87, 482);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(103, 21);
             this.label13.TabIndex = 16;
@@ -251,7 +245,7 @@
             this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label14.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.White;
-            this.label14.Location = new System.Drawing.Point(439, 482);
+            this.label14.Location = new System.Drawing.Point(422, 482);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(92, 21);
             this.label14.TabIndex = 18;
@@ -285,7 +279,7 @@
             this.txtSentence.IconRight = null;
             this.txtSentence.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSentence.Lines = new string[0];
-            this.txtSentence.Location = new System.Drawing.Point(108, 792);
+            this.txtSentence.Location = new System.Drawing.Point(91, 792);
             this.txtSentence.MaxLength = 32767;
             this.txtSentence.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtSentence.Modified = false;
@@ -335,7 +329,7 @@
             // 
             this.pnlCrimeCommitted.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pnlCrimeCommitted.AutoScroll = true;
-            this.pnlCrimeCommitted.Location = new System.Drawing.Point(108, 585);
+            this.pnlCrimeCommitted.Location = new System.Drawing.Point(91, 585);
             this.pnlCrimeCommitted.Margin = new System.Windows.Forms.Padding(1);
             this.pnlCrimeCommitted.Name = "pnlCrimeCommitted";
             this.pnlCrimeCommitted.Size = new System.Drawing.Size(650, 45);
@@ -359,7 +353,7 @@
             this.dtpTimeServedEnd.Icon = ((System.Drawing.Image)(resources.GetObject("dtpTimeServedEnd.Icon")));
             this.dtpTimeServedEnd.IconColor = System.Drawing.Color.Transparent;
             this.dtpTimeServedEnd.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
-            this.dtpTimeServedEnd.Location = new System.Drawing.Point(443, 714);
+            this.dtpTimeServedEnd.Location = new System.Drawing.Point(426, 714);
             this.dtpTimeServedEnd.MinimumSize = new System.Drawing.Size(315, 32);
             this.dtpTimeServedEnd.Name = "dtpTimeServedEnd";
             this.dtpTimeServedEnd.Size = new System.Drawing.Size(315, 32);
@@ -374,7 +368,7 @@
             this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(439, 690);
+            this.label18.Location = new System.Drawing.Point(422, 690);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(138, 21);
             this.label18.TabIndex = 8;
@@ -398,7 +392,7 @@
             this.dtpTimeServedStart.Icon = ((System.Drawing.Image)(resources.GetObject("dtpTimeServedStart.Icon")));
             this.dtpTimeServedStart.IconColor = System.Drawing.Color.Transparent;
             this.dtpTimeServedStart.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
-            this.dtpTimeServedStart.Location = new System.Drawing.Point(108, 714);
+            this.dtpTimeServedStart.Location = new System.Drawing.Point(91, 714);
             this.dtpTimeServedStart.MinimumSize = new System.Drawing.Size(315, 32);
             this.dtpTimeServedStart.Name = "dtpTimeServedStart";
             this.dtpTimeServedStart.Size = new System.Drawing.Size(315, 32);
@@ -413,7 +407,7 @@
             this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(104, 690);
+            this.label17.Location = new System.Drawing.Point(87, 690);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(145, 21);
             this.label17.TabIndex = 6;
@@ -426,7 +420,7 @@
             this.label16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label16.ForeColor = System.Drawing.Color.White;
-            this.label16.Location = new System.Drawing.Point(112, 768);
+            this.label16.Location = new System.Drawing.Point(95, 768);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(80, 21);
             this.label16.TabIndex = 2;
@@ -439,7 +433,7 @@
             this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(104, 563);
+            this.label15.Location = new System.Drawing.Point(87, 563);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(145, 21);
             this.label15.TabIndex = 0;
@@ -452,7 +446,7 @@
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(439, 768);
+            this.label3.Location = new System.Drawing.Point(422, 768);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 21);
             this.label3.TabIndex = 4;
@@ -486,7 +480,7 @@
             this.txtContact.IconRight = null;
             this.txtContact.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtContact.Lines = new string[0];
-            this.txtContact.Location = new System.Drawing.Point(443, 952);
+            this.txtContact.Location = new System.Drawing.Point(426, 952);
             this.txtContact.MaxLength = 32767;
             this.txtContact.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtContact.Modified = false;
@@ -561,7 +555,7 @@
             this.txtRelation.IconRight = null;
             this.txtRelation.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtRelation.Lines = new string[0];
-            this.txtRelation.Location = new System.Drawing.Point(108, 952);
+            this.txtRelation.Location = new System.Drawing.Point(91, 952);
             this.txtRelation.MaxLength = 32767;
             this.txtRelation.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtRelation.Modified = false;
@@ -636,7 +630,7 @@
             this.txtName.IconRight = null;
             this.txtName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtName.Lines = new string[0];
-            this.txtName.Location = new System.Drawing.Point(108, 873);
+            this.txtName.Location = new System.Drawing.Point(91, 873);
             this.txtName.MaxLength = 32767;
             this.txtName.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtName.Modified = false;
@@ -690,7 +684,7 @@
             this.label19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label19.ForeColor = System.Drawing.Color.White;
-            this.label19.Location = new System.Drawing.Point(439, 928);
+            this.label19.Location = new System.Drawing.Point(422, 928);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(82, 21);
             this.label19.TabIndex = 4;
@@ -703,7 +697,7 @@
             this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label22.ForeColor = System.Drawing.Color.White;
-            this.label22.Location = new System.Drawing.Point(104, 928);
+            this.label22.Location = new System.Drawing.Point(87, 928);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(74, 21);
             this.label22.TabIndex = 2;
@@ -716,7 +710,7 @@
             this.label21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
             this.label21.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label21.ForeColor = System.Drawing.Color.White;
-            this.label21.Location = new System.Drawing.Point(104, 849);
+            this.label21.Location = new System.Drawing.Point(87, 849);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(88, 21);
             this.label21.TabIndex = 0;
@@ -745,7 +739,7 @@
             this.btnCapture.IconVisible = true;
             this.btnCapture.IconZoom = 50D;
             this.btnCapture.IsTab = true;
-            this.btnCapture.Location = new System.Drawing.Point(214, 1009);
+            this.btnCapture.Location = new System.Drawing.Point(197, 1009);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.btnCapture.OnHovercolor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
@@ -765,7 +759,7 @@
             this.ibxFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(40)))));
             this.ibxFace.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.user;
             this.ibxFace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ibxFace.Location = new System.Drawing.Point(108, 1009);
+            this.ibxFace.Location = new System.Drawing.Point(91, 1009);
             this.ibxFace.Name = "ibxFace";
             this.ibxFace.Size = new System.Drawing.Size(100, 100);
             this.ibxFace.TabIndex = 47;
@@ -795,7 +789,7 @@
             this.btnCancel.IconVisible = true;
             this.btnCancel.IconZoom = 50D;
             this.btnCancel.IsTab = true;
-            this.btnCancel.Location = new System.Drawing.Point(538, 1140);
+            this.btnCancel.Location = new System.Drawing.Point(521, 1140);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Normalcolor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
@@ -833,7 +827,7 @@
             this.btnSave.IconVisible = true;
             this.btnSave.IconZoom = 50D;
             this.btnSave.IsTab = true;
-            this.btnSave.Location = new System.Drawing.Point(651, 1140);
+            this.btnSave.Location = new System.Drawing.Point(634, 1140);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Normalcolor = System.Drawing.Color.DarkGreen;
@@ -866,7 +860,7 @@
             this.dtpDateOfBirth.Icon = ((System.Drawing.Image)(resources.GetObject("dtpDateOfBirth.Icon")));
             this.dtpDateOfBirth.IconColor = System.Drawing.Color.Transparent;
             this.dtpDateOfBirth.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
-            this.dtpDateOfBirth.Location = new System.Drawing.Point(105, 269);
+            this.dtpDateOfBirth.Location = new System.Drawing.Point(88, 269);
             this.dtpDateOfBirth.MinimumSize = new System.Drawing.Size(315, 32);
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
             this.dtpDateOfBirth.Size = new System.Drawing.Size(315, 32);
@@ -879,7 +873,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(99, 45);
+            this.label4.Location = new System.Drawing.Point(82, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(180, 30);
             this.label4.TabIndex = 25;
@@ -913,7 +907,7 @@
             this.txtCode.IconRight = null;
             this.txtCode.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtCode.Lines = new string[0];
-            this.txtCode.Location = new System.Drawing.Point(108, 122);
+            this.txtCode.Location = new System.Drawing.Point(91, 122);
             this.txtCode.MaxLength = 32767;
             this.txtCode.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtCode.Modified = false;
@@ -990,7 +984,7 @@
             "Married",
             "Widower",
             "Widow"});
-            this.dpnMaritalStatus.Location = new System.Drawing.Point(105, 427);
+            this.dpnMaritalStatus.Location = new System.Drawing.Point(88, 427);
             this.dpnMaritalStatus.Name = "dpnMaritalStatus";
             this.dpnMaritalStatus.Size = new System.Drawing.Size(285, 32);
             this.dpnMaritalStatus.TabIndex = 46;
@@ -1027,7 +1021,7 @@
             this.dpnGender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.dpnGender.Location = new System.Drawing.Point(440, 269);
+            this.dpnGender.Location = new System.Drawing.Point(423, 269);
             this.dpnGender.Name = "dpnGender";
             this.dpnGender.Size = new System.Drawing.Size(315, 32);
             this.dpnGender.TabIndex = 44;
@@ -1063,7 +1057,7 @@
             this.txtEyeColour.IconRight = null;
             this.txtEyeColour.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtEyeColour.Lines = new string[0];
-            this.txtEyeColour.Location = new System.Drawing.Point(443, 506);
+            this.txtEyeColour.Location = new System.Drawing.Point(426, 506);
             this.txtEyeColour.MaxLength = 32767;
             this.txtEyeColour.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtEyeColour.Modified = false;
@@ -1138,7 +1132,7 @@
             this.txtComplexion.IconRight = null;
             this.txtComplexion.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtComplexion.Lines = new string[0];
-            this.txtComplexion.Location = new System.Drawing.Point(108, 506);
+            this.txtComplexion.Location = new System.Drawing.Point(91, 506);
             this.txtComplexion.MaxLength = 32767;
             this.txtComplexion.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtComplexion.Modified = false;
@@ -1213,7 +1207,7 @@
             this.txtAddress.IconRight = null;
             this.txtAddress.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtAddress.Lines = new string[0];
-            this.txtAddress.Location = new System.Drawing.Point(108, 347);
+            this.txtAddress.Location = new System.Drawing.Point(91, 347);
             this.txtAddress.MaxLength = 32767;
             this.txtAddress.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtAddress.Modified = false;
@@ -1288,7 +1282,7 @@
             this.txtLastName.IconRight = null;
             this.txtLastName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtLastName.Lines = new string[0];
-            this.txtLastName.Location = new System.Drawing.Point(553, 195);
+            this.txtLastName.Location = new System.Drawing.Point(536, 195);
             this.txtLastName.MaxLength = 32767;
             this.txtLastName.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtLastName.Modified = false;
@@ -1363,7 +1357,7 @@
             this.txtMiddleName.IconRight = null;
             this.txtMiddleName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtMiddleName.Lines = new string[0];
-            this.txtMiddleName.Location = new System.Drawing.Point(332, 195);
+            this.txtMiddleName.Location = new System.Drawing.Point(315, 195);
             this.txtMiddleName.MaxLength = 32767;
             this.txtMiddleName.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtMiddleName.Modified = false;
@@ -1438,7 +1432,7 @@
             this.txtFirstName.IconRight = null;
             this.txtFirstName.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtFirstName.Lines = new string[0];
-            this.txtFirstName.Location = new System.Drawing.Point(108, 195);
+            this.txtFirstName.Location = new System.Drawing.Point(91, 195);
             this.txtFirstName.MaxLength = 32767;
             this.txtFirstName.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtFirstName.Modified = false;
@@ -1511,87 +1505,13 @@
             this.dpnCrimes.ItemForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
             this.dpnCrimes.ItemHeight = 26;
             this.dpnCrimes.ItemHighLightColor = System.Drawing.Color.Thistle;
-            this.dpnCrimes.Location = new System.Drawing.Point(108, 634);
+            this.dpnCrimes.Location = new System.Drawing.Point(91, 634);
             this.dpnCrimes.Name = "dpnCrimes";
             this.dpnCrimes.Size = new System.Drawing.Size(650, 32);
             this.dpnCrimes.TabIndex = 48;
             this.dpnCrimes.Text = "Select";
             this.dpnCrimes.SelectedIndexChanged += new System.EventHandler(this.dpnCrimes_SelectedIndexChanged);
             this.dpnCrimes.Validating += new System.ComponentModel.CancelEventHandler(this.dpnCrimes_Validating);
-            // 
-            // txtDormitory
-            // 
-            this.txtDormitory.AcceptsReturn = false;
-            this.txtDormitory.AcceptsTab = false;
-            this.txtDormitory.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtDormitory.AnimationSpeed = 200;
-            this.txtDormitory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.txtDormitory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.txtDormitory.BackColor = System.Drawing.Color.White;
-            this.txtDormitory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("txtDormitory.BackgroundImage")));
-            this.txtDormitory.BorderColorActive = System.Drawing.Color.DodgerBlue;
-            this.txtDormitory.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(161)))), ((int)(((byte)(161)))));
-            this.txtDormitory.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            this.txtDormitory.BorderColorIdle = System.Drawing.Color.Silver;
-            this.txtDormitory.BorderRadius = 1;
-            this.txtDormitory.BorderThickness = 3;
-            this.txtDormitory.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.txtDormitory.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDormitory.DefaultFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtDormitory.DefaultText = "";
-            this.txtDormitory.FillColor = System.Drawing.Color.White;
-            this.txtDormitory.HideSelection = true;
-            this.txtDormitory.IconLeft = null;
-            this.txtDormitory.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDormitory.IconPadding = 10;
-            this.txtDormitory.IconRight = null;
-            this.txtDormitory.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDormitory.Lines = new string[0];
-            this.txtDormitory.Location = new System.Drawing.Point(443, 792);
-            this.txtDormitory.MaxLength = 32767;
-            this.txtDormitory.MinimumSize = new System.Drawing.Size(1, 1);
-            this.txtDormitory.Modified = false;
-            this.txtDormitory.Multiline = false;
-            this.txtDormitory.Name = "txtDormitory";
-            stateProperties45.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties45.FillColor = System.Drawing.Color.Empty;
-            stateProperties45.ForeColor = System.Drawing.Color.Empty;
-            stateProperties45.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtDormitory.OnActiveState = stateProperties45;
-            stateProperties46.BorderColor = System.Drawing.Color.Empty;
-            stateProperties46.FillColor = System.Drawing.Color.White;
-            stateProperties46.ForeColor = System.Drawing.Color.Empty;
-            stateProperties46.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtDormitory.OnDisabledState = stateProperties46;
-            stateProperties47.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties47.FillColor = System.Drawing.Color.Empty;
-            stateProperties47.ForeColor = System.Drawing.Color.Empty;
-            stateProperties47.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtDormitory.OnHoverState = stateProperties47;
-            stateProperties48.BorderColor = System.Drawing.Color.Silver;
-            stateProperties48.FillColor = System.Drawing.Color.White;
-            stateProperties48.ForeColor = System.Drawing.Color.Empty;
-            stateProperties48.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtDormitory.OnIdleState = stateProperties48;
-            this.txtDormitory.PasswordChar = '\0';
-            this.txtDormitory.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtDormitory.PlaceholderText = "Dormitory";
-            this.txtDormitory.ReadOnly = false;
-            this.txtDormitory.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtDormitory.SelectedText = "";
-            this.txtDormitory.SelectionLength = 0;
-            this.txtDormitory.SelectionStart = 0;
-            this.txtDormitory.ShortcutsEnabled = true;
-            this.txtDormitory.Size = new System.Drawing.Size(315, 32);
-            this.txtDormitory.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
-            this.txtDormitory.TabIndex = 49;
-            this.txtDormitory.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.txtDormitory.TextMarginBottom = 0;
-            this.txtDormitory.TextMarginLeft = 5;
-            this.txtDormitory.TextMarginTop = 0;
-            this.txtDormitory.TextPlaceholder = "Dormitory";
-            this.txtDormitory.UseSystemPasswordChar = false;
-            this.txtDormitory.WordWrap = true;
             // 
             // panel1
             // 
@@ -1600,14 +1520,39 @@
             this.panel1.Size = new System.Drawing.Size(82, 76);
             this.panel1.TabIndex = 50;
             // 
-            // pictureBox1
+            // dpnDormitory
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(396, 1009);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 51;
-            this.pictureBox1.TabStop = false;
+            this.dpnDormitory.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dpnDormitory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.dpnDormitory.BorderRadius = 1;
+            this.dpnDormitory.Color = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.dpnDormitory.Direction = Bunifu.UI.WinForms.BunifuDropdown.Directions.Down;
+            this.dpnDormitory.DisabledColor = System.Drawing.Color.Gray;
+            this.dpnDormitory.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.dpnDormitory.DropdownBorderThickness = Bunifu.UI.WinForms.BunifuDropdown.BorderThickness.Thin;
+            this.dpnDormitory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dpnDormitory.DropDownTextAlign = Bunifu.UI.WinForms.BunifuDropdown.TextAlign.Left;
+            this.dpnDormitory.FillDropDown = false;
+            this.dpnDormitory.FillIndicator = false;
+            this.dpnDormitory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.dpnDormitory.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.dpnDormitory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.dpnDormitory.FormattingEnabled = true;
+            this.dpnDormitory.Icon = null;
+            this.dpnDormitory.IndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.dpnDormitory.IndicatorLocation = Bunifu.UI.WinForms.BunifuDropdown.Indicator.Right;
+            this.dpnDormitory.ItemBackColor = System.Drawing.Color.White;
+            this.dpnDormitory.ItemBorderColor = System.Drawing.Color.White;
+            this.dpnDormitory.ItemForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.dpnDormitory.ItemHeight = 26;
+            this.dpnDormitory.ItemHighLightColor = System.Drawing.Color.Thistle;
+            this.dpnDormitory.Location = new System.Drawing.Point(426, 792);
+            this.dpnDormitory.Name = "dpnDormitory";
+            this.dpnDormitory.Size = new System.Drawing.Size(315, 32);
+            this.dpnDormitory.TabIndex = 52;
+            this.dpnDormitory.Text = "Select";
+            this.dpnDormitory.SelectedIndexChanged += new System.EventHandler(this.dpnDormitory_SelectedIndexChanged);
+            this.dpnDormitory.Validating += new System.ComponentModel.CancelEventHandler(this.dpnDormitory_Validating);
             // 
             // inmate
             // 
@@ -1615,10 +1560,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.dpnDormitory);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCapture);
-            this.Controls.Add(this.txtDormitory);
             this.Controls.Add(this.ibxFace);
             this.Controls.Add(this.dpnCrimes);
             this.Controls.Add(this.dtpTimeServedEnd);
@@ -1660,10 +1604,9 @@
             this.Controls.Add(this.dtpDateOfBirth);
             this.Controls.Add(this.label5);
             this.Name = "inmate";
-            this.Size = new System.Drawing.Size(870, 683);
+            this.Size = new System.Drawing.Size(836, 683);
             this.Load += new System.EventHandler(this.inmate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ibxFace)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1712,8 +1655,7 @@
         private Bunifu.UI.WinForms.BunifuDropdown dpnGender;
         private Bunifu.UI.WinForms.BunifuDropdown dpnMaritalStatus;
         private Bunifu.UI.WinForms.BunifuDropdown dpnCrimes;
-        public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtDormitory;
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.PictureBox pictureBox1;
+        private Bunifu.UI.WinForms.BunifuDropdown dpnDormitory;
     }
 }

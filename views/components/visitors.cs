@@ -42,7 +42,7 @@ namespace Roll_Call_And_Management_System.views.components
                     row.lblContact.Text = AES.Decrypt(dataRow["contact"].ToString(), Properties.Resources.PassPhrase);
                     row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
                     row.lblInmate.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString();
+                    row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy");
                     row.btnDelete.Click += BtnDelete_Click;
                     this.InmateflowLayoutPanel.Controls.Add(row);
                     if (File.Exists(Config.UserRole))
@@ -86,7 +86,7 @@ namespace Roll_Call_And_Management_System.views.components
             dashboard.SetLoading(true);
             Config.ClickSound();
             input = new inputs.visitor(this);
-            modal.popup popup = new modal.popup(dashboard, input);
+            modal.popup popup = new modal.popup(input);
             popup.Size = input.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

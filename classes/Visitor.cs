@@ -79,11 +79,11 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`name`, `relation`, `contact`, `address`";
             string data = "'" + Name + "','" + Contact + "','" + Relation + "','" + Address + "'";
-            if (database.Execute.Insert(Properties.Resources.VisitorTable, fields, data))
+            if (database.Execute.Insert("visitor", fields, data))
             {
                 fields = "`visitor_id`, `inmate_id`";
                 data = "" + GetId() + "," + Inmate.GetId(Inmate.Code) + "";
-                database.Execute.Insert(Properties.Resources.VisitationTable, fields, data);
+                database.Execute.Insert("visitation", fields, data);
                 return true;
             }
             return false;
@@ -91,8 +91,8 @@ namespace Roll_Call_And_Management_System.classes
         public int GetId() 
         {
             string data = "`id`, `name`, `relation`, `contact`, `address`";
-            string condition = "`date_created` = (SELECT MAX(`date_created`) FROM " + Properties.Resources.VisitorTable + ") LIMIT 1;";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.VisitorTable + " WHERE " + condition);
+            string condition = "`date_created` = (SELECT MAX(`date_created`) FROM visitor) LIMIT 1;";
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM visitation WHERE " + condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -106,7 +106,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "visitor.`id`, visitor.`name`, visitor.`relation`, visitor.`contact`, visitor.`address`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, visitation.`date_created`";
             string condition = "visitor.`id` = visitation.`visitor_id` AND inmate.`id` = visitation.`inmate_id`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.VisitorTable + " visitor, " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.VisitationTable + " visitation WHERE " + condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM visitor, inmate, visitation WHERE " + condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -118,7 +118,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetVisitorDetails(int id) 
         {
             string data = "`id`, `name`, `relation`, `contact`, `address`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.VisitorTable + "WHERE `id` = " + id);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + "visitor" + "WHERE `id` = " + id);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -130,17 +130,17 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `relation` = '" + Relation + "', `contact` = '" + Contact + "', `address` = '" + Address + "'";
-            if (database.Execute.Update(Properties.Resources.VisitorTable, data, id))
+            if (database.Execute.Update("visitor", data, id))
             {
                 data = "`visitor_id` = " + GetId() + ", `inmate_id` = " + Inmate.Id;
-                database.Execute.Update(Properties.Resources.VisitationTable, data, id);
+                database.Execute.Update("visitation", data, id);
                 return true;
             }
             return false;
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.VisitorTable, id))
+            if (database.Execute.Delete("visitor", id))
                 return true;
             else
                 return false;

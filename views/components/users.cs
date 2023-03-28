@@ -22,6 +22,7 @@ namespace Roll_Call_And_Management_System.views.components
             InitializeComponent();
             this.dashboard = dashboard;
         }
+
         public void users_Load(object sender, EventArgs e)
         {
             User.dataSet = User.GetUsers().Item1; 
@@ -79,7 +80,7 @@ namespace Roll_Call_And_Management_System.views.components
             dashboard.SetLoading(false);
         }
 
-        inputs.user input;
+        public inputs.user input;
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);

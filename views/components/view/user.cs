@@ -18,5 +18,10 @@ namespace Roll_Call_And_Management_System.views.components.view
         {
             InitializeComponent();
         }
+
+        private void user_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

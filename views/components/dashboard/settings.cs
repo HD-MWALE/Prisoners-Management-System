@@ -16,13 +16,16 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
     public partial class settings : UserControl
     {
         views.dashboard dashboard;
+        dialog dialog;
         login login;
-        bool IsLoggedIn;
-        public settings(views.dashboard dashboard, login login, bool isLoggedIn)
+        bool IsSound = false, IsTheme = false, IsLoggedIn;
+        public settings(Form layout, bool isLoggedIn) 
         {
             InitializeComponent();
-            this.dashboard = dashboard;
-            this.login = login;
+            if(layout.Name == "dashboard")
+                this.dashboard = (views.dashboard)layout;
+            else if(layout.Name == "login")
+                this.login = (login)layout;
             this.IsLoggedIn = isLoggedIn;
         }
         
@@ -65,7 +68,6 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             }
         }
 
-        bool IsSound = false, IsTheme = false;  
         private void Sound_Click(object sender, EventArgs e) 
         {
             Config.ClickSound();
@@ -94,7 +96,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             database.Mysql.Restore();
             this.Cursor = Cursors.Default;
             Config.ClickSound();
-            dialog = new components.modal.dialog();
+            dialog = new dialog();
             dialog.Id = 0;
             dialog.Title = "Restart Application";
             dialog.Message.Text = "The system will restart...";
@@ -102,29 +104,13 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.PrimaryButton.Visible = false;
             dialog.SecondaryButton.Text = "OK";
             dialog.SecondaryButton.Click += Restart_Click;
-            components.modal.popup popup = new components.modal.popup(dashboard, dialog);
+            popup popup = new popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRestart_Click(object sender, EventArgs e)
-        {
-        }
-        dialog dialog;
-        private void btnShutdown_Click(object sender, EventArgs e)
-        {
-        }
-        private void Yes_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
         private void Restart_Click(object sender, EventArgs e) 
         {
             Application.Restart();
@@ -137,17 +123,18 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             {
                 File.WriteAllText(Config.theme, string.Empty);
                 File.WriteAllText(Config.theme, IsTheme.ToString());
+                if (IsLoggedIn)
+                {
+                    Config.LoadTheme(this.dashboard.Controls);
+                    Config.LoadTheme(this.dashboard.menu.popup.Controls);
+                }
+                else
+                {
+                    Config.LoadTheme(this.login.Controls);
+                    Config.LoadTheme(this.login.popup.Controls);
+                }
             }
-            if (IsLoggedIn) 
-            {
-                Config.LoadTheme(this.dashboard.Controls);
-                Config.LoadTheme(this.dashboard.menu.popup.Controls);
-            }
-            else
-            {
-                Config.LoadTheme(this.login.Controls);
-                Config.LoadTheme(this.login.popup.Controls);
-            }
+           
             if (IsTheme)
             {
                 ChangeTheme.Image = Properties.Resources.toggle_on;

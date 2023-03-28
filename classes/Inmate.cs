@@ -206,7 +206,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`code`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `dormitory_id`, `address`, `marital_status`, `eye_color`, `complexion`, `emergency_name`, `emergency_contact`, `emergency_relation`, `visiting_privilege`";
             string data = "'" + Code + "','" + FirstName + "','" + MiddleName + "','" + LastName + "','" + Gender + "','" + DateOfBirth + "'," + Dormitory.GetId(Dormitory.Name) + ",'" + Address + "','" + MaritalStatus + "','" + EyeColour + "','" + Complexion + "','" + EmergencyName + "','" + EmergencyContact + "','" + EmergencyRelation + "'," + VisitingPrivilege;
-            if (database.Execute.Insert(Properties.Resources.InmateTable, fields, data))
+            if (database.Execute.Insert("inmate", fields, data))
             {
                 Crime = new Crime();
                 foreach (string crime in CrimesCommitted.Committed)
@@ -233,8 +233,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetInmates() 
         {
             string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`, sentence.`start_date`, sentence.`end_date`, sentence.`status`";
-            string condition = "inmate.`id` = sentence.`inmate_id`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " inmate, " + Properties.Resources.SentenceTable + " sentence WHERE " + condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate LEFT JOIN sentence ON inmate.id = sentence.inmate_id");
             if (response.Item2 != "server-error")
             {
                 if (response.Item1 != null)
@@ -258,6 +257,13 @@ namespace Roll_Call_And_Management_System.classes
 
             return null;
         }
+
+        public void SetVisitingPrivilege(int id, int Privilege)
+        {
+            string data = "`visiting_privilege` = " + Privilege;
+            database.Execute.Update("inmate", data, id);
+        }
+
         public int Count(int dormitoryid)
         {
             dataSet = GetInmates();
@@ -272,7 +278,7 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`first_name` = '" + FirstName + "', `middle_name` = '" + MiddleName + "', `last_name` = '" + LastName + "', `gender` = '" + Gender + "', `dob` = '" + DateOfBirth + "', `address` = '" + Address + "', `marital_status` = '" + MaritalStatus + "', `eye_color` = '" + EyeColour + "', `complexion` = '" + Complexion + "', `emergency_name` = '" + EmergencyName + "', `emergency_contact` = '" + EmergencyContact + "', `emergency_relation` = '" + EmergencyRelation + "', `visiting_privilege` = " + VisitingPrivilege;
-            if (database.Execute.Update(Properties.Resources.InmateTable, data, id))
+            if (database.Execute.Update("inmate", data, id))
             {
                 Sentence.Update(id); 
                 Crime = new Crime();
@@ -291,7 +297,7 @@ namespace Roll_Call_And_Management_System.classes
 
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.InmateTable, id))
+            if (database.Execute.Delete("inmate", id))
                 return true;
             else
                 return false;

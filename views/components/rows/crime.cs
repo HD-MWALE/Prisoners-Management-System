@@ -41,7 +41,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             viewCrime.lblName.Text = lblName.Text;
             viewCrime.lblType.Text = lblType.Text;
             viewCrime.txtDescription.Text = lblDescription.Text;
-            modal.popup popup = new modal.popup(dashboard, viewCrime);
+            modal.popup popup = new modal.popup(viewCrime);
             popup.Size = viewCrime.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -60,7 +60,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            modal.popup popup = new modal.popup(dashboard, dialog);
+            modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -82,7 +82,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Crime.txtName.Text = lblName.Text;
             Crime.dpnType.Text = lblType.Text;
             Crime.txtDescription.Text = lblDescription.Text;
-            modal.popup popup = new modal.popup(dashboard, Crime);
+            modal.popup popup = new modal.popup(Crime);
             popup.Size = Crime.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

@@ -51,6 +51,7 @@
             this.btnSettings = new Bunifu.Framework.UI.BunifuImageButton();
             this.llblForgotPassword = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettings)).BeginInit();
@@ -362,6 +363,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.cpbLoader);
             this.panel2.Controls.Add(this.llblForgotPassword);
             this.panel2.Controls.Add(this.btnSettings);
             this.panel2.Controls.Add(this.txtPassword);
@@ -377,6 +379,29 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(600, 605);
             this.panel2.TabIndex = 0;
+            // 
+            // cpbLoader
+            // 
+            this.cpbLoader.animated = true;
+            this.cpbLoader.animationIterval = 5;
+            this.cpbLoader.animationSpeed = 10;
+            this.cpbLoader.BackColor = System.Drawing.Color.Transparent;
+            this.cpbLoader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpbLoader.BackgroundImage")));
+            this.cpbLoader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.cpbLoader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.LabelVisible = false;
+            this.cpbLoader.LineProgressThickness = 8;
+            this.cpbLoader.LineThickness = 5;
+            this.cpbLoader.Location = new System.Drawing.Point(448, 18);
+            this.cpbLoader.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.cpbLoader.MaxValue = 100;
+            this.cpbLoader.Name = "cpbLoader";
+            this.cpbLoader.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.cpbLoader.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.Size = new System.Drawing.Size(100, 100);
+            this.cpbLoader.TabIndex = 41;
+            this.cpbLoader.Value = 25;
             // 
             // login
             // 
@@ -418,5 +443,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnSettings;
         private System.Windows.Forms.LinkLabel llblForgotPassword;
         public System.Windows.Forms.Panel panel2;
+        private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
     }
 }

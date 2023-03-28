@@ -69,7 +69,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`name`, `type`, `description`";
             string data = "'" + Name + "','" + Type + "','" + Description + "'";
-            if (database.Execute.Insert(Properties.Resources.CrimeTable, fields, data))
+            if (database.Execute.Insert("crime", fields, data))
                 return true;
             return false;
         }
@@ -96,7 +96,7 @@ namespace Roll_Call_And_Management_System.classes
 
         public DataSet GetCrimes()
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `name`, `type`, `description` FROM " + Properties.Resources.CrimeTable);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `name`, `type`, `description` FROM " + "crime");
             if(response.Item2 != "server-error")
                 return response.Item1;
             return null;
@@ -121,14 +121,14 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `type` = '" + Type + "', `description` = '" + Description + "'";
-            if (database.Execute.Update(Properties.Resources.CrimeTable, data, id))
+            if (database.Execute.Update("crime", data, id))
                 return true;
             return false;
         }
 
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.CrimeTable, id))
+            if (database.Execute.Delete("crime", id))
                 return true;
             else
                 return false;

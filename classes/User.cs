@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using Bunifu.Core;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Ocsp;
 using Org.BouncyCastle.Security;
@@ -105,7 +106,7 @@ namespace Roll_Call_And_Management_System.classes
         }
 
         public User() { }
-        public User( string username, string password) 
+        public User(string username, string password) 
         {
             UserName = username;
             Email = username;
@@ -137,7 +138,7 @@ namespace Roll_Call_And_Management_System.classes
         }
         public User(string username)
         {
-            UserName = AES.Encrypt(username, Properties.Resources.PassPhrase);
+            UserName = username;
             Password = AES.Encrypt("otp", Properties.Resources.PassPhrase);
             OTP = AES.Encrypt(Config.Random.Next(100000, 999999).ToString(), Properties.Resources.PassPhrase);
         }
@@ -152,7 +153,7 @@ namespace Roll_Call_And_Management_System.classes
                 string fields = "`email`, `user_name`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `role`, `password`, `otp`";
                 string data = "'" + Email + "', '" + UserName + "', '" + FirstName + "', '" + MiddleName + "', '" + LastName + "', '" + Gender + "', '" + DateOfBirth + "', '" + Role + "', '" + Password + "', '" + OTP + "'";
 
-                if (database.Execute.Insert(Properties.Resources.UserTable, fields, data))
+                if (database.Execute.Insert("user", fields, data))
                 {
                     Config.Email((AES.Decrypt(UserName, Properties.Resources.PassPhrase), AES.Decrypt(OTP, Properties.Resources.PassPhrase)), AES.Decrypt(Email, Properties.Resources.PassPhrase));
                     return (true, true);
@@ -166,9 +167,9 @@ namespace Roll_Call_And_Management_System.classes
             if (Config.IsInternet())
             {
                 string data = "`password` = '" + Password + "', `otp` = '" + OTP + "'";
-                if (database.Execute.Update(Properties.Resources.UserTable, data, GetId(UserName)))
+                if (database.Execute.Update("user", data, GetId(UserName)))
                 {
-                    Config.Email((AES.Decrypt(UserName, Properties.Resources.PassPhrase), AES.Decrypt(OTP, Properties.Resources.PassPhrase)), AES.Decrypt(Email, Properties.Resources.PassPhrase));
+                    Config.Email((UserName, AES.Decrypt(OTP, Properties.Resources.PassPhrase)), Email);
                     return (true, true);
                 }
                 return (false, true);
@@ -178,13 +179,12 @@ namespace Roll_Call_And_Management_System.classes
         public (DataSet, string) GetUsers() 
         {
             string fields = "`id`, `email`, `user_name`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `role`";
-            return database.Execute.Retrieve("SELECT "+ fields + " FROM " + Properties.Resources.UserTable + " user");
+            return database.Execute.Retrieve("SELECT " + fields + " FROM user");
         }
         public int GetId(string username) 
         {
-            string fields = "`id`, `email`, `user_name`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `role`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + fields + " FROM " + Properties.Resources.UserTable + " user");
-            if(response.Item1 != null)
+            (DataSet, string) response = GetUsers();
+            if (response.Item1 != null)
             {
                 foreach (DataRow data in response.Item1.Tables["result"].Rows)
                     if (AES.Decrypt(Convert.ToString(data["user_name"]), Properties.Resources.PassPhrase) == username)
@@ -209,7 +209,7 @@ namespace Roll_Call_And_Management_System.classes
         public (ArrayList, string) Login()
         {
             string fields = "`id`, `email`, `user_name`, `first_name`, `last_name`, `middle_name`, `gender`, `dob`, `role`, `password`, `otp`";
-            (DataSet, string) responce = database.Execute.Retrieve("SELECT " + fields + " FROM " + Properties.Resources.UserTable);
+            (DataSet, string) responce = database.Execute.Retrieve("SELECT " + fields + " FROM user");
             if (responce.Item2 != "server-error")
             {
                 dataSet = responce.Item1;
@@ -217,6 +217,7 @@ namespace Roll_Call_And_Management_System.classes
                 {
                     foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
                     {
+                        Auth = new ArrayList();
                         if (UserName == AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase)
                             || Email == AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase))
                         {
@@ -254,20 +255,20 @@ namespace Roll_Call_And_Management_System.classes
         public bool ChangePassword(ArrayList Auth, string password)
         {
             string data = "`otp` = '" + AES.Encrypt("otp", Properties.Resources.PassPhrase) + "', `password` = '" + AES.Encrypt(password, Properties.Resources.PassPhrase) + "'";
-            if (database.Execute.Update(Properties.Resources.UserTable, data, (int)Auth[0]))
+            if (database.Execute.Update("user", data, (int)Auth[0]))
                 return true;
             return false;
         }
         public bool Update(int id)
         {
-            string data = "`firstname` = '" + FirstName + "', `lastname` = '" + LastName + "', `role` = '" + Role + "', `gender` = '" + Gender + "', `dob` = '" + DateOfBirth + "', `middlename` = '" + MiddleName + "', `email` = '" + Email + "'"; 
-            if (database.Execute.Update(Properties.Resources.UserTable, data, id))
+            string data = "`first_name` = '" + FirstName + "', `last_name` = '" + LastName + "', `role` = '" + Role + "', `gender` = '" + Gender + "', `dob` = '" + DateOfBirth + "', `middle_name` = '" + MiddleName + "', `email` = '" + Email + "'"; 
+            if (database.Execute.Update("user", data, id))
                 return true;
             return false;
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.UserTable, id))
+            if (database.Execute.Delete("user", id))
                 return true;
             else
                 return false;

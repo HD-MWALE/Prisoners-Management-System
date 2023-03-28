@@ -21,42 +21,65 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using Color = System.Drawing.Color;
+using Control = System.Windows.Forms.Control;
 
 namespace Roll_Call_And_Management_System.views
 {
     public partial class dashboard : Form 
     {
-        public User user;
-        PictureBox pictureBox = new PictureBox();
-        Panel panel = new Panel();
-        Thread thread;
-        public dashboard(Thread thread, User user) 
+        public dashboard(User user) 
         {
             InitializeComponent();
-            this.thread = thread;
+            // Getting user class
             this.user = user;
-            Declare();
+
             this.Controls.Add(panel);
-            this.panel.Controls.Add(pictureBox);
-            panel.Location = new Point(0, 0);
+
+            // Adding PictureBox to panel control collection
+            panel.Controls.Add(cpbLoader);
+
+            // Docking the panel to dasboard to fill
             panel.Dock = DockStyle.Fill;
-            pictureBox.Image = Properties.Resources.Spinner;
-            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox.Location = new Point((this.Size.Width/2) + 50, (this.Size.Height/2));
+
+            // Setting PictureBox location to be centered
+            cpbLoader.Location = new Point((this.Size.Width / 2) + (cpbLoader.Size.Width / 2), (this.Size.Height / 2));
+
+            // bring the panel to front of all other controls
             panel.BringToFront();
+
+            panel.Visible = true;
+
+            // initalizing UserControls
+            menu = new menu(this);
+            notifications = new notifications();
+
+            // Adding Controls to dashboard control collection
+            this.Controls.Add(menu);
+            this.Controls.Add(notifications);
+
+            // Setting theme (Dark/Light)
             Config.LoadTheme(this.Controls);
+
+            // bring bar to front of all other controls
+            bar.BringToFront();
+
+            // Set backcolor 
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+
+            // Set bar to be visible
+            bar.Visible = true;
+
+            // Set Alert label to 0
+            lblAlert.Text = "0";
+
+            // Set Alert label forecolor 
+            lblAlert.ForeColor = Color.Firebrick;
         }
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        //View.Component.Dashboard.NotifocationIcon notifocation = new Component.Dashboard.NotifocationIcon();
-        public void Language()
-        {
-            //btnInmate.Text = Properties.en_local.inmates;
-            //btnInmate.Text = Properties.chichewa_local.inmates;
-        }
+        // Declaring objects
+        public User user = new User();
         public inmates inmates;
-        public (string, int) RollCallInmateId = ("-", 0);
         message message;
-        Roll_Call roll_Call;
+        Roll_Call roll_Call = new Roll_Call();
         visitors visitors;
         dashboardControl dashboardControl;
         users users;
@@ -65,87 +88,25 @@ namespace Roll_Call_And_Management_System.views
         dormitories dormitories;
         components.rollcall rollcall;
         public menu menu;
-        public notifications notifications;  
+        public notifications notifications;
         public search search;
-        bool sidebar = true, ProfileExpand = false, NotificationExpand = false, SearchExpand = false; 
+        bool sidebar = true, ProfileExpand = false, NotificationExpand = false, SearchExpand = false;
+        int inmateid = 0;
+        Panel panel = new Panel();
+        //inmate viewinmate;
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            try
-            {
-                thread = new Thread(LoadData);
-                thread.Start();
-            }
-            catch (Exception ex)
-            {
+            Thread thread = new Thread(OnLoad);
+            thread.Start();
 
-            }
-            lblFullName.Text = (string)user.Auth[3] + " " + (string)user.Auth[4];
-            btnDashboard_Click(sender, e);
-            timer.Start();
-        }
-        void Declare()
-        {
-            menu = new menu(this);
-            notifications = new notifications();
-            search = new search();
-
-            this.Controls.Add(menu);
-            this.Controls.Add(notifications);
-            this.Controls.Add(search);
-
-            dashboardControl = new dashboardControl(this);
-            crimes = new crimes(this);
-            reports = new reports(this);
-            users = new users(this);
-            rollcall = new components.rollcall(this);
-            dormitories = new dormitories(this);
-            inmates = new inmates(this);
-            visitors = new visitors(this);
-
-            bar.BringToFront();
-            bar.BackColor = Color.FromArgb(26, 104, 255);
-
-            pnlBody.Controls.Add(dashboardControl);
-            pnlBody.Controls.Add(crimes);
-            pnlBody.Controls.Add(reports);
-            pnlBody.Controls.Add(users);
-            pnlBody.Controls.Add(rollcall);
-            pnlBody.Controls.Add(dormitories);
-            pnlBody.Controls.Add(inmates);
-            pnlBody.Controls.Add(visitors);
-
-            dashboardControl.Dock = DockStyle.Fill;
-            crimes.Dock = DockStyle.Fill;
-            reports.Dock = DockStyle.Fill;
-            users.Dock = DockStyle.Fill;
-            rollcall.Dock = DockStyle.Fill;
-            dormitories.Dock = DockStyle.Fill;
-            inmates.Dock = DockStyle.Fill;
-            visitors.Dock = DockStyle.Fill;
-
-            bar.Visible = false;
-
-            Config.LoadTheme(this.Controls);
-        }
-        private void LoadData()
-        {
+            // Set Loader
             SetLoading(true);
 
-            // Added to see the indicator (not required)
+            // Suspend thread for one second
             Thread.Sleep(1000);
-
-            //Security.App.AppSize = this.Size;
-            
-
-            menu.Profile.Click += Profile_Click;
-            menu.Settings.Click += Settings_Click;
-            menu.Help.Click += Help_Click;
-            menu.About.Click += About_Click;
-            menu.Logout.Click += Logout_Click;
-            //this.Controls.Add(notifocation);
-            lblAlert.Text = "0";
-
+            /*
+            // Set Mouse Hover on Buttons
             dashboardControl.MouseHover += IsMouseHover;
             crimes.MouseHover += IsMouseHover;
             reports.MouseHover += IsMouseHover;
@@ -153,46 +114,39 @@ namespace Roll_Call_And_Management_System.views
             rollcall.MouseHover += IsMouseHover;
             dormitories.MouseHover += IsMouseHover;
             inmates.MouseHover += IsMouseHover;
-            visitors.MouseHover += IsMouseHover;
+            visitors.MouseHover += IsMouseHover;*/
 
-            if (File.Exists(Config.UserRole))
-                if (File.ReadAllText(Config.UserRole) != "Admin")
-                {
-                    btnProfile.Visible = false;
-                    btnCrimes.Visible = false;
-                    btnReports.Visible = false;
-                }
+            // Start notifications timer
+            timer.Start();
 
-            SetLoading(false);
+            // Setting Username to label 
+            lblUsername.Text = (string)user.Auth[2];
+
+            // Checking user role 
+            if (user.Auth[8].ToString() != "Admin")
+            {
+                // Setting buttons to visible false
+                btnUsers.Visible = false;
+                btnCrimes.Visible = false;
+                btnReports.Visible = false;
+            }
+            
+            btnDashboard_Click(new object(), new EventArgs());
+        }
+
+        private void OnLoad() 
+        {
+            
         }
 
         private void IsMouseHover(object sender, EventArgs e) 
         {
             MouseHoverleave();
         }
-
-        private void About_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Help_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Settings_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Profile_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void Logout_Click(object sender, EventArgs e)
-        {
-        }
-
+        // On profile click
         private void btnProfile_Click(object sender, EventArgs e)
         {
+            // Click sound
             Config.ClickSound();
             if (sidebar)
                 menu.Location = new Point(btnProfile.Location.X + 34, btnProfile.Location.Y + 30);
@@ -204,41 +158,49 @@ namespace Roll_Call_And_Management_System.views
             if (SearchExpand)
                 SearchTimer.Start();
         }
+
         private void btnToggleMenu_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            // Config.ClickSound();
             SidebarTimer.Start();
         }
 
         private void btnRollCall_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
+            // Config.ClickSound();
             bar.Top = (this.btnRollCall).Top;
-            lblModel.Text = btnRollCall.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnRollCall.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(rollcall))
-            {
-                rollcall.rollcall_Load(sender, e);
-                rollcall.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            rollcall = new components.rollcall(this);
+            pnlBody.Controls.Add(rollcall);
+            rollcall.Dock = DockStyle.Fill;
+            rollcall.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
 
         public void btnDormitory_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
             bar.Top = (this.btnDormitory).Top;
-            lblModel.Text = btnDormitory.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnDormitory.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(dormitories))
-            {
-                if (dormitories._dormitory != null)
-                    dormitories.Controls.Remove(dormitories._dormitory);
-                dormitories.dormitories_Load(sender, e);
-                dormitories.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            dormitories = new dormitories(this);
+            pnlBody.Controls.Add(dormitories);
+            dormitories.Dock = DockStyle.Fill;
+            dormitories.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
 
@@ -247,18 +209,20 @@ namespace Roll_Call_And_Management_System.views
             inmateid = id;
             btnInmate_Click(sender, new EventArgs());
         }
-        int inmateid = 0;
-        components.view.inmate viewinmate;
+        
         public void btnInmate_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
             bar.Top = (this.btnInmate).Top;
-            lblModel.Text = btnInmate.Text;
-            Path(true);
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnInmate.Text.Trim();
+            Path(true);/*
             if (pnlBody.Contains(inmates))
             {
-                inmates.Controls.Remove(inmates.row.viewinmate);
+                foreach (Control component in inmates.Controls)
+                    if(component.Name == inmates.viewinmate.Name)
+                        inmates.Controls.Remove(component);
+                //inmates.Controls.Remove(inmates.row.viewinmate);
                 inmates.Controls.Remove(inmates.inmate);
                 if (inmateid != 0)
                 {
@@ -274,91 +238,120 @@ namespace Roll_Call_And_Management_System.views
                 }
                 inmates.inmates_Load(sender, e);
                 inmates.BringToFront();
-            }
+            }*/
+            pnlBody.Controls.Clear();
+            inmates = new inmates(this);
+            pnlBody.Controls.Add(inmates);
+            inmates.Dock = DockStyle.Fill;
+            inmates.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
         
         private void btnVisitors_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
             bar.Top = (this.btnVisitors).Top;
-            lblModel.Text = btnVisitors.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnVisitors.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(visitors))
-            {
-                if (visitors.visitor != null)
-                    visitors.Controls.Remove(visitors.visitor);
-                visitors.visitors_Load(sender, e);
-                visitors.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            visitors = new visitors(this);
+            pnlBody.Controls.Add(visitors);
+            visitors.Dock = DockStyle.Fill;
+            visitors.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
+
         public void Path(bool IsTrue)
         {
             lblAction.Text = "List";
             lblAction.Visible = IsTrue;
             PathSeparator.Visible = IsTrue;
         }
+
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
             bar.Top = (this.btnDashboard).Top;
-            lblModel.Text = btnDashboard.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnDashboard.Text.Trim();
             Path(false);
-            if (pnlBody.Contains(dashboardControl))
-            {
-                dashboardControl.dashboardControl_Load(sender, e);
-                dashboardControl.LoadDashboard();
-                dashboardControl.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            dashboardControl = new dashboardControl(this);
+            pnlBody.Controls.Add(dashboardControl);
+            dashboardControl.Dock = DockStyle.Fill;
+            dashboardControl.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
             SetLoading(false);
         }
 
         private void btnUsers_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
+            // Config.ClickSound();
             bar.Top = (this.btnUsers).Top;
-            lblModel.Text = btnUsers.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnUsers.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(users))
-            {
-                users.Controls.Remove(new components.inputs.user(this, users));
-                users.users_Load(sender, e);
-                users.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            users = new users(this);
+            pnlBody.Controls.Add(users);
+            users.Dock = DockStyle.Fill;
+            users.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
+            // Config.ClickSound();
             bar.Top = (this.btnReports).Top;
-            lblModel.Text = btnReports.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnReports.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(reports))
-            {
-                reports.reports_Load(sender, e);
-                reports.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            reports = new reports(this);
+            pnlBody.Controls.Add(reports);
+            reports.Dock = DockStyle.Fill;
+            reports.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
 
         private void btnCrimes_Click(object sender, EventArgs e)
         {
             SetLoading(true);
-            Config.ClickSound();
+            // Config.ClickSound();
             bar.Top = (this.btnCrimes).Top;
-            lblModel.Text = btnCrimes.Text;
+            bar.BackColor = Color.FromArgb(26, 104, 255);
+            lblModel.Text = btnCrimes.Text.Trim();
             Path(true);
-            if (pnlBody.Contains(crimes))
-            {
-                crimes.crimes_Load(sender, e);
-                crimes.BringToFront();
-            }
+            pnlBody.Controls.Clear();
+            crimes = new crimes(this);
+            pnlBody.Controls.Add(crimes);
+            crimes.Dock = DockStyle.Fill;
+            crimes.BringToFront();
+
+            // Setting theme (Dark/Light)
+            Config.LoadTheme(this.Controls);
+
             SetLoading(false);
         }
 
@@ -382,6 +375,7 @@ namespace Roll_Call_And_Management_System.views
         {
             
         }
+
         private void SidebarTimer_Tick(object sender, EventArgs e)
         {
             if (sidebar)
@@ -441,7 +435,7 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnNotification_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            // Config.ClickSound();
             timer.Start();
             if (roll_Call.dataSet != null)
             {
@@ -539,17 +533,6 @@ namespace Roll_Call_And_Management_System.views
             }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            pictureBox.Visible = true;
-            Thread.Sleep(1000);
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            pictureBox.Visible = false;
-        }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             roll_Call = new Roll_Call();
@@ -567,7 +550,7 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            // Config.ClickSound();
             switch (lblModel.Text)
             {
                 case "Crimes":
@@ -602,7 +585,7 @@ namespace Roll_Call_And_Management_System.views
 
         private void lblModel_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            // Config.ClickSound();
             switch (lblModel.Text)
             {
                 case "Crimes":
@@ -640,6 +623,7 @@ namespace Roll_Call_And_Management_System.views
         {
             
         }
+
         public void SetLoading(bool displayLoader)
         {
             if (displayLoader)

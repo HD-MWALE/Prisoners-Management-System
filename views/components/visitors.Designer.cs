@@ -178,9 +178,9 @@
             this.lblContact.ForeColor = System.Drawing.Color.White;
             this.lblContact.Location = new System.Drawing.Point(266, 7);
             this.lblContact.Name = "lblContact";
-            this.lblContact.Size = new System.Drawing.Size(59, 16);
+            this.lblContact.Size = new System.Drawing.Size(135, 16);
             this.lblContact.TabIndex = 88;
-            this.lblContact.Text = "Contact";
+            this.lblContact.Text = "Contact && Address";
             // 
             // lblName
             // 

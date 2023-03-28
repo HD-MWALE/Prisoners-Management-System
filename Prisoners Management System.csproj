@@ -392,6 +392,7 @@
     <Compile Include="classes\Crime.cs" />
     <Compile Include="classes\Crimes Committed.cs" />
     <Compile Include="classes\Dormitory.cs" />
+    <Compile Include="classes\Dummy.cs" />
     <Compile Include="classes\Inmate.cs" />
     <Compile Include="classes\Inmate History.cs" />
     <Compile Include="classes\Reports.cs" />

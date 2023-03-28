@@ -34,25 +34,34 @@ namespace Roll_Call_And_Management_System.views.components
                 int number = 1;
                 foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    rows.dormitory row = new rows.dormitory(dashboard, this);
-                    row.lblNo.Text = number.ToString();
-                    row.Id = Convert.ToInt32(dataRow["id"]);
-                    row.lblName.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                    txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
-                    row.lblDescription.Text = AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
-                    row.lblGenderType.Text = AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
-                    row.lblType.Text = AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
-                    txtSearch.AutoCompleteCustomSource.Add(row.lblGenderType.Text);
-                    txtSearch.AutoCompleteCustomSource.Add(row.lblType.Text);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
-                        {
-                            row.btnEdit.Visible = false;
-                            row.btnDelete.Visible = false;
-                        }
-                    row.btnDelete.Click += BtnDelete_Click;
-                    this.DormitoryflowLayoutPanel.Controls.Add(row);
-                    number++;
+                    if (number == 26)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        rows.dormitory row = new rows.dormitory(dashboard, this);
+                        row.lblNo.Text = number.ToString();
+                        row.Id = Convert.ToInt32(dataRow["id"]);
+                        row.lblName.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                        txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
+                        row.lblDescription.Text = AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
+                        row.lblDescription.MaximumSize = new Size(250, 16);
+                        row.lblDescription.AutoSize = true;
+                        row.lblGenderType.Text = AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
+                        row.lblType.Text = AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
+                        txtSearch.AutoCompleteCustomSource.Add(row.lblGenderType.Text);
+                        txtSearch.AutoCompleteCustomSource.Add(row.lblType.Text);
+                        if (File.Exists(Config.UserRole))
+                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                            {
+                                row.btnEdit.Visible = false;
+                                row.btnDelete.Visible = false;
+                            }
+                        row.btnDelete.Click += BtnDelete_Click;
+                        this.DormitoryflowLayoutPanel.Controls.Add(row);
+                        number++;
+                    }
                 }
             }
             else
@@ -80,7 +89,7 @@ namespace Roll_Call_And_Management_System.views.components
             dashboard.SetLoading(true);
             Config.ClickSound();
             dormitory = new inputs.dormitory();
-            modal.popup popup = new modal.popup(dashboard, dormitory);
+            modal.popup popup = new modal.popup(dormitory);
             popup.Size = dormitory.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

@@ -52,8 +52,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             Config.ClickSound();
             dashboard.SetLoading(true);
             //bar.Top = ((Bunifu.Framework.UI.BunifuFlatButton)sender).Top;
-            settings = new settings(dashboard, login, true); 
-            popup = new modal.popup(dashboard, settings);
+            settings = new settings(dashboard, true); 
+            popup = new modal.popup(settings);
             popup.Size = settings.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -65,7 +65,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             Config.ClickSound();
             dashboard.SetLoading(true);
             profile = new profile(dashboard);
-            popup = new modal.popup(dashboard, profile);
+            popup = new modal.popup( profile);
             popup.Size = profile.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -77,7 +77,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             Config.ClickSound();
             dashboard.SetLoading(true);
             help = new help(dashboard, login);
-            popup = new modal.popup(dashboard, help);
+            popup = new modal.popup( help);
             popup.Size = help.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -89,7 +89,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             Config.ClickSound();
             dashboard.SetLoading(true);
             about = new about(dashboard, login);
-            popup = new modal.popup(dashboard, about);
+            popup = new modal.popup( about);
             popup.Size = about.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -108,7 +108,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            modal.popup popup = new modal.popup(dashboard, dialog);
+            modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -118,7 +118,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         private void Yes_Click(object sender, EventArgs e)
         {
             dashboard.Hide();
-            login  = new login(dashboard, user);
+            login  = new login( user);
             login.Show();
         }
 
@@ -139,7 +139,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Exit; 
-            modal.popup popup = new modal.popup(dashboard, dialog);
+            modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

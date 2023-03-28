@@ -87,7 +87,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`action`, `status`, `date`, `remarks`, `inmate_id`";
             string data = "'" + Action + "', " + Status + ", '" + Date + "', '" + Remarks + "', " + InmateId;
-            if (database.Execute.Insert(Properties.Resources.InmateHistoryTable, fields, data))
+            if (database.Execute.Insert("inmate_history", fields, data))
                 return true;
             return false;
         }
@@ -104,7 +104,7 @@ namespace Roll_Call_And_Management_System.classes
 
         public DataSet GetHistoriesByInmateId(int inmateid) 
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM " + Properties.Resources.InmateHistoryTable + " WHERE `inmate_id` = " + inmateid);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history WHERE `inmate_id` = " + inmateid);
             if (response.Item2 != "server-error")
                 return response.Item1;
             return null;
@@ -112,7 +112,7 @@ namespace Roll_Call_And_Management_System.classes
 
         public DataSet GetHistories() 
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM " + Properties.Resources.InmateHistoryTable);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history");
             if (response.Item2 != "server-error")
                 return response.Item1;
             return null;
@@ -139,14 +139,14 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`action` = '" + Action + "', `status` = " + Status + ", `date` = '" + Date + "', `remarks` = '" + Remarks + "', `inmate_id` = " + Inmate.Id;
-            if (database.Execute.Update(Properties.Resources.InmateHistoryTable, data, id))
+            if (database.Execute.Update("inmate_history", data, id))
                 return true;
             return false;
         }
 
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.InmateHistoryTable, id))
+            if (database.Execute.Delete("inmate_history", id))
                 return true;
             else
                 return false;

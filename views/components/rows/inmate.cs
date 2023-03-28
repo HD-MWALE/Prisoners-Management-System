@@ -21,7 +21,6 @@ namespace Roll_Call_And_Management_System.views.components.rows
             InitializeComponent();
             this.dashboard = dashboard;
             this.inmates = inmates;
-            ActionId = this.dashboard.RollCallInmateId;
             Id = ActionId.Item2;
             Config.LoadTheme(this.Controls);
         }
@@ -109,54 +108,36 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Dashboard.Blur(true);*/
         }
         ArrayList Crimes = new ArrayList();
-        public view.inmate viewinmate;  
         
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (specifier == "rollcall1")
-            {
-                dashboard.RollCallInmateId = ("Edit", Id);
-                dashboard.btnInmate_Click(sender, e);
-            }
-            else
-            {
-                dashboard.SetLoading(true);
-                Config.ClickSound();
-                _inmate = new inputs.inmate(inmates);
-                _inmate.Id = Id;
-                dashboard.PathSeparator.Visible = true;
-                dashboard.lblAction.Visible = true;
-                dashboard.lblAction.Text = "Edit";
-                this.inmates.Controls.Add(_inmate);
-                _inmate.Dock = DockStyle.Fill;
-                _inmate.BringToFront();
-                Config.LoadTheme(this.inmates.Controls);
-                dashboard.SetLoading(false);
-            }
+            dashboard.SetLoading(true);
+            Config.ClickSound();
+            _inmate = new inputs.inmate(inmates);
+            _inmate.Id = Id;
+            dashboard.PathSeparator.Visible = true;
+            dashboard.lblAction.Visible = true;
+            dashboard.lblAction.Text = "Edit";
+            this.inmates.Controls.Add(_inmate);
+            _inmate.Dock = DockStyle.Fill;
+            _inmate.BringToFront();
+            Config.LoadTheme(this.inmates.Controls);
+            dashboard.SetLoading(false);
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
-            if (specifier == "rollcall1")
-            {
-                dashboard.RollCallInmateId = ("View", Id);
-                dashboard.btnInmate_Click(sender, e);
-            }
-            else
-            {
-                dashboard.SetLoading(true);
-                Config.ClickSound();
-                viewinmate = new view.inmate(dashboard, this.inmates);
-                viewinmate.Id = Id;
-                dashboard.PathSeparator.Visible = true;
-                dashboard.lblAction.Visible = true;
-                dashboard.lblAction.Text = "View";
-                this.inmates.Controls.Add(viewinmate);
-                viewinmate.Dock = DockStyle.Fill;
-                viewinmate.AutoScroll = true;
-                viewinmate.BringToFront();
-                dashboard.SetLoading(false);
-            }
+            dashboard.SetLoading(true);
+            Config.ClickSound();
+            inmates.viewinmate.Id = Id;
+            dashboard.PathSeparator.Visible = true;
+            dashboard.lblAction.Visible = true;
+            dashboard.lblAction.Text = "View";
+            this.inmates.Controls.Add(inmates.viewinmate);
+            inmates.viewinmate.Dock = DockStyle.Fill;
+            inmates.viewinmate.AutoScroll = true;
+            inmates.viewinmate.BringToFront();
+            dashboard.SetLoading(false);
         }
 
         private void btnDelete_Click(object sender, EventArgs e) 
@@ -171,7 +152,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            modal.popup popup = new modal.popup(dashboard, dialog);
+            modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

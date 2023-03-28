@@ -39,13 +39,14 @@
             this.btnDormitory = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnUsers = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRollCall = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.lblFullName = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.btnDashboard = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnInmate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnVisitors = new Bunifu.Framework.UI.BunifuFlatButton();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnBack = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblModel = new System.Windows.Forms.Label();
             this.PathSeparator = new System.Windows.Forms.Label();
             this.lblAction = new System.Windows.Forms.Label();
@@ -56,21 +57,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.MenuTransition = new BunifuAnimatorNS.BunifuTransition(this.components);
             this.pnlBody = new System.Windows.Forms.Panel();
+            this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.SidebarTimer = new System.Windows.Forms.Timer(this.components);
             this.menuTimer = new System.Windows.Forms.Timer(this.components);
             this.NotificationIconTimer = new System.Windows.Forms.Timer(this.components);
             this.SearchTimer = new System.Windows.Forms.Timer(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.btnBack = new Bunifu.Framework.UI.BunifuImageButton();
             this.pnlMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnToggleMenu)).BeginInit();
             this.pnlHeader.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).BeginInit();
+            this.pnlBody.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -83,7 +84,7 @@
             this.pnlMenu.Controls.Add(this.btnDormitory);
             this.pnlMenu.Controls.Add(this.btnUsers);
             this.pnlMenu.Controls.Add(this.btnRollCall);
-            this.pnlMenu.Controls.Add(this.lblFullName);
+            this.pnlMenu.Controls.Add(this.lblUsername);
             this.pnlMenu.Controls.Add(this.btnDashboard);
             this.pnlMenu.Controls.Add(this.btnInmate);
             this.pnlMenu.Controls.Add(this.btnVisitors);
@@ -318,17 +319,17 @@
             this.btnRollCall.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnRollCall.Click += new System.EventHandler(this.btnRollCall_Click);
             // 
-            // lblFullName
+            // lblUsername
             // 
-            this.lblFullName.AutoSize = true;
-            this.MenuTransition.SetDecoration(this.lblFullName, BunifuAnimatorNS.DecorationType.None);
-            this.lblFullName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFullName.ForeColor = System.Drawing.Color.White;
-            this.lblFullName.Location = new System.Drawing.Point(51, 15);
-            this.lblFullName.Name = "lblFullName";
-            this.lblFullName.Size = new System.Drawing.Size(103, 20);
-            this.lblFullName.TabIndex = 4;
-            this.lblFullName.Text = "Bright Mwale";
+            this.lblUsername.AutoSize = true;
+            this.MenuTransition.SetDecoration(this.lblUsername, BunifuAnimatorNS.DecorationType.None);
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.White;
+            this.lblUsername.Location = new System.Drawing.Point(51, 15);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(103, 20);
+            this.lblUsername.TabIndex = 4;
+            this.lblUsername.Text = "Bright Mwale";
             // 
             // btnDashboard
             // 
@@ -481,6 +482,7 @@
             this.bunifuSeparator1.TabIndex = 0;
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
+            this.bunifuSeparator1.Visible = false;
             // 
             // flowLayoutPanel1
             // 
@@ -494,6 +496,23 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(299, 35);
             this.flowLayoutPanel1.TabIndex = 7;
+            // 
+            // btnBack
+            // 
+            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.MenuTransition.SetDecoration(this.btnBack, BunifuAnimatorNS.DecorationType.None);
+            this.btnBack.Image = global::Roll_Call_And_Management_System.Properties.Resources.back;
+            this.btnBack.ImageActive = null;
+            this.btnBack.Location = new System.Drawing.Point(20, 7);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(20, 7, 3, 3);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(25, 25);
+            this.btnBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnBack.TabIndex = 8;
+            this.btnBack.TabStop = false;
+            this.btnBack.Zoom = 5;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // lblModel
             // 
@@ -564,6 +583,7 @@
             this.bunifuSeparator2.TabIndex = 6;
             this.bunifuSeparator2.Transparency = 255;
             this.bunifuSeparator2.Vertical = false;
+            this.bunifuSeparator2.Visible = false;
             // 
             // btnNotification
             // 
@@ -636,6 +656,7 @@
             // pnlBody
             // 
             this.pnlBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.pnlBody.Controls.Add(this.cpbLoader);
             this.MenuTransition.SetDecoration(this.pnlBody, BunifuAnimatorNS.DecorationType.None);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBody.Location = new System.Drawing.Point(170, 101);
@@ -643,6 +664,30 @@
             this.pnlBody.Size = new System.Drawing.Size(629, 349);
             this.pnlBody.TabIndex = 3;
             this.pnlBody.MouseHover += new System.EventHandler(this.pnlBody_MouseHover);
+            // 
+            // cpbLoader
+            // 
+            this.cpbLoader.animated = true;
+            this.cpbLoader.animationIterval = 5;
+            this.cpbLoader.animationSpeed = 10;
+            this.cpbLoader.BackColor = System.Drawing.Color.Transparent;
+            this.cpbLoader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpbLoader.BackgroundImage")));
+            this.cpbLoader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.MenuTransition.SetDecoration(this.cpbLoader, BunifuAnimatorNS.DecorationType.None);
+            this.cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.cpbLoader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.LabelVisible = false;
+            this.cpbLoader.LineProgressThickness = 8;
+            this.cpbLoader.LineThickness = 5;
+            this.cpbLoader.Location = new System.Drawing.Point(0, 3);
+            this.cpbLoader.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.cpbLoader.MaxValue = 100;
+            this.cpbLoader.Name = "cpbLoader";
+            this.cpbLoader.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.cpbLoader.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.Size = new System.Drawing.Size(100, 100);
+            this.cpbLoader.TabIndex = 17;
+            this.cpbLoader.Value = 25;
             // 
             // timer
             // 
@@ -668,28 +713,6 @@
             // 
             this.SearchTimer.Interval = 10;
             this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // btnBack
-            // 
-            this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.MenuTransition.SetDecoration(this.btnBack, BunifuAnimatorNS.DecorationType.None);
-            this.btnBack.Image = global::Roll_Call_And_Management_System.Properties.Resources.back;
-            this.btnBack.ImageActive = null;
-            this.btnBack.Location = new System.Drawing.Point(20, 7);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(20, 7, 3, 3);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(25, 25);
-            this.btnBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnBack.TabIndex = 8;
-            this.btnBack.TabStop = false;
-            this.btnBack.Zoom = 5;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // dashboard
             // 
@@ -717,9 +740,10 @@
             this.pnlHeader.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnBack)).EndInit();
+            this.pnlBody.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -739,7 +763,7 @@
         private Bunifu.Framework.UI.BunifuImageButton btnProfile;
         private System.Windows.Forms.Label label1;
         private BunifuAnimatorNS.BunifuTransition MenuTransition;
-        private System.Windows.Forms.Label lblFullName;
+        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer SidebarTimer;
         private System.Windows.Forms.Timer menuTimer;
@@ -755,8 +779,8 @@
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
         public System.Windows.Forms.PictureBox bar;
         private System.Windows.Forms.Timer SearchTimer;
-        public System.ComponentModel.BackgroundWorker backgroundWorker1;
         public System.Windows.Forms.Label PathSeparator;
         private Bunifu.Framework.UI.BunifuImageButton btnBack;
+        private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
     }
 }

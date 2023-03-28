@@ -28,7 +28,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         }
         public int Id = 0;
         public int ButtonCount = 0;
-        public User User; 
+        public User User = new User(); 
         ColorScheme scheme = new ColorScheme();
 
         User.UserRole Role;
@@ -95,6 +95,25 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             if (Id != 0)
             {
                 btnSave.Text = "Update";
+                User.dataSet = User.GetUsers().Item1;
+                if (User.dataSet != null)
+                {
+                    foreach (DataRow dataRow in User.dataSet.Tables["result"].Rows)
+                    {
+                        if (Id == Convert.ToInt32(dataRow["id"]))
+                        {
+                            Id = Convert.ToInt32(dataRow["id"]);
+                            txtEmail.Text = AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
+                            txtUsername.Text = AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dtpDateOfBirth.Value = Convert.ToDateTime(dataRow["dob"]);
+                            dpnRole.Text = dataRow["role"].ToString();
+                        }
+                    }
+                }
             }
             if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
             {

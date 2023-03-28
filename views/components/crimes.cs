@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,28 +30,37 @@ namespace Roll_Call_And_Management_System.views.components
             if (Crime.dataSet != null)
             {
                 txtSearch.AutoCompleteCustomSource.Clear();
+                int number = 1;
                 foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
                 {
-                    rows.crime row = new rows.crime(dashboard, this);
-                    row.Id = Convert.ToInt32(dataRow[0]);
-                    row.lblName.Text = AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
-                    row.lblType.Text = dataRow[2].ToString();
-                    txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
-                    txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
-                    row.lblDescription.Text = AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
-                    row.lblDescription.MaximumSize = new Size(340, 16);
-                    row.lblDescription.AutoSize = true;
-                    this.CrimeflowLayoutPanel.Controls.Add(row);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
-                        {
-                            row.btnEdit.Visible = false;
-                            row.btnDelete.Visible = false;
-                        }
-                    row.btnEdit.Click += Edit_Click;
-                    row.btnView.Click += View_Click;
-                    row.btnDelete.Click += Delete_Click;
-                    row.Click += View_Click; 
+                    if (number == 26)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        rows.crime row = new rows.crime(dashboard, this);
+                        row.Id = Convert.ToInt32(dataRow[0]);
+                        row.lblName.Text = AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
+                        row.lblType.Text = dataRow[2].ToString();
+                        txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
+                        txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
+                        row.lblDescription.Text = AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
+                        row.lblDescription.MaximumSize = new Size(340, 16);
+                        row.lblDescription.AutoSize = true;
+                        this.CrimeflowLayoutPanel.Controls.Add(row);
+                        if (File.Exists(Config.UserRole))
+                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                            {
+                                row.btnEdit.Visible = false;
+                                row.btnDelete.Visible = false;
+                            }
+                        row.btnEdit.Click += Edit_Click;
+                        row.btnView.Click += View_Click;
+                        row.btnDelete.Click += Delete_Click;
+                        row.Click += View_Click;
+                        number++;
+                    }
                 }
             }
             else
@@ -90,7 +100,7 @@ namespace Roll_Call_And_Management_System.views.components
             Config.ClickSound();
             dashboard.SetLoading(true);
             crime = new inputs.crime();
-            modal.popup popup = new modal.popup(dashboard, crime);
+            modal.popup popup = new modal.popup(crime);
             popup.Size = crime.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation); 
             popup.ShowDialog();

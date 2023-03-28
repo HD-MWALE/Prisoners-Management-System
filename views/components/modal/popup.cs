@@ -27,14 +27,12 @@ namespace Roll_Call_And_Management_System.views.components.modal
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        public popup(views.dashboard dashboard, UserControl control) 
+        public popup(UserControl control) 
         {
             InitializeComponent();
-            this.dashboard = dashboard;
             this.control = control;
         }
         private UserControl control;
-        private views.dashboard dashboard;
         private crime crime; 
         private view.user user;
         private history history;

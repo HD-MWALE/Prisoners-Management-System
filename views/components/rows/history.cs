@@ -34,7 +34,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Config.ClickSound();
             GetHistory = new inputs.history();
             GetHistory.Id = Id;
-            modal.popup popup = new modal.popup(dashboard, GetHistory);
+            modal.popup popup = new modal.popup( GetHistory);
             popup.Size = GetHistory.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -49,7 +49,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             ViewHistory = new view.history(dashboard, this);
             ViewHistory.Id = Id;
             ViewHistory.InmateId = inmate.Id;
-            modal.popup popup = new modal.popup(dashboard, ViewHistory);
+            modal.popup popup = new modal.popup( ViewHistory);
             popup.Size = ViewHistory.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -68,7 +68,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            modal.popup popup = new modal.popup(dashboard, dialog);
+            modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

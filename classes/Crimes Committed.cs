@@ -73,14 +73,14 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`crime_id`, `inmate_id`";
             string data = CrimeId + "," + InmateId;
-            if (database.Execute.Insert(Properties.Resources.CrimesCommittedTable, fields, data))
+            if (database.Execute.Insert("crimes_committed", fields, data))
                 return true;
             return false;
         }
 
         public int GetId(int crimeId, int inmateId)
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT `id` FROM " + Properties.Resources.CrimesCommittedTable);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT `id` FROM crimes_committed");
             if (response.Item2 != null)
             {
                 dataSet = response.Item1;
@@ -96,7 +96,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`";
             string condition = "`crime_id` = " + crimeid + ", `inmate_id` = " + inmateid + ";";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.InmateTable + " WHERE " + condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM crimes_committed, inmate WHERE " + condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -108,7 +108,7 @@ namespace Roll_Call_And_Management_System.classes
 
         public DataSet GetCrimes()
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT crime.`id`, crime.`name`, crime.`type`, crime.`description`, crimes_committed.inmate_id FROM " + Properties.Resources.CrimeTable + " crime, " + Properties.Resources.CrimesCommittedTable + " crimes_committed WHERE crime.`id` = crimes_committed.`crime_id`");
+            (DataSet, string) response = database.Execute.Retrieve("SELECT crime.`id`, crime.`name`, crime.`type`, crime.`description`, crimes_committed.inmate_id FROM crime INNER JOIN crimes_committed ON crime.`id` = crimes_committed.`crime_id`");
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -132,13 +132,13 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`crime_id` = '" + CrimeId + "', `inmate_id` = " + InmateId;
-            if (database.Execute.Update(Properties.Resources.CrimesCommittedTable, data, id))
+            if (database.Execute.Update("crimes_committed", data, id))
                 return true;
             return false;
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.CrimesCommittedTable, id))
+            if (database.Execute.Delete("crimes_committed", id))
                 return true;
             else
                 return false;

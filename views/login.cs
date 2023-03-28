@@ -4,6 +4,7 @@ using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Ocsp;
 using Roll_Call_And_Management_System.classes;
 using Roll_Call_And_Management_System.database;
+using Roll_Call_And_Management_System.Properties;
 using Roll_Call_And_Management_System.views.components.dashboard;
 using Roll_Call_And_Management_System.views.components.modal;
 using System;
@@ -26,6 +27,23 @@ namespace Roll_Call_And_Management_System.views
 {
     public partial class login : Form
     {
+        public login(User user)
+        {
+            InitializeComponent();
+            this.user = user;
+
+            this.Controls.Add(panel);
+            this.panel.Controls.Add(cpbLoader);
+            panel.Location = new Point(0, 0);
+            panel.Dock = DockStyle.Fill;
+            panel.BringToFront();
+            cpbLoader.Location = new Point((this.Size.Width / 2) - (cpbLoader.Size.Width / 2), (this.Size.Height / 2) - (cpbLoader.Size.Width / 2));
+            cpbLoader.BringToFront();
+
+            Config.LoadTheme(this.Controls);
+            this.Paint += login_Paint;
+        }
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -33,28 +51,33 @@ namespace Roll_Call_And_Management_System.views
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
-        dashboard dashboard;
         components.modal.dialog dialog;
-        public login(dashboard dashboard, classes.User user)
-        {
-            InitializeComponent();
-            this.dashboard = dashboard;
-            this.user = user;
-
-            this.Controls.Add(panel);
-            this.panel.Controls.Add(pictureBox);
-            panel.Location = new Point(0, 0);
-            panel.Dock = DockStyle.Fill;
-            panel.BringToFront();
-            pictureBox.Image = Properties.Resources.Spinner;
-            pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox.Location = new Point((this.Size.Width / 2) - (pictureBox.Size.Width / 2), (this.Size.Height / 2) - (pictureBox.Size.Width / 2));
-            pictureBox.BringToFront();
-
-            Config.LoadTheme(this.Controls);
-            this.Paint += login_Paint;
-        }
         ErrorProvider errorProvider = new ErrorProvider();
+        bool SettingsExpand = false;
+        settings settings;
+        public popup popup;
+        //PictureBox pictureBox = new PictureBox();
+
+        Panel panel = new Panel();
+        User user;
+        private int attempts = 3;
+        private int seconds = 10;
+        ErrorProvider ErrorUsername = new ErrorProvider();
+        ErrorProvider ErrorPassword = new ErrorProvider();
+        new Validate Validate = new Validate();
+
+        private bool isCurrentlyActive = false;
+        private Pen activeWindowFramePen, inactiveWindowFramePen;
+        private Point[] framePoints;
+
+        public static int WindowFrameSize = 2;
+        public static Color WindowFrameActiveColor = Color.White;
+        public static Color WindowFrameInactiveColor = SystemColors.ControlDark;
+        public static double InactiveWindowOpacity = 1.0;
+        public static double WindowFrameOpacity = 0.3;
+
+        public forgot_password forgot_Password;
+
         private void Login_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -64,8 +87,6 @@ namespace Roll_Call_And_Management_System.views
             }
         }
 
-        PictureBox pictureBox = new PictureBox();
-        Panel panel = new Panel();
         public void SetLoading(bool displayLoader)
         {
             if (displayLoader)
@@ -85,20 +106,20 @@ namespace Roll_Call_And_Management_System.views
                 });
             }
         }
-        Thread thread;
+
         private void login_Load(object sender, EventArgs e) 
         {
             try
             {
-                thread = new Thread(Load1);
+                Thread thread = new Thread(Load1);
                 thread.Start();
             }
             catch (Exception ex)
             {
 
             }
-            
         }
+
         private void Load1()
         {
             SetLoading(true);
@@ -119,7 +140,7 @@ namespace Roll_Call_And_Management_System.views
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            popup popup = new popup(dashboard, dialog);
+            popup popup = new popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();
@@ -131,15 +152,9 @@ namespace Roll_Call_And_Management_System.views
             Application.Exit();
         }
 
-        User user;
-        private int attempts = 3;
-        private int seconds = 10;
-        ErrorProvider ErrorUsername = new ErrorProvider();
-        ErrorProvider ErrorPassword = new ErrorProvider(); 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Config.ClickSound();
-            btnLogin.Iconimage = Properties.Resources.loading;
             if (Validate.IsNull(txtUserName.Text))
             {
                 ErrorUsername.SetError(txtUserName, "User Name can not be null.");
@@ -173,6 +188,7 @@ namespace Roll_Call_And_Management_System.views
                                     GiveAccess();
                                 else if (user.Auth.Contains("new"))
                                 {
+                                    ErrorMessage.Text = "Please enter your new password.";
                                     btnLogin.Text = "Save";
                                     txtUserName.Text = (string)user.Auth[2];
                                     txtPassword.Text = string.Empty;
@@ -226,7 +242,7 @@ namespace Roll_Call_And_Management_System.views
                 File.WriteAllText(Config.UserRole, string.Empty);
                 File.WriteAllText(Config.UserRole, user.Auth[8].ToString());
             }
-            dashboard = new dashboard(thread, user);
+            dashboard dashboard = new dashboard(user);
             dashboard.Show();
             this.Hide();
             ErrorMessage.Text = "Please enter your login details.";
@@ -261,7 +277,7 @@ namespace Roll_Call_And_Management_System.views
         {
 
         }
-        new Validate Validate = new Validate();
+
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Validate.IsTextNumber(Password))
@@ -348,17 +364,6 @@ namespace Roll_Call_And_Management_System.views
             set { this.txtPassword.Text = value; }
         }
 
-        public bool UserNameEnabled
-        {
-            get { return this.txtPassword.Enabled; }
-            set { this.txtPassword.Enabled = value; }
-        }
-        public string PasswordLabel
-        {
-            get { return this.lblPassword.Text; }
-            set { this.lblPassword.Text = value; }
-        }
-
         private void AttenptsTimer_Tick(object sender, EventArgs e)
         {
             seconds--;
@@ -368,15 +373,13 @@ namespace Roll_Call_And_Management_System.views
                 AttenptsTimer.Stop();
             }
         }
-        bool SettingsExpand = false; 
-        settings settings;
-        public popup popup;
+        
         private void btnSettings_Click(object sender, EventArgs e)
         {
             Config.ClickSound();
             SetLoading(true);
-            settings = new settings(dashboard, this, false);
-            popup = new popup(dashboard, settings);
+            settings = new settings(this, false);
+            popup = new popup(settings);
             popup.Size = settings.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.Icon.Image = Properties.Resources.settings;
@@ -432,16 +435,7 @@ namespace Roll_Call_And_Management_System.views
             }
             return this.framePoints;
         }
-        private bool isCurrentlyActive = false;
-        private Pen activeWindowFramePen, inactiveWindowFramePen;
-        private Point[] framePoints;
-
-        public static int WindowFrameSize = 2;
-        public static Color WindowFrameActiveColor = Color.White;
-        public static Color WindowFrameInactiveColor = SystemColors.ControlDark;
-        public static double InactiveWindowOpacity = 1.0;
-        public static double WindowFrameOpacity = 0.3;
-
+        
         private void AddControlPaintHandler(Control ctrl)
         {
             ctrl.Paint += login_Paint;
@@ -476,7 +470,6 @@ namespace Roll_Call_And_Management_System.views
         private void login_Deactivate(object sender, EventArgs e)
         {
         }
-        public forgot_password forgot_Password;
         private void llblForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             SetLoading(true);

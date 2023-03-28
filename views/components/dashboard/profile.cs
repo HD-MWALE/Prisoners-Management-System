@@ -26,20 +26,22 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         {
             InitializeComponent();
             this.dashboard = dashboard;
-            User.dataSet = User.GetUserDetails(Convert.ToInt32(dashboard.user.Auth[0]));
-            if(User.dataSet != null)
-                foreach(DataRow row in User.dataSet.Tables["result"].Rows) 
-                {
-                    Id = Convert.ToInt32(row["id"]);
-                    lblUsername.Text = AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
-                    txtEmail.Text = AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
-                    txtFirstName.Text = AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
-                    txtMiddleName.Text = AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                    txtLastName.Text = AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
-                    dtpDateOfBirth.Value = Convert.ToDateTime(row["dob"]); ;
-                    dpnGender.Text = AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
-                    lblRole.Text = row["role"].ToString();
-                }
+            (DataSet, string) response = User.GetUsers();
+            if(response.Item2 != "server-error")
+                if (response.Item1 != null)
+                    foreach(DataRow row in response.Item1.Tables["result"].Rows) 
+                        if (row[0].ToString() == dashboard.user.Auth[0].ToString())
+                        {
+                            Id = Convert.ToInt32(row["id"]);
+                            lblUsername.Text = AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtEmail.Text = AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            dtpDateOfBirth.Value = Convert.ToDateTime(row["dob"]); ;
+                            dpnGender.Text = AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                            lblRole.Text = row["role"].ToString();
+                        }
         }
         private void profile_Load(object sender, EventArgs e)
         {

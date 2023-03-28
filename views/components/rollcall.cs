@@ -78,7 +78,7 @@ namespace Roll_Call_And_Management_System.views.components
             dashboard.SetLoading(true);
             Config.ClickSound();
             _rollcall = new inputs.rollcall(dashboard);
-            modal.popup popup = new modal.popup(dashboard, _rollcall);
+            modal.popup popup = new modal.popup(_rollcall);
             popup.Size = _rollcall.Size;
             popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
             popup.ShowDialog();

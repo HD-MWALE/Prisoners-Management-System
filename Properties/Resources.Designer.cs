@@ -171,24 +171,6 @@ namespace Roll_Call_And_Management_System.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to `crimes_committed`.
-        /// </summary>
-        internal static string CrimesCommittedTable {
-            get {
-                return ResourceManager.GetString("CrimesCommittedTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `crime`.
-        /// </summary>
-        internal static string CrimeTable {
-            get {
-                return ResourceManager.GetString("CrimeTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap dashboard_layout {
@@ -205,15 +187,6 @@ namespace Roll_Call_And_Management_System.Properties {
             get {
                 object obj = ResourceManager.GetObject("Database_Restore", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `dormitory`.
-        /// </summary>
-        internal static string DormitoryTable {
-            get {
-                return ResourceManager.GetString("DormitoryTable", resourceCulture);
             }
         }
         
@@ -354,24 +327,6 @@ namespace Roll_Call_And_Management_System.Properties {
             get {
                 object obj = ResourceManager.GetObject("info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `inmate_history`.
-        /// </summary>
-        internal static string InmateHistoryTable {
-            get {
-                return ResourceManager.GetString("InmateHistoryTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `inmate`.
-        /// </summary>
-        internal static string InmateTable {
-            get {
-                return ResourceManager.GetString("InmateTable", resourceCulture);
             }
         }
         
@@ -574,24 +529,6 @@ namespace Roll_Call_And_Management_System.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to `roll_calloninmate`.
-        /// </summary>
-        internal static string RollCallnmateTable {
-            get {
-                return ResourceManager.GetString("RollCallnmateTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `roll_call`.
-        /// </summary>
-        internal static string RollCallTable {
-            get {
-                return ResourceManager.GetString("RollCallTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap search {
@@ -616,15 +553,6 @@ namespace Roll_Call_And_Management_System.Properties {
         internal static string SenderPassword {
             get {
                 return ResourceManager.GetString("SenderPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `sentence`.
-        /// </summary>
-        internal static string SentenceTable {
-            get {
-                return ResourceManager.GetString("SentenceTable", resourceCulture);
             }
         }
         
@@ -748,39 +676,12 @@ namespace Roll_Call_And_Management_System.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to `user`.
-        /// </summary>
-        internal static string UserTable {
-            get {
-                return ResourceManager.GetString("UserTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap view {
             get {
                 object obj = ResourceManager.GetObject("view", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `visitation`.
-        /// </summary>
-        internal static string VisitationTable {
-            get {
-                return ResourceManager.GetString("VisitationTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to `visitor`.
-        /// </summary>
-        internal static string VisitorTable {
-            get {
-                return ResourceManager.GetString("VisitorTable", resourceCulture);
             }
         }
         

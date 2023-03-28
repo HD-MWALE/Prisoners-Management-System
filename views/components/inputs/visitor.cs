@@ -24,11 +24,12 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         }
         public int Id = 0;
         public int InmateId = 0; 
+        public string Code = ""; 
         Inmate Inmate = new Inmate();
         private void btnSave_Click(object sender, EventArgs e)
         {
             Config.ClickSound();
-            Visitor = new Visitor(txtName.Text, txtRelation.Text, txtContact.Text, txtAddress.Text, new Inmate(dpnCode.Text));
+            Visitor = new Visitor(txtName.Text, txtRelation.Text, txtContact.Text, txtAddress.Text, new Inmate(Code));
             if (btnSave.Text != "Update")
                 if (Visitor.Save())
                     Config.Alert("New Visitor Saved.", dashboard.alert.enmType.Success);
@@ -41,28 +42,6 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                     Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
         }
 
-        private void dpnCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Inmate.dataSet = Inmate.GetInmates();
-            if (Inmate.dataSet != null) 
-            {
-                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == dpnCode.Text)
-                        this.dpnFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-            }
-        }
-
-        private void dpnFullname_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Inmate.dataSet = Inmate.GetInmates();
-            if (Inmate.dataSet != null)
-            {
-                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == dpnFullname.Text)
-                        this.dpnCode.Text = AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase);
-            }
-        }
-
         private void visitor_Load(object sender, EventArgs e)
         {
             if (Id != 0)
@@ -72,15 +51,19 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             Inmate.dataSet = Inmate.GetInmates();
             if (Inmate.dataSet != null)
             {
-                this.dpnCode.Items.Clear();
-                this.dpnFullname.Items.Clear();
                 foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
                 {
-                    this.dpnCode.Items.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
-                    this.dpnFullname.Items.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase));
+                    //this.dpnCode.Items.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
+                    //this.dpnFullname.Items.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
                 }
             }
         }
+
         ErrorProvider errornameProvider = new ErrorProvider();
         ErrorProvider errorrelationProvider = new ErrorProvider();
         ErrorProvider errorcontactProvider = new ErrorProvider();
@@ -149,31 +132,65 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             }
         }
 
-        private void dpnCode_Validating(object sender, CancelEventArgs e)
-        {
-            if (dpnCode.Text == "Select")
+        private void txtinmate_Validating(object sender, CancelEventArgs e) 
+        {/*
+            if (txtinmate.Text == "Select") 
             {
-                errorcodeProvider.SetError(dpnCode, codeError);
-                dpnCode.IndicatorColor = Color.Firebrick;
+                errorcodeProvider.SetError(txtinmate, codeError);
+                txtinmate.IndicatorColor = Color.Firebrick;
             }
             else
             {
                 errorcodeProvider.Clear();
-                dpnCode.IndicatorColor = Color.FromArgb(26, 104, 255);
-            }
+                txtinmate.IndicatorColor = Color.FromArgb(26, 104, 255);
+            }*/
         }
 
-        private void dpnFullname_Validating(object sender, CancelEventArgs e)
+        private void txtinmate_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (dpnFullname.Text == "Select")
+            
+        }
+
+        private void lblInmate_Click(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (Inmate.dataSet != null)
             {
-                errorfullNameProvider.SetError(dpnFullname, fullNameError);
-                dpnFullname.IndicatorColor = Color.Firebrick;
-            }
-            else
-            {
-                errorfullNameProvider.Clear();
-                dpnFullname.IndicatorColor = Color.FromArgb(26, 104, 255);
+                this.Cursor = Cursors.WaitCursor;
+                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                {
+                    if (AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase)
+                        + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase)
+                        + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text)
+                    {
+                        Code = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        lblFullName.Text = "Inmate Details";
+                        lblFullName.Text += "\nCode : " + AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase);
+                        lblFullName.Text += "\nName : " + AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        if (dataRow["visiting_privilege"].ToString() == "0")
+                        {
+                            lblFullName.Text += "\nVisiting Privilege : Not Allowed";
+                            lblFullName.ForeColor = Color.Firebrick;
+                            btnSave.Enabled = false;
+                        }
+                        else
+                        {
+                            lblFullName.Text += "\nVisiting Privilege : Allowed";
+                            lblFullName.ForeColor = Color.FromArgb(17, 17, 18);
+                            btnSave.Enabled = true;
+                        }
+                        break;
+                    }
+                }
+                this.Cursor = Cursors.Default;
             }
         }
     }

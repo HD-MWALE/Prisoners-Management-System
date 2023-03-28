@@ -76,7 +76,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string fields = "`name`, `description`, `gendertype`, `type`";
             string data = "'" + Name + "', '" + Description + "', '" + GenderType + "', '" + Type + "'";
-            if (database.Execute.Insert(Properties.Resources.DormitoryTable, fields, data))
+            if (database.Execute.Insert("dormitory", fields, data))
                 return true;
             return false;
         }
@@ -112,7 +112,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetDormitories() 
         {
             string data = "`id`, `name`, `description`, `gendertype`, `type`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.DormitoryTable + " ORDER BY `id`");
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + "dormitory" + " ORDER BY `id`");
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -126,7 +126,7 @@ namespace Roll_Call_And_Management_System.classes
         {
             string data = "`id`, `name`, `description`, `gendertype`, `type`";
             string condition = "`id` = " + id;
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM " + Properties.Resources.DormitoryTable + " WHERE " + condition);
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM dormitory WHERE " + condition);
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;
@@ -139,13 +139,13 @@ namespace Roll_Call_And_Management_System.classes
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `description` = '" + Description + "', `gendertype` = '" + GenderType + "', `type` = '" + Type + "'";
-            if (database.Execute.Update(Properties.Resources.DormitoryTable, data, id))
+            if (database.Execute.Update("dormitory", data, id))
                 return true;
             return false;
         }
         public bool Delete(int id)
         {
-            if (database.Execute.Delete(Properties.Resources.DormitoryTable, id))
+            if (database.Execute.Delete("dormitory", id))
                 return true;
             else
                 return false;
