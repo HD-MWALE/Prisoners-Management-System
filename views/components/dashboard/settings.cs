@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components.modal;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Orientation = Roll_Call_And_Management_System.config.Orientation;
 
 namespace Roll_Call_And_Management_System.views.components.dashboard
 {
@@ -19,6 +21,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         dialog dialog;
         login login;
         bool IsSound = false, IsTheme = false, IsLoggedIn;
+        ColorScheme scheme = new ColorScheme();
         public settings(Form layout, bool isLoggedIn) 
         {
             InitializeComponent();
@@ -31,9 +34,9 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         
         private void settings_Load(object sender, EventArgs e)
         {
-            if (File.Exists(Config.theme))
+            if (File.Exists(scheme.Path))
             {
-                IsTheme = Convert.ToBoolean(File.ReadAllText(Config.theme));
+                IsTheme = Convert.ToBoolean(File.ReadAllText(scheme.Path));
                 if (IsTheme)
                 {
                     btnMode.Image = Properties.Resources.sun;
@@ -49,19 +52,19 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
                     IsTheme = true;
                 }
             }
-            Config.LoadTheme(this.Controls);
-            if (File.Exists(Config.sound))
+            scheme.LoadTheme(this.Controls);
+            if (File.Exists(scheme.Path))
             {
-                IsSound = Convert.ToBoolean(File.ReadAllText(Config.sound));
+                IsSound = Convert.ToBoolean(File.ReadAllText(scheme.Path));
                 if (IsSound)
                 {
-                    Sound.Image = Properties.Resources.toggle_on;
+                    btnIsSound.Image = Properties.Resources.toggle_on;
                     btnSound.Image = Properties.Resources.sound;
                     IsSound = false;
                 }
                 else
                 {
-                    Sound.Image = Properties.Resources.toggle_off;
+                    btnIsSound.Image = Properties.Resources.toggle_off;
                     btnSound.Image = Properties.Resources.mute;
                     IsSound = true;
                 }
@@ -70,22 +73,22 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void Sound_Click(object sender, EventArgs e) 
         {
-            Config.ClickSound();
-            if (File.Exists(Config.sound))
+            ini.Sound.ClickSound(); 
+            if (File.Exists(scheme.Path))
             {
-                File.WriteAllText(Config.sound, string.Empty);
-                File.WriteAllText(Config.sound, IsSound.ToString());
+                File.WriteAllText(Sound.sound, string.Empty);
+                File.WriteAllText(Sound.sound, IsSound.ToString());
             }
             if (IsSound)
             {
                 btnSound.Image = Properties.Resources.sound;
-                Sound.Image = Properties.Resources.toggle_on;
+                btnIsSound.Image = Properties.Resources.toggle_on;
                 IsSound = false;
             }
             else
             {
                 btnSound.Image = Properties.Resources.mute;
-                Sound.Image = Properties.Resources.toggle_off;
+                btnIsSound.Image = Properties.Resources.toggle_off;
                 IsSound = true;
             }
         }
@@ -95,7 +98,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             this.Cursor = Cursors.WaitCursor;
             database.Mysql.Restore();
             this.Cursor = Cursors.Default;
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             dialog = new dialog();
             dialog.Id = 0;
             dialog.Title = "Restart Application";
@@ -106,7 +109,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.SecondaryButton.Click += Restart_Click;
             popup popup = new popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
 
         }
@@ -118,20 +121,20 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void ChangeTheme_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
-            if (File.Exists(Config.theme))
+            ini.Sound.ClickSound();
+            if (File.Exists(scheme.Path))
             {
-                File.WriteAllText(Config.theme, string.Empty);
-                File.WriteAllText(Config.theme, IsTheme.ToString());
+                File.WriteAllText(scheme.Path, string.Empty);
+                File.WriteAllText(scheme.Path, IsTheme.ToString());
                 if (IsLoggedIn)
                 {
-                    Config.LoadTheme(this.dashboard.Controls);
-                    Config.LoadTheme(this.dashboard.menu.popup.Controls);
+                    scheme.LoadTheme(this.dashboard.Controls);
+                    scheme.LoadTheme(this.dashboard.menu.popup.Controls);
                 }
                 else
                 {
-                    Config.LoadTheme(this.login.Controls);
-                    Config.LoadTheme(this.login.popup.Controls);
+                    scheme.LoadTheme(this.login.Controls);
+                    scheme.LoadTheme(this.login.popup.Controls);
                 }
             }
            

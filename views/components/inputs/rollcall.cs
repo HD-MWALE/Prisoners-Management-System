@@ -1,4 +1,5 @@
 ﻿ using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,25 +20,24 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             this.dashboard = dashboard;
         }
         views.dashboard dashboard;
-        classes.Dormitory Dormitory = new classes.Dormitory();
-        classes.Roll_Call Roll_Call = new classes.Roll_Call();
+        
         private void rollcall_Load(object sender, EventArgs e)
         {
             btnStart.Enabled = false;
-            Dormitory.dataSet = Dormitory.GetDormitories();
-            if (Dormitory.dataSet != null)
+            dashboard.Prison.Dormitory.dataSet = dashboard.Prison.Dormitory.GetDormitories();
+            if (dashboard.Prison.Dormitory.dataSet != null)
             {
                 this.dpnDormitory.Items.Clear();
-                foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                    this.dpnDormitory.Items.Add(AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                    this.dpnDormitory.Items.Add(ini.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
             }
         }
         public int DormitoryId = 0;
         private void dpnDormitory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Dormitory.dataSet != null)
-                foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                    if (dpnDormitory.Text == AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
+            if (dashboard.Prison.Dormitory.dataSet != null)
+                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                    if (dpnDormitory.Text == ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
                     {
                         DormitoryId = Convert.ToInt32(dataRow["id"].ToString());
                         break;
@@ -50,13 +50,13 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         facial.scan scan;
         private void btnStart_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
-            Roll_Call = new Roll_Call("RC" + DormitoryId + "-" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"), 1, DormitoryId);
-            Roll_Call.dataSet = Roll_Call.Save();
-            scan = new facial.scan(dashboard, Roll_Call, this);
+            ini.Sound.ClickSound();
+            dashboard.Prison.Roll_Call = new Roll_Call("RC" + DormitoryId + "-" + DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt"), 1, DormitoryId);
+            dashboard.Prison.Roll_Call.dataSet = dashboard.Prison.Roll_Call.Save();
+            scan = new facial.scan(dashboard, this);
             modal.popup popup = new modal.popup(scan);
             popup.Size = scan.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
         }
     }

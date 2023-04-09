@@ -38,95 +38,65 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.lblType = new System.Windows.Forms.Label();
-            this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.txtDescription = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
+            this.bunifuSeparator5 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lable
             // 
             this.lable.AutoSize = true;
-            this.lable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lable.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lable.ForeColor = System.Drawing.Color.White;
-            this.lable.Location = new System.Drawing.Point(30, 25);
+            this.lable.Location = new System.Drawing.Point(38, 77);
             this.lable.Name = "lable";
-            this.lable.Size = new System.Drawing.Size(52, 16);
+            this.lable.Size = new System.Drawing.Size(60, 21);
             this.lable.TabIndex = 19;
             this.lable.Text = "Name ";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(30, 59);
+            this.label1.Location = new System.Drawing.Point(38, 111);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 16);
+            this.label1.Size = new System.Drawing.Size(46, 21);
             this.label1.TabIndex = 20;
             this.label1.Text = "Type";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(30, 93);
+            this.label2.Location = new System.Drawing.Point(38, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 16);
+            this.label2.Size = new System.Drawing.Size(98, 21);
             this.label2.TabIndex = 21;
             this.label2.Text = "Description";
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblName.ForeColor = System.Drawing.Color.White;
-            this.lblName.Location = new System.Drawing.Point(88, 25);
+            this.lblName.Location = new System.Drawing.Point(96, 77);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(52, 16);
+            this.lblName.Size = new System.Drawing.Size(60, 21);
             this.lblName.TabIndex = 120;
             this.lblName.Text = "Name ";
             // 
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblType.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblType.ForeColor = System.Drawing.Color.White;
-            this.lblType.Location = new System.Drawing.Point(88, 59);
+            this.lblType.Location = new System.Drawing.Point(96, 111);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(43, 16);
+            this.lblType.Size = new System.Drawing.Size(46, 21);
             this.lblType.TabIndex = 121;
             this.lblType.Text = "Type";
-            // 
-            // bunifuSeparator2
-            // 
-            this.bunifuSeparator2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator2.LineThickness = 18;
-            this.bunifuSeparator2.Location = new System.Drawing.Point(29, 49);
-            this.bunifuSeparator2.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.bunifuSeparator2.Name = "bunifuSeparator2";
-            this.bunifuSeparator2.Size = new System.Drawing.Size(236, 2);
-            this.bunifuSeparator2.TabIndex = 122;
-            this.bunifuSeparator2.Transparency = 255;
-            this.bunifuSeparator2.Vertical = false;
-            // 
-            // bunifuSeparator1
-            // 
-            this.bunifuSeparator1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
-            this.bunifuSeparator1.LineThickness = 18;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(29, 83);
-            this.bunifuSeparator1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.bunifuSeparator1.Name = "bunifuSeparator1";
-            this.bunifuSeparator1.Size = new System.Drawing.Size(236, 2);
-            this.bunifuSeparator1.TabIndex = 123;
-            this.bunifuSeparator1.Transparency = 255;
-            this.bunifuSeparator1.Vertical = false;
             // 
             // txtDescription
             // 
@@ -158,7 +128,7 @@
             this.txtDescription.IconRight = null;
             this.txtDescription.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(29, 112);
+            this.txtDescription.Location = new System.Drawing.Point(42, 178);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtDescription.Modified = false;
@@ -193,7 +163,7 @@
             this.txtDescription.SelectionLength = 0;
             this.txtDescription.SelectionStart = 0;
             this.txtDescription.ShortcutsEnabled = true;
-            this.txtDescription.Size = new System.Drawing.Size(236, 68);
+            this.txtDescription.Size = new System.Drawing.Size(357, 108);
             this.txtDescription.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
             this.txtDescription.TabIndex = 125;
             this.txtDescription.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -204,21 +174,47 @@
             this.txtDescription.UseSystemPasswordChar = false;
             this.txtDescription.WordWrap = true;
             // 
+            // bunifuSeparator5
+            // 
+            this.bunifuSeparator5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bunifuSeparator5.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator5.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator5.LineThickness = 18;
+            this.bunifuSeparator5.Location = new System.Drawing.Point(30, 67);
+            this.bunifuSeparator5.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.bunifuSeparator5.Name = "bunifuSeparator5";
+            this.bunifuSeparator5.Size = new System.Drawing.Size(369, 2);
+            this.bunifuSeparator5.TabIndex = 175;
+            this.bunifuSeparator5.Transparency = 255;
+            this.bunifuSeparator5.Vertical = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(25, 34);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(134, 25);
+            this.label7.TabIndex = 174;
+            this.label7.Text = "Visitor Details";
+            // 
             // viewcrime
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.Controls.Add(this.bunifuSeparator5);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.txtDescription);
-            this.Controls.Add(this.bunifuSeparator1);
-            this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lable);
             this.Name = "viewcrime";
-            this.Size = new System.Drawing.Size(299, 244);
+            this.Size = new System.Drawing.Size(440, 368);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,8 +227,8 @@
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label lblName;
         public System.Windows.Forms.Label lblType;
-        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
-        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtDescription;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator5;
+        public System.Windows.Forms.Label label7;
     }
 }

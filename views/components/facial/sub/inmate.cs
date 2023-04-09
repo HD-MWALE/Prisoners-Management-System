@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +13,16 @@ namespace Roll_Call_And_Management_System.views.components.facial.sub
 {
     public partial class inmate : UserControl
     {
-        scan scan;
         public inmate(scan scan)
         {
             InitializeComponent();
             this.scan = scan;
         }
+        scan scan;
 
         private void Cancel_Click(object sender, EventArgs e)
         {
-            Config.RemoveSound(); 
+            ini.Sound.RemoveSound(); 
             this.Cancel.Visible = false;
             this.btnCheck.Visible = true;
             this.Icon.Image = Properties.Resources.human_head;
@@ -32,7 +33,7 @@ namespace Roll_Call_And_Management_System.views.components.facial.sub
 
         public void btnCheck_Click(object sender, EventArgs e)
         {
-            Config.CaptureSound();
+            ini.Sound.CaptureSound();
             this.Cancel.Visible = true;
             this.btnCheck.Visible = false;
             this.Icon.Image = Properties.Resources.facial_recognition1;

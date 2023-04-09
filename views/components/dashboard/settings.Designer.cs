@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
             this.lblMode = new System.Windows.Forms.Label();
-            this.Sound = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnIsSound = new Bunifu.Framework.UI.BunifuImageButton();
             this.ChangeTheme = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnBackup = new Bunifu.Framework.UI.BunifuImageButton();
             this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
@@ -42,7 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
             this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.Sound)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnIsSound)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTheme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBackup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMode)).BeginInit();
@@ -62,19 +62,19 @@
             this.lblMode.TabIndex = 5;
             this.lblMode.Text = "Dark Mode";
             // 
-            // Sound
+            // btnIsSound
             // 
-            this.Sound.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Sound.Image = ((System.Drawing.Image)(resources.GetObject("Sound.Image")));
-            this.Sound.ImageActive = null;
-            this.Sound.Location = new System.Drawing.Point(260, 94);
-            this.Sound.Name = "Sound";
-            this.Sound.Size = new System.Drawing.Size(45, 32);
-            this.Sound.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Sound.TabIndex = 14;
-            this.Sound.TabStop = false;
-            this.Sound.Zoom = 5;
-            this.Sound.Click += new System.EventHandler(this.Sound_Click);
+            this.btnIsSound.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnIsSound.Image = ((System.Drawing.Image)(resources.GetObject("btnIsSound.Image")));
+            this.btnIsSound.ImageActive = null;
+            this.btnIsSound.Location = new System.Drawing.Point(260, 94);
+            this.btnIsSound.Name = "btnIsSound";
+            this.btnIsSound.Size = new System.Drawing.Size(45, 32);
+            this.btnIsSound.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnIsSound.TabIndex = 14;
+            this.btnIsSound.TabStop = false;
+            this.btnIsSound.Zoom = 5;
+            this.btnIsSound.Click += new System.EventHandler(this.Sound_Click);
             // 
             // ChangeTheme
             // 
@@ -232,13 +232,13 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.ChangeTheme);
-            this.Controls.Add(this.Sound);
+            this.Controls.Add(this.btnIsSound);
             this.Controls.Add(this.bunifuSeparator2);
             this.Controls.Add(this.lblMode);
             this.Name = "settings";
             this.Size = new System.Drawing.Size(344, 316);
             this.Load += new System.EventHandler(this.settings_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.Sound)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnIsSound)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChangeTheme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBackup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMode)).EndInit();
@@ -252,7 +252,7 @@
         #endregion
 
         private System.Windows.Forms.Label lblMode;
-        private Bunifu.Framework.UI.BunifuImageButton Sound;
+        private Bunifu.Framework.UI.BunifuImageButton btnIsSound;
         private Bunifu.Framework.UI.BunifuImageButton ChangeTheme;
         private Bunifu.Framework.UI.BunifuImageButton btnBackup;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;

@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +18,8 @@ namespace Roll_Call_And_Management_System.views.components
     {
         public views.dashboard dashboard;
         public inputs.dormitory dormitory;
-        public view.dormitory _dormitory; 
-        classes.Dormitory Dormitory = new classes.Dormitory();
+        public view.dormitory _dormitory;
+
         public dormitories(views.dashboard dashboard) 
         {
             InitializeComponent();
@@ -27,12 +28,12 @@ namespace Roll_Call_And_Management_System.views.components
 
         public void dormitories_Load(object sender, EventArgs e)
         {
-            Dormitory.dataSet = Dormitory.GetDormitories();
+            dashboard.Prison.Dormitory.dataSet = dashboard.Prison.Dormitory.GetDormitories();
             this.DormitoryflowLayoutPanel.Controls.Clear();
-            if (Dormitory.dataSet != null)
+            if (dashboard.Prison.Dormitory.dataSet != null)
             {
                 int number = 1;
-                foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
                 {
                     if (number == 26)
                     {
@@ -43,17 +44,17 @@ namespace Roll_Call_And_Management_System.views.components
                         rows.dormitory row = new rows.dormitory(dashboard, this);
                         row.lblNo.Text = number.ToString();
                         row.Id = Convert.ToInt32(dataRow["id"]);
-                        row.lblName.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblName.Text = ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
                         txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
-                        row.lblDescription.Text = AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
+                        row.lblDescription.Text = ini.AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
                         row.lblDescription.MaximumSize = new Size(250, 16);
                         row.lblDescription.AutoSize = true;
-                        row.lblGenderType.Text = AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
-                        row.lblType.Text = AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
+                        row.lblGenderType.Text = ini.AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
+                        row.lblType.Text = ini.AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
                         txtSearch.AutoCompleteCustomSource.Add(row.lblGenderType.Text);
                         txtSearch.AutoCompleteCustomSource.Add(row.lblType.Text);
-                        if (File.Exists(Config.UserRole))
-                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                        if (File.Exists(ini.UserRole))
+                            if (File.ReadAllText(ini.UserRole) != "Admin")
                             {
                                 row.btnEdit.Visible = false;
                                 row.btnDelete.Visible = false;
@@ -74,8 +75,8 @@ namespace Roll_Call_And_Management_System.views.components
                 row.btnView.Visible = false;
                 row.btnDelete.Visible = false;
             }
-            Config.LoadTheme(this.Controls);
-        }
+            ini.ColorScheme.LoadTheme(this.Controls);
+        } 
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
@@ -87,11 +88,11 @@ namespace Roll_Call_And_Management_System.views.components
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
-            dormitory = new inputs.dormitory();
+            ini.Sound.ClickSound();
+            dormitory = new inputs.dormitory(dashboard);
             modal.popup popup = new modal.popup(dormitory);
             popup.Size = dormitory.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             dormitories_Load(sender, e);
             dashboard.SetLoading(false);
@@ -101,20 +102,20 @@ namespace Roll_Call_And_Management_System.views.components
         {
             dashboard.SetLoading(true);
             this.DormitoryflowLayoutPanel.Controls.Clear();
-            foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
+            foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
             {
-                if (AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["gendertype"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["type"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text)
+                if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["gendertype"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["type"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text)
                 {
                     rows.dormitory row = new rows.dormitory(dashboard, this);
                     row.Id = Convert.ToInt32(dataRow["id"]);
-                    row.lblName.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblDescription.Text = AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
-                    row.lblGenderType.Text = AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
-                    row.lblType.Text = AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                    row.lblName.Text = ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                    row.lblDescription.Text = ini.AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
+                    row.lblGenderType.Text = ini.AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
+                    row.lblType.Text = ini.AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
+                    if (File.Exists(ini.UserRole))
+                        if (File.ReadAllText(ini.UserRole) != "Admin")
                         {
                             row.btnEdit.Visible = false;
                             row.btnDelete.Visible = false;
@@ -122,7 +123,7 @@ namespace Roll_Call_And_Management_System.views.components
                     this.DormitoryflowLayoutPanel.Controls.Add(row);
                 }
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
             dashboard.SetLoading(false);
         }
 

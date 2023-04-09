@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components.rows;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,7 @@ namespace Roll_Call_And_Management_System.views.components
 {
     public partial class visitors : UserControl
     {
-        views.dashboard dashboard;
-        Visitor Visitor = new Visitor();
+        public views.dashboard dashboard;
         public visitor visitor;
         public visitors(views.dashboard dashboard)
         {
@@ -27,50 +27,44 @@ namespace Roll_Call_And_Management_System.views.components
 
         public void visitors_Load(object sender, EventArgs e)
         {
-            Visitor.dataSet = Visitor.GetVisitors();
-            this.InmateflowLayoutPanel.Controls.Clear();
-            if (Visitor.dataSet != null)
-            {
-                int number = 1;
-                foreach (DataRow dataRow in Visitor.dataSet.Tables["result"].Rows)
-                {
-                    visitor row = new visitor(dashboard, this);
-                    row.Id = (int)dataRow["id"];
-                    row.lblNo.Text = number.ToString();
-                    row.lblName.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblRelation.Text = AES.Decrypt(dataRow["relation"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblContact.Text = AES.Decrypt(dataRow["contact"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblInmate.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy");
-                    row.btnDelete.Click += BtnDelete_Click;
-                    this.InmateflowLayoutPanel.Controls.Add(row);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
-                        {
-                            row.btnEdit.Visible = false;
-                            row.btnDelete.Visible = false;
-                        }
-                    number++;
-                }
-            }
-            else
+            VisitorsPageList(1);
+        }
+
+        private void VisitorsPageList(int pageNumber) 
+        {
+            lblPageNumber.Text = pageNumber.ToString();
+            dashboard.Prison.Visitor.dataSet = dashboard.Prison.Visitor.GetVisitors();
+            int pageSize = 25;
+            var query = dashboard.Prison.Visitor.dataSet.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            int number = 1;
+
+            this.VisitorflowLayoutPanel.Controls.Clear();
+
+            foreach (var dataRow in query) 
             {
                 visitor row = new visitor(dashboard, this);
-                row.Id = 0;
-                row.lblNo.Text = "";
-                row.lblName.Text = "";
-                row.lblRelation.Text = "";
-                row.lblContact.Text = "No Records Found";
-                row.lblAddress.Text = "";
-                row.lblInmate.Text = "";
-                row.lblDate.Text = "";
-                this.InmateflowLayoutPanel.Controls.Add(row);
-                row.btnEdit.Visible = false;
-                row.btnView.Visible = false;
-                row.btnDelete.Visible = false;
+                row.Id = (int)dataRow["id"];
+                row.lblNo.Text = number.ToString();
+                row.lblName.Text = ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblRelation.Text = ini.AES.Decrypt(dataRow["relation"].ToString(), Properties.Resources.PassPhrase);
+                row.lblContact.Text = ini.AES.Decrypt(dataRow["contact"].ToString(), Properties.Resources.PassPhrase);
+                row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                row.lblInmate.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy");
+                row.btnDelete.Click += BtnDelete_Click;
+                if (File.Exists(ini.UserRole))
+                    if (File.ReadAllText(ini.UserRole) != "Admin")
+                    {
+                        row.btnEdit.Visible = false;
+                        row.btnDelete.Visible = false;
+                    }
+                this.VisitorflowLayoutPanel.Controls.Add(row);
+                number++;
             }
-            Config.LoadTheme(this.Controls);
+
+            lblEntities.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dashboard.Prison.Inmate.dataSet.Tables["result"].Rows.Count + " entities";
+
+            ini.ColorScheme.LoadTheme(this.VisitorflowLayoutPanel.Controls);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -84,14 +78,24 @@ namespace Roll_Call_And_Management_System.views.components
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             input = new inputs.visitor(this);
             modal.popup popup = new modal.popup(input);
             popup.Size = input.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             visitors_Load(sender, e);
             dashboard.SetLoading(false);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            VisitorsPageList((Convert.ToInt32(lblPageNumber.Text) + 1)); 
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            VisitorsPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
         }
     }
 }

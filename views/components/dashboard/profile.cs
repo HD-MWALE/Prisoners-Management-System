@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.SqlServer.Dac.Model;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,16 +31,16 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             if(response.Item2 != "server-error")
                 if (response.Item1 != null)
                     foreach(DataRow row in response.Item1.Tables["result"].Rows) 
-                        if (row[0].ToString() == dashboard.user.Auth[0].ToString())
+                        if (row[0].ToString() == dashboard.Prison.User.Auth[0].ToString())
                         {
                             Id = Convert.ToInt32(row["id"]);
-                            lblUsername.Text = AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtEmail.Text = AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            lblUsername.Text = ini.AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtEmail.Text = ini.AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = ini.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = ini.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = ini.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
                             dtpDateOfBirth.Value = Convert.ToDateTime(row["dob"]); ;
-                            dpnGender.Text = AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = ini.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
                             lblRole.Text = row["role"].ToString();
                         }
         }
@@ -53,11 +54,11 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             if (User.Update(Id))
             {
                 if (!Validate.IsNull(txtPassword.Text))
-                    User.ChangePassword(dashboard.user.Auth, txtPassword.Text);
-                Config.Alert("Profile Updated Successfully.", alert.enmType.Success);
+                    User.ChangePassword(dashboard.Prison.User.Auth, txtPassword.Text);
+                ini.Alerts.Popup("Profile Updated Successfully.", alert.enmType.Success);
             }
             else
-                Config.Alert("Something Went Wrong.", alert.enmType.Error);
+                ini.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
         }
 
         ErrorProvider erroremailProvider = new ErrorProvider();

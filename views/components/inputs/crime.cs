@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,11 +14,12 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 {
     public partial class crime : UserControl
     {
-        classes.Crime Crime;
-        public crime()
+        public crime(views.dashboard dashboard)
         {
             InitializeComponent(); 
+            this.dashboard = dashboard;
         }
+        views.dashboard dashboard;
 
         private void crime_Load(object sender, EventArgs e) 
         {
@@ -30,29 +32,29 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         public int Id = 0;
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             switch (dpnType.Text)
             {
                 case "Minor":
-                    Crime = new classes.Crime(txtName.Text, CrimeType.Minor, txtDescription.Text);
+                    dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Minor, txtDescription.Text);
                     break;
                 case "Major":
-                    Crime = new classes.Crime(txtName.Text, CrimeType.Major, txtDescription.Text);
+                    dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Major, txtDescription.Text);
                     break;
             }
             if (btnSave.Text != "Update")
-                if(!Crime.CheckCrime(txtName.Text))
-                    if (Crime.Save())
-                        Config.Alert("New Crime Saved.", dashboard.alert.enmType.Success);
+                if(!dashboard.Prison.Crime.CheckCrime(txtName.Text))
+                    if (dashboard.Prison.Crime.Save())
+                        ini.Alerts.Popup("New Crime Saved.", views.components.dashboard.alert.enmType.Success);
                     else
-                        Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                        ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
                 else
-                    Config.Alert("Crime Already Exist.", dashboard.alert.enmType.Warning);
+                    ini.Alerts.Popup("Crime Already Exist.", views.components.dashboard.alert.enmType.Warning);
             else
-                if (Crime.Update(Id))
-                    Config.Alert("Crime Updated.", dashboard.alert.enmType.Success);
+                if (dashboard.Prison.Crime.Update(Id))
+                    ini.Alerts.Popup("Crime Updated.", views.components.dashboard.alert.enmType.Success);
                 else
-                    Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                    ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
         }
         ErrorProvider errornameProvider = new ErrorProvider();
         ErrorProvider errordescriptionProvider = new ErrorProvider();

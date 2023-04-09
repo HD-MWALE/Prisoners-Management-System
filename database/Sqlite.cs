@@ -1,4 +1,5 @@
-﻿using SQLitePCL;
+﻿using Roll_Call_And_Management_System.config;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return false;
             }
 
@@ -50,7 +51,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -65,7 +66,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -80,7 +81,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -98,7 +99,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return -1;
             }
         }

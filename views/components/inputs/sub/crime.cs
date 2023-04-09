@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,15 +26,15 @@ namespace Roll_Call_And_Management_System.views.components.inputs.sub
         {
             inmate.Crimes.Remove(txtCrime.Text);
             inmate.pnlCrimeCommitted.Controls.Remove(this);
-            foreach (DataRow dataRow in inmate.Crime.dataSet.Tables["result"].Rows)
-                if (AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == txtCrime.Text)
+            foreach (DataRow dataRow in inmate.inmates.dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
+                if (ini.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == txtCrime.Text)
                     inmate.CrimeTypes.Remove((string)dataRow["type"]);
             inmate.Allocate();
         }
 
         private void crime_Load(object sender, EventArgs e)
         {
-            Config.LoadTheme(this.inmate.Controls);
+            ini.ColorScheme.LoadTheme(this.inmate.Controls);
 
         }
     }

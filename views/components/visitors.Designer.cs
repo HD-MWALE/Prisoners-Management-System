@@ -30,7 +30,7 @@
         {
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label17 = new System.Windows.Forms.Label();
-            this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.VisitorflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
@@ -39,7 +39,13 @@
             this.lblContact = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
+            this.lblEntities = new System.Windows.Forms.Label();
+            this.lblPageNumber = new System.Windows.Forms.Label();
+            this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddNew
@@ -90,17 +96,17 @@
             this.label17.TabIndex = 4;
             this.label17.Text = "Visitors List";
             // 
-            // InmateflowLayoutPanel
+            // VisitorflowLayoutPanel
             // 
-            this.InmateflowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.VisitorflowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.InmateflowLayoutPanel.AutoScroll = true;
-            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 122);
-            this.InmateflowLayoutPanel.Name = "InmateflowLayoutPanel";
-            this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(1017, 317);
-            this.InmateflowLayoutPanel.TabIndex = 70;
+            this.VisitorflowLayoutPanel.AutoScroll = true;
+            this.VisitorflowLayoutPanel.Location = new System.Drawing.Point(40, 122);
+            this.VisitorflowLayoutPanel.Name = "VisitorflowLayoutPanel";
+            this.VisitorflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.VisitorflowLayoutPanel.Size = new System.Drawing.Size(1017, 276);
+            this.VisitorflowLayoutPanel.TabIndex = 70;
             // 
             // panel1
             // 
@@ -209,14 +215,72 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
+            // lblEntities
+            // 
+            this.lblEntities.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblEntities.AutoSize = true;
+            this.lblEntities.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblEntities.ForeColor = System.Drawing.Color.White;
+            this.lblEntities.Location = new System.Drawing.Point(45, 408);
+            this.lblEntities.Name = "lblEntities";
+            this.lblEntities.Size = new System.Drawing.Size(140, 21);
+            this.lblEntities.TabIndex = 103;
+            this.lblEntities.Text = "25 of 100 entities";
+            // 
+            // lblPageNumber
+            // 
+            this.lblPageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPageNumber.AutoSize = true;
+            this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPageNumber.ForeColor = System.Drawing.Color.White;
+            this.lblPageNumber.Location = new System.Drawing.Point(983, 408);
+            this.lblPageNumber.Name = "lblPageNumber";
+            this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
+            this.lblPageNumber.TabIndex = 100;
+            this.lblPageNumber.Text = "100";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::Roll_Call_And_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.ImageActive = null;
+            this.btnPrevious.Location = new System.Drawing.Point(943, 404);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(34, 30);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 102;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Zoom = 5;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::Roll_Call_And_Management_System.Properties.Resources.circled_right;
+            this.btnNext.ImageActive = null;
+            this.btnNext.Location = new System.Drawing.Point(1022, 404);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(34, 30);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 101;
+            this.btnNext.TabStop = false;
+            this.btnNext.Zoom = 5;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // visitors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.lblEntities);
+            this.Controls.Add(this.lblPageNumber);
+            this.Controls.Add(this.btnPrevious);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.InmateflowLayoutPanel);
+            this.Controls.Add(this.VisitorflowLayoutPanel);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.btnAddNew);
             this.Name = "visitors";
@@ -224,6 +288,8 @@
             this.Load += new System.EventHandler(this.visitors_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,7 +298,7 @@
         #endregion
         public Bunifu.Framework.UI.BunifuFlatButton btnAddNew;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.FlowLayoutPanel InmateflowLayoutPanel;
+        private System.Windows.Forms.FlowLayoutPanel VisitorflowLayoutPanel;
         private System.Windows.Forms.Panel panel1;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.Label label4;
@@ -241,5 +307,9 @@
         public System.Windows.Forms.Label lblInmate;
         public System.Windows.Forms.Label lblContact;
         public System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblEntities;
+        private System.Windows.Forms.Label lblPageNumber;
+        private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
+        private Bunifu.Framework.UI.BunifuImageButton btnNext;
     }
 }

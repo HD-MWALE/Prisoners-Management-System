@@ -1,4 +1,5 @@
 ﻿using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components.dashboard;
 using Roll_Call_And_Management_System.views.components.rows;
 using System;
@@ -18,8 +19,6 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 {
     public partial class user : UserControl
     {
-        views.dashboard dashboard;
-        users users;
         public user(views.dashboard dashboard, users users) 
         {
             InitializeComponent();
@@ -28,7 +27,8 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         }
         public int Id = 0;
         public int ButtonCount = 0;
-        public User User = new User(); 
+        views.dashboard dashboard;
+        users users;
         ColorScheme scheme = new ColorScheme();
 
         User.UserRole Role;
@@ -44,8 +44,8 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
-            User = new User(txtEmail.Text,
+            ini.Sound.ClickSound();
+            dashboard.Prison.User = new User(txtEmail.Text,
                             txtUsername.Text,
                             txtFirstName.Text,
                             txtMiddleName.Text,
@@ -55,36 +55,36 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                             Role);
             if (btnSave.Text != "Update")
             {
-                (bool, bool) IsSave = User.Save();
+                (bool, bool) IsSave = dashboard.Prison.User.Save();
                 if (IsSave.Item2)
                 {
                     if (IsSave.Item1)
                     {
-                        Config.Alert("New User Saved.", alert.enmType.Success);
+                        ini.Alerts.Popup("New User Saved.", alert.enmType.Success);
                         btnCancel_Click(sender, e);
                     }
                     else
-                        Config.Alert("Something Went Wrong.", alert.enmType.Error);
+                        ini.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
                 }
                 else
-                    Config.Alert("Please Connect to the Internet.", alert.enmType.Warning);
+                    ini.Alerts.Popup("Please Connect to the Internet.", alert.enmType.Warning);
             }
             else
             {
-                if (User.Update(Id))
+                if (dashboard.Prison.User.Update(Id))
                 {
-                    Config.Alert("User Updated.", alert.enmType.Success);
+                    ini.Alerts.Popup("User Updated.", alert.enmType.Success);
                     btnCancel_Click(sender, e);
                 }
                 else
-                    Config.Alert("Something Went Wrong.", alert.enmType.Error);
+                    ini.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             users.dashboard.lblAction.Text = "List";
             users.Controls.Remove(this);
             dashboard.SetLoading(false);
@@ -95,27 +95,27 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             if (Id != 0)
             {
                 btnSave.Text = "Update";
-                User.dataSet = User.GetUsers().Item1;
-                if (User.dataSet != null)
+                dashboard.Prison.User.dataSet = dashboard.Prison.User.GetUsers().Item1;
+                if (dashboard.Prison.User.dataSet != null)
                 {
-                    foreach (DataRow dataRow in User.dataSet.Tables["result"].Rows)
+                    foreach (DataRow dataRow in dashboard.Prison.User.dataSet.Tables["result"].Rows)
                     {
                         if (Id == Convert.ToInt32(dataRow["id"]))
                         {
                             Id = Convert.ToInt32(dataRow["id"]);
-                            txtEmail.Text = AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
-                            txtUsername.Text = AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                            dpnGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            txtEmail.Text = ini.AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
+                            txtUsername.Text = ini.AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                             dtpDateOfBirth.Value = Convert.ToDateTime(dataRow["dob"]);
                             dpnRole.Text = dataRow["role"].ToString();
                         }
                     }
                 }
             }
-            if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
             {
                 scheme.LightTheme();
             }
@@ -123,7 +123,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             {
                 scheme.DarkTheme();
             }
-            Config.ChangeTheme(scheme, this.Controls);
+            ini.ColorScheme.ChangeTheme(scheme, this.Controls);
         }
 
         private void dpnRole_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,7 +163,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         {
             txtUsername.Text = txtFirstName.Text.Trim().ToLower();
             txtUsername.Text += txtLastName.Text.Trim().ToLower();
-            txtUsername.Text += Config.Random.Next(10, 99) + Config.Random.Next(100, 999);
+            txtUsername.Text += ini.Generate.Random.Next(10, 99) + ini.Generate.Random.Next(100, 999);
         }
         TextBox Gettext = new TextBox();
         
@@ -172,10 +172,9 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             GenerateUsername();
         }
 
-        new Validate Validate = new Validate();
         private void txtEmail_Validating(object sender, CancelEventArgs e)
         {
-            if (Validate.IsEmail(txtEmail.Text))
+            if (ini.Validate.IsEmail(txtEmail.Text))
             {
                 erroremailProvider.Clear();
                 txtEmail.BorderColorActive = Color.FromArgb(26, 104, 200);
@@ -189,7 +188,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtFirstName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtFirstName.Text))
+            if (!ini.Validate.IsText(txtFirstName.Text))
             {
                 errorfirstnameProvider.SetError(txtFirstName, firstnameError);
                 txtFirstName.BorderColorActive = Color.Firebrick;
@@ -208,7 +207,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtLastName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtLastName.Text))
+            if (!ini.Validate.IsText(txtLastName.Text))
             {
                 errorlastnameProvider.SetError(txtLastName, lastnameError);
                 txtLastName.BorderColorActive = Color.Firebrick;

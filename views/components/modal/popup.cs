@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components.facial;
 using Roll_Call_And_Management_System.views.components.inputs;
 using System;
@@ -104,7 +105,7 @@ namespace Roll_Call_And_Management_System.views.components.modal
                     default : break;
                 }
             }
-            if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
             {
                 Header.BackColor = Color.WhiteSmoke;
                 Body.BackColor = Color.White;
@@ -112,22 +113,22 @@ namespace Roll_Call_And_Management_System.views.components.modal
                 Title.BackColor = Color.FromArgb(26, 104, 255);
                 Title.ForeColor = Color.White;
             }
-            if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
                 scheme.LightTheme();
             else
                 scheme.DarkTheme();
-            Config.ChangeTheme(scheme, this.Controls);
-            if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            ini.ColorScheme.ChangeTheme(scheme, this.Controls);
+            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
             {
                 Header.BackColor = Color.FromArgb(26, 104, 255);
                 Title.ForeColor = Color.White;
                 Title.BackColor = Color.FromArgb(26, 104, 255);
                 WindowFrameActiveColor = Color.FromArgb(26, 104, 255);
                 btnClose.BackColor = Color.FromArgb(26, 104, 255);
-                Icon.BackColor = Color.FromArgb(26, 104, 255);
+                IconMenu.BackColor = Color.FromArgb(26, 104, 255);
 
             }
-            if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
             {
                 if (this.dialog == control)
                 {
@@ -478,7 +479,7 @@ namespace Roll_Call_And_Management_System.views.components.modal
 
         public void btnClose_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             this.Close();
         }
     }

@@ -1,4 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Orientation = Roll_Call_And_Management_System.config.Orientation;
 
 namespace Roll_Call_And_Management_System.views.components
 {
@@ -16,7 +19,7 @@ namespace Roll_Call_And_Management_System.views.components
     {
         views.dashboard dashboard;
         inputs.crime crime;
-        classes.Crime Crime = new classes.Crime();
+
         public crimes(views.dashboard dashboard)
         {
             InitializeComponent();
@@ -25,13 +28,13 @@ namespace Roll_Call_And_Management_System.views.components
 
         public void crimes_Load(object sender, EventArgs e)
         {
-            Crime.dataSet = Crime.GetCrimes();
+            dashboard.Prison.Crime.dataSet = dashboard.Prison.Crime.GetCrimes();
             this.CrimeflowLayoutPanel.Controls.Clear();
-            if (Crime.dataSet != null)
+            if (dashboard.Prison.Crime.dataSet != null)
             {
                 txtSearch.AutoCompleteCustomSource.Clear();
                 int number = 1;
-                foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
                 {
                     if (number == 26)
                     {
@@ -41,16 +44,16 @@ namespace Roll_Call_And_Management_System.views.components
                     {
                         rows.crime row = new rows.crime(dashboard, this);
                         row.Id = Convert.ToInt32(dataRow[0]);
-                        row.lblName.Text = AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
+                        row.lblName.Text = ini.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
                         row.lblType.Text = dataRow[2].ToString();
                         txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
                         txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
-                        row.lblDescription.Text = AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
+                        row.lblDescription.Text = ini.AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
                         row.lblDescription.MaximumSize = new Size(340, 16);
                         row.lblDescription.AutoSize = true;
                         this.CrimeflowLayoutPanel.Controls.Add(row);
-                        if (File.Exists(Config.UserRole))
-                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                        if (File.Exists(ini.UserRole))
+                            if (File.ReadAllText(ini.UserRole) != "Admin")
                             {
                                 row.btnEdit.Visible = false;
                                 row.btnDelete.Visible = false;
@@ -75,7 +78,7 @@ namespace Roll_Call_And_Management_System.views.components
                 row.btnView.Visible = false;
                 row.btnDelete.Visible = false;
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
         }
 
         private void Delete_Click(object sender, EventArgs e)
@@ -97,12 +100,12 @@ namespace Roll_Call_And_Management_System.views.components
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             dashboard.SetLoading(true);
-            crime = new inputs.crime();
+            crime = new inputs.crime(dashboard);
             modal.popup popup = new modal.popup(crime);
             popup.Size = crime.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation); 
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);  
             popup.ShowDialog();
             crimes_Load(sender, e);
             dashboard.SetLoading(false);
@@ -111,23 +114,23 @@ namespace Roll_Call_And_Management_System.views.components
         private void btnSearch_Click(object sender, EventArgs e)
         {
             this.CrimeflowLayoutPanel.Controls.Clear();
-            foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
+            foreach (DataRow dataRow in dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
             {
-                if (AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                if (ini.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
                     dataRow[2].ToString() == txtSearch.Text)
                 {
                     rows.crime row = new rows.crime(dashboard, this);
                     row.Id = (int)dataRow[0];
-                    row.lblName.Text = AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
+                    row.lblName.Text = ini.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
                     row.lblType.Text = dataRow[2].ToString();
                     txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
                     txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
-                    row.lblDescription.Text = AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
+                    row.lblDescription.Text = ini.AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
                     row.lblDescription.MaximumSize = new Size(340, 16);
                     row.lblDescription.AutoSize = true;
                     this.CrimeflowLayoutPanel.Controls.Add(row);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                    if (File.Exists(ini.UserRole))
+                        if (File.ReadAllText(ini.UserRole) != "Admin")
                         {
                             row.btnEdit.Visible = false;
                             row.btnDelete.Visible = false;
@@ -138,7 +141,7 @@ namespace Roll_Call_And_Management_System.views.components
                     row.Click += View_Click;
                 }
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +17,6 @@ namespace Roll_Call_And_Management_System.views.components.view
     {
         views.dashboard dashboard;
         rows.history rowhistory;
-        classes.Inmate_History History = new classes.Inmate_History();
-        classes.Inmate Inmate = new classes.Inmate();
         public history(views.dashboard dashboard, rows.history rowhistory)
         {
             InitializeComponent();
@@ -26,21 +26,26 @@ namespace Roll_Call_And_Management_System.views.components.view
 
         public int Id = 0;
         public int InmateId = 0; 
+        ArrayList arrHistory = new ArrayList();
 
         private void history_Load(object sender, EventArgs e)
         {
             if (Id != 0)
             {
-                History.History = History.GetHistory(Id);
-                if (History.History != null)
+                arrHistory = dashboard.Prison.Inmate_History.GetHistory(Id);
+                if (arrHistory != null)
                 {
-                    Id = Convert.ToInt32(History.History[0]);
-                    lblAction.Text = AES.Decrypt(History.History[1].ToString(), Properties.Resources.PassPhrase);
-                    lblStatus.Text = History.History[2].ToString();
-                    lblDate.Text = History.History[3].ToString();
-                    lblRemarks.Text = AES.Decrypt(History.History[4].ToString(), Properties.Resources.PassPhrase);
-                    Inmate.arrayList = Inmate.GetInmate(Convert.ToInt32(History.History[5]));
-                    lblInmate.Text = AES.Decrypt(Inmate.arrayList[0].ToString(), Properties.Resources.PassPhrase) + " - " + AES.Decrypt(Inmate.arrayList[1].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(Inmate.arrayList[2].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(Inmate.arrayList[3].ToString(), Properties.Resources.PassPhrase); History.History[5].ToString();
+                    Id = Convert.ToInt32(arrHistory[0]);
+                    lblAction.Text = ini.AES.Decrypt(arrHistory[1].ToString(), Properties.Resources.PassPhrase);
+                    lblStatus.Text = arrHistory[2].ToString();
+                    lblDate.Text = arrHistory[3].ToString();
+                    lblRemarks.Text = ini.AES.Decrypt(arrHistory[4].ToString(), Properties.Resources.PassPhrase);
+                    dashboard.Prison.Inmate.arrayList = dashboard.Prison.Inmate.GetInmate(Convert.ToInt32(arrHistory[5]));
+                    lblInmate.Text = ini.AES.Decrypt(dashboard.Prison.Inmate.arrayList[0].ToString(), Properties.Resources.PassPhrase) + " - " + 
+                        ini.AES.Decrypt(dashboard.Prison.Inmate.arrayList[1].ToString(), Properties.Resources.PassPhrase) + ", " + 
+                        ini.AES.Decrypt(dashboard.Prison.Inmate.arrayList[2].ToString(), Properties.Resources.PassPhrase) + " " + 
+                        ini.AES.Decrypt(dashboard.Prison.Inmate.arrayList[3].ToString(), Properties.Resources.PassPhrase); 
+                    arrHistory[5].ToString();
                 }
             }
         }

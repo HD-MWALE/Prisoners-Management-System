@@ -106,7 +106,7 @@ namespace Roll_Call_And_Management_System.classes
             return false;
         }
 
-        public DataSet GetCrimes()
+        public DataSet GetAll()
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT crime.`id`, crime.`name`, crime.`type`, crime.`description`, crimes_committed.inmate_id FROM crime INNER JOIN crimes_committed ON crime.`id` = crimes_committed.`crime_id`");
             if (response.Item2 != "server-error")
@@ -117,9 +117,9 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
-        public ArrayList GetCrimes(int id) 
+        public ArrayList GetById(int id) 
         {
-            dataSet = GetCrimes();
+            dataSet = GetAll();
             if (dataSet != null)
             {
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)

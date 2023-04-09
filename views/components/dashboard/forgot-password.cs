@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,12 +14,13 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
     public partial class forgot_password : UserControl
     {
         login login;
+        ColorScheme scheme = new ColorScheme();
         public forgot_password(login login)
         {
             InitializeComponent();
             this.login = login;
             login.panel2.Controls.Add(this);
-            Config.LoadTheme(this.login.Controls);
+            scheme.LoadTheme(this.login.Controls);
         }
         classes.User User = new classes.User();
         private void btnSendCode_Click(object sender, EventArgs e)
@@ -31,13 +33,13 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
                 if (IsSuccess.Item1)
                 {
                     login.panel2.Controls.Remove(this);
-                    Config.Alert("Check your Email.", alert.enmType.Success);
+                    ini.Alerts.Popup("Check your Email.", alert.enmType.Success);
                 }
                 else
-                    Config.Alert("Something Went Wrong.", alert.enmType.Error);
+                    ini.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
             }
             else
-                Config.Alert("Please Connect to the Internet.", alert.enmType.Warning);
+                ini.Alerts.Popup("Please Connect to the Internet.", alert.enmType.Warning);
             login.SetLoading(false);
         }
 

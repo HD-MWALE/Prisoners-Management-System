@@ -2,6 +2,7 @@
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Google.Protobuf.WellKnownTypes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
         List<Image<Gray, byte>> CapturingImages = new List<Image<Gray, byte>>();
         List<string> inmates = new List<string>();
         List<string> NameInmates = new List<string>();
-        int Countface, NumNames, t;
+        int Countface, NumNames, t;  
 
         private void capture_Load(object sender, EventArgs e)
         {
@@ -73,7 +74,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
             }
             catch (Exception ex) 
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
             }
         }
         public void FrameGrabber(object sender, EventArgs e)
@@ -120,13 +121,13 @@ namespace Roll_Call_And_Management_System.views.components.facial
                     MCvTermCriteria termCrit = new MCvTermCriteria(Countface, 0.001);
 
                     //Eigen face recognizer
-                    Recognizer recognizer = new Recognizer(
+                    ini.Recognizer = new Recognizer( 
                     CapturingImages.ToArray(),
                     inmates.ToArray(),
                     2500,
                     ref termCrit);
 
-                    name = recognizer.Recognize(result);
+                    name = ini.Recognizer.Recognize(result);
 
                     //Draw the label for each face detected and recognized
                     currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.FromArgb(26, 104, 255)));
@@ -147,7 +148,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
                    eye,
                    1.1,
                    10,
-                   Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
+                   HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
                    new Size(20, 20));
                 gray.ROI = Rectangle.Empty;
 
@@ -177,7 +178,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             try
             {
                 //Captured face counter
@@ -228,14 +229,14 @@ namespace Roll_Call_And_Management_System.views.components.facial
                     }
                     inmate.pictureBox1.Image = imageBox1.Image.Bitmap;*/
                 }
-                Config.Alert("Face Characteristics Captured.", dashboard.alert.enmType.Success);
+                ini.Alerts.Popup("Face Characteristics Captured.", dashboard.alert.enmType.Success);
             }
             catch
             {
                 this.Enabled = false;
                 MessageBox.Show(" :(");
                 this.Enabled = true;
-                Config.Alert("Enable the face detection first.", dashboard.alert.enmType.Error);
+                ini.Alerts.Popup("Enable the face detection first.", dashboard.alert.enmType.Error);
             }
             inmate.popup.btnClose_Click(sender, new EventArgs());
         }

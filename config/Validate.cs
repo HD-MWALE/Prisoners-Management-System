@@ -21,15 +21,14 @@ namespace Roll_Call_And_Management_System
     {
         // Regular expression used to validate.
         public const string PhoneNumberRegex = @"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$";
-        static bool IsValid = true;
-        public static bool IsNull(string value)
+        public bool IsNull(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return true;
             else
                 return false;
         }
-        public static bool IsTextNumber(string value) 
+        public bool IsTextNumber(string value) 
         {
             if (IsNull(value))
                 return false;
@@ -43,7 +42,7 @@ namespace Roll_Call_And_Management_System
                 return true;
             }
         }
-        public static bool IsText(string name)   
+        public bool IsText(string name)   
         {
             if (IsNull(name))
                 return false;
@@ -57,7 +56,7 @@ namespace Roll_Call_And_Management_System
                 return true;
             }
         }
-        public static bool IsNumber(string number)  
+        public bool IsNumber(string number)  
         {
             if (IsNull(number))
                 return false;
@@ -71,7 +70,7 @@ namespace Roll_Call_And_Management_System
                 return true;
             }
         }
-        public static bool IsEmail(string email) 
+        public bool IsEmail(string email) 
         {
             if (IsNull(email))
                 return false;
@@ -81,7 +80,7 @@ namespace Roll_Call_And_Management_System
                 else
                     return false;
         }
-        public static bool IsPassword(string password) 
+        public bool IsPassword(string password) 
         {
             if (IsNull(password))
                 return false;
@@ -96,14 +95,14 @@ namespace Roll_Call_And_Management_System
                 return true;
             }
         }
-        public static bool IsPhoneNumber(string number)
+        public bool IsPhoneNumber(string number)
         {
             if (IsNull(number))
                 return false;
             else
                 return Regex.IsMatch(number, PhoneNumberRegex); 
         }
-        public static int IsUpperCase(string value) 
+        public int IsUpperCase(string value) 
         {
             var countUpper = 0;
             foreach (var c in value)
@@ -115,7 +114,7 @@ namespace Roll_Call_And_Management_System
             }
             return countUpper;
         }
-        public static int IsLowerCase(string value) 
+        public int IsLowerCase(string value) 
         {
             var countLower = 0;
             foreach (var c in value)

@@ -3,6 +3,7 @@ using crypto;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Ocsp;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.database;
 using Roll_Call_And_Management_System.Properties;
 using Roll_Call_And_Management_System.views.components.dashboard;
@@ -30,7 +31,7 @@ namespace Roll_Call_And_Management_System.views
         public login(User user)
         {
             InitializeComponent();
-            this.user = user;
+            Prison.User = user;
 
             this.Controls.Add(panel);
             this.panel.Controls.Add(cpbLoader);
@@ -40,7 +41,7 @@ namespace Roll_Call_And_Management_System.views
             cpbLoader.Location = new Point((this.Size.Width / 2) - (cpbLoader.Size.Width / 2), (this.Size.Height / 2) - (cpbLoader.Size.Width / 2));
             cpbLoader.BringToFront();
 
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
             this.Paint += login_Paint;
         }
 
@@ -59,12 +60,11 @@ namespace Roll_Call_And_Management_System.views
         //PictureBox pictureBox = new PictureBox();
 
         Panel panel = new Panel();
-        User user;
+        Prison Prison = new Prison();
         private int attempts = 3;
         private int seconds = 10;
         ErrorProvider ErrorUsername = new ErrorProvider();
         ErrorProvider ErrorPassword = new ErrorProvider();
-        new Validate Validate = new Validate();
 
         private bool isCurrentlyActive = false;
         private Pen activeWindowFramePen, inactiveWindowFramePen;
@@ -116,7 +116,7 @@ namespace Roll_Call_And_Management_System.views
             }
             catch (Exception ex)
             {
-
+                ini.Alerts.ServerMessage(ex.ToString());
             }
         }
 
@@ -130,7 +130,7 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             SetLoading(true);
             dialog = new dialog();
             dialog.Id = 0;
@@ -142,7 +142,7 @@ namespace Roll_Call_And_Management_System.views
             dialog.PrimaryButton.Click += Yes_Click;
             popup popup = new popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             SetLoading(false);
         }
@@ -154,13 +154,13 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
-            if (Validate.IsNull(txtUserName.Text))
+            ini.Sound.ClickSound();
+            if (ini.Validate.IsNull(txtUserName.Text))
             {
                 ErrorUsername.SetError(txtUserName, "User Name can not be null.");
                 txtUserName.BorderColorActive = Color.Firebrick;
             }
-            else if (Validate.IsNull(txtPassword.Text))
+            else if (ini.Validate.IsNull(txtPassword.Text))
             {
                 ErrorPassword.SetError(txtPassword, "Password can not be null.");
                 txtPassword.BorderColorActive = Color.Firebrick;
@@ -173,24 +173,24 @@ namespace Roll_Call_And_Management_System.views
                 txtPassword.BorderColorActive = Color.FromArgb(26, 104, 200);
                 if (btnLogin.Text == "Login")
                 {
-                    user = new User(UserName, Password);
+                    Prison.User = new User(UserName, Password);
                     attempts--;
                     if (attempts >= 0)
                     {
                         this.BackColor = Color.FromArgb(42, 42, 40);
-                        (ArrayList, string) responce = user.Login();
+                        (ArrayList, string) responce = Prison.User.Login();
                         if (responce.Item2 != "server-error")
                         {
-                            user.Auth = responce.Item1;
-                            if (user.Auth != null)
+                            Prison.User.Auth = responce.Item1;
+                            if (Prison.User.Auth != null)
                             {
-                                if (user.Auth.Contains("regular"))
+                                if (Prison.User.Auth.Contains("regular"))
                                     GiveAccess();
-                                else if (user.Auth.Contains("new"))
+                                else if (Prison.User.Auth.Contains("new"))
                                 {
                                     ErrorMessage.Text = "Please enter your new password.";
                                     btnLogin.Text = "Save";
-                                    txtUserName.Text = (string)user.Auth[2];
+                                    txtUserName.Text = (string)Prison.User.Auth[2];
                                     txtPassword.Text = string.Empty;
                                     txtUserName.Enabled = false;
                                     txtPassword.Focus();
@@ -227,7 +227,7 @@ namespace Roll_Call_And_Management_System.views
                 }
                 else if (btnLogin.Text == "Save")
                 {
-                    if (user.ChangePassword(user.Auth, txtPassword.Text))
+                    if (Prison.User.ChangePassword(Prison.User.Auth, txtPassword.Text))
                     {
                         GiveAccess();
                     }
@@ -236,13 +236,13 @@ namespace Roll_Call_And_Management_System.views
         }
         private void GiveAccess()
         {
-            Config.Alert("You Logged in Successfully.", alert.enmType.Success);
-            if (File.Exists(Config.UserRole))
+            ini.Alerts.Popup("You Logged in Successfully.", alert.enmType.Success);
+            if (File.Exists(ini.UserRole))
             {
-                File.WriteAllText(Config.UserRole, string.Empty);
-                File.WriteAllText(Config.UserRole, user.Auth[8].ToString());
+                File.WriteAllText(ini.UserRole, string.Empty);
+                File.WriteAllText(ini.UserRole, Prison.User.Auth[8].ToString());
             }
-            dashboard dashboard = new dashboard(user);
+            dashboard dashboard = new dashboard(Prison.User);
             dashboard.Show();
             this.Hide();
             ErrorMessage.Text = "Please enter your login details.";
@@ -280,14 +280,14 @@ namespace Roll_Call_And_Management_System.views
 
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Validate.IsTextNumber(Password))
+            if (!ini.Validate.IsTextNumber(Password))
                 txtPassword.PasswordChar = '\0';
             else
                 txtPassword.PasswordChar = '*';
             string error = "The password must be of length between 8-16 characters, and contain at least ONE 1 Lowercase and ONE 1 Uppercase letter.";
             if (btnLogin.Text == "Save")
             {
-                if (!Validate.IsPassword(Password))
+                if (!ini.Validate.IsPassword(Password))
                 {
                     errorProvider.SetError(txtPassword, error);
                     txtPassword.BorderColorActive = Color.Firebrick;
@@ -376,13 +376,13 @@ namespace Roll_Call_And_Management_System.views
         
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             SetLoading(true);
             settings = new settings(this, false);
             popup = new popup(settings);
             popup.Size = settings.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
-            popup.Icon.Image = Properties.Resources.settings;
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.IconMenu.Image = Properties.Resources.settings;
             popup.ShowDialog();
             SetLoading(false);
         }

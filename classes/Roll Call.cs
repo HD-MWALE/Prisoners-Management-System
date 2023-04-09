@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.SqlServer.Dac.Model;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -93,10 +94,10 @@ namespace Roll_Call_And_Management_System.classes
         {
             Inmate = new Inmate();
             if(Status == 0)
-                if (Config.IsInternet())
+                if (ini.Internet.IsInternetConnectionAvailable())
                 {
                     DataSet set = Inmate.GetInmates();
-                    Config.RollCallEmail((Code, set, InmateId), Warden[1].ToString());
+                    ini.Internet.RollCallEmail((Code, set, InmateId), Warden[1].ToString());
                 } 
             string fields = "`inmate_id`, `roll_call_id`, `status`";
             string data = InmateId + "," + GetId(Code) + ", '" + Status + "'";
@@ -147,7 +148,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetDetails(string code)   
         {
             string data = "`id`,  `code`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `dormitory_id`, `date_created`, `address`, `marital_status`, `eye_color`, `complexion`, `emergency_name`, `emergency_contact`, `emergency_relation`, `visiting_privilege`";
-            string Condition = "rollcall.`inmate_id` =  `id` AND rollcall.`roll_call_id` = " + GetId(code) + ""; 
+            string Condition = "rollcall.`inmate_id` =  `id` AND rollcall.`roll_call_id` = " + GetId(code) + "  Limit 25"; 
             (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate, roll_calloninmate rollcall WHERE " + Condition);
             if (response.Item2 != "server-error")
             {
@@ -160,7 +161,7 @@ namespace Roll_Call_And_Management_System.classes
         public DataSet GetRollCalls() 
         {
             string data = "`id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM roll_call");
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM roll_call Limit 25");
             if (response.Item2 != "server-error")
             {
                 dataSet = response.Item1;

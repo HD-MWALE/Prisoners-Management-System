@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using MySqlX.XDevAPI.Relational;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,23 +24,22 @@ namespace Roll_Call_And_Management_System.views.components
             InitializeComponent();
             this.dashboard = dashboard;
         }
-        Roll_Call Roll_Call = new Roll_Call();
-        Dormitory Dormitory = new Dormitory();
+
         public void rollcall_Load(object sender, EventArgs e)
         {
-            Roll_Call.dataSet = Roll_Call.GetRollCalls();
+            dashboard.Prison.Roll_Call.dataSet = dashboard.Prison.Roll_Call.GetRollCalls();
             this.RollcallflowLayoutPanel.Controls.Clear();
-            if (Roll_Call.dataSet != null)
+            if (dashboard.Prison.Roll_Call.dataSet != null)
             {
                 int number = 1;
-                foreach (DataRow dataRow in Roll_Call.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dashboard.Prison.Roll_Call.dataSet.Tables["result"].Rows)
                 {
                     rows.rollcall row = new rows.rollcall(dashboard, this);
                     row.Id = (int)dataRow["id"];
                     row.lblNo.Text = number.ToString();
                     row.lblCode.Text = dataRow["code"].ToString();
                     row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy hh:mm:ss tt");
-                    row.lblDormitory.Text = AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
+                    row.lblDormitory.Text = ini.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
                     row.lblStatus.Text = dataRow["status"].ToString();
                     row.lblTotalInmates.Text = dataRow["total_inmates"].ToString();
                     row.lblScannedInmates.Text = dataRow["total_inmates"].ToString();
@@ -47,8 +47,8 @@ namespace Roll_Call_And_Management_System.views.components
                     txtSearch.AutoCompleteCustomSource.Add(row.lblDormitory.Text);
                     txtSearch.AutoCompleteCustomSource.Add(row.lblStatus.Text);
                     this.RollcallflowLayoutPanel.Controls.Add(row);
-                    if (File.Exists(Config.UserRole))
-                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                    if (File.Exists(ini.UserRole))
+                        if (File.ReadAllText(ini.UserRole) != "Admin")
                         {
                             row.btnDelete.Visible = false;
                         }
@@ -70,17 +70,17 @@ namespace Roll_Call_And_Management_System.views.components
                 row.btnView.Visible = false;
                 row.btnDelete.Visible = false;
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             _rollcall = new inputs.rollcall(dashboard);
             modal.popup popup = new modal.popup(_rollcall);
             popup.Size = _rollcall.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             rollcall_Load(sender, e);
             dashboard.SetLoading(false);

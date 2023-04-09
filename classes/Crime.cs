@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Google.Protobuf.WellKnownTypes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,9 +59,9 @@ namespace Roll_Call_And_Management_System.classes
 
         public Crime(string name, CrimeType type, string description)
         {
-            Name = AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
             Type = type;
-            Description = AES.Encrypt(description, Properties.Resources.PassPhrase);
+            Description = ini.AES.Encrypt(description, Properties.Resources.PassPhrase);
         }
 
         public DataSet dataSet = new DataSet();
@@ -79,7 +80,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetCrimes();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return true;
             return false;
         }
@@ -89,7 +90,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetCrimes();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }

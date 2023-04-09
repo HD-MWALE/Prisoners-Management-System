@@ -1,4 +1,5 @@
 ﻿using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,15 +20,13 @@ namespace Roll_Call_And_Management_System.views.components.rows
             InitializeComponent();
             this.dashboard = dashboard;
             this.visitors = visitors;
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
         }
         public int Id = 0;
         public int ButtonCount = 0;
-        public Visitor Visitor = new Visitor();
         visitors visitors;
         modal.dialog dialog;
         view.viewvisitor viewvisitor;
-        ColorScheme scheme = new ColorScheme();
         private void visitor_Load(object sender, EventArgs e)
         {
 
@@ -35,21 +34,21 @@ namespace Roll_Call_And_Management_System.views.components.rows
 
         private void Yes_Click(object sender, EventArgs e)
         {
-            Visitor.Delete(Id); 
+            dashboard.Prison.Visitor.Delete(Id); 
             visitors.visitors_Load(sender, e);
-            Config.Alert("Visitor Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            ini.Alerts.Popup("Visitor Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
 
         private void btnEdit_Click(object sender, EventArgs e) 
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
 
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             viewvisitor = new view.viewvisitor();
             viewvisitor.Id = Id;
             viewvisitor.lblFullname.Text = lblName.Text;
@@ -60,7 +59,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             viewvisitor.lblDate.Text = lblDate.Text;
             modal.popup popup = new modal.popup(viewvisitor);
             popup.Size = viewvisitor.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -68,7 +67,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Visitor";
@@ -79,7 +78,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }

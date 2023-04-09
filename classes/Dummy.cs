@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using MySql.Data.MySqlClient;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.database;
 using Roll_Call_And_Management_System.views;
 using System;
@@ -28,7 +29,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             catch (Exception ex)
             {
-                //Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return false;
             }
 
@@ -50,7 +51,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -66,7 +67,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -82,7 +83,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -101,14 +102,14 @@ namespace Roll_Call_And_Management_System.classes
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return -1;
             }
         }
 
         public static DataSet Retrieve(string query)
         {
-            DataSet dataSet = null;
+              DataSet dataSet = null;
             if (Open())
             {
                 dataSet = ExecuteDataSet(query);
@@ -222,6 +223,24 @@ namespace Roll_Call_And_Management_System.classes
             }
         }
 
+        public static void RollCallOnInmate() 
+        {
+            DataSet dataSet = Retrieve("SELECT `id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created` FROM `roll_call` Limit 5460");
+            DataSet dataSet1 = Retrieve("SELECT `id`, `code`, `dormitory_id` FROM `inmate`"); 
+            foreach (DataRow row in dataSet.Tables["result"].Rows)
+            {
+                foreach (DataRow datarow in dataSet1.Tables["result"].Rows) 
+                {
+                    if (row["dormitory_id"].ToString() == datarow["dormitory_id"].ToString())
+                    {
+                        string fields = "`inmate_id`, `roll_call_id`, `status`";
+                        string data = datarow["id"].ToString() + "," + row["id"].ToString() + ", '1'";
+                        Execute.Insert("roll_calloninmate", fields, data);
+                    }
+                }
+            }
+        }
+
         public static void Sentence()
         {
             DataSet dataSet = Retrieve("SELECT `id`, `start_date`, `end_date`, `status`, `inmate_id` FROM `sentence`");
@@ -231,7 +250,7 @@ namespace Roll_Call_And_Management_System.classes
             {
                 int id = Convert.ToInt32(row["id"]);
                 string start_date = year + "-" + Convert.ToDateTime(row["start_date"]).Month + "-" + Convert.ToDateTime(row["start_date"]).Day;
-                string end_date = (year + Convert.ToInt32(Config.Random.Next(1, 25))) + "-" + Convert.ToDateTime(row["end_date"]).Month + "-" + Convert.ToDateTime(row["end_date"]).Day;
+                string end_date = (year + Convert.ToInt32(ini.Generate.Random.Next(1, 25))) + "-" + Convert.ToDateTime(row["end_date"]).Month + "-" + Convert.ToDateTime(row["end_date"]).Day;
                 if (count > 0 && count < 14)
                 {
                     Update("sentence", "`start_date` = '" + start_date + "', `end_date` = '" + end_date + "'", id);
@@ -283,10 +302,10 @@ namespace Roll_Call_And_Management_System.classes
             foreach(DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["description"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["type"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["gendertype"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["description"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["type"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["gendertype"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("dormitory", "`name` = '" + list[1].ToString() + "', `description` = '" + list[2].ToString() + "', `type` = '" + list[3].ToString() + "', `gendertype` = '" + list[4].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
             }
@@ -295,8 +314,8 @@ namespace Roll_Call_And_Management_System.classes
             foreach (DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["description"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["description"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("crime", "`name` = '" + list[1].ToString() + "', `description` = '" + list[2].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
             }
@@ -306,18 +325,18 @@ namespace Roll_Call_And_Management_System.classes
             foreach (DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt("Inmate" + inmate, Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["first_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["middle_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["last_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["gender"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["eye_color"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["complexion"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["marital_status"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["address"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["emergency_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["emergency_contact"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["emergency_relation"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt("Inmate" + inmate, Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["first_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["middle_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["last_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["gender"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["eye_color"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["complexion"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["marital_status"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["address"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["emergency_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["emergency_contact"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["emergency_relation"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("inmate", "`code` = '" + list[1].ToString() + "', `first_name` = '" + list[2].ToString() + "', `middle_name` = '" + list[3].ToString() + "', `last_name` = '" + list[4].ToString() + "', `gender` = '" + list[5].ToString() + "', `eye_color` = '" + list[6].ToString() + "', `complexion` = '" + list[7].ToString() + "', `marital_status` = '" + list[8].ToString() + "', `address` = '" + list[9].ToString() + "', `emergency_name` = '" + list[10].ToString() + "', `emergency_contact` = '" + list[11].ToString() + "', `emergency_relation` = '" + list[12].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
                 inmate++;
@@ -328,14 +347,14 @@ namespace Roll_Call_And_Management_System.classes
             foreach (DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt(row["email"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["email"].ToString().Trim().Split('@')[0], Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["first_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["middle_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["last_name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt("Password4you", Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["otp"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["gender"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["email"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["email"].ToString().Trim().Split('@')[0], Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["first_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["middle_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["last_name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt("Password4you", Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["otp"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["gender"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("user", "`email` = '" + list[1].ToString() + "', `user_name` = '" + list[2].ToString() + "', `first_name` = '" + list[3].ToString() + "', `middle_name` = '" + list[4].ToString() + "', `last_name` = '" + list[5].ToString() + "', `password` = '" + list[6].ToString() + "', `otp` = '" + list[7].ToString() + "', `gender` = '" + list[8].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
             }
@@ -345,10 +364,10 @@ namespace Roll_Call_And_Management_System.classes
             foreach (DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["contact"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["relation"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["address"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["name"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["contact"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["relation"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["address"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("visitor", "`name` = '" + list[1].ToString() + "', `contact` = '" + list[2].ToString() + "', `relation` = '" + list[3].ToString() + "', `address` = '" + list[4].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
             }
@@ -358,8 +377,8 @@ namespace Roll_Call_And_Management_System.classes
             foreach (DataRow row in dataSet.Tables["result"].Rows)
             {
                 list.Add(Convert.ToInt32(row["id"]));
-                list.Add(AES.Encrypt(row["action"].ToString().Trim(), Properties.Resources.PassPhrase));
-                list.Add(AES.Encrypt(row["remarks"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["action"].ToString().Trim(), Properties.Resources.PassPhrase));
+                list.Add(ini.AES.Encrypt(row["remarks"].ToString().Trim(), Properties.Resources.PassPhrase));
                 Update("inmate_history", "`action` = '" + list[1].ToString() + "', `remarks` = '" + list[2].ToString() + "'", Convert.ToInt32(list[0]));
                 list = new ArrayList();
             }

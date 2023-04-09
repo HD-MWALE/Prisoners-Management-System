@@ -1,4 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Roll_Call_And_Management_System.config;
+using Roll_Call_And_Management_System.views.components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -69,18 +71,18 @@ namespace Roll_Call_And_Management_System.classes
 
         public Inmate_History(string action, int status, DateTime date, string remarks, Inmate inmate)
         {
-            Action = AES.Encrypt(action, Properties.Resources.PassPhrase);
+            Action = ini.AES.Encrypt(action, Properties.Resources.PassPhrase);
             Status = status;
             Date = date;
-            Remarks = AES.Encrypt(remarks, Properties.Resources.PassPhrase);
+            Remarks = ini.AES.Encrypt(remarks, Properties.Resources.PassPhrase);
             Inmate = inmate;
         }
         public Inmate_History(string action, int status, DateTime date, string remarks, int inmateId) 
         {
-            Action = AES.Encrypt(action, Properties.Resources.PassPhrase);
+            Action = ini.AES.Encrypt(action, Properties.Resources.PassPhrase);
             Status = status;
             Date = Convert.ToDateTime(date.ToString("yyyy/MM/dd hh:mm:ss tt"));
-            Remarks = AES.Encrypt(remarks, Properties.Resources.PassPhrase); 
+            Remarks = ini.AES.Encrypt(remarks, Properties.Resources.PassPhrase); 
             InmateId = inmateId; 
         }
         public bool Save()
@@ -97,7 +99,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetHistories(); 
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["action"].ToString(), Properties.Resources.PassPhrase) == action)
+                    if (ini.AES.Decrypt(dataRow["action"].ToString(), Properties.Resources.PassPhrase) == action)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }

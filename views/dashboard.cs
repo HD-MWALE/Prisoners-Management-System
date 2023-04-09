@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Presentation;
 using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components;
 using Roll_Call_And_Management_System.views.components.dashboard;
 using Roll_Call_And_Management_System.views.components.modal;
@@ -31,23 +32,7 @@ namespace Roll_Call_And_Management_System.views
         {
             InitializeComponent();
             // Getting user class
-            this.user = user;
-
-            this.Controls.Add(panel);
-
-            // Adding PictureBox to panel control collection
-            panel.Controls.Add(cpbLoader);
-
-            // Docking the panel to dasboard to fill
-            panel.Dock = DockStyle.Fill;
-
-            // Setting PictureBox location to be centered
-            cpbLoader.Location = new Point((this.Size.Width / 2) + (cpbLoader.Size.Width / 2), (this.Size.Height / 2));
-
-            // bring the panel to front of all other controls
-            panel.BringToFront();
-
-            panel.Visible = true;
+            Prison.User = user;
 
             // initalizing UserControls
             menu = new menu(this);
@@ -58,7 +43,7 @@ namespace Roll_Call_And_Management_System.views
             this.Controls.Add(notifications);
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             // bring bar to front of all other controls
             bar.BringToFront();
@@ -76,10 +61,9 @@ namespace Roll_Call_And_Management_System.views
             lblAlert.ForeColor = Color.Firebrick;
         }
         // Declaring objects
-        public User user = new User();
+        public Prison Prison = new Prison();   
         public inmates inmates;
         message message;
-        Roll_Call roll_Call = new Roll_Call();
         visitors visitors;
         dashboardControl dashboardControl;
         users users;
@@ -92,7 +76,6 @@ namespace Roll_Call_And_Management_System.views
         public search search;
         bool sidebar = true, ProfileExpand = false, NotificationExpand = false, SearchExpand = false;
         int inmateid = 0;
-        Panel panel = new Panel();
         //inmate viewinmate;
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -120,10 +103,10 @@ namespace Roll_Call_And_Management_System.views
             timer.Start();
 
             // Setting Username to label 
-            lblUsername.Text = (string)user.Auth[2];
+            lblUsername.Text = (string)Prison.User.Auth[2];
 
             // Checking user role 
-            if (user.Auth[8].ToString() != "Admin")
+            if (Prison.User.Auth[8].ToString() != "Admin")
             {
                 // Setting buttons to visible false
                 btnUsers.Visible = false;
@@ -147,7 +130,7 @@ namespace Roll_Call_And_Management_System.views
         private void btnProfile_Click(object sender, EventArgs e)
         {
             // Click sound
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             if (sidebar)
                 menu.Location = new Point(btnProfile.Location.X + 34, btnProfile.Location.Y + 30);
             else
@@ -180,7 +163,7 @@ namespace Roll_Call_And_Management_System.views
             rollcall.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -199,7 +182,7 @@ namespace Roll_Call_And_Management_System.views
             dormitories.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -246,7 +229,7 @@ namespace Roll_Call_And_Management_System.views
             inmates.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -265,7 +248,7 @@ namespace Roll_Call_And_Management_System.views
             visitors.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -291,7 +274,7 @@ namespace Roll_Call_And_Management_System.views
             dashboardControl.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
             SetLoading(false);
         }
 
@@ -310,7 +293,7 @@ namespace Roll_Call_And_Management_System.views
             users.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -330,7 +313,7 @@ namespace Roll_Call_And_Management_System.views
             reports.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -350,7 +333,7 @@ namespace Roll_Call_And_Management_System.views
             crimes.BringToFront();
 
             // Setting theme (Dark/Light)
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
 
             SetLoading(false);
         }
@@ -437,25 +420,25 @@ namespace Roll_Call_And_Management_System.views
         {
             // Config.ClickSound();
             timer.Start();
-            if (roll_Call.dataSet != null)
+            if (Prison.Roll_Call.dataSet != null)
             {
                 this.notifications.NotificationflowLayoutPanel.Controls.Clear();
-                foreach (DataRow data in roll_Call.dataSet.Tables["result"].Rows)
+                foreach (DataRow data in Prison.Roll_Call.dataSet.Tables["result"].Rows)
                 {
                     if (data["status"].ToString() == "0")
                     {
                         message = new message(this, inmates);
                         message.Id = Convert.ToInt32(data["id"]);
                         message.lblTitle.Text = "Roll Call";
-                        message.lblMessage.Text = AES.Decrypt(data["code"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += " - " + AES.Decrypt(data["last_name"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += ", " + AES.Decrypt(data["first_name"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += " " + AES.Decrypt(data["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text = ini.AES.Decrypt(data["code"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += " - " + ini.AES.Decrypt(data["last_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += ", " + ini.AES.Decrypt(data["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        message.lblMessage.Text += " " + ini.AES.Decrypt(data["middle_name"].ToString(), Properties.Resources.PassPhrase);
                         message.Icon.Image = Properties.Resources.prisoner;
                         this.notifications.NotificationflowLayoutPanel.Controls.Add(message);
                     }
                 }
-                Config.LoadTheme(this.notifications.Controls);
+                ini.ColorScheme.LoadTheme(this.notifications.Controls);
                 this.notifications.lblModel.BackColor = Color.White;  
                 this.notifications.panel2.BackColor = Color.White;
                 this.notifications.NotificationflowLayoutPanel.BackColor = Color.White;
@@ -535,12 +518,12 @@ namespace Roll_Call_And_Management_System.views
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            roll_Call = new Roll_Call();
-            roll_Call.dataSet = roll_Call.GetFeedBack();
-            if (roll_Call.dataSet != null)
+            Prison.Roll_Call = new Roll_Call();
+            Prison.Roll_Call.dataSet = Prison.Roll_Call.GetFeedBack();
+            if (Prison.Roll_Call.dataSet != null)
             {
                 int count = 0;
-                foreach (DataRow data in roll_Call.dataSet.Tables["result"].Rows)
+                foreach (DataRow data in Prison.Roll_Call.dataSet.Tables["result"].Rows)
                     if (data["status"].ToString() == "0")
                         count++;
                 lblAlert.Text = count.ToString();
@@ -624,12 +607,55 @@ namespace Roll_Call_And_Management_System.views
             
         }
 
-        public void SetLoading(bool displayLoader)
+        Panel panel = new Panel();
+        public delegate void Loading(bool IsLoading);
+        public void IsLoading(bool IsLoading)   
         {
-            if (displayLoader)
+            if (IsLoading)
             {
                 this.Invoke((MethodInvoker)delegate
                 {
+                    Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
+
+                    // 
+                    // cpbLoader
+                    // 
+                    cpbLoader.animated = true;
+                    cpbLoader.animationIterval = 5;
+                    cpbLoader.animationSpeed = 10;
+                    cpbLoader.BackColor = Color.Transparent;
+                    // cpbLoader.BackgroundImage = ((Image)(resources.GetObject("cpbLoader.BackgroundImage")));
+                    cpbLoader.BackgroundImageLayout = ImageLayout.Center;
+                    MenuTransition.SetDecoration(cpbLoader, BunifuAnimatorNS.DecorationType.None);
+                    cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+                    cpbLoader.ForeColor = Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+                    cpbLoader.LabelVisible = false;
+                    cpbLoader.LineProgressThickness = 8;
+                    cpbLoader.LineThickness = 5;
+                    cpbLoader.Location = new Point(0, 0);
+                    cpbLoader.Margin = new Padding(10, 9, 10, 9);
+                    cpbLoader.MaxValue = 100;
+                    cpbLoader.Name = "cpbLoader";
+                    cpbLoader.ProgressBackColor = Color.Gainsboro;
+                    cpbLoader.ProgressColor = Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+                    cpbLoader.Size = new Size(100, 100);
+                    cpbLoader.TabIndex = 17;
+                    cpbLoader.Value = 25;
+
+                    // Adding PictureBox to panel control collection
+                    panel.Controls.Add(cpbLoader);
+
+                    // Docking the panel to dasboard to fill
+                    panel.Dock = DockStyle.Fill;
+
+                    // Setting PictureBox location to be centered
+                    cpbLoader.Location = new Point((cpbLoader.Size.Width / 2) - (this.pnlBody.Size.Width / 2), (this.pnlBody.Size.Height / 2));
+
+                    this.pnlBody.Controls.Add(panel);
+
+                    // bring the panel to front of all other controls
+                    // panel.BringToFront();
+
                     panel.Visible = true;
                     this.Cursor = Cursors.WaitCursor;
                 });
@@ -638,10 +664,14 @@ namespace Roll_Call_And_Management_System.views
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    panel.Visible = false;
+                    this.Controls.Remove(panel);
                     this.Cursor = Cursors.Default;
                 });
             }
+        }
+        public void SetLoading(bool displayLoader)
+        {
+			Invoke(new Loading(IsLoading), new object[] { displayLoader });
         }
     }
 }

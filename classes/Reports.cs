@@ -7,22 +7,14 @@ using Roll_Call_And_Management_System.views.components;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
-using DocumentFormat.OpenXml.Spreadsheet;
 using System.Windows.Media;
-using Microsoft.Data.Analysis;
-using System.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using LiveCharts.Definitions.Charts;
+using Roll_Call_And_Management_System.config;
+using CartesianChart = LiveCharts.WinForms.CartesianChart;
 
 namespace Roll_Call_And_Management_System.classes
 {
-    internal class Reports
+    public class Reports
     {
         public static DataTable dataTable = new DataTable();
         public Reports() { }
@@ -165,7 +157,7 @@ namespace Roll_Call_And_Management_System.classes
         }
 
         public void Report(UserControl control)  
-        {
+        {/*
             if (control is dashboardControl)
             {
                 dashboardControl = (dashboardControl)control;
@@ -202,7 +194,7 @@ namespace Roll_Call_And_Management_System.classes
                     Labels = labelsPrison,
                     IsMerged = true,
                     Separator = new Separator { Step = 1 },
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                 });
                 dashboardControl.Population.AxisY.Add(new Axis
                 {
@@ -210,7 +202,7 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                 });
 
                 dataSet = GetDormsPopulation();
@@ -221,7 +213,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
                     foreach (DataRow row in dataSet.Tables["result"].Rows)
                     {
@@ -252,7 +244,7 @@ namespace Roll_Call_And_Management_System.classes
                     Title = "Dormitories",
                     Labels = labelsDorms,
                     ShowLabels= true,
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                     FontSize = 16,
                     Separator = new Separator { Step = 1 },
                 });
@@ -264,13 +256,13 @@ namespace Roll_Call_And_Management_System.classes
                     MinValue = 0,
                     LabelFormatter = value => value.ToString("N")
                 });
-            }
+            }*/
         }
 
         public void DormitoryPopulation(UserControl control) 
         {
             if (control is dashboardControl)
-            {
+            {/*
                 dashboardControl = (dashboardControl)control;
                 DataSet dataSet = GetDormsPopulation(); 
                 Dormitory.dataSet = Dormitory.GetDormitories();
@@ -280,7 +272,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
                     foreach (DataRow row in dataSet.Tables["result"].Rows)
                     {
@@ -322,7 +314,7 @@ namespace Roll_Call_And_Management_System.classes
                     Title = "Inmates",
                     MinValue = 0,
                     LabelFormatter = value => value.ToString("N")
-                });
+                });*/
             }
             else if (control is reports)
             {
@@ -342,19 +334,21 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
                     foreach (DataRow row in dataSet.Tables["result"].Rows)
                     {
-                        //valuesDorms.Add(Convert.ToDouble(row["total"]));
-                        reports.DormitoryPopulationBar.Series.Add(new ColumnSeries
-                        {
-                            Title = AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase),
-                            Values = new ChartValues<double> { Convert.ToDouble(row["total"]) }
-                        });
+                        valuesDorms.Add(Convert.ToDouble(row["total"]));
+                        
                         break;
                     }
                 }
+
+                reports.DormitoryPopulationBar.Series.Add(new ColumnSeries
+                {
+                    Title = "yyyy",
+                    Values = valuesDorms
+                });
                 /*
                 reports.DormitoryPopulationBar.Series = new SeriesCollection
                 {
@@ -370,8 +364,9 @@ namespace Roll_Call_And_Management_System.classes
                 {
                     Title = "Dormitories",
                     Labels = labelsDorms,
+                    LabelsRotation = 70,
                     ShowLabels = true,
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                     FontSize = 16,
                     Separator = new Separator { Step = 1 },
                 });
@@ -394,14 +389,13 @@ namespace Roll_Call_And_Management_System.classes
                 reports.DormitoryPopulationPie.Text = "Number of Inmates In Dormitories";
                 PieSeries myPieSeries;
                 ChartValues<double> myChartValues;
-                bool t = true;
                 foreach (DataRow row in dataSet.Tables["result"].Rows)
                 {
                     myPieSeries = new PieSeries();
 
                     myPieSeries.Foreground = System.Windows.Media.Brushes.Black;
 
-                    myPieSeries.Title = AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                    myPieSeries.Title = ini.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
                     reports.DormitoryPopulationPie.Series.Add(myPieSeries);
 
                     myChartValues = new ChartValues<double>
@@ -412,7 +406,7 @@ namespace Roll_Call_And_Management_System.classes
                     myPieSeries.Values = myChartValues;
 
                     // set the labels of the slices to the categories in the dataset
-                    myPieSeries.LabelPoint = point => $"{point.Y} ({AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
+                    myPieSeries.LabelPoint = point => $"{point.Y} ({ini.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
 
                     // define the location of the legend and set the data labels to display
                     reports.DormitoryPopulationPie.LegendLocation = LegendLocation.Right;
@@ -428,7 +422,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in dataSet.Tables["result"].Rows)
                 {
-                    labelsPrison.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsPrison.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     valuesPrison.Add(Convert.ToDouble(data["count"]));
                 }
 
@@ -450,7 +444,7 @@ namespace Roll_Call_And_Management_System.classes
                     IsMerged = true,
                     FontSize = 18,
                     Separator = new Separator { Step = 1 },
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                 });
                 reports.DormitoryPopulationLine.AxisY.Add(new Axis
                 {
@@ -458,7 +452,7 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                 });
             }
         }
@@ -466,7 +460,7 @@ namespace Roll_Call_And_Management_System.classes
         public void PrisonPopulation(UserControl control)  
         {
             if (control is dashboardControl)
-            {
+            {/*
                 dashboardControl = (dashboardControl)control;
                 DataSet dataSet = GetInmatesPopulation();
 
@@ -499,6 +493,7 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     FontWeight = new System.Windows.FontWeight(),
                     Labels = labelsPrison,
+                    ShowLabels = true,
                     IsMerged = true,
                     Separator = new Separator { Step = 1 },
                     Foreground = System.Windows.Media.Brushes.Black,
@@ -509,8 +504,8 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
-                    Foreground = System.Windows.Media.Brushes.Black,
-                });
+                    Foreground = Brushes.Black,
+                });*/
             }
             else if (control is reports)
             {
@@ -591,13 +586,80 @@ namespace Roll_Call_And_Management_System.classes
                     FontSize = 18,
                     MinValue = 0,
                     IsMerged = true,
-                    Foreground = System.Windows.Media.Brushes.Black,
+                    Foreground = Brushes.Black,
                 });
             }
         }
 
-        public void CrimesCommitted(UserControl control) 
+        public string DormitoryName(string cartesianName)  
         {
+            switch(cartesianName)
+            {
+                case "CellBlock1Line": return "Cell Block 1";
+                case "CellBlock2Line": return "Cell Block 2";
+                case "CellBlock3Line": return "Cell Block 3";
+                case "CellBlock4Line": return "Cell Block 4";
+                case "CellBlock5Line": return "Cell Block 5";
+                case "CellBlock6Line": return "Cell Block 6";
+                case "CellBlock7Line": return "Cell Block 7";
+                case "CellBlock8Line": return "Cell Block 8";
+                case "CellBlock9Line": return "Cell Block 9";
+                case "CellBlock10Line": return "Cell Block 10";
+            }
+            return null;
+        }
+
+        public void DormitoriesPopulation(CartesianChart cartesianChart)
+        {
+            DataSet dataSet = GetDormitoriesPopulation(DormitoryName(cartesianChart.Name)); 
+
+            IChartValues valuesPrison = new ChartValues<double>();
+            IList<string> labelsPrison = new List<string>();
+
+            // Line Graph
+            cartesianChart.Series.Clear();
+            cartesianChart.AxisX.Clear();
+            cartesianChart.AxisY.Clear();
+
+            foreach (DataRow data in dataSet.Tables["result"].Rows)
+            {
+                labelsPrison.Add(data["year"].ToString());
+                valuesPrison.Add(Convert.ToDouble(data["total"]));
+            }
+
+            cartesianChart.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Inmates",
+                        DataLabels = true,
+                        Values = valuesPrison
+                    }
+                };
+
+            cartesianChart.AxisX.Add(new Axis
+            {
+                Title = "Years",
+                FontSize = 18,
+                FontWeight = new System.Windows.FontWeight(),
+                Labels = labelsPrison,
+                IsMerged = true,
+                Separator = new Separator { Step = 1 },
+                Foreground = Brushes.Black,
+            });
+
+            cartesianChart.AxisY.Add(new Axis
+            {
+                Title = "Number of Inmates",
+                FontSize = 18,
+                MinValue = 0,
+                IsMerged = true,
+                Foreground = Brushes.Black,
+            });
+        }
+
+        public void CrimesCommitted(UserControl control) 
+        {/*
             if (control is dashboardControl)
             {
                 dashboardControl = (dashboardControl)control;
@@ -653,7 +715,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    labelsDorms.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
                     foreach (DataRow row in dataSet.Tables["result"].Rows)
                     {
@@ -696,7 +758,7 @@ namespace Roll_Call_And_Management_System.classes
                     MinValue = 0,
                     LabelFormatter = value => value.ToString("N")
                 });
-            }
+            }*/
         }
 
         private void CartesianChart1_DataClick(object sender, ChartPoint chartPoint)
@@ -731,13 +793,24 @@ namespace Roll_Call_And_Management_System.classes
             query += " GROUP BY crime.name";
             return Execute.ExecuteDataSet(query);
         }
+
         public DataSet GetInmatesPopulation()  
         {
-            string query = "SELECT COUNT(*) AS total, YEAR(date_created) AS year, MONTH(date_created) AS month, DAY(date_created) AS day";
-            query += " FROM `inmate`";
+            string query = "SELECT dormitory_id, COUNT(*) AS total, YEAR(date_created) AS year, MONTH(date_created) AS month, DAY(date_created) AS day";
+            query += " FROM `inmate`DormitoriesPopulation";
             query += " GROUP BY YEAR(date_created)";
             return Execute.ExecuteDataSet(query);
         }
+
+        public DataSet GetDormitoriesPopulation(string name) 
+        {
+            string query = "SELECT dormitory.id, dormitory.name, COUNT(inmate.id) AS total, YEAR(inmate.date_created) AS year, MONTH(inmate.date_created) AS month, DAY(inmate.date_created) AS day";
+            query += " FROM `inmate` INNER JOIN `dormitory` ON inmate.dormitory_id = dormitory.id";
+            query += " WHERE dormitory.id = " + Dormitory.GetId(name);
+            query += " GROUP BY YEAR(inmate.date_created)";
+            return Execute.ExecuteDataSet(query);
+        }
+
         public DataSet GetInmatesPopulation(int dormitory)
         {
             string query = "SELECT COUNT(*) AS total";

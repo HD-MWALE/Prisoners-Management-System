@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 using Roll_Call_And_Management_System.classes;
 using Roll_Call_And_Management_System.views;
@@ -15,12 +16,15 @@ namespace Roll_Call_And_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Dummy.RollCall();
+
+            //Thread thread = new Thread(Dummy.RollCallOnInmate);
+            //thread.Start();
+            //Dummy.RollCall();
             //Dummy.Get();
             //Dummy.SetYear();
             //Dummy.Sentence(); 
 
-            //Application.Run(new login(new User()));
+            Application.Run(new login(new User()));
         }
     }
 }

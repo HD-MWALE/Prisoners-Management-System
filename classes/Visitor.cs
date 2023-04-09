@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -58,10 +59,10 @@ namespace Roll_Call_And_Management_System.classes
 
         public Visitor(string name, string relation, string contact, string address, Inmate inmate)
         {
-            Name = AES.Encrypt(name, Properties.Resources.PassPhrase);
-            Relation = AES.Encrypt(relation, Properties.Resources.PassPhrase);
-            Contact = AES.Encrypt(contact, Properties.Resources.PassPhrase);
-            Address = AES.Encrypt(address, Properties.Resources.PassPhrase);
+            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Relation = ini.AES.Encrypt(relation, Properties.Resources.PassPhrase);
+            Contact = ini.AES.Encrypt(contact, Properties.Resources.PassPhrase);
+            Address = ini.AES.Encrypt(address, Properties.Resources.PassPhrase);
             Inmate = inmate;
         }
 

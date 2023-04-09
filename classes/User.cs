@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using Google.Protobuf.WellKnownTypes;
 using Org.BouncyCastle.Ocsp;
 using Org.BouncyCastle.Security;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views;
 using Roll_Call_And_Management_System.views.components;
 using System;
@@ -115,32 +116,32 @@ namespace Roll_Call_And_Management_System.classes
         public User(int id, string email, string username, string firstname, string middlename, string lastname, string gender, DateTime dob)
         {
             Id = id;
-            Email = AES.Encrypt(email, Properties.Resources.PassPhrase);
-            UserName = AES.Encrypt(username, Properties.Resources.PassPhrase);
-            FirstName = AES.Encrypt(firstname, Properties.Resources.PassPhrase);
-            LastName = AES.Encrypt(lastname, Properties.Resources.PassPhrase);
-            MiddleName = AES.Encrypt(middlename, Properties.Resources.PassPhrase);
-            Gender = AES.Encrypt(gender, Properties.Resources.PassPhrase);
+            Email = ini.AES.Encrypt(email, Properties.Resources.PassPhrase);
+            UserName = ini.AES.Encrypt(username, Properties.Resources.PassPhrase);
+            FirstName = ini.AES.Encrypt(firstname, Properties.Resources.PassPhrase);
+            LastName = ini.AES.Encrypt(lastname, Properties.Resources.PassPhrase);
+            MiddleName = ini.AES.Encrypt(middlename, Properties.Resources.PassPhrase);
+            Gender = ini.AES.Encrypt(gender, Properties.Resources.PassPhrase);
             DateOfBirth = dob.ToString("yyyy/MM/dd");
         }
         public User(string email, string username, string firstname, string middlename, string lastname, string gender, DateTime dob, UserRole role)
         {
-            Email = AES.Encrypt(email, Properties.Resources.PassPhrase);
-            UserName = AES.Encrypt(username, Properties.Resources.PassPhrase);
-            FirstName = AES.Encrypt(firstname, Properties.Resources.PassPhrase);
-            LastName = AES.Encrypt(lastname, Properties.Resources.PassPhrase);
-            MiddleName = AES.Encrypt(middlename, Properties.Resources.PassPhrase);
-            Gender = AES.Encrypt(gender, Properties.Resources.PassPhrase);
+            Email = ini.AES.Encrypt(email, Properties.Resources.PassPhrase);
+            UserName = ini.AES.Encrypt(username, Properties.Resources.PassPhrase);
+            FirstName = ini.AES.Encrypt(firstname, Properties.Resources.PassPhrase);
+            LastName = ini.AES.Encrypt(lastname, Properties.Resources.PassPhrase);
+            MiddleName = ini.AES.Encrypt(middlename, Properties.Resources.PassPhrase);
+            Gender = ini.AES.Encrypt(gender, Properties.Resources.PassPhrase);
             Role = role;
-            Password = AES.Encrypt("otp", Properties.Resources.PassPhrase);
-            OTP = AES.Encrypt(Config.Random.Next(100000, 999999).ToString(), Properties.Resources.PassPhrase);
+            Password = ini.AES.Encrypt("otp", Properties.Resources.PassPhrase);
+            OTP = ini.AES.Encrypt(ini.Generate.Random.Next(100000, 999999).ToString(), Properties.Resources.PassPhrase);
             DateOfBirth = dob.ToString("yyyy/MM/dd");
         }
         public User(string username)
         {
             UserName = username;
-            Password = AES.Encrypt("otp", Properties.Resources.PassPhrase);
-            OTP = AES.Encrypt(Config.Random.Next(100000, 999999).ToString(), Properties.Resources.PassPhrase);
+            Password = ini.AES.Encrypt("otp", Properties.Resources.PassPhrase);
+            OTP = ini.AES.Encrypt(ini.Generate.Random.Next(100000, 999999).ToString(), Properties.Resources.PassPhrase);
         }
         //public string[,] List;
         public DataSet dataSet = new DataSet();
@@ -148,14 +149,14 @@ namespace Roll_Call_And_Management_System.classes
 
         public (bool, bool) Save()
         {
-            if (Config.IsInternet())
+            if (ini.Internet.IsInternetConnectionAvailable())
             {
                 string fields = "`email`, `user_name`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `role`, `password`, `otp`";
                 string data = "'" + Email + "', '" + UserName + "', '" + FirstName + "', '" + MiddleName + "', '" + LastName + "', '" + Gender + "', '" + DateOfBirth + "', '" + Role + "', '" + Password + "', '" + OTP + "'";
 
                 if (database.Execute.Insert("user", fields, data))
                 {
-                    Config.Email((AES.Decrypt(UserName, Properties.Resources.PassPhrase), AES.Decrypt(OTP, Properties.Resources.PassPhrase)), AES.Decrypt(Email, Properties.Resources.PassPhrase));
+                    ini.Internet.Email((ini.AES.Decrypt(UserName, Properties.Resources.PassPhrase), ini.AES.Decrypt(OTP, Properties.Resources.PassPhrase)), ini.AES.Decrypt(Email, Properties.Resources.PassPhrase));
                     return (true, true);
                 }
                 return (false, true);
@@ -164,12 +165,12 @@ namespace Roll_Call_And_Management_System.classes
         }
         public (bool, bool) ForgotPassword() 
         {
-            if (Config.IsInternet())
+            if (ini.Internet.IsInternetConnectionAvailable())
             {
                 string data = "`password` = '" + Password + "', `otp` = '" + OTP + "'";
                 if (database.Execute.Update("user", data, GetId(UserName)))
                 {
-                    Config.Email((UserName, AES.Decrypt(OTP, Properties.Resources.PassPhrase)), Email);
+                    ini.Internet.Email((UserName, ini.AES.Decrypt(OTP, Properties.Resources.PassPhrase)), Email);
                     return (true, true);
                 }
                 return (false, true);
@@ -187,9 +188,9 @@ namespace Roll_Call_And_Management_System.classes
             if (response.Item1 != null)
             {
                 foreach (DataRow data in response.Item1.Tables["result"].Rows)
-                    if (AES.Decrypt(Convert.ToString(data["user_name"]), Properties.Resources.PassPhrase) == username)
+                    if (ini.AES.Decrypt(Convert.ToString(data["user_name"]), Properties.Resources.PassPhrase) == username)
                     {
-                        Email = AES.Decrypt(Convert.ToString(data["email"]), Properties.Resources.PassPhrase);
+                        Email = ini.AES.Decrypt(Convert.ToString(data["email"]), Properties.Resources.PassPhrase);
                         return Convert.ToInt32(data["id"]);
                     }
             }
@@ -218,23 +219,23 @@ namespace Roll_Call_And_Management_System.classes
                     foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
                     {
                         Auth = new ArrayList();
-                        if (UserName == AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase)
-                            || Email == AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase))
+                        if (UserName == ini.AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase)
+                            || Email == ini.AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase))
                         {
                             Auth.Add(dataRow["id"]);
-                            Auth.Add(AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["first_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["last_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["middle_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["gender"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["first_name"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["last_name"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["middle_name"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["gender"], Properties.Resources.PassPhrase));
                             Auth.Add(Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy"));
                             Auth.Add((string)dataRow["role"]);
-                            Auth.Add(AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase));
-                            Auth.Add(AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase));
-                            if (AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase) == Password)
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase));
+                            Auth.Add(ini.AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase));
+                            if (ini.AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase) == Password)
                                 Auth.Add("regular");
-                            else if (AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase) == Password)
+                            else if (ini.AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase) == Password)
                                 Auth.Add("new");
                             else
                                 Auth = null;
@@ -254,7 +255,7 @@ namespace Roll_Call_And_Management_System.classes
         }
         public bool ChangePassword(ArrayList Auth, string password)
         {
-            string data = "`otp` = '" + AES.Encrypt("otp", Properties.Resources.PassPhrase) + "', `password` = '" + AES.Encrypt(password, Properties.Resources.PassPhrase) + "'";
+            string data = "`otp` = '" + ini.AES.Encrypt("otp", Properties.Resources.PassPhrase) + "', `password` = '" + ini.AES.Encrypt(password, Properties.Resources.PassPhrase) + "'";
             if (database.Execute.Update("user", data, (int)Auth[0]))
                 return true;
             return false;

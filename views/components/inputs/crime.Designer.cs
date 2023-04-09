@@ -314,7 +314,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "crime";
-            this.Size = new System.Drawing.Size(450, 463);
+            this.Size = new System.Drawing.Size(450, 467);
             this.Load += new System.EventHandler(this.crime_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

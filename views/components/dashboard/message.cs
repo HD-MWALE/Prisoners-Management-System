@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Presentation;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
     {
         views.dashboard dashboard;
         inmates inmates;
+        ColorScheme scheme = new ColorScheme();
         public message(views.dashboard dashboard, inmates inmates)
         {
             InitializeComponent();
@@ -34,8 +36,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         {
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 11.50F, System.Drawing.FontStyle.Bold);
             
-            if (File.Exists(Config.theme))
-                if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (File.Exists(scheme.Path)) 
+                if (Convert.ToBoolean(File.ReadAllText(scheme.Path)))
                 {
                     this.BackColor = Color.FromArgb(26, 104, 255);
                     lblTitle.BackColor = Color.FromArgb(26, 104, 255);
@@ -59,8 +61,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         {
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             
-            if (File.Exists(Config.theme))
-                if (Convert.ToBoolean(File.ReadAllText(Config.theme)))
+            if (File.Exists(scheme.Path))
+                if (Convert.ToBoolean(File.ReadAllText(scheme.Path)))
                 {
                     this.BackColor = Color.WhiteSmoke;
                     lblTitle.BackColor = Color.WhiteSmoke;

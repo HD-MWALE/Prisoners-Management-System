@@ -202,6 +202,12 @@
     <Reference Include="MySqlBackup, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MySqlBackup.1.0.1\lib\MySqlBackup.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="SQLitePCLRaw.core">
@@ -388,7 +394,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculate.cs" />
+    <Compile Include="classes\Prison.cs" />
+    <Compile Include="config\AES.cs" />
+    <Compile Include="config\Alerts.cs" />
+    <Compile Include="config\Calculate.cs" />
     <Compile Include="classes\Crime.cs" />
     <Compile Include="classes\Crimes Committed.cs" />
     <Compile Include="classes\Dormitory.cs" />
@@ -400,8 +409,12 @@
     <Compile Include="classes\Sentence.cs" />
     <Compile Include="classes\User.cs" />
     <Compile Include="classes\Visitor.cs" />
-    <Compile Include="ColorBuilder.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="config\ColorScheme.cs" />
+    <Compile Include="config\Generate.cs" />
+    <Compile Include="config\ini.cs" />
+    <Compile Include="config\Internet.cs" />
+    <Compile Include="config\Orientation.cs" />
+    <Compile Include="config\Sound.cs" />
     <Compile Include="database\Execute.cs" />
     <Compile Include="database\Mysql.cs" />
     <Compile Include="database\Sqlite.cs" />
@@ -422,7 +435,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Validate.cs" />
+    <Compile Include="config\Recognizer.cs" />
+    <Compile Include="config\Validate.cs" />
     <Compile Include="views\components\crimes.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -657,12 +671,6 @@
     <Compile Include="views\components\rows\visitor.Designer.cs">
       <DependentUpon>visitor.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\components\sentences.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="views\components\sentences.Designer.cs">
-      <DependentUpon>sentences.cs</DependentUpon>
-    </Compile>
     <Compile Include="views\components\users.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -856,9 +864,6 @@
     <EmbeddedResource Include="views\components\rows\visitor.resx">
       <DependentUpon>visitor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="views\components\sentences.resx">
-      <DependentUpon>sentences.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="views\components\users.resx">
       <DependentUpon>users.cs</DependentUpon>
     </EmbeddedResource>
@@ -908,6 +913,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appicon.ico" />
+    <None Include="Resources\circled_right.png" />
+    <None Include="Resources\shutdown.png" />
+    <None Include="Resources\go_back.png" />
     <None Include="Resources\human_head.png" />
     <None Include="Resources\handcuffs.png" />
     <None Include="Resources\facial_recognition.png" />

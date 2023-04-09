@@ -1,4 +1,5 @@
 ﻿using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,23 +14,22 @@ namespace Roll_Call_And_Management_System.views.components.rows
 {
     public partial class rollcall : UserControl
     {
-        views.dashboard dashboard;
-        components.rollcall roll;
-        Roll_Call Roll_Call = new Roll_Call();
-        modal.dialog dialog;
-        view.rollcall Rollcall;
         public rollcall(views.dashboard dashboard, components.rollcall roll)
         {
             InitializeComponent();
             this.dashboard = dashboard;
             this.roll = roll;
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
         }
         public int Id = 0;
+        views.dashboard dashboard;
+        components.rollcall roll;
+        modal.dialog dialog;
+        view.rollcall Rollcall;
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             Rollcall = new view.rollcall(dashboard, this.roll);
             Rollcall.Id = Id;
             dashboard.PathSeparator.Visible = true;
@@ -45,7 +45,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Crime";
@@ -56,16 +56,16 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
 
         private void Yes_Click(object sender, EventArgs e)
         {
-            Roll_Call.Delete(Id);
+            dashboard.Prison.Roll_Call.Delete(Id);
             roll.rollcall_Load(sender, e);
-            Config.Alert("Roll Call Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            ini.Alerts.Popup("Roll Call Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
     }
 }

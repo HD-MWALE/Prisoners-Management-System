@@ -1,4 +1,5 @@
-﻿using Roll_Call_And_Management_System.Properties;
+﻿using Roll_Call_And_Management_System.config;
+using Roll_Call_And_Management_System.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,7 +80,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void PbxClose_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             timer1.Interval = 1;
             action = enmAction.close;
         }
@@ -130,7 +131,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
             this.lblMsg.Text = msg;
 
-            Config.AlertSound(type);
+            ini.Sound.AlertSound(type);
             this.Show();
             this.action = enmAction.start;
             this.timer1.Interval = 1;

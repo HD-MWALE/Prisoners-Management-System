@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Presentation;
 using Google.Protobuf.WellKnownTypes;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components.rows;
 using System;
 using System.Collections.Generic;
@@ -27,47 +28,45 @@ namespace Roll_Call_And_Management_System.views.components.view
             this.inmates = inmates;
         }
         public int Id = 0;
-        classes.Inmate Inmate = new classes.Inmate();
-        classes.Crime Crime = new classes.Crime();
-        classes.Crimes_Committed Committed = new classes.Crimes_Committed(); 
-        classes.Dormitory Dormitory = new classes.Dormitory();
-        classes.Inmate_History History = new classes.Inmate_History();
         inputs.history history;
+        DataSet dsInmate = new DataSet(); 
+        DataSet dsCrimesCommitted = new DataSet(); 
+        DataSet dsInmateHistory = new DataSet(); 
         public void inmate_Load(object sender, EventArgs e)
         {
             if (Id != 0)
             {
-                Inmate.dataSet = Inmate.GetInmates();
-                if (Inmate.dataSet != null)
+                dsInmate = dashboard.Prison.Inmate.GetInmates();
+                if (dsInmate != null)
                 {
-                    foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                    foreach (DataRow dataRow in dsInmate.Tables["result"].Rows)
                     {
                         if (Convert.ToInt32(dataRow["id"]) == Id)
                         {
                             Id = Convert.ToInt32(dataRow["id"].ToString());
-                            lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                            lblDormitory.Text = AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
-                            lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                            lblDormitory.Text = ini.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
+                            lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                             lblDateOfBirth.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                            lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                            lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
-                            lblEyeColour.Text = AES.Decrypt(dataRow["eye_color"].ToString(), Properties.Resources.PassPhrase);
-                            lblComplexion.Text = AES.Decrypt(dataRow["complexion"].ToString(), Properties.Resources.PassPhrase);
+                            lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                            lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                            lblEyeColour.Text = ini.AES.Decrypt(dataRow["eye_color"].ToString(), Properties.Resources.PassPhrase);
+                            lblComplexion.Text = ini.AES.Decrypt(dataRow["complexion"].ToString(), Properties.Resources.PassPhrase);
                             bool Isfirst = true;
-                            Committed.dataSet = Committed.GetCrimes();
-                            if(Committed.dataSet != null)
-                                foreach (DataRow data in Committed.dataSet.Tables["result"].Rows) 
+                            dsCrimesCommitted = dashboard.Prison.Crimes_Committed.GetAll();
+                            if(dsCrimesCommitted != null)
+                                foreach (DataRow data in dsCrimesCommitted.Tables["result"].Rows) 
                                 {
                                     if(Convert.ToInt32(dataRow["id"]) == Convert.ToInt32(data["inmate_id"]))
                                     {
                                         if (Isfirst)
                                         {
-                                            lblCrimeCommitted.Text = AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
+                                            lblCrimeCommitted.Text = ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
                                             Isfirst = false;
                                         }
                                         else
-                                            lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
+                                            lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
                                     }
                                 }
                             //lblSentence.Text = AES.Decrypt(dataRow["sentence"].ToString(), Properties.Resources.PassPhrase);
@@ -78,11 +77,11 @@ namespace Roll_Call_And_Management_System.views.components.view
                             DateTimePicker End = new DateTimePicker();
                             Start.Value = Convert.ToDateTime(dataRow["start_date"]);
                             End.Value = Convert.ToDateTime(dataRow["end_date"]);
-                            lblSentence.Text = Calculate.Sentence(Start, End);
-                            lblName.Text = AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
-                            lblContact.Text = AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
-                            lblRelation.Text = AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
-                            ibxFace.ImageLocation = Config.startupPath + "\\Face\\" + AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) + ".bmp";
+                            lblSentence.Text = ini.Calculate.Sentence(Start, End);
+                            lblName.Text = ini.AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
+                            lblContact.Text = ini.AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
+                            lblRelation.Text = ini.AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
+                            ibxFace.ImageLocation = ini.Path + "\\Face\\" + ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) + ".bmp";
                             if (Convert.ToInt32(dataRow["visiting_privilege"]) == 1)
                                 IsAllowed = true;
                             else
@@ -91,20 +90,20 @@ namespace Roll_Call_And_Management_System.views.components.view
                                 VisitingPrivilege.Image = Properties.Resources.toggle_on;
                             else
                                 VisitingPrivilege.Image = Properties.Resources.toggle_off;
-                            History.dataSet = History.GetHistoriesByInmateId(Id);
+                            dsInmateHistory = dashboard.Prison.Inmate_History.GetHistoriesByInmateId(Id);
                             int number = 1;
                             this.HistoryflowLayoutPanel.Controls.Clear();
-                            if (History.dataSet != null)
-                                foreach(DataRow data in History.dataSet.Tables["result"].Rows)
+                            if (dsInmateHistory != null)
+                                foreach(DataRow data in dsInmateHistory.Tables["result"].Rows)
                                 {
                                     rows.history history = new rows.history(dashboard, this);
                                     history.Id = Convert.ToInt32(data["id"]);
                                     history.lblNo.Text = number.ToString();
-                                    history.lblAction.Text = AES.Decrypt(data["action"].ToString(), Properties.Resources.PassPhrase);
+                                    history.lblAction.Text = ini.AES.Decrypt(data["action"].ToString(), Properties.Resources.PassPhrase);
                                     history.lblDate.Text = Convert.ToDateTime(data["date"]).ToString("dd/MM/yyyy hh:mm:ss tt");
                                     txtSearch.AutoCompleteCustomSource.Add(history.lblAction.Text);
-                                    if (File.Exists(Config.UserRole))
-                                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                                    if (File.Exists(ini.UserRole))
+                                        if (File.ReadAllText(ini.UserRole) != "Admin")
                                         {
                                             history.btnEdit.Visible = false;
                                             history.btnDelete.Visible = false;
@@ -118,8 +117,8 @@ namespace Roll_Call_And_Management_System.views.components.view
                     }
                 }
             }
-            
-            Config.LoadTheme(this.inmates.dashboard.Controls);
+
+            ini.ColorScheme.LoadTheme(this.inmates.dashboard.Controls);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -140,12 +139,12 @@ namespace Roll_Call_And_Management_System.views.components.view
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
-            history = new inputs.history();
+            ini.Sound.ClickSound();
+            history = new inputs.history(dashboard);
             history.InmateId = Id.ToString();
             modal.popup popup = new modal.popup(history);
             popup.Size = history.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
             inmate_Load(sender, e);
             dashboard.SetLoading(false);
@@ -157,13 +156,13 @@ namespace Roll_Call_And_Management_System.views.components.view
             if (IsAllowed)
             {
                 VisitingPrivilege.Image = Properties.Resources.toggle_off;
-                Inmate.SetVisitingPrivilege(Id, 0); 
+                dashboard.Prison.Inmate.SetVisitingPrivilege(Id, 0); 
                 IsAllowed = false;
             }
             else
             {
                 VisitingPrivilege.Image = Properties.Resources.toggle_on;
-                Inmate.SetVisitingPrivilege(Id, 1); 
+                dashboard.Prison.Inmate.SetVisitingPrivilege(Id, 1); 
                 IsAllowed = true;
             }
         }

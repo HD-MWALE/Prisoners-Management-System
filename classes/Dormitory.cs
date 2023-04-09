@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Roll_Call_And_Management_System.config;
+using Roll_Call_And_Management_System.views.components;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -64,10 +66,10 @@ namespace Roll_Call_And_Management_System.classes
         }
         public Dormitory(string name, string description, string genderType, string type)
         {
-            Name = AES.Encrypt(name, Properties.Resources.PassPhrase);
-            Description = AES.Encrypt(description, Properties.Resources.PassPhrase);
-            GenderType = AES.Encrypt(genderType, Properties.Resources.PassPhrase);
-            Type = AES.Encrypt(type, Properties.Resources.PassPhrase);
+            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Description = ini.AES.Encrypt(description, Properties.Resources.PassPhrase);
+            GenderType = ini.AES.Encrypt(genderType, Properties.Resources.PassPhrase);
+            Type = ini.AES.Encrypt(type, Properties.Resources.PassPhrase);
         }
 
         public string[,] DormitoryList;
@@ -86,7 +88,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetDormitories();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return true;
             return false;
         }
@@ -96,7 +98,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetDormitories();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == name)
+                    if (ini.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == name)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }

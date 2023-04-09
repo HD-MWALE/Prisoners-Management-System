@@ -41,9 +41,9 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Image = global::Roll_Call_And_Management_System.Properties.Resources.cancel;
             this.btnCancel.ImageActive = null;
-            this.btnCancel.Location = new System.Drawing.Point(226, 6);
+            this.btnCancel.Location = new System.Drawing.Point(225, 8);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(20, 20);
+            this.btnCancel.Size = new System.Drawing.Size(25, 25);
             this.btnCancel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnCancel.TabIndex = 23;
             this.btnCancel.TabStop = false;
@@ -54,11 +54,11 @@
             // 
             this.txtCrime.AutoSize = true;
             this.txtCrime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.txtCrime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCrime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.txtCrime.ForeColor = System.Drawing.Color.White;
-            this.txtCrime.Location = new System.Drawing.Point(8, 7);
+            this.txtCrime.Location = new System.Drawing.Point(8, 9);
             this.txtCrime.Name = "txtCrime";
-            this.txtCrime.Size = new System.Drawing.Size(53, 15);
+            this.txtCrime.Size = new System.Drawing.Size(66, 21);
             this.txtCrime.TabIndex = 24;
             this.txtCrime.Text = "Murder";
             // 
@@ -69,7 +69,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 29);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(0, 38);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(250, 1);
             this.bunifuSeparator1.TabIndex = 25;
@@ -100,7 +100,7 @@
             this.Controls.Add(this.txtCrime);
             this.Controls.Add(this.btnCancel);
             this.Name = "crime";
-            this.Size = new System.Drawing.Size(250, 32);
+            this.Size = new System.Drawing.Size(250, 40);
             this.Load += new System.EventHandler(this.crime_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
             this.ResumeLayout(false);

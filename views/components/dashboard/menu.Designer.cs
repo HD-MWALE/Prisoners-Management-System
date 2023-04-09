@@ -236,7 +236,7 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.DisabledColor = System.Drawing.Color.Gray;
             this.btnExit.Iconcolor = System.Drawing.Color.Transparent;
-            //this.btnExit.Iconimage = global::Roll_Call_And_Management_System.Properties.Icon.shutdown;
+            this.btnExit.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.shutdown;
             this.btnExit.Iconimage_right = null;
             this.btnExit.Iconimage_right_Selected = null;
             this.btnExit.Iconimage_Selected = null;
@@ -260,7 +260,7 @@
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExit.Textcolor = System.Drawing.Color.White;
             this.btnExit.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click); 
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // menu
             // 

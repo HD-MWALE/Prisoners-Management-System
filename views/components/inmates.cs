@@ -13,6 +13,10 @@ using Roll_Call_And_Management_System.classes;
 using Roll_Call_And_Management_System.views.components.rows;
 using System.IO;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Collections.Concurrent;
+using System.Threading;
+using Roll_Call_And_Management_System.config;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Roll_Call_And_Management_System.views.components
 {
@@ -24,31 +28,42 @@ namespace Roll_Call_And_Management_System.views.components
             InitializeComponent();
             this.dashboard = dashboard;
         }
-        Inmate Inmate = new Inmate();
-        Dormitory Dormitory = new Dormitory();
+        
         public inmate row;
         public view.inmate viewinmate; 
         public int Id;
         public void inmates_Load(object sender, EventArgs e)
         {
             viewinmate = new view.inmate(dashboard, this);
-            Dormitory.dataSet = Dormitory.GetDormitories();
-            if(Dormitory.dataSet != null)
+            dashboard.Prison.Dormitory.dataSet = dashboard.Prison.Dormitory.GetDormitories();
+            if (dashboard.Prison.Dormitory.dataSet != null)
             {
                 dpnDormitory.Items.Clear();
                 dpnDormitory.Items.Add("All Dormitories");
                 dpnDormitory.Items.Add("Near To Be Released");
-                foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
                 {
-                    dpnDormitory.Items.Add(AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase));
+                    dpnDormitory.Items.Add(ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase));
                 }
             }
-            Inmate.dataSet = Inmate.GetInmates();
-            lblTotalInmates.Text = "There are " + Inmate.dataSet.Tables["result"].Rows.Count + " Inmates";
-            this.InmateflowLayoutPanel.Controls.Clear();
-            if (Inmate.dataSet != null)
+            InmatesPageList(1);
+            /*
+            Thread t = new Thread(new ThreadStart(loadInmates));
+            t.IsBackground = true;
+            t.Start();*/
+        }
+        public delegate void UpdateRandomNumbers(DataTable dataTable);
+
+        private void loadInmates() 
+        {
+            dashboard.Prison.Inmate.dataSet = dashboard.Prison.Inmate.GetInmates();
+            
+            if (dashboard.Prison.Inmate.dataSet != null)
             {
-                int number = 1;
+                DataTable dataTable = dashboard.Prison.Inmate.dataSet.Tables["result"];
+                Invoke(new UpdateRandomNumbers(Inmates), new object[] { dataTable });
+                Thread.Sleep(500);
+                /*
                 foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
                 {
                     if (number == 26) 
@@ -57,6 +72,7 @@ namespace Roll_Call_And_Management_System.views.components
                     }
                     else
                     {
+                        
                         row = new inmate(dashboard, this);
                         row.Id = Convert.ToInt32(dataRow["id"]);
                         row.lblNo.Text = number.ToString();
@@ -83,9 +99,8 @@ namespace Roll_Call_And_Management_System.views.components
                                 row.btnEdit.Visible = false;
                                 row.btnDelete.Visible = false;
                             }
-                        number++;
                     }
-                }
+                }*/
             }
             else
             {
@@ -103,7 +118,24 @@ namespace Roll_Call_And_Management_System.views.components
                 row.btnView.Visible = false;
                 row.btnDelete.Visible = false;
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
+        }
+
+        private void Inmates(DataTable dataTable)
+        {
+            int number = 1;
+            lblTotalInmates.Text = "There are " + dataTable.Rows.Count + " Inmates";
+            this.InmateflowLayoutPanel.Controls.Clear();/*
+            Parallel.ForEach(dataTable.AsEnumerable(), currentRow =>
+            {
+                
+            });*/
+
+            var options = new ParallelOptions { MaxDegreeOfParallelism = 8 };
+            Parallel.ForEach(dataTable.AsEnumerable(), options, currentRow => 
+            {
+                
+            });
         }
 
         private void Delete_Click(object sender, EventArgs e)
@@ -132,7 +164,7 @@ namespace Roll_Call_And_Management_System.views.components
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             inmate = new inputs.inmate(this); 
             dashboard.PathSeparator.Visible = true; 
             dashboard.lblAction.Visible = true;
@@ -140,7 +172,7 @@ namespace Roll_Call_And_Management_System.views.components
             this.Controls.Add(inmate);
             inmate.Dock = DockStyle.Fill;
             inmate.BringToFront();
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
             dashboard.SetLoading(false);
         }
 
@@ -150,15 +182,15 @@ namespace Roll_Call_And_Management_System.views.components
             dpnDormitory.Text = "Search Results";
             this.InmateflowLayoutPanel.Controls.Clear();
             int number = 1;
-            foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+            foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
             {
-                if (AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text)
+                if (ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                    ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text)
                 {
                     if (number == 26)
                     {
@@ -169,19 +201,19 @@ namespace Roll_Call_And_Management_System.views.components
                         inmate row = new inmate(dashboard, this);
                         row.Id = (int)dataRow["id"];
                         row.lblNo.Text = number.ToString();
-                        row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                         row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                        row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                         this.InmateflowLayoutPanel.Controls.Add(row);
                         row.btnEdit.Click += Edit_Click;
                         row.btnView.Click += View_Click;
                         row.btnDelete.Click += Delete_Click;
                         row.Click += View_Click;
-                        if (File.Exists(Config.UserRole))
-                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                        if (File.Exists(ini.UserRole))
+                            if (File.ReadAllText(ini.UserRole) != "Admin")
                             {
                                 row.btnEdit.Visible = false;
                                 row.btnDelete.Visible = false;
@@ -190,7 +222,7 @@ namespace Roll_Call_And_Management_System.views.components
                     }
                 }
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
             dashboard.SetLoading(false);
         }
 
@@ -198,16 +230,16 @@ namespace Roll_Call_And_Management_System.views.components
         {
             int number = 1;
             dashboard.SetLoading(true);
-            foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+            foreach (DataRow data in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
             {
                 this.InmateflowLayoutPanel.Controls.Clear();
                 //dpnDormitory.Items.Clear();
                 //dpnDormitory.Items.Add(AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                 if (dpnDormitory.Text == "Search Results")
                     break;
-                if (AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase) == dpnDormitory.Text)
+                if (ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase) == dpnDormitory.Text)
                 {
-                    foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                    foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
                     {
                         if (dpnDormitory.Text == "Near To Be Released")
                         {
@@ -223,19 +255,19 @@ namespace Roll_Call_And_Management_System.views.components
                                     inmate row = new inmate(dashboard, this);
                                     row.Id = (int)dataRow["id"];
                                     row.lblNo.Text = number.ToString();
-                                    row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                                     row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                                    row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                                     this.InmateflowLayoutPanel.Controls.Add(row);
                                     row.btnEdit.Click += Edit_Click;
                                     row.btnView.Click += View_Click;
                                     row.btnDelete.Click += Delete_Click;
                                     row.Click += View_Click;
-                                    if (File.Exists(Config.UserRole))
-                                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                                    if (File.Exists(ini.UserRole))
+                                        if (File.ReadAllText(ini.UserRole) != "Admin")
                                         {
                                             row.btnEdit.Visible = false;
                                             row.btnDelete.Visible = false;
@@ -257,19 +289,19 @@ namespace Roll_Call_And_Management_System.views.components
                                     inmate row = new inmate(dashboard, this);
                                     row.Id = (int)dataRow["id"];
                                     row.lblNo.Text = number.ToString();
-                                    row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                                     row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                                    row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                                    row.lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                                    row.lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                                     this.InmateflowLayoutPanel.Controls.Add(row);
                                     row.btnEdit.Click += Edit_Click;
                                     row.btnView.Click += View_Click;
                                     row.btnDelete.Click += Delete_Click;
                                     row.Click += View_Click;
-                                    if (File.Exists(Config.UserRole))
-                                        if (File.ReadAllText(Config.UserRole) != "Admin")
+                                    if (File.Exists(ini.UserRole))
+                                        if (File.ReadAllText(ini.UserRole) != "Admin")
                                         {
                                             row.btnEdit.Visible = false;
                                             row.btnDelete.Visible = false;
@@ -279,12 +311,12 @@ namespace Roll_Call_And_Management_System.views.components
                             }
                         }
                     }
-                    Config.LoadTheme(this.Controls);
+                    ini.ColorScheme.LoadTheme(this.Controls);
                     break;
                 }
                 else if(dpnDormitory.Text == "Near To Be Released")
                 {
-                    foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                    foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
                     {
                         if (Convert.ToDateTime(dataRow["end_date"]) > DateTime.Now &&
                             Convert.ToDateTime(dataRow["end_date"]) < DateTime.Now.Date.AddMonths(6))
@@ -298,19 +330,19 @@ namespace Roll_Call_And_Management_System.views.components
                                 inmate row = new inmate(dashboard, this);
                                 row.Id = (int)dataRow["id"];
                                 row.lblNo.Text = number.ToString();
-                                row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                                row.lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                                row.lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                                row.lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                                row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                                row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                                 row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                                row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                                row.lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                                row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                                row.lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                                 this.InmateflowLayoutPanel.Controls.Add(row);
                                 row.btnEdit.Click += Edit_Click;
                                 row.btnView.Click += View_Click;
                                 row.btnDelete.Click += Delete_Click;
                                 row.Click += View_Click;
-                                if (File.Exists(Config.UserRole))
-                                    if (File.ReadAllText(Config.UserRole) != "Admin")
+                                if (File.Exists(ini.UserRole))
+                                    if (File.ReadAllText(ini.UserRole) != "Admin")
                                     {
                                         row.btnEdit.Visible = false;
                                         row.btnDelete.Visible = false;
@@ -319,7 +351,7 @@ namespace Roll_Call_And_Management_System.views.components
                             }
                         }
                     }
-                    Config.LoadTheme(this.Controls);
+                    ini.ColorScheme.LoadTheme(this.Controls);
                     break;
                 }
             }
@@ -350,7 +382,7 @@ namespace Roll_Call_And_Management_System.views.components
             dpnDormitory.Text = btnPList.Text;
             this.InmateflowLayoutPanel.Controls.Clear();
             int number = 1;
-            foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+            foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
             {
                 if (Convert.ToDateTime(dataRow["end_date"]) > DateTime.Now &&
                     Convert.ToDateTime(dataRow["end_date"]) < DateTime.Now.Date.AddMonths(6))
@@ -364,19 +396,19 @@ namespace Roll_Call_And_Management_System.views.components
                         inmate row = new inmate(dashboard, this);
                         row.Id = (int)dataRow["id"];
                         row.lblNo.Text = number.ToString();
-                        row.lblCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblFullname.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                         row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                        row.lblAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                         this.InmateflowLayoutPanel.Controls.Add(row);
                         row.btnEdit.Click += Edit_Click;
                         row.btnView.Click += View_Click;
                         row.btnDelete.Click += Delete_Click;
                         row.Click += View_Click;
-                        if (File.Exists(Config.UserRole))
-                            if (File.ReadAllText(Config.UserRole) != "Admin")
+                        if (File.Exists(ini.UserRole))
+                            if (File.ReadAllText(ini.UserRole) != "Admin")
                             {
                                 row.btnEdit.Visible = false;
                                 row.btnDelete.Visible = false;
@@ -385,7 +417,64 @@ namespace Roll_Call_And_Management_System.views.components
                     }
                 }
             }
-            Config.LoadTheme(this.Controls);
+            ini.ColorScheme.LoadTheme(this.Controls);
+        }
+
+        private void InmatesPageList(int pageNumber)
+        {
+            lblPageNumber.Text = pageNumber.ToString();
+            dashboard.Prison.Inmate.dataSet = dashboard.Prison.Inmate.GetInmates();
+            int pageSize = 25;
+            var query = dashboard.Prison.Inmate.dataSet.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            int number = 1;
+
+            this.InmateflowLayoutPanel.Controls.Clear();
+
+            foreach (var currentRow in query)
+            {
+                inmate row = new inmate(dashboard, this);
+                row.Id = Convert.ToInt32(currentRow["id"]);
+                row.lblNo.Text = number.ToString();
+                row.lblCode.Text = ini.AES.Decrypt(currentRow["code"].ToString(), Properties.Resources.PassPhrase);
+                row.lblFullname.Text = ini.AES.Decrypt(currentRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(currentRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(currentRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblGender.Text = ini.AES.Decrypt(currentRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                row.lblDoB.Text = Convert.ToDateTime(currentRow["dob"]).ToString("dd/MM/yyyy");
+                row.lblAddress.Text = ini.AES.Decrypt(currentRow["address"].ToString(), Properties.Resources.PassPhrase);
+                row.lblMaritalStatus.Text = ini.AES.Decrypt(currentRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                /*txtSearch.AutoCompleteCustomSource.Add(row.lblCode.Text);
+                txtSearch.AutoCompleteCustomSource.Add(row.lblFullname.Text);
+                txtSearch.AutoCompleteCustomSource.Add(AES.Decrypt(currentRow["first_name"].ToString(), Properties.Resources.PassPhrase));
+                txtSearch.AutoCompleteCustomSource.Add(AES.Decrypt(currentRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                txtSearch.AutoCompleteCustomSource.Add(AES.Decrypt(currentRow["last_name"].ToString(), Properties.Resources.PassPhrase));
+                txtSearch.AutoCompleteCustomSource.Add(row.lblMaritalStatus.Text);
+                */
+                row.btnEdit.Click += Edit_Click;
+                row.btnView.Click += View_Click;
+                row.btnDelete.Click += Delete_Click;
+                row.Click += View_Click;
+                if (File.Exists(ini.UserRole))
+                    if (File.ReadAllText(ini.UserRole) != "Admin")
+                    {
+                        row.btnEdit.Visible = false;
+                        row.btnDelete.Visible = false;
+                    }
+                this.InmateflowLayoutPanel.Controls.Add(row);
+                number++;
+            }
+
+            lblEntities.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dashboard.Prison.Inmate.dataSet.Tables["result"].Rows.Count + " entities";
+
+            ini.ColorScheme.LoadTheme(this.InmateflowLayoutPanel.Controls);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            InmatesPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            InmatesPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
         }
     }
 }

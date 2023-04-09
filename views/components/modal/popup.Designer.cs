@@ -31,11 +31,11 @@
             this.Header = new System.Windows.Forms.Panel();
             this.btnClose = new Bunifu.Framework.UI.BunifuImageButton();
             this.Title = new System.Windows.Forms.Label();
-            this.Icon = new Bunifu.Framework.UI.BunifuImageButton();
+            this.IconMenu = new Bunifu.Framework.UI.BunifuImageButton();
             this.Body = new System.Windows.Forms.Panel();
             this.Header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Icon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IconMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // Header
@@ -43,7 +43,7 @@
             this.Header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
             this.Header.Controls.Add(this.btnClose);
             this.Header.Controls.Add(this.Title);
-            this.Header.Controls.Add(this.Icon);
+            this.Header.Controls.Add(this.IconMenu);
             this.Header.Dock = System.Windows.Forms.DockStyle.Top;
             this.Header.Location = new System.Drawing.Point(0, 0);
             this.Header.Name = "Header";
@@ -77,18 +77,18 @@
             this.Title.TabIndex = 33;
             this.Title.Text = "Popup Message";
             // 
-            // Icon
+            // IconMenu
             // 
-            this.Icon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Icon.Image = global::Roll_Call_And_Management_System.Properties.Resources.popup_window;
-            this.Icon.ImageActive = null;
-            this.Icon.Location = new System.Drawing.Point(10, 10);
-            this.Icon.Name = "Icon";
-            this.Icon.Size = new System.Drawing.Size(25, 25);
-            this.Icon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Icon.TabIndex = 32;
-            this.Icon.TabStop = false;
-            this.Icon.Zoom = 0;
+            this.IconMenu.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IconMenu.Image = global::Roll_Call_And_Management_System.Properties.Resources.popup_window;
+            this.IconMenu.ImageActive = null;
+            this.IconMenu.Location = new System.Drawing.Point(10, 10);
+            this.IconMenu.Name = "IconMenu";
+            this.IconMenu.Size = new System.Drawing.Size(25, 25);
+            this.IconMenu.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.IconMenu.TabIndex = 32;
+            this.IconMenu.TabStop = false;
+            this.IconMenu.Zoom = 0;
             // 
             // Body
             // 
@@ -116,7 +116,7 @@
             this.Header.ResumeLayout(false);
             this.Header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Icon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IconMenu)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -126,6 +126,6 @@
         public System.Windows.Forms.Panel Header;
         public System.Windows.Forms.Label Title;
         public Bunifu.Framework.UI.BunifuImageButton btnClose;
-        public Bunifu.Framework.UI.BunifuImageButton Icon;
+        public Bunifu.Framework.UI.BunifuImageButton IconMenu;
     }
 }

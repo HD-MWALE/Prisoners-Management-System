@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,7 +25,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return false;
             }
 
@@ -44,7 +45,7 @@ namespace Roll_Call_And_Management_System.database
                     {
                         cmd.Connection = conn;
                         conn.Open();
-                        mb.ExportToFile(Config.Backup);
+                        mb.ExportToFile(ini.Backup); 
                         conn.Close();
                     }
                 }
@@ -60,7 +61,7 @@ namespace Roll_Call_And_Management_System.database
                     {
                         cmd.Connection = conn;
                         conn.Open();
-                        mb.ImportFromFile(Config.Backup);
+                        mb.ImportFromFile(ini.Backup);
                         conn.Close();
                     }
                 }
@@ -77,7 +78,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -92,7 +93,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -103,12 +104,12 @@ namespace Roll_Call_And_Management_System.database
                 MySqlDataReader reader;
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 reader = cmd.ExecuteReader();
-                Backup();
+                //Backup();
                 return reader;
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
@@ -127,7 +128,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
                 return -1;
             }
         }

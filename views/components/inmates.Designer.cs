@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(inmates));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties13 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties14 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties15 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties16 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties9 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties10 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties11 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties12 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label17 = new System.Windows.Forms.Label();
             this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -54,7 +54,13 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.lblTotalInmates = new System.Windows.Forms.Label();
+            this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
+            this.lblPageNumber = new System.Windows.Forms.Label();
+            this.lblEntities = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddNew
@@ -86,7 +92,7 @@
             this.btnAddNew.OnHovercolor = System.Drawing.Color.Green;
             this.btnAddNew.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAddNew.selected = false;
-            this.btnAddNew.Size = new System.Drawing.Size(153, 32);
+            this.btnAddNew.Size = new System.Drawing.Size(153, 45);
             this.btnAddNew.TabIndex = 68;
             this.btnAddNew.Text = "New Inmate";
             this.btnAddNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -97,11 +103,11 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(41, 36);
+            this.label17.Location = new System.Drawing.Point(35, 36);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(119, 24);
+            this.label17.Size = new System.Drawing.Size(117, 25);
             this.label17.TabIndex = 4;
             this.label17.Text = "Inmates List";
             // 
@@ -111,10 +117,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InmateflowLayoutPanel.AutoScroll = true;
-            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 189);
+            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 211);
             this.InmateflowLayoutPanel.Name = "InmateflowLayoutPanel";
             this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 250);
+            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 199);
             this.InmateflowLayoutPanel.TabIndex = 70;
             // 
             // label3
@@ -122,11 +128,11 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(426, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 16);
+            this.label3.Size = new System.Drawing.Size(70, 21);
             this.label3.TabIndex = 74;
             this.label3.Text = "Address";
             // 
@@ -135,11 +141,11 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(40, 5);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 16);
+            this.label7.Size = new System.Drawing.Size(49, 21);
             this.label7.TabIndex = 78;
             this.label7.Text = "Code";
             // 
@@ -148,11 +154,11 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.White;
             this.label8.Location = new System.Drawing.Point(319, 5);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(94, 16);
+            this.label8.Size = new System.Drawing.Size(109, 21);
             this.label8.TabIndex = 76;
             this.label8.Text = "Date Of Birth";
             // 
@@ -161,11 +167,11 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(239, 5);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 16);
+            this.label6.Size = new System.Drawing.Size(65, 21);
             this.label6.TabIndex = 75;
             this.label6.Text = "Gender";
             // 
@@ -179,7 +185,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(40, 156);
+            this.panel1.Location = new System.Drawing.Point(40, 178);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(845, 27);
             this.panel1.TabIndex = 79;
@@ -189,11 +195,11 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(6, 5);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(27, 16);
+            this.label4.Size = new System.Drawing.Size(33, 21);
             this.label4.TabIndex = 82;
             this.label4.Text = "No";
             // 
@@ -202,11 +208,11 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(608, 5);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 16);
+            this.label5.Size = new System.Drawing.Size(116, 21);
             this.label5.TabIndex = 80;
             this.label5.Text = "Marital Status";
             // 
@@ -217,7 +223,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 180);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 202);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(845, 10);
             this.bunifuSeparator1.TabIndex = 80;
@@ -253,7 +259,7 @@
             this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
             this.btnSearch.OnHoverTextColor = System.Drawing.Color.White;
             this.btnSearch.selected = false;
-            this.btnSearch.Size = new System.Drawing.Size(93, 32);
+            this.btnSearch.Size = new System.Drawing.Size(93, 45);
             this.btnSearch.TabIndex = 91;
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -295,26 +301,26 @@
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties13.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties13.FillColor = System.Drawing.Color.Empty;
-            stateProperties13.ForeColor = System.Drawing.Color.Empty;
-            stateProperties13.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties13;
-            stateProperties14.BorderColor = System.Drawing.Color.Empty;
-            stateProperties14.FillColor = System.Drawing.Color.White;
-            stateProperties14.ForeColor = System.Drawing.Color.Empty;
-            stateProperties14.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties14;
-            stateProperties15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties15.FillColor = System.Drawing.Color.Empty;
-            stateProperties15.ForeColor = System.Drawing.Color.Empty;
-            stateProperties15.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties15;
-            stateProperties16.BorderColor = System.Drawing.Color.Silver;
-            stateProperties16.FillColor = System.Drawing.Color.White;
-            stateProperties16.ForeColor = System.Drawing.Color.Empty;
-            stateProperties16.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties16;
+            stateProperties9.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties9.FillColor = System.Drawing.Color.Empty;
+            stateProperties9.ForeColor = System.Drawing.Color.Empty;
+            stateProperties9.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties9;
+            stateProperties10.BorderColor = System.Drawing.Color.Empty;
+            stateProperties10.FillColor = System.Drawing.Color.White;
+            stateProperties10.ForeColor = System.Drawing.Color.Empty;
+            stateProperties10.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties10;
+            stateProperties11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties11.FillColor = System.Drawing.Color.Empty;
+            stateProperties11.ForeColor = System.Drawing.Color.Empty;
+            stateProperties11.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties11;
+            stateProperties12.BorderColor = System.Drawing.Color.Silver;
+            stateProperties12.FillColor = System.Drawing.Color.White;
+            stateProperties12.ForeColor = System.Drawing.Color.Empty;
+            stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties12;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -324,7 +330,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(277, 32);
+            this.txtSearch.Size = new System.Drawing.Size(277, 45);
             this.txtSearch.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
             this.txtSearch.TabIndex = 90;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -362,7 +368,7 @@
             this.dpnDormitory.ItemHighLightColor = System.Drawing.Color.Thistle;
             this.dpnDormitory.Items.AddRange(new object[] {
             "All Dormitories"});
-            this.dpnDormitory.Location = new System.Drawing.Point(40, 87);
+            this.dpnDormitory.Location = new System.Drawing.Point(46, 93);
             this.dpnDormitory.Name = "dpnDormitory";
             this.dpnDormitory.Size = new System.Drawing.Size(223, 32);
             this.dpnDormitory.TabIndex = 92;
@@ -391,13 +397,13 @@
             this.btnPList.IconVisible = true;
             this.btnPList.IconZoom = 50D;
             this.btnPList.IsTab = true;
-            this.btnPList.Location = new System.Drawing.Point(384, 87);
+            this.btnPList.Location = new System.Drawing.Point(390, 87);
             this.btnPList.Name = "btnPList";
             this.btnPList.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnPList.OnHovercolor = System.Drawing.Color.Green;
             this.btnPList.OnHoverTextColor = System.Drawing.Color.White;
             this.btnPList.selected = false;
-            this.btnPList.Size = new System.Drawing.Size(162, 32);
+            this.btnPList.Size = new System.Drawing.Size(162, 45);
             this.btnPList.TabIndex = 93;
             this.btnPList.Text = "Pardoned List";
             this.btnPList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -427,13 +433,13 @@
             this.btnPrint.IconVisible = true;
             this.btnPrint.IconZoom = 50D;
             this.btnPrint.IsTab = true;
-            this.btnPrint.Location = new System.Drawing.Point(269, 87);
+            this.btnPrint.Location = new System.Drawing.Point(275, 87);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnPrint.OnHovercolor = System.Drawing.Color.Green;
             this.btnPrint.OnHoverTextColor = System.Drawing.Color.White;
             this.btnPrint.selected = false;
-            this.btnPrint.Size = new System.Drawing.Size(109, 32);
+            this.btnPrint.Size = new System.Drawing.Size(109, 45);
             this.btnPrint.TabIndex = 94;
             this.btnPrint.Text = "Print";
             this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -465,30 +471,88 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(37, 68);
+            this.label1.Location = new System.Drawing.Point(42, 63);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 16);
+            this.label1.Size = new System.Drawing.Size(90, 21);
             this.label1.TabIndex = 95;
             this.label1.Text = "Dormitory";
             // 
             // lblTotalInmates
             // 
             this.lblTotalInmates.AutoSize = true;
-            this.lblTotalInmates.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalInmates.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblTotalInmates.ForeColor = System.Drawing.Color.White;
-            this.lblTotalInmates.Location = new System.Drawing.Point(41, 125);
+            this.lblTotalInmates.Location = new System.Drawing.Point(41, 147);
             this.lblTotalInmates.Name = "lblTotalInmates";
-            this.lblTotalInmates.Size = new System.Drawing.Size(99, 21);
+            this.lblTotalInmates.Size = new System.Drawing.Size(102, 21);
             this.lblTotalInmates.TabIndex = 96;
             this.lblTotalInmates.Text = "200 Inmates";
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::Roll_Call_And_Management_System.Properties.Resources.circled_right;
+            this.btnNext.ImageActive = null;
+            this.btnNext.Location = new System.Drawing.Point(851, 416);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(34, 30);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 97;
+            this.btnNext.TabStop = false;
+            this.btnNext.Zoom = 5;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::Roll_Call_And_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.ImageActive = null;
+            this.btnPrevious.Location = new System.Drawing.Point(772, 416);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(34, 30);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 98;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Zoom = 5;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // lblPageNumber
+            // 
+            this.lblPageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPageNumber.AutoSize = true;
+            this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPageNumber.ForeColor = System.Drawing.Color.White;
+            this.lblPageNumber.Location = new System.Drawing.Point(812, 420);
+            this.lblPageNumber.Name = "lblPageNumber";
+            this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
+            this.lblPageNumber.TabIndex = 83;
+            this.lblPageNumber.Text = "100";
+            // 
+            // lblEntities
+            // 
+            this.lblEntities.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblEntities.AutoSize = true;
+            this.lblEntities.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblEntities.ForeColor = System.Drawing.Color.White;
+            this.lblEntities.Location = new System.Drawing.Point(46, 420);
+            this.lblEntities.Name = "lblEntities";
+            this.lblEntities.Size = new System.Drawing.Size(140, 21);
+            this.lblEntities.TabIndex = 99;
+            this.lblEntities.Text = "25 of 100 entities";
             // 
             // inmates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.lblEntities);
+            this.Controls.Add(this.lblPageNumber);
+            this.Controls.Add(this.btnPrevious);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.lblTotalInmates);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnPrint);
@@ -506,6 +570,8 @@
             this.Load += new System.EventHandler(this.inmates_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,5 +599,9 @@
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTotalInmates;
+        private Bunifu.Framework.UI.BunifuImageButton btnNext;
+        private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
+        private System.Windows.Forms.Label lblPageNumber;
+        private System.Windows.Forms.Label lblEntities;
     }
 }

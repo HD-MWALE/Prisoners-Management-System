@@ -314,7 +314,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "history";
-            this.Size = new System.Drawing.Size(450, 450);
+            this.Size = new System.Drawing.Size(450, 478);
             this.Load += new System.EventHandler(this.history_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

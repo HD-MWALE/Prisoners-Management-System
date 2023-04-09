@@ -284,7 +284,7 @@
             this.txtSearch.IconRight = null;
             this.txtSearch.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSearch.Lines = new string[0];
-            this.txtSearch.Location = new System.Drawing.Point(579, 141);
+            this.txtSearch.Location = new System.Drawing.Point(579, 127);
             this.txtSearch.MaxLength = 32767;
             this.txtSearch.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtSearch.Modified = false;
@@ -319,7 +319,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(277, 32);
+            this.txtSearch.Size = new System.Drawing.Size(277, 45);
             this.txtSearch.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
             this.txtSearch.TabIndex = 123;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -353,13 +353,13 @@
             this.btnSearch.IconVisible = true;
             this.btnSearch.IconZoom = 50D;
             this.btnSearch.IsTab = true;
-            this.btnSearch.Location = new System.Drawing.Point(857, 141);
+            this.btnSearch.Location = new System.Drawing.Point(857, 128);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
             this.btnSearch.OnHoverTextColor = System.Drawing.Color.White;
             this.btnSearch.selected = false;
-            this.btnSearch.Size = new System.Drawing.Size(93, 32);
+            this.btnSearch.Size = new System.Drawing.Size(93, 45);
             this.btnSearch.TabIndex = 124;
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

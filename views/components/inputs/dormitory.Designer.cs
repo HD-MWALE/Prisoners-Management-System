@@ -365,7 +365,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "dormitory";
-            this.Size = new System.Drawing.Size(450, 500);
+            this.Size = new System.Drawing.Size(450, 557);
             this.Load += new System.EventHandler(this.dormitory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

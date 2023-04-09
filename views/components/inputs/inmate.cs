@@ -1,57 +1,46 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using Roll_Call_And_Management_System.classes;
+﻿using Roll_Call_And_Management_System.classes;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
-using System.Xml.Linq;
 using Roll_Call_And_Management_System.views.components.dashboard;
-using System.IO;
-using DocumentFormat.OpenXml.Bibliography;
+using Roll_Call_And_Management_System.config;
 
 namespace Roll_Call_And_Management_System.views.components.inputs
 {
     public partial class inmate : UserControl
     {
-        inmates inmates;
+        public inmates inmates;
         int count = 0;
         public inmate(inmates inmates) 
         {
             InitializeComponent();
             this.inmates = inmates;
 
-            Dormitory.dataSet = Dormitory.GetDormitories();
+            inmates.dashboard.Prison.Dormitory.dataSet = inmates.dashboard.Prison.Dormitory.GetDormitories();
 
-            Crime.dataSet = Crime.GetCrimes();
-            if (Crime.dataSet != null)
+            inmates.dashboard.Prison.Crime.dataSet = inmates.dashboard.Prison.Crime.GetCrimes();
+            if (inmates.dashboard.Prison.Crime.dataSet != null)
             {
                 this.dpnCrimes.Items.Clear();
-                foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
-                    this.dpnCrimes.Items.Add(AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase));
+                foreach (DataRow dataRow in inmates.dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
+                    this.dpnCrimes.Items.Add(ini.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase));
             }
-            Config.LoadTheme(this.inmates.Controls);
+            ini.ColorScheme.LoadTheme(this.inmates.Controls);
         }
         public int Id = 0;
         public int ButtonCount = 0;
-        public Inmate _inmate = new Inmate(); 
-        public Dormitory Dormitory = new Dormitory();
-        public Crime Crime = new Crime();
         modal.dialog dialog;
-        public Crimes_Committed CrimesCommitted = new Crimes_Committed(); 
         ColorScheme scheme = new ColorScheme(); 
+
         public void inmate_Load(object sender, EventArgs e) 
         {
-            _inmate.dataSet = _inmate.GetInmates();
-            if (_inmate.dataSet != null)
+            inmates.dashboard.Prison.Inmate.dataSet = inmates.dashboard.Prison.Inmate.GetInmates();
+            if (inmates.dashboard.Prison.Inmate.dataSet != null)
             {
-                foreach (DataRow dataRow in _inmate.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in inmates.dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
                     count++;
             }
             txtCode.Text = "Inmate" + (count + 1);
@@ -60,29 +49,29 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             if (Id != 0)
             {
                 btnSave.Text = "Update";
-                _inmate.dataSet = _inmate.GetInmates();
-                if (_inmate.dataSet != null)
-                    foreach (DataRow dataRow in _inmate.dataSet.Tables["result"].Rows)
+                inmates.dashboard.Prison.Inmate.dataSet = inmates.dashboard.Prison.Inmate.GetInmates();
+                if (inmates.dashboard.Prison.Inmate.dataSet != null)
+                    foreach (DataRow dataRow in inmates.dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
                     {
                         if ((int)dataRow["id"] == Id)
                         {
-                            dpnDormitory.Text = AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
-                            txtCode.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                            dpnGender.Text = AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dpnDormitory.Text = ini.AES.Decrypt(inmates.dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
+                            txtCode.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
                             dtpDateOfBirth.MaxDate = Convert.ToDateTime(dataRow["dob"]);
                             dtpDateOfBirth.Value = Convert.ToDateTime(dataRow["dob"]);
-                            txtEyeColour.Text = AES.Decrypt((string)dataRow["eye_color"], Properties.Resources.PassPhrase);
-                            txtComplexion.Text = AES.Decrypt((string)dataRow["complexion"], Properties.Resources.PassPhrase);
-                            txtAddress.Text = AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                            dpnMaritalStatus.Text = AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                            txtEyeColour.Text = ini.AES.Decrypt((string)dataRow["eye_color"], Properties.Resources.PassPhrase);
+                            txtComplexion.Text = ini.AES.Decrypt((string)dataRow["complexion"], Properties.Resources.PassPhrase);
+                            txtAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
+                            dpnMaritalStatus.Text = ini.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
                             dtpTimeServedStart.Value = Convert.ToDateTime((DateTime)dataRow["start_date"]);
                             dtpTimeServedEnd.Value = Convert.ToDateTime(Convert.ToDateTime(dataRow["end_date"]).ToString("yyyy/MM/dd hh:mm:ss tt"));
-                            txtName.Text = AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtRelation.Text = AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
-                            txtContact.Text = AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
+                            txtName.Text = ini.AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtRelation.Text = ini.AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
+                            txtContact.Text = ini.AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
                             break;
                         }
                     }
@@ -146,10 +135,10 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             if (Validate_Inputs())
             {
-                _inmate = new Inmate(Id, txtCode.Text,
+                inmates.dashboard.Prison.Inmate = new Inmate(Id, txtCode.Text,
                                     txtFirstName.Text,
                                     txtMiddleName.Text,
                                     txtLastName.Text,
@@ -167,23 +156,23 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                                     new Dormitory(dpnDormitory.Text));
                 if (btnSave.Text != "Update")
                 {
-                    if (_inmate.Save())
+                    if (inmates.dashboard.Prison.Inmate.Save())
                     {
-                        Config.Alert("New Inmate Saved.", dashboard.alert.enmType.Success);
+                        ini.Alerts.Popup("New Inmate Saved.", dashboard.alert.enmType.Success);
                         btnCancel_Click(sender, e);
                     }
                     else
-                        Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                        ini.Alerts.Popup("Something Went Wrong.", dashboard.alert.enmType.Error);
                 }
                 else
                 {
-                    if (_inmate.Update(Id))
+                    if (inmates.dashboard.Prison.Inmate.Update(Id))
                     {
-                        Config.Alert("Inmate Updated.", dashboard.alert.enmType.Success);
+                        ini.Alerts.Popup("Inmate Updated.", dashboard.alert.enmType.Success);
                         btnCancel_Click(sender, e);
                     }
                     else
-                        Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                        ini.Alerts.Popup("Something Went Wrong.", dashboard.alert.enmType.Error);
                 }
             }
             else
@@ -198,7 +187,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                 dialog.SecondaryButton.Text = "OK";
                 modal.popup popup = new modal.popup(dialog);
                 popup.Size = dialog.Size;
-                popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+                popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
                 popup.ShowDialog();
                 inmates.dashboard.SetLoading(false);
             }
@@ -208,13 +197,13 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         {
             if(dpnGender.Text != "Select")
             {
-                Dormitory.dataSet = Dormitory.GetDormitories();
-                if (Dormitory.dataSet != null)
+                inmates.dashboard.Prison.Dormitory.dataSet = inmates.dashboard.Prison.Dormitory.GetDormitories();
+                if (inmates.dashboard.Prison.Dormitory.dataSet != null)
                 {
                     this.dpnDormitory.Items.Clear();
-                    foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                        if(AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                            this.dpnDormitory.Items.Add(AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                    foreach (DataRow dataRow in inmates.dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                        if(ini.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
+                            this.dpnDormitory.Items.Add(ini.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
                 }
             }
         }
@@ -228,7 +217,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             {
                 if (name == dpnCrimes.Text)
                 {
-                    Config.Alert("Crime Already Added.", alert.enmType.Warning);
+                    ini.Alerts.Popup("Crime Already Added.", alert.enmType.Warning);
                     IsAdded = true;
                     break;
                 }
@@ -240,10 +229,10 @@ namespace Roll_Call_And_Management_System.views.components.inputs
                 crime.Name = dpnCrimes.Text;
                 Crimes.Add(dpnCrimes.Text);
                 pnlCrimeCommitted.Controls.Add(crime);
-                if (Crime.dataSet != null)
+                if (inmates.dashboard.Prison.Crime.dataSet != null)
                 {
-                    foreach (DataRow dataRow in Crime.dataSet.Tables["result"].Rows)
-                        if (AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == dpnCrimes.Text)
+                    foreach (DataRow dataRow in inmates.dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
+                        if (ini.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == dpnCrimes.Text)
                             CrimeTypes.Add(dataRow["type"]);
                 }
             }
@@ -252,29 +241,29 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         public void Allocate()
         {
-            if (Dormitory.dataSet != null)
+            if (inmates.dashboard.Prison.Dormitory.dataSet != null)
             {
                 this.dpnDormitory.Items.Clear();
                 if (CrimeTypes.Contains("Major"))
                 {
-                    foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                        if (AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Major Crimes" &&
-                            AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                                this.dpnDormitory.Items.Add(AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                    foreach (DataRow dataRow in inmates.dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                        if (ini.AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Major Crimes" &&
+                            ini.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
+                                this.dpnDormitory.Items.Add(ini.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
                 }
                 else
                 {
-                    foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                        if (AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Minor Crimes" &&
-                            AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                                this.dpnDormitory.Items.Add(AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                    foreach (DataRow dataRow in inmates.dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                        if (ini.AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Minor Crimes" &&
+                            ini.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
+                                this.dpnDormitory.Items.Add(ini.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
                 }
             }
         }
 
         public void Sentence()
         {
-            txtSentence.Text = Calculate.Sentence(dtpTimeServedStart, dtpTimeServedEnd);
+            txtSentence.Text = ini.Calculate.Sentence(dtpTimeServedStart, dtpTimeServedEnd);
         }
 
         private void ibxFace_Validating(object sender, CancelEventArgs e)
@@ -284,9 +273,9 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         int DormitoryId = 0;
         private void dpnDormitory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Dormitory.dataSet != null)
-                foreach (DataRow dataRow in Dormitory.dataSet.Tables["result"].Rows)
-                    if (dpnDormitory.Text == AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
+            if (inmates.dashboard.Prison.Dormitory.dataSet != null)
+                foreach (DataRow dataRow in inmates.dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                    if (dpnDormitory.Text == ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
                     {
                         DormitoryId = Convert.ToInt32(dataRow["id"].ToString());
                         break;
@@ -295,7 +284,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void btnCancel_Click(object sender, EventArgs e)  
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             inmates.dashboard.lblAction.Text = "List";
             inmates.Controls.Remove(this);
         }
@@ -308,19 +297,14 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         public modal.popup popup;
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
+            ini.Sound.ClickSound();
             GetCapture = new facial.capture(this);
             popup = new modal.popup(GetCapture);
             popup.Size = GetCapture.Size;
-            popup.Location = Config.GetLocation(Config.AppSize, popup.Size, Config.AppLocation);
+            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
             popup.ShowDialog();
         }
 
-        private void pnlInput_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-        new Validate Validate = new Validate();
         ErrorProvider errorfirstnameProvider = new ErrorProvider();
         ErrorProvider errormiddlenameProvider = new ErrorProvider(); 
         ErrorProvider errorlastnameProvider = new ErrorProvider();
@@ -355,7 +339,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         string contactError = "Please input Contact of Emergency Contact"; 
         private void txtFirstName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtFirstName.Text))
+            if (!ini.Validate.IsText(txtFirstName.Text))
             {
                 errorfirstnameProvider.SetError(txtFirstName, firstnameError);
                 errorfirstnameProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -370,7 +354,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtMiddleName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtMiddleName.Text))
+            if (!ini.Validate.IsText(txtMiddleName.Text))
             {
                 errormiddlenameProvider.SetError(txtMiddleName, middlenameError);
                 errormiddlenameProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -385,7 +369,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtLastName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtLastName.Text))
+            if (!ini.Validate.IsText(txtLastName.Text))
             {
                 errorlastnameProvider.SetError(txtLastName, lastnameError);
                 errorlastnameProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -430,7 +414,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtAddress_Validating(object sender, CancelEventArgs e) 
         {
-            if (!Validate.IsText(txtAddress.Text))
+            if (!ini.Validate.IsText(txtAddress.Text))
             {
                 erroraddressProvider.SetError(txtAddress, addressError);
                 erroraddressProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -460,7 +444,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtComplexion_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtComplexion.Text))
+            if (!ini.Validate.IsText(txtComplexion.Text))
             {
                 errorcomplexionProvider.SetError(txtComplexion, complexionError);
                 errorcomplexionProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -475,7 +459,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtEyeColour_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtEyeColour.Text))
+            if (!ini.Validate.IsText(txtEyeColour.Text))
             {
                 erroreyeColourProvider.SetError(txtEyeColour, eyeColourError);
                 erroreyeColourProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -550,7 +534,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtName_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtName.Text))
+            if (!ini.Validate.IsText(txtName.Text))
             {
                 errornameProvider.SetError(txtName, nameError);
                 errornameProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -565,7 +549,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtRelation_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsText(txtRelation.Text))
+            if (!ini.Validate.IsText(txtRelation.Text))
             {
                 errorrelationProvider.SetError(txtRelation, relationError);
                 errorrelationProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;
@@ -580,7 +564,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtContact_Validating(object sender, CancelEventArgs e)
         {
-            if (!Validate.IsPhoneNumber(txtContact.Text))
+            if (!ini.Validate.IsPhoneNumber(txtContact.Text))
             {
                 errorcontactProvider.SetError(txtContact, contactError);
                 errorcontactProvider.BlinkStyle = ErrorBlinkStyle.AlwaysBlink;

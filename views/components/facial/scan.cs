@@ -14,23 +14,22 @@ using System.Windows.Forms;
 using Emgu.CV.CvEnum;
 using System.IO;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
+using Roll_Call_And_Management_System.config;
 
 namespace Roll_Call_And_Management_System.views.components.facial
 {
     public partial class scan : UserControl
     {
-        Inmate Inmate = new Inmate();
         inputs.rollcall rollcall;
         public views.dashboard dashboard;
-        public scan(views.dashboard dashboard, Roll_Call Roll_Call, inputs.rollcall rollcall)
+        public scan(views.dashboard dashboard, inputs.rollcall rollcall)
         {
             InitializeComponent();
             this.dashboard = dashboard;
-            this.Roll_Call = Roll_Call;
             this.rollcall = rollcall;
-            Inmate.dataSet = Inmate.GetInmates();
-            if (Inmate.dataSet != null)
-                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+            dashboard.Prison.Inmate.dataSet = dashboard.Prison.Inmate.GetInmates();
+            if (dashboard.Prison.Inmate.dataSet != null)
+                foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
                 {
                     if ((int)dataRow["dormitory_id"] == rollcall.DormitoryId)
                     {
@@ -39,11 +38,11 @@ namespace Roll_Call_And_Management_System.views.components.facial
                         row.btnCheck.Location = row.Cancel.Location;
                         row.Icon.Image = Properties.Resources.human_head;
                         lblRemaining.Text = (Convert.ToInt32(lblRemaining.Text) + 1).ToString();
-                        row.Name = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += " - " + AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.Name = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblInmate.Text = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblInmate.Text += " - " + ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblInmate.Text += ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.lblInmate.Text += " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
                         this.flowLayoutPanelRemaining.Controls.Add(row);
                     }
                 }
@@ -68,7 +67,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
             }
             catch (Exception ex)
             {
-                Config.ServerMessage(ex.ToString());
+                ini.Alerts.ServerMessage(ex.ToString());
             }
         }
 
@@ -87,29 +86,27 @@ namespace Roll_Call_And_Management_System.views.components.facial
         {
             foreach (sub.inmate control in flowLayoutPanelScanned.Controls)
             {
-                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 1, "Scanned", dashboard.user.Auth);
-                Roll_Call.SaveInmate();
+                dashboard.Prison.Roll_Call = new Roll_Call(lblCode.Text, dashboard.Prison.Inmate.GetId(control.Name), 1, "Scanned", dashboard.Prison.User.Auth);
+                dashboard.Prison.Roll_Call.SaveInmate();
             }
             foreach (sub.inmate control in flowLayoutPanelRemaining.Controls)
             {
-                Roll_Call = new Roll_Call(lblCode.Text, Inmate.GetId(control.Name), 0, "Not Scanned", dashboard.user.Auth);
-                Roll_Call.SaveInmate();
+                dashboard.Prison.Roll_Call = new Roll_Call(lblCode.Text, dashboard.Prison.Inmate.GetId(control.Name), 0, "Not Scanned", dashboard.Prison.User.Auth);
+                dashboard.Prison.Roll_Call.SaveInmate();
             }
         }
 
         inputs.inmate inmate;
-        Roll_Call Roll_Call = new Roll_Call();
-        Dormitory Dormitory = new Dormitory();
         int Id = 0;
         private void scan_Load(object sender, EventArgs e)
         {
-            foreach(DataRow data in Roll_Call.dataSet.Tables["result"].Rows) 
+            foreach(DataRow data in dashboard.Prison.Roll_Call.dataSet.Tables["result"].Rows) 
             {
                 Id = (int)data["id"];
                 lblCode.Text = (string)data["code"];
-                Dormitory.dataSet = Dormitory.GetDormitoryDetails((int)data["dormitory_id"]);
-                foreach (DataRow row in Dormitory.dataSet.Tables["result"].Rows)
-                    lblDormitory.Text = AES.Decrypt((string)row[1], Properties.Resources.PassPhrase);
+                dashboard.Prison.Dormitory.dataSet = dashboard.Prison.Dormitory.GetDormitoryDetails((int)data["dormitory_id"]);
+                foreach (DataRow row in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                    lblDormitory.Text = ini.AES.Decrypt((string)row[1], Properties.Resources.PassPhrase);
                 //Id = (string)data["status"];
                 //Id = data["date_created"];
             }
@@ -165,13 +162,13 @@ namespace Roll_Call_And_Management_System.views.components.facial
                     MCvTermCriteria termCrit = new MCvTermCriteria(Countface, 0.001);
 
                     //Eigen face recognizer
-                    Recognizer recognizer = new Recognizer(
+                    ini.Recognizer = new Recognizer(
                     CapturingImages.ToArray(),
                     inmates.ToArray(),
                     2500,
                     ref termCrit);
 
-                    name = recognizer.Recognize(result);
+                    name = ini.Recognizer.Recognize(result);
 
                     //Draw the label for each face detected and recognized
                     currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.FromArgb(26, 104, 255)));

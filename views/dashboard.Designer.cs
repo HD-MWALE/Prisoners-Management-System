@@ -57,7 +57,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.MenuTransition = new BunifuAnimatorNS.BunifuTransition(this.components);
             this.pnlBody = new System.Windows.Forms.Panel();
-            this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.SidebarTimer = new System.Windows.Forms.Timer(this.components);
             this.menuTimer = new System.Windows.Forms.Timer(this.components);
@@ -71,7 +70,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).BeginInit();
-            this.pnlBody.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -656,7 +654,6 @@
             // pnlBody
             // 
             this.pnlBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.pnlBody.Controls.Add(this.cpbLoader);
             this.MenuTransition.SetDecoration(this.pnlBody, BunifuAnimatorNS.DecorationType.None);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBody.Location = new System.Drawing.Point(170, 101);
@@ -664,30 +661,6 @@
             this.pnlBody.Size = new System.Drawing.Size(629, 349);
             this.pnlBody.TabIndex = 3;
             this.pnlBody.MouseHover += new System.EventHandler(this.pnlBody_MouseHover);
-            // 
-            // cpbLoader
-            // 
-            this.cpbLoader.animated = true;
-            this.cpbLoader.animationIterval = 5;
-            this.cpbLoader.animationSpeed = 10;
-            this.cpbLoader.BackColor = System.Drawing.Color.Transparent;
-            this.cpbLoader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpbLoader.BackgroundImage")));
-            this.cpbLoader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.MenuTransition.SetDecoration(this.cpbLoader, BunifuAnimatorNS.DecorationType.None);
-            this.cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
-            this.cpbLoader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.cpbLoader.LabelVisible = false;
-            this.cpbLoader.LineProgressThickness = 8;
-            this.cpbLoader.LineThickness = 5;
-            this.cpbLoader.Location = new System.Drawing.Point(0, 3);
-            this.cpbLoader.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.cpbLoader.MaxValue = 100;
-            this.cpbLoader.Name = "cpbLoader";
-            this.cpbLoader.ProgressBackColor = System.Drawing.Color.Gainsboro;
-            this.cpbLoader.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.cpbLoader.Size = new System.Drawing.Size(100, 100);
-            this.cpbLoader.TabIndex = 17;
-            this.cpbLoader.Value = 25;
             // 
             // timer
             // 
@@ -743,7 +716,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).EndInit();
-            this.pnlBody.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -781,6 +753,5 @@
         private System.Windows.Forms.Timer SearchTimer;
         public System.Windows.Forms.Label PathSeparator;
         private Bunifu.Framework.UI.BunifuImageButton btnBack;
-        private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
     }
 }

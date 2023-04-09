@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
+using Roll_Call_And_Management_System.config;
 using Roll_Call_And_Management_System.views.components;
 using System;
 using System.Collections;
@@ -172,20 +173,20 @@ namespace Roll_Call_And_Management_System.classes
                        Sentence sentence, Dormitory dormitory)
         {
             Id = id;
-            Code = AES.Encrypt(code, Properties.Resources.PassPhrase);
-            FirstName = AES.Encrypt(firstName, Properties.Resources.PassPhrase);
-            MiddleName = AES.Encrypt(middleName, Properties.Resources.PassPhrase);
-            LastName = AES.Encrypt(lastName, Properties.Resources.PassPhrase);
-            Gender = AES.Encrypt(gender, Properties.Resources.PassPhrase);
+            Code = ini.AES.Encrypt(code, Properties.Resources.PassPhrase);
+            FirstName = ini.AES.Encrypt(firstName, Properties.Resources.PassPhrase);
+            MiddleName = ini.AES.Encrypt(middleName, Properties.Resources.PassPhrase);
+            LastName = ini.AES.Encrypt(lastName, Properties.Resources.PassPhrase);
+            Gender = ini.AES.Encrypt(gender, Properties.Resources.PassPhrase);
             DateOfBirth = dob.ToString("yyyy/MM/dd");
-            Address = AES.Encrypt(address, Properties.Resources.PassPhrase);
-            MaritalStatus = AES.Encrypt(maritalStatus, Properties.Resources.PassPhrase);
-            EyeColour = AES.Encrypt(eyeColour, Properties.Resources.PassPhrase);
-            Complexion = AES.Encrypt(complexion, Properties.Resources.PassPhrase);
+            Address = ini.AES.Encrypt(address, Properties.Resources.PassPhrase);
+            MaritalStatus = ini.AES.Encrypt(maritalStatus, Properties.Resources.PassPhrase);
+            EyeColour = ini.AES.Encrypt(eyeColour, Properties.Resources.PassPhrase);
+            Complexion = ini.AES.Encrypt(complexion, Properties.Resources.PassPhrase);
             CrimesCommitted = crimeCommitted;
-            EmergencyName = AES.Encrypt(emergencyName, Properties.Resources.PassPhrase);
-            EmergencyContact = AES.Encrypt(emergencyContact, Properties.Resources.PassPhrase);
-            EmergencyRelation = AES.Encrypt(emergencyRelation, Properties.Resources.PassPhrase);
+            EmergencyName = ini.AES.Encrypt(emergencyName, Properties.Resources.PassPhrase);
+            EmergencyContact = ini.AES.Encrypt(emergencyContact, Properties.Resources.PassPhrase);
+            EmergencyRelation = ini.AES.Encrypt(emergencyRelation, Properties.Resources.PassPhrase);
             VisitingPrivilege = visitingPrivilege;
             Sentence = sentence;
             Dormitory = dormitory;
@@ -212,10 +213,10 @@ namespace Roll_Call_And_Management_System.classes
                 foreach (string crime in CrimesCommitted.Committed)
                 {
                     CrimesCommitted.CrimeId = Crime.GetId(crime);
-                    CrimesCommitted.InmateId = GetId(AES.Decrypt(Code, Properties.Resources.PassPhrase));
+                    CrimesCommitted.InmateId = GetId(ini.AES.Decrypt(Code, Properties.Resources.PassPhrase));
                     CrimesCommitted.Save();
                 }
-                Sentence.Save(GetId(AES.Decrypt(Code, Properties.Resources.PassPhrase)));
+                Sentence.Save(GetId(ini.AES.Decrypt(Code, Properties.Resources.PassPhrase)));
                 return true; 
             }
             return false;
@@ -225,7 +226,7 @@ namespace Roll_Call_And_Management_System.classes
             dataSet = GetInmates();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == code)
+                    if (ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == code)
                         return Convert.ToInt32(dataRow["id"]);
 
             return 0;

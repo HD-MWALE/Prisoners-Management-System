@@ -1,4 +1,5 @@
 ﻿using Roll_Call_And_Management_System.classes;
+using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,8 +16,6 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 {
     public partial class visitor : UserControl
     {
-        Visitor Visitor;
-        visitors visitors;
         public visitor(visitors visitors)
         {
             InitializeComponent();
@@ -25,21 +24,23 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         public int Id = 0;
         public int InmateId = 0; 
         public string Code = ""; 
-        Inmate Inmate = new Inmate();
+        visitors visitors;
+        DataSet dsVisitor = new DataSet();
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Config.ClickSound();
-            Visitor = new Visitor(txtName.Text, txtRelation.Text, txtContact.Text, txtAddress.Text, new Inmate(Code));
+            ini.Sound.ClickSound();
+            visitors.dashboard.Prison.Visitor = new Visitor(txtName.Text, txtRelation.Text, txtContact.Text, txtAddress.Text, new Inmate(Code));
             if (btnSave.Text != "Update")
-                if (Visitor.Save())
-                    Config.Alert("New Visitor Saved.", dashboard.alert.enmType.Success);
+                if (visitors.dashboard.Prison.Visitor.Save())
+                    ini.Alerts.Popup("New Visitor Saved.", dashboard.alert.enmType.Success);
                 else
-                    Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                    ini.Alerts.Popup("Something Went Wrong.", dashboard.alert.enmType.Error);
             else
-                if (Visitor.Update(Id))
-                    Config.Alert("Visitor Updated.", dashboard.alert.enmType.Success);
+                if (visitors.dashboard.Prison.Visitor.Update(Id))
+                    ini.Alerts.Popup("Visitor Updated.", dashboard.alert.enmType.Success);
                 else
-                    Config.Alert("Something Went Wrong.", dashboard.alert.enmType.Error);
+                    ini.Alerts.Popup("Something Went Wrong.", dashboard.alert.enmType.Error);
         }
 
         private void visitor_Load(object sender, EventArgs e)
@@ -48,16 +49,16 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             {
                 btnSave.Text = "Update";
             }
-            Inmate.dataSet = Inmate.GetInmates();
-            if (Inmate.dataSet != null)
+            dsVisitor = visitors.dashboard.Prison.Inmate.GetInmates();
+            if (dsVisitor != null)
             {
-                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsVisitor.Tables["result"].Rows)
                 {
-                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(ini.AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add(ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase));
                     //this.dpnCode.Items.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
                     //this.dpnFullname.Items.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
                 }
@@ -158,23 +159,23 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if (Inmate.dataSet != null)
+            if (dsVisitor != null)
             {
                 this.Cursor = Cursors.WaitCursor;
-                foreach (DataRow dataRow in Inmate.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsVisitor.Tables["result"].Rows)
                 {
-                    if (AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase)
-                        + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase)
-                        + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text)
+                    if (ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
+                        ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase)
+                        + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase)
+                        + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text)
                     {
-                        Code = AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        Code = ini.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
                         lblFullName.Text = "Inmate Details";
-                        lblFullName.Text += "\nCode : " + AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase);
-                        lblFullName.Text += "\nName : " + AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        lblFullName.Text += "\nCode : " + ini.AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase);
+                        lblFullName.Text += "\nName : " + ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
                         if (dataRow["visiting_privilege"].ToString() == "0")
                         {
                             lblFullName.Text += "\nVisiting Privilege : Not Allowed";
