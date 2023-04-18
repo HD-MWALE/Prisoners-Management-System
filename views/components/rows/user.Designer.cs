@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.rows
+﻿namespace Prisoners_Management_System.views.components.rows
 {
     partial class user
     {
@@ -128,7 +128,7 @@
             this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDelete.DisabledColor = System.Drawing.Color.Gray;
             this.btnDelete.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnDelete.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.remove;
+            this.btnDelete.Iconimage = global::Prisoners_Management_System.Properties.Resources.remove;
             this.btnDelete.Iconimage_right = null;
             this.btnDelete.Iconimage_right_Selected = null;
             this.btnDelete.Iconimage_Selected = null;
@@ -164,7 +164,7 @@
             this.btnView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnView.DisabledColor = System.Drawing.Color.Gray;
             this.btnView.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnView.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.view;
+            this.btnView.Iconimage = global::Prisoners_Management_System.Properties.Resources.view;
             this.btnView.Iconimage_right = null;
             this.btnView.Iconimage_right_Selected = null;
             this.btnView.Iconimage_Selected = null;
@@ -200,7 +200,7 @@
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.DisabledColor = System.Drawing.Color.Gray;
             this.btnEdit.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnEdit.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.edit;
+            this.btnEdit.Iconimage = global::Prisoners_Management_System.Properties.Resources.edit;
             this.btnEdit.Iconimage_right = null;
             this.btnEdit.Iconimage_right_Selected = null;
             this.btnEdit.Iconimage_Selected = null;

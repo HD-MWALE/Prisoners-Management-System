@@ -1,5 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,65 +7,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Visitor
     {
+        // declaring private globe variables
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
         private string _Name;
-        public string Name
-        {
-            get { return _Name; }
-            set { _Name = value; }
-        }
-
         private string _Relation;
-        public string Relation
-        {
-            get { return _Relation; }
-            set { _Relation = value; }
-        }
-
         private string _Contact;
-        public string Contact
-        {
-            get { return _Contact; }
-            set { _Contact = value; }
-        }
-
         private string _Address;
-        public string Address 
-        {
-            get { return _Address; }
-            set { _Address = value; }
-        }
-
         private Inmate _Inmate;
-        public Inmate Inmate
-        {
-            get { return _Inmate; }
-            set { _Inmate = value; }
-        }
+        private DataSet dataSet = new DataSet();
+        // get and set globe variables
+        public int Id { get { return _Id; } set { _Id = value; } }
+        public string Name { get { return _Name; } set { _Name = value; } }
+        public string Relation { get { return _Relation; } set { _Relation = value; } }
+        public string Contact { get { return _Contact; } set { _Contact = value; } }
+        public string Address { get { return _Address; } set { _Address = value; } }
+        public Inmate Inmate { get { return _Inmate; } set { _Inmate = value; } }
 
         public Visitor()
         {
         }
-
+        // setting globe variables
         public Visitor(string name, string relation, string contact, string address, Inmate inmate)
         {
-            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
-            Relation = ini.AES.Encrypt(relation, Properties.Resources.PassPhrase);
-            Contact = ini.AES.Encrypt(contact, Properties.Resources.PassPhrase);
-            Address = ini.AES.Encrypt(address, Properties.Resources.PassPhrase);
+            Name = config.config.AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Relation = config.config.AES.Encrypt(relation, Properties.Resources.PassPhrase);
+            Contact = config.config.AES.Encrypt(contact, Properties.Resources.PassPhrase);
+            Address = config.config.AES.Encrypt(address, Properties.Resources.PassPhrase);
             Inmate = inmate;
         }
-
+        // setting globe variables
         public Visitor(int id, string name, string relation, string contact, DataSet dataSet)
         {
             Id = id;
@@ -74,8 +48,7 @@ namespace Roll_Call_And_Management_System.classes
             Relation = relation;
             this.dataSet = dataSet;
         }
-
-        public DataSet dataSet = new DataSet();
+        // save visitor details
         public bool Save()
         {
             string fields = "`name`, `relation`, `contact`, `address`";
@@ -89,6 +62,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return false;
         }
+        // get id
         public int GetId() 
         {
             string data = "`id`, `name`, `relation`, `contact`, `address`";
@@ -116,6 +90,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
+        // get visitor details by id
         public DataSet GetVisitorDetails(int id) 
         {
             string data = "`id`, `name`, `relation`, `contact`, `address`";
@@ -128,6 +103,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
+        // update visitor details
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `relation` = '" + Relation + "', `contact` = '" + Contact + "', `address` = '" + Address + "'";
@@ -139,6 +115,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return false;
         }
+        // delete visitor details
         public bool Delete(int id)
         {
             if (database.Execute.Delete("visitor", id))

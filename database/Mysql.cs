@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.database
+namespace Prisoners_Management_System.database
 {
     internal class Mysql
     {
+        // declaring mysql connection
         static MySqlConnection conn;
-        //public static string strProvider = "server=localhost;Database=prcms_db;User ID=root;Password=";
+        // declaring and initializing string provider
         public static string strProvider = "server=localhost;Database=prisoners_management_system;User ID=root;Password=";
+        // opening mysql database connection
         public bool Open()
         {
             try
@@ -25,16 +27,18 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
                 return false;
             }
 
         }
+        // closing mysql database connection
         public void Close()
         {
             conn.Close();
             conn.Dispose();
         }
+        // backing up mysql database 
         public void Backup()
         {
             using (MySqlConnection conn = new MySqlConnection(strProvider))
@@ -45,12 +49,13 @@ namespace Roll_Call_And_Management_System.database
                     {
                         cmd.Connection = conn;
                         conn.Open();
-                        mb.ExportToFile(ini.Backup); 
+                        mb.ExportToFile(config.config.Backup); 
                         conn.Close();
                     }
                 }
             }
         }
+        // restoring mysql database
         public static void Restore()
         {
             using (MySqlConnection conn = new MySqlConnection(strProvider))
@@ -61,12 +66,13 @@ namespace Roll_Call_And_Management_System.database
                     {
                         cmd.Connection = conn;
                         conn.Open();
-                        mb.ImportFromFile(ini.Backup);
+                        mb.ImportFromFile(config.config.Backup);
                         conn.Close();
                     }
                 }
             }
         }
+        // retrieve data from mysql database returning dataset
         public DataSet ExecuteDataSet(string sql)
         {
             try
@@ -78,10 +84,11 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
+        // retrieve data from mysql database returning datatable
         public DataTable ExecuteDataTable(string sql)
         {
             try
@@ -93,10 +100,11 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
+        // executing query returning mysql data reader
         public MySqlDataReader ExecuteReader(string sql)
         {
             try
@@ -109,10 +117,11 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
                 return null;
             }
         }
+        // executing non query returning number of rows affected
         public int ExecuteNonQuery(string sql)
         {
             try
@@ -128,7 +137,7 @@ namespace Roll_Call_And_Management_System.database
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
                 return -1;
             }
         }

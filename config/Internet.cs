@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.Properties;
+﻿using Prisoners_Management_System.Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,12 +10,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.config
+namespace Prisoners_Management_System.config
 {
     internal class Internet
     {
+        // set default path
         private string Path = Application.StartupPath;
-
+        // declaring and setting crimes committed dataset object
+        DataSet dsCrimesCommitted = new DataSet();
+        // checking if there is internet connection
         public bool IsInternetConnectionAvailable()
         {
             try
@@ -31,8 +34,8 @@ namespace Roll_Call_And_Management_System.config
                 return false;
             }
         }
-
-        public void RollCallEmail((string, DataSet, int) htmlString, string ToMailAddress)
+        // sent feedback to email function 
+        public void RollCallFeedBack((string, DataSet, int) htmlString, string ToMailAddress)
         {
             try
             {
@@ -44,35 +47,35 @@ namespace Roll_Call_And_Management_System.config
                         //Id = Convert.ToInt32(dataRow["id"].ToString());
                         classes.Dormitory Dormitory = new classes.Dormitory();
                         classes.Crimes_Committed Committed = new classes.Crimes_Committed();
-                        var converter = new GroupDocs.Conversion.Converter(Path + "\\Face\\" + ini.AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + ".bmp");
+                        var converter = new GroupDocs.Conversion.Converter(Path + "\\Face\\" + config.AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + ".bmp");
                         var convertOptions = converter.GetPossibleConversions()["svg"].ConvertOptions;
                         converter.Convert(Path + "\\Face\\svg.svg", convertOptions);
 
                         inmate = "<font>" + File.ReadAllText(Path + "\\Face\\svg.svg") + "</font><br><br>";
-                        inmate += "<font>Inmate Code : <strong>" + ini.AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Dormitory : <strong>" + ini.AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Fullname : <strong>" + ini.AES.Decrypt(dataRow["last_name"].ToString(), Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Gender : <strong>" + ini.AES.Decrypt(dataRow["gender"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Inmate Code : <strong>" + config.AES.Decrypt(dataRow["code"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Dormitory : <strong>" + config.AES.Decrypt(Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Fullname : <strong>" + config.AES.Decrypt(dataRow["last_name"].ToString(), Resources.PassPhrase) + ", " + config.AES.Decrypt(dataRow["first_name"].ToString(), Resources.PassPhrase) + " " + config.AES.Decrypt(dataRow["middle_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Gender : <strong>" + config.AES.Decrypt(dataRow["gender"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
                         inmate += "<font>Date of Birth : <strong>" + Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy") + "</strong></font><br>";
-                        inmate += "<font>Address : <strong>" + ini.AES.Decrypt(dataRow["address"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Marital Status : <strong>" + ini.AES.Decrypt(dataRow["marital_status"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Eye Color : <strong>" + ini.AES.Decrypt(dataRow["eye_color"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Complexion : <strong>" + ini.AES.Decrypt(dataRow["complexion"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Address : <strong>" + config.AES.Decrypt(dataRow["address"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Marital Status : <strong>" + config.AES.Decrypt(dataRow["marital_status"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Eye Color : <strong>" + config.AES.Decrypt(dataRow["eye_color"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Complexion : <strong>" + config.AES.Decrypt(dataRow["complexion"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
                         bool Isfirst = true;
                         string crimes = "";
-                        Committed.dataSet = Committed.GetAll();
-                        if (Committed.dataSet != null)
-                            foreach (DataRow data in Committed.dataSet.Tables["result"].Rows)
+                        dsCrimesCommitted = Committed.GetAll();
+                        if (dsCrimesCommitted != null)
+                            foreach (DataRow data in dsCrimesCommitted.Tables["result"].Rows)
                             {
                                 if (Convert.ToInt32(dataRow["id"]) == Convert.ToInt32(data["inmate_id"]))
                                 {
                                     if (Isfirst)
                                     {
-                                        crimes = ini.AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
+                                        crimes = config.AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
                                         Isfirst = false;
                                     }
                                     else
-                                        crimes = crimes + ", " + ini.AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
+                                        crimes = crimes + ", " + config.AES.Decrypt(data["name"].ToString(), Resources.PassPhrase);
                                 }
                             }
                         inmate += "<font>Crimes Committed : <strong>" + crimes + "</strong></font><br>";
@@ -84,10 +87,10 @@ namespace Roll_Call_And_Management_System.config
                         Start.Value = Convert.ToDateTime(dataRow["start_date"]);
                         End.Value = Convert.ToDateTime(dataRow["end_date"]);
 
-                        inmate += "<font>Sentence : <strong>" + ini.Calculate.Sentence(Start, End) + "</strong></font><br>";
-                        inmate += "<font>Emergency Name : <strong>" + ini.AES.Decrypt(dataRow["emergency_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Emergency Contact : <strong>" + ini.AES.Decrypt(dataRow["emergency_contact"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
-                        inmate += "<font>Emergency Relation : <strong>" + ini.AES.Decrypt(dataRow["emergency_relation"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Sentence : <strong>" + config.Calculate.Sentence(Start, End) + "</strong></font><br>";
+                        inmate += "<font>Emergency Name : <strong>" + config.AES.Decrypt(dataRow["emergency_name"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Emergency Contact : <strong>" + config.AES.Decrypt(dataRow["emergency_contact"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
+                        inmate += "<font>Emergency Relation : <strong>" + config.AES.Decrypt(dataRow["emergency_relation"].ToString(), Resources.PassPhrase) + "</strong></font><br>";
                     }
                 }
                 MailMessage message = new MailMessage();
@@ -111,10 +114,11 @@ namespace Roll_Call_And_Management_System.config
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.Alerts.ServerMessage(ex.ToString());
             }
         }
-        public void Email((string, string) htmlString, string ToMailAddress)
+        // send otp email to user
+        public void SendOTPEmail((string, string) htmlString, string ToMailAddress)
         {
             try
             {
@@ -138,11 +142,11 @@ namespace Roll_Call_And_Management_System.config
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential(Resources.SenderEmail, Resources.SenderPassword);
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Send(message);
+                smtp.Send(message); // send
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.Alerts.ServerMessage(ex.ToString());
             }
         }
     }

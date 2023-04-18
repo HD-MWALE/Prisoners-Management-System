@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.inputs
+﻿namespace Prisoners_Management_System.views.components.inputs
 {
     partial class visitor
     {
@@ -87,7 +87,7 @@
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DisabledColor = System.Drawing.Color.Gray;
             this.btnSave.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSave.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnSave.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnSave.Iconimage_right = null;
             this.btnSave.Iconimage_right_Selected = null;
             this.btnSave.Iconimage_Selected = null;
@@ -554,7 +554,7 @@
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
             this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
             this.btnSearch.Iconimage_right = null;
             this.btnSearch.Iconimage_right_Selected = null;
             this.btnSearch.Iconimage_Selected = null;

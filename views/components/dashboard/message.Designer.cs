@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class message
     {
@@ -52,7 +52,7 @@
             // Icon
             // 
             this.Icon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Icon.Image = global::Roll_Call_And_Management_System.Properties.Resources.checked_user;
+            this.Icon.Image = global::Prisoners_Management_System.Properties.Resources.checked_user;
             this.Icon.ImageActive = null;
             this.Icon.Location = new System.Drawing.Point(8, 13);
             this.Icon.Name = "Icon";

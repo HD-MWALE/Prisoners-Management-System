@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Drawing;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components.modal;
+using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.modal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Orientation = Roll_Call_And_Management_System.config.Orientation;
+using Orientation = Prisoners_Management_System.config.Orientation;
 
-namespace Roll_Call_And_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.dashboard
 {
     public partial class settings : UserControl
     {
@@ -21,7 +21,6 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         dialog dialog;
         login login;
         bool IsSound = false, IsTheme = false, IsLoggedIn;
-        ColorScheme scheme = new ColorScheme();
         public settings(Form layout, bool isLoggedIn) 
         {
             InitializeComponent();
@@ -34,9 +33,9 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         
         private void settings_Load(object sender, EventArgs e)
         {
-            if (File.Exists(scheme.Path))
+            if (File.Exists(config.ColorScheme.Path))
             {
-                IsTheme = Convert.ToBoolean(File.ReadAllText(scheme.Path));
+                IsTheme = Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path));
                 if (IsTheme)
                 {
                     btnMode.Image = Properties.Resources.sun;
@@ -52,10 +51,10 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
                     IsTheme = true;
                 }
             }
-            scheme.LoadTheme(this.Controls);
-            if (File.Exists(scheme.Path))
+            config.ColorScheme.LoadTheme(this.Controls);
+            if (File.Exists(config.ColorScheme.Path))
             {
-                IsSound = Convert.ToBoolean(File.ReadAllText(scheme.Path));
+                IsSound = Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path));
                 if (IsSound)
                 {
                     btnIsSound.Image = Properties.Resources.toggle_on;
@@ -73,8 +72,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void Sound_Click(object sender, EventArgs e) 
         {
-            ini.Sound.ClickSound(); 
-            if (File.Exists(scheme.Path))
+            Sound.Click(); 
+            if (File.Exists(config.ColorScheme.Path))
             {
                 File.WriteAllText(Sound.sound, string.Empty);
                 File.WriteAllText(Sound.sound, IsSound.ToString());
@@ -98,7 +97,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             this.Cursor = Cursors.WaitCursor;
             database.Mysql.Restore();
             this.Cursor = Cursors.Default;
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new dialog();
             dialog.Id = 0;
             dialog.Title = "Restart Application";
@@ -109,7 +108,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.SecondaryButton.Click += Restart_Click;
             popup popup = new popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
 
         }
@@ -121,20 +120,20 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void ChangeTheme_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
-            if (File.Exists(scheme.Path))
+            Sound.Click();
+            if (File.Exists(config.ColorScheme.Path))
             {
-                File.WriteAllText(scheme.Path, string.Empty);
-                File.WriteAllText(scheme.Path, IsTheme.ToString());
+                File.WriteAllText(config.ColorScheme.Path, string.Empty);
+                File.WriteAllText(config.ColorScheme.Path, IsTheme.ToString());
                 if (IsLoggedIn)
                 {
-                    scheme.LoadTheme(this.dashboard.Controls);
-                    scheme.LoadTheme(this.dashboard.menu.popup.Controls);
+                    config.ColorScheme.LoadTheme(this.dashboard.Controls);
+                    config.ColorScheme.LoadTheme(this.dashboard.menu.popup.Controls);
                 }
                 else
                 {
-                    scheme.LoadTheme(this.login.Controls);
-                    scheme.LoadTheme(this.login.popup.Controls);
+                    config.ColorScheme.LoadTheme(this.login.Controls);
+                    config.ColorScheme.LoadTheme(this.login.popup.Controls);
                 }
             }
            

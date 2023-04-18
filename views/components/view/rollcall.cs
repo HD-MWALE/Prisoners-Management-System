@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
-using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.view
+namespace Prisoners_Management_System.views.components.view
 {
     public partial class rollcall : UserControl
     {
@@ -36,19 +36,20 @@ namespace Roll_Call_And_Management_System.views.components.view
             dashboard.SetLoading(false);
         }
         inmates inmates;
+        DataSet dsRoll_Call = new DataSet();
         private void rollcall_Load(object sender, EventArgs e)
         {
             inmates = new inmates(dashboard);
             if (Id != 0)
             {
-                dashboard.Prison.Roll_Call.dataSet = dashboard.Prison.Roll_Call.GetRollCallDetails(Id);
-                if (dashboard.Prison.Roll_Call.dataSet != null)
+                dsRoll_Call = dashboard.Prison.Roll_Call.GetRollCallDetails(Id);
+                if (dsRoll_Call != null)
                 {
-                    foreach (DataRow dataRow in dashboard.Prison.Roll_Call.dataSet.Tables["result"].Rows)
+                    foreach (DataRow dataRow in dsRoll_Call.Tables["result"].Rows)
                     {
                         Id = Convert.ToInt32(dataRow["id"].ToString());
                         lblCode.Text = dataRow["code"].ToString();
-                        lblDormitoryName.Text = ini.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
+                        lblDormitoryName.Text = config.config.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
                         DataSet dataSet = dashboard.Prison.Roll_Call.GetDetails(lblCode.Text); 
                         int number = 1;
                         if (dataSet != null)
@@ -57,26 +58,26 @@ namespace Roll_Call_And_Management_System.views.components.view
                             {
                                 rows.inmate inmate = new rows.inmate(dashboard, inmates);
                                 Id = Convert.ToInt32(row["id"].ToString());
-                                lblCode.Text = ini.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
-                                lblDormitoryName.Text = ini.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(row["dormitory_id"])), Properties.Resources.PassPhrase);
+                                lblCode.Text = config.config.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
+                                lblDormitoryName.Text = config.config.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(row["dormitory_id"])), Properties.Resources.PassPhrase);
                                 inmate.Id = (int)row["id"];
                                 inmate.lblNo.Text = number.ToString();
-                                inmate.lblCode.Text = ini.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
-                                inmate.lblFullname.Text = ini.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                                inmate.lblGender.Text = ini.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                                inmate.lblCode.Text = config.config.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
+                                inmate.lblFullname.Text = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                                inmate.lblGender.Text = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
                                 inmate.lblDoB.Text = Convert.ToDateTime(row["dob"]).ToString("dd/MM/yyyy");
-                                inmate.lblAddress.Text = ini.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
-                                inmate.lblMaritalStatus.Text = ini.AES.Decrypt(row["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                                inmate.lblAddress.Text = config.config.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
+                                inmate.lblMaritalStatus.Text = config.config.AES.Decrypt(row["marital_status"].ToString(), Properties.Resources.PassPhrase);
                                 inmate.specifier = this.Name;
                                 txtSearch.AutoCompleteCustomSource.Add(inmate.lblCode.Text);
                                 txtSearch.AutoCompleteCustomSource.Add(inmate.lblFullname.Text);
-                                txtSearch.AutoCompleteCustomSource.Add(ini.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase));
-                                txtSearch.AutoCompleteCustomSource.Add(ini.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase));
-                                txtSearch.AutoCompleteCustomSource.Add(ini.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase));
+                                txtSearch.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase));
+                                txtSearch.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                                txtSearch.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase));
                                 txtSearch.AutoCompleteCustomSource.Add(inmate.lblMaritalStatus.Text);
                                 InmateflowLayoutPanel.Controls.Add(inmate);
-                                if (File.Exists(ini.UserRole))
-                                    if (File.ReadAllText(ini.UserRole) != "Admin")
+                                if (File.Exists(config.config.UserRole))
+                                    if (File.ReadAllText(config.config.UserRole) != "Admin")
                                     {
                                         inmate.btnEdit.Visible = false;
                                         inmate.btnDelete.Visible = false;
@@ -88,7 +89,7 @@ namespace Roll_Call_And_Management_System.views.components.view
                 }
             }
 
-            ini.ColorScheme.LoadTheme(this.Rollcall.dashboard.Controls);
+            ColorScheme.LoadTheme(this.Rollcall.dashboard.Controls);
         }
     }
 }

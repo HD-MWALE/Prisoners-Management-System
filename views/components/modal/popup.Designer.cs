@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.modal
+﻿namespace Prisoners_Management_System.views.components.modal
 {
     partial class popup
     {
@@ -55,7 +55,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.Image = global::Roll_Call_And_Management_System.Properties.Resources.close;
+            this.btnClose.Image = global::Prisoners_Management_System.Properties.Resources.close;
             this.btnClose.ImageActive = null;
             this.btnClose.Location = new System.Drawing.Point(292, 10);
             this.btnClose.Name = "btnClose";
@@ -80,7 +80,7 @@
             // IconMenu
             // 
             this.IconMenu.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.IconMenu.Image = global::Roll_Call_And_Management_System.Properties.Resources.popup_window;
+            this.IconMenu.Image = global::Prisoners_Management_System.Properties.Resources.popup_window;
             this.IconMenu.ImageActive = null;
             this.IconMenu.Location = new System.Drawing.Point(10, 10);
             this.IconMenu.Name = "IconMenu";

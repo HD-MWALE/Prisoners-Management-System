@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Orientation = Roll_Call_And_Management_System.config.Orientation;
+using Orientation = Prisoners_Management_System.config.Orientation;
 
-namespace Roll_Call_And_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.dashboard
 {
     public partial class menu : UserControl
     {
@@ -51,56 +51,56 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         public modal.popup popup;
         private void Settings_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.SetLoading(true);
             //bar.Top = ((Bunifu.Framework.UI.BunifuFlatButton)sender).Top;
             settings = new settings(dashboard, true); 
             popup = new modal.popup(settings);
             popup.Size = settings.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
 
         private void Profile_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound(); 
+            Sound.Click(); 
             dashboard.SetLoading(true);
             profile = new profile(dashboard);
             popup = new modal.popup( profile);
             popup.Size = profile.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
 
         private void Help_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.SetLoading(true);
             help = new help(dashboard, login);
             popup = new modal.popup( help);
             popup.Size = help.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
 
         private void About_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.SetLoading(true);
             about = new about(dashboard, login);
             popup = new modal.popup( about);
             popup.Size = about.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
         modal.dialog dialog;
         private void Logout_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.SetLoading(true);
             dialog = new modal.dialog();
             dialog.Id = 0;
@@ -112,7 +112,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -131,7 +131,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void btnExit_Click(object sender, EventArgs e) 
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.SetLoading(true);
             dialog = new modal.dialog();
             dialog.Id = 0;
@@ -143,7 +143,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             dialog.PrimaryButton.Click += Exit; 
             modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }

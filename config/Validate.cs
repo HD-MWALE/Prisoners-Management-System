@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Wordprocessing;
-using Roll_Call_And_Management_System.views;
+using Prisoners_Management_System.views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +15,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Color = System.Drawing.Color;
 
-namespace Roll_Call_And_Management_System
+namespace Prisoners_Management_System
 {
     internal class Validate 
     {

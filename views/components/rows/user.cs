@@ -1,5 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class user : UserControl
     {
@@ -19,7 +19,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             InitializeComponent();
             this.dashboard = dashboard;
             this.users = users;
-            ini.ColorScheme.LoadTheme(this.Controls);
+            ColorScheme.LoadTheme(this.Controls);
         }
 
         views.dashboard dashboard;
@@ -32,13 +32,13 @@ namespace Roll_Call_And_Management_System.views.components.rows
         {
             dashboard.Prison.User.Delete(Id);
             users.users_Load(sender, e);
-            ini.Alerts.Popup("User Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            config.config.Alerts.Popup("User Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
         inputs.user edit;
         private void btnEdit_Click(object sender, EventArgs e) 
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             edit = new inputs.user(dashboard, users);
             edit.Id = Id;
             dashboard.PathSeparator.Visible = true;
@@ -47,14 +47,14 @@ namespace Roll_Call_And_Management_System.views.components.rows
             this.users.Controls.Add(edit);
             edit.Dock = DockStyle.Fill;
             edit.BringToFront();
-            ini.ColorScheme.LoadTheme(this.users.Controls);
+            ColorScheme.LoadTheme(this.users.Controls);
             dashboard.SetLoading(false);
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             viewuser = new view.user();
             viewuser.Id = Id;
             viewuser.lblUsername.Text = lblUsername.Text;
@@ -66,7 +66,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             //viewuser.lblPrison.Text = lblPrison.Text;
             modal.popup popup = new modal.popup(viewuser);
             popup.Size = viewuser.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -74,7 +74,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete User";
@@ -85,7 +85,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }

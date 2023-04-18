@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components
+﻿namespace Prisoners_Management_System.views.components
 {
     partial class crimes
     {
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(crimes));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,7 +44,13 @@
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.lblentries = new System.Windows.Forms.Label();
+            this.lblPageNumber = new System.Windows.Forms.Label();
+            this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuSeparator1
@@ -135,7 +141,7 @@
             this.CrimeflowLayoutPanel.Location = new System.Drawing.Point(48, 183);
             this.CrimeflowLayoutPanel.Name = "CrimeflowLayoutPanel";
             this.CrimeflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CrimeflowLayoutPanel.Size = new System.Drawing.Size(832, 188);
+            this.CrimeflowLayoutPanel.Size = new System.Drawing.Size(832, 139);
             this.CrimeflowLayoutPanel.TabIndex = 83;
             // 
             // label17
@@ -161,7 +167,7 @@
             this.btnAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddNew.DisabledColor = System.Drawing.Color.Gray;
             this.btnAddNew.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAddNew.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnAddNew.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnAddNew.Iconimage_right = null;
             this.btnAddNew.Iconimage_right_Selected = null;
             this.btnAddNew.Iconimage_Selected = null;
@@ -220,26 +226,26 @@
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.Empty;
-            stateProperties2.FillColor = System.Drawing.Color.White;
-            stateProperties2.ForeColor = System.Drawing.Color.Empty;
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.White;
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties4;
+            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties5.FillColor = System.Drawing.Color.Empty;
+            stateProperties5.ForeColor = System.Drawing.Color.Empty;
+            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties5;
+            stateProperties6.BorderColor = System.Drawing.Color.Empty;
+            stateProperties6.FillColor = System.Drawing.Color.White;
+            stateProperties6.ForeColor = System.Drawing.Color.Empty;
+            stateProperties6.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties6;
+            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties7.FillColor = System.Drawing.Color.Empty;
+            stateProperties7.ForeColor = System.Drawing.Color.Empty;
+            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties7;
+            stateProperties8.BorderColor = System.Drawing.Color.Silver;
+            stateProperties8.FillColor = System.Drawing.Color.White;
+            stateProperties8.ForeColor = System.Drawing.Color.Empty;
+            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties8;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -272,7 +278,7 @@
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
             this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
             this.btnSearch.Iconimage_right = null;
             this.btnSearch.Iconimage_right_Selected = null;
             this.btnSearch.Iconimage_Selected = null;
@@ -297,11 +303,69 @@
             this.btnSearch.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // lblentries
+            // 
+            this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblentries.AutoSize = true;
+            this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblentries.ForeColor = System.Drawing.Color.White;
+            this.lblentries.Location = new System.Drawing.Point(62, 332);
+            this.lblentries.Name = "lblentries";
+            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.TabIndex = 103;
+            this.lblentries.Text = "25 of 100 entries";
+            // 
+            // lblPageNumber
+            // 
+            this.lblPageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPageNumber.AutoSize = true;
+            this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPageNumber.ForeColor = System.Drawing.Color.White;
+            this.lblPageNumber.Location = new System.Drawing.Point(806, 332);
+            this.lblPageNumber.Name = "lblPageNumber";
+            this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
+            this.lblPageNumber.TabIndex = 100;
+            this.lblPageNumber.Text = "100";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.ImageActive = null;
+            this.btnPrevious.Location = new System.Drawing.Point(766, 328);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(34, 30);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 102;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Zoom = 5;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
+            this.btnNext.ImageActive = null;
+            this.btnNext.Location = new System.Drawing.Point(845, 328);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(34, 30);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 101;
+            this.btnNext.TabStop = false;
+            this.btnNext.Zoom = 5;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
             // crimes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.lblentries);
+            this.Controls.Add(this.lblPageNumber);
+            this.Controls.Add(this.btnPrevious);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.bunifuSeparator1);
@@ -314,6 +378,8 @@
             this.Load += new System.EventHandler(this.crimes_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,5 +398,9 @@
         private System.Windows.Forms.Label label3;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtSearch;
         public Bunifu.Framework.UI.BunifuFlatButton btnSearch;
+        private System.Windows.Forms.Label lblentries;
+        private System.Windows.Forms.Label lblPageNumber;
+        private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
+        private Bunifu.Framework.UI.BunifuImageButton btnNext;
     }
 }

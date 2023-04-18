@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class profile
     {
@@ -486,7 +486,7 @@
             this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUpdate.DisabledColor = System.Drawing.Color.Gray;
             this.btnUpdate.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnUpdate.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.btnUpdate.Iconimage = global::Prisoners_Management_System.Properties.Resources.user;
             this.btnUpdate.Iconimage_right = null;
             this.btnUpdate.Iconimage_right_Selected = null;
             this.btnUpdate.Iconimage_Selected = null;
@@ -561,8 +561,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Roll_Call_And_Management_System.Properties.Resources.user;
-            this.pictureBox1.InitialImage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.pictureBox1.Image = global::Prisoners_Management_System.Properties.Resources.user;
+            this.pictureBox1.InitialImage = global::Prisoners_Management_System.Properties.Resources.user;
             this.pictureBox1.Location = new System.Drawing.Point(29, 55);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(48, 48);

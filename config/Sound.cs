@@ -7,73 +7,74 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Roll_Call_And_Management_System.views.components.dashboard.alert;
+using static Prisoners_Management_System.views.components.dashboard.alert;
 
-namespace Roll_Call_And_Management_System.config
+namespace Prisoners_Management_System.config
 {
     internal class Sound
     {
-        private static string Path = Application.StartupPath;
-        public static string sound = Path + "\\settings\\sound.txt";  
+        // declaring and initialize sound file path
+        public static string sound = config.Path + "\\settings\\sound.txt";
+        // declaring and initialize sound player
         static SoundPlayer player = new SoundPlayer();
 
         public void Sound1()
         {
             //player.Play();
-            player.SoundLocation = @"" + Path + "\\audio\\click-tone.wav";
-            player.SoundLocation = @"" + Path + "\\audio\\alert-bells-echo.wav";
+            player.SoundLocation = @"" + config.Path + "\\audio\\click-tone.wav";
+            player.SoundLocation = @"" + config.Path + "\\audio\\alert-bells-echo.wav";
             player.Play();
-            player.SoundLocation = @"" + Path + "\\audio\\select-click.wav";
+            player.SoundLocation = @"" + config.Path + "\\audio\\select-click.wav";
             //player.Play();
             //player.Play();
         }
-
-        public void AlertSound(enmType type)
+        // Alert sound
+        public void Alert(enmType type)
         {
             if (Convert.ToBoolean(File.ReadAllText(sound)))
             {
                 switch (type)
                 {
                     case enmType.Success:
-                        player.SoundLocation = @"" + Path + "\\audio\\notification.wav";
+                        player.SoundLocation = @"" + config.Path + "\\audio\\notification.wav";
                         break;
                     case enmType.Error:
-                        player.SoundLocation = @"" + Path + "\\audio\\click-error.wav";
+                        player.SoundLocation = @"" + config.Path + "\\audio\\click-error.wav";
                         break;
                     case enmType.Info:
-                        player.SoundLocation = @"" + Path + "\\audio\\alert-bells-echo.wav";
+                        player.SoundLocation = @"" + config.Path + "\\audio\\alert-bells-echo.wav";
                         break;
                     case enmType.Warning:
-                        player.SoundLocation = @"" + Path + "\\audio\\click-error.wav";
+                        player.SoundLocation = @"" + config.Path + "\\audio\\click-error.wav";
                         break;
                 }
                 player.Play();
             }
         }
-
-        public void ClickSound()
+        // click sound
+        public static void Click()
         {
             if (Convert.ToBoolean(File.ReadAllText(sound)))
             {
-                player.SoundLocation = @"" + Path + "\\audio\\click-tone.wav";
+                player.SoundLocation = @"" + config.Path + "\\audio\\click-tone.wav";
                 player.Play();
             }
         }
-
-        public void CaptureSound()
+        // capture sound
+        public static void Capture()
         {
             if (Convert.ToBoolean(File.ReadAllText(sound)))
             {
-                player.SoundLocation = @"" + Path + "\\audio\\select-click.wav";
+                player.SoundLocation = @"" + config.Path + "\\audio\\select-click.wav";
                 player.Play();
             }
         }
-
-        public void RemoveSound()
+        // remove sound
+        public static void RemoveSound()
         {
             if (Convert.ToBoolean(File.ReadAllText(sound)))
             {
-                player.SoundLocation = @"" + Path + "\\audio\\select-click.wav";
+                player.SoundLocation = @"" + config.Path + "\\audio\\select-click.wav";
                 player.Play();
             }
         }
@@ -82,7 +83,7 @@ namespace Roll_Call_And_Management_System.config
         {
             if (Convert.ToBoolean(File.ReadAllText(sound)))
             {
-                player.SoundLocation = @"" + Path + "\\audio\\click-error.wav";
+                player.SoundLocation = @"" + config.Path + "\\audio\\click-error.wav";
                 player.Play();
             }
         }

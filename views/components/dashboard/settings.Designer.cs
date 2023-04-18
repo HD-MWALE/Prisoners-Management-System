@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class settings
     {
@@ -93,7 +93,7 @@
             // btnBackup
             // 
             this.btnBackup.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBackup.Image = global::Roll_Call_And_Management_System.Properties.Resources.restore;
+            this.btnBackup.Image = global::Prisoners_Management_System.Properties.Resources.restore;
             this.btnBackup.ImageActive = null;
             this.btnBackup.Location = new System.Drawing.Point(260, 187);
             this.btnBackup.Name = "btnBackup";
@@ -133,7 +133,7 @@
             // btnMode
             // 
             this.btnMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMode.Image = global::Roll_Call_And_Management_System.Properties.Resources.moon_and_stars;
+            this.btnMode.Image = global::Prisoners_Management_System.Properties.Resources.moon_and_stars;
             this.btnMode.ImageActive = null;
             this.btnMode.Location = new System.Drawing.Point(37, 56);
             this.btnMode.Name = "btnMode";
@@ -146,7 +146,7 @@
             // btnSound
             // 
             this.btnSound.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSound.Image = global::Roll_Call_And_Management_System.Properties.Resources.sound;
+            this.btnSound.Image = global::Prisoners_Management_System.Properties.Resources.sound;
             this.btnSound.ImageActive = null;
             this.btnSound.Location = new System.Drawing.Point(37, 94);
             this.btnSound.Name = "btnSound";
@@ -195,7 +195,7 @@
             // bunifuImageButton2
             // 
             this.bunifuImageButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuImageButton2.Image = global::Roll_Call_And_Management_System.Properties.Resources.Database_Restore;
+            this.bunifuImageButton2.Image = global::Prisoners_Management_System.Properties.Resources.Database_Restore;
             this.bunifuImageButton2.ImageActive = null;
             this.bunifuImageButton2.Location = new System.Drawing.Point(37, 187);
             this.bunifuImageButton2.Name = "bunifuImageButton2";

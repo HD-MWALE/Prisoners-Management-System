@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class menu
     {
@@ -47,7 +47,7 @@
             this.Settings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Settings.DisabledColor = System.Drawing.Color.Gray;
             this.Settings.Iconcolor = System.Drawing.Color.Transparent;
-            this.Settings.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.settings;
+            this.Settings.Iconimage = global::Prisoners_Management_System.Properties.Resources.settings;
             this.Settings.Iconimage_right = null;
             this.Settings.Iconimage_right_Selected = null;
             this.Settings.Iconimage_Selected = null;
@@ -85,7 +85,7 @@
             this.Profile.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Profile.DisabledColor = System.Drawing.Color.Gray;
             this.Profile.Iconcolor = System.Drawing.Color.Transparent;
-            this.Profile.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.Profile.Iconimage = global::Prisoners_Management_System.Properties.Resources.user;
             this.Profile.Iconimage_right = null;
             this.Profile.Iconimage_right_Selected = null;
             this.Profile.Iconimage_Selected = null;
@@ -123,7 +123,7 @@
             this.Help.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Help.DisabledColor = System.Drawing.Color.Gray;
             this.Help.Iconcolor = System.Drawing.Color.Transparent;
-            this.Help.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.help;
+            this.Help.Iconimage = global::Prisoners_Management_System.Properties.Resources.help;
             this.Help.Iconimage_right = null;
             this.Help.Iconimage_right_Selected = null;
             this.Help.Iconimage_Selected = null;
@@ -161,7 +161,7 @@
             this.About.Cursor = System.Windows.Forms.Cursors.Hand;
             this.About.DisabledColor = System.Drawing.Color.Gray;
             this.About.Iconcolor = System.Drawing.Color.Transparent;
-            this.About.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.info;
+            this.About.Iconimage = global::Prisoners_Management_System.Properties.Resources.info;
             this.About.Iconimage_right = null;
             this.About.Iconimage_right_Selected = null;
             this.About.Iconimage_Selected = null;
@@ -199,7 +199,7 @@
             this.Logout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Logout.DisabledColor = System.Drawing.Color.Gray;
             this.Logout.Iconcolor = System.Drawing.Color.Transparent;
-            this.Logout.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.logout;
+            this.Logout.Iconimage = global::Prisoners_Management_System.Properties.Resources.logout;
             this.Logout.Iconimage_right = null;
             this.Logout.Iconimage_right_Selected = null;
             this.Logout.Iconimage_Selected = null;
@@ -236,7 +236,7 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.DisabledColor = System.Drawing.Color.Gray;
             this.btnExit.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnExit.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.shutdown;
+            this.btnExit.Iconimage = global::Prisoners_Management_System.Properties.Resources.shutdown;
             this.btnExit.Iconimage_right = null;
             this.btnExit.Iconimage_right_Selected = null;
             this.btnExit.Iconimage_Selected = null;

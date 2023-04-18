@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components
+﻿namespace Prisoners_Management_System.views.components
 {
     partial class inmates
     {
@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(inmates));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties9 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties10 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties11 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties12 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label17 = new System.Windows.Forms.Label();
             this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -57,7 +57,7 @@
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblPageNumber = new System.Windows.Forms.Label();
-            this.lblEntities = new System.Windows.Forms.Label();
+            this.lblentries = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
@@ -75,7 +75,7 @@
             this.btnAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddNew.DisabledColor = System.Drawing.Color.Gray;
             this.btnAddNew.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAddNew.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnAddNew.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnAddNew.Iconimage_right = null;
             this.btnAddNew.Iconimage_right_Selected = null;
             this.btnAddNew.Iconimage_Selected = null;
@@ -122,6 +122,7 @@
             this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 199);
             this.InmateflowLayoutPanel.TabIndex = 70;
+            this.InmateflowLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.InmateflowLayoutPanel_Paint);
             // 
             // label3
             // 
@@ -242,7 +243,7 @@
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
             this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
             this.btnSearch.Iconimage_right = null;
             this.btnSearch.Iconimage_right_Selected = null;
             this.btnSearch.Iconimage_Selected = null;
@@ -301,26 +302,26 @@
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties9.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties9.FillColor = System.Drawing.Color.Empty;
-            stateProperties9.ForeColor = System.Drawing.Color.Empty;
-            stateProperties9.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties9;
-            stateProperties10.BorderColor = System.Drawing.Color.Empty;
-            stateProperties10.FillColor = System.Drawing.Color.White;
-            stateProperties10.ForeColor = System.Drawing.Color.Empty;
-            stateProperties10.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties10;
-            stateProperties11.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties11.FillColor = System.Drawing.Color.Empty;
-            stateProperties11.ForeColor = System.Drawing.Color.Empty;
-            stateProperties11.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties11;
-            stateProperties12.BorderColor = System.Drawing.Color.Silver;
-            stateProperties12.FillColor = System.Drawing.Color.White;
-            stateProperties12.ForeColor = System.Drawing.Color.Empty;
-            stateProperties12.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties12;
+            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties1.FillColor = System.Drawing.Color.Empty;
+            stateProperties1.ForeColor = System.Drawing.Color.Empty;
+            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties1;
+            stateProperties2.BorderColor = System.Drawing.Color.Empty;
+            stateProperties2.FillColor = System.Drawing.Color.White;
+            stateProperties2.ForeColor = System.Drawing.Color.Empty;
+            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties2;
+            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties3.FillColor = System.Drawing.Color.Empty;
+            stateProperties3.ForeColor = System.Drawing.Color.Empty;
+            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties3;
+            stateProperties4.BorderColor = System.Drawing.Color.Silver;
+            stateProperties4.FillColor = System.Drawing.Color.White;
+            stateProperties4.ForeColor = System.Drawing.Color.Empty;
+            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties4;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -386,7 +387,7 @@
             this.btnPList.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPList.DisabledColor = System.Drawing.Color.Gray;
             this.btnPList.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnPList.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.users;
+            this.btnPList.Iconimage = global::Prisoners_Management_System.Properties.Resources.users;
             this.btnPList.Iconimage_right = null;
             this.btnPList.Iconimage_right_Selected = null;
             this.btnPList.Iconimage_Selected = null;
@@ -422,7 +423,7 @@
             this.btnPrint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrint.DisabledColor = System.Drawing.Color.Gray;
             this.btnPrint.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnPrint.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.print;
+            this.btnPrint.Iconimage = global::Prisoners_Management_System.Properties.Resources.print;
             this.btnPrint.Iconimage_right = null;
             this.btnPrint.Iconimage_right_Selected = null;
             this.btnPrint.Iconimage_Selected = null;
@@ -494,7 +495,7 @@
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNext.Image = global::Roll_Call_And_Management_System.Properties.Resources.circled_right;
+            this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
             this.btnNext.ImageActive = null;
             this.btnNext.Location = new System.Drawing.Point(851, 416);
             this.btnNext.Name = "btnNext";
@@ -509,7 +510,7 @@
             // 
             this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPrevious.Image = global::Roll_Call_And_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
             this.btnPrevious.ImageActive = null;
             this.btnPrevious.Location = new System.Drawing.Point(772, 416);
             this.btnPrevious.Name = "btnPrevious";
@@ -531,25 +532,27 @@
             this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
             this.lblPageNumber.TabIndex = 83;
             this.lblPageNumber.Text = "100";
+            this.lblPageNumber.Click += new System.EventHandler(this.lblPageNumber_Click);
             // 
-            // lblEntities
+            // lblentries
             // 
-            this.lblEntities.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblEntities.AutoSize = true;
-            this.lblEntities.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblEntities.ForeColor = System.Drawing.Color.White;
-            this.lblEntities.Location = new System.Drawing.Point(46, 420);
-            this.lblEntities.Name = "lblEntities";
-            this.lblEntities.Size = new System.Drawing.Size(140, 21);
-            this.lblEntities.TabIndex = 99;
-            this.lblEntities.Text = "25 of 100 entities";
+            this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblentries.AutoSize = true;
+            this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblentries.ForeColor = System.Drawing.Color.White;
+            this.lblentries.Location = new System.Drawing.Point(46, 420);
+            this.lblentries.Name = "lblentries";
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
+            this.lblentries.TabIndex = 99;
+            this.lblentries.Text = "25 of 100 entries";
+            this.lblentries.Click += new System.EventHandler(this.lblentries_Click);
             // 
             // inmates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.Controls.Add(this.lblEntities);
+            this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
@@ -602,6 +605,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private System.Windows.Forms.Label lblPageNumber;
-        private System.Windows.Forms.Label lblEntities;
+        private System.Windows.Forms.Label lblentries;
     }
 }

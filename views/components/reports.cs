@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.classes;
+﻿using Prisoners_Management_System.classes;
 using System;
 using LiveCharts.Wpf;
 using LiveCharts;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components
+namespace Prisoners_Management_System.views.components
 {
     public partial class reports : UserControl
     {

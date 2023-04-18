@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views
+﻿namespace Prisoners_Management_System.views
 {
     partial class dashboard
     {
@@ -39,7 +39,6 @@
             this.btnDormitory = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnUsers = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnRollCall = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.lblUsername = new System.Windows.Forms.Label();
             this.btnDashboard = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnInmate = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnVisitors = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -57,6 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.MenuTransition = new BunifuAnimatorNS.BunifuTransition(this.components);
             this.pnlBody = new System.Windows.Forms.Panel();
+            this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.SidebarTimer = new System.Windows.Forms.Timer(this.components);
             this.menuTimer = new System.Windows.Forms.Timer(this.components);
@@ -70,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).BeginInit();
+            this.pnlBody.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMenu
@@ -82,7 +83,6 @@
             this.pnlMenu.Controls.Add(this.btnDormitory);
             this.pnlMenu.Controls.Add(this.btnUsers);
             this.pnlMenu.Controls.Add(this.btnRollCall);
-            this.pnlMenu.Controls.Add(this.lblUsername);
             this.pnlMenu.Controls.Add(this.btnDashboard);
             this.pnlMenu.Controls.Add(this.btnInmate);
             this.pnlMenu.Controls.Add(this.btnVisitors);
@@ -109,7 +109,7 @@
             this.btnReports.DisabledColor = System.Drawing.Color.Gray;
             this.btnReports.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReports.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnReports.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.slice;
+            this.btnReports.Iconimage = global::Prisoners_Management_System.Properties.Resources.slice;
             this.btnReports.Iconimage_right = null;
             this.btnReports.Iconimage_right_Selected = null;
             this.btnReports.Iconimage_Selected = null;
@@ -148,7 +148,7 @@
             this.btnCrimes.DisabledColor = System.Drawing.Color.Gray;
             this.btnCrimes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrimes.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCrimes.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.handcuffs;
+            this.btnCrimes.Iconimage = global::Prisoners_Management_System.Properties.Resources.handcuffs;
             this.btnCrimes.Iconimage_right = null;
             this.btnCrimes.Iconimage_right_Selected = null;
             this.btnCrimes.Iconimage_Selected = null;
@@ -189,7 +189,7 @@
             this.btnToggleMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnToggleMenu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MenuTransition.SetDecoration(this.btnToggleMenu, BunifuAnimatorNS.DecorationType.None);
-            this.btnToggleMenu.Image = global::Roll_Call_And_Management_System.Properties.Resources.back;
+            this.btnToggleMenu.Image = global::Prisoners_Management_System.Properties.Resources.back;
             this.btnToggleMenu.ImageActive = null;
             this.btnToggleMenu.Location = new System.Drawing.Point(18, 13);
             this.btnToggleMenu.Name = "btnToggleMenu";
@@ -213,7 +213,7 @@
             this.btnDormitory.DisabledColor = System.Drawing.Color.Gray;
             this.btnDormitory.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDormitory.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnDormitory.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.prison_building;
+            this.btnDormitory.Iconimage = global::Prisoners_Management_System.Properties.Resources.prison_building;
             this.btnDormitory.Iconimage_right = null;
             this.btnDormitory.Iconimage_right_Selected = null;
             this.btnDormitory.Iconimage_Selected = null;
@@ -252,7 +252,7 @@
             this.btnUsers.DisabledColor = System.Drawing.Color.Gray;
             this.btnUsers.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUsers.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnUsers.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.users;
+            this.btnUsers.Iconimage = global::Prisoners_Management_System.Properties.Resources.users;
             this.btnUsers.Iconimage_right = null;
             this.btnUsers.Iconimage_right_Selected = null;
             this.btnUsers.Iconimage_Selected = null;
@@ -291,7 +291,7 @@
             this.btnRollCall.DisabledColor = System.Drawing.Color.Gray;
             this.btnRollCall.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRollCall.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnRollCall.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.checked_user;
+            this.btnRollCall.Iconimage = global::Prisoners_Management_System.Properties.Resources.checked_user;
             this.btnRollCall.Iconimage_right = null;
             this.btnRollCall.Iconimage_right_Selected = null;
             this.btnRollCall.Iconimage_Selected = null;
@@ -317,18 +317,6 @@
             this.btnRollCall.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnRollCall.Click += new System.EventHandler(this.btnRollCall_Click);
             // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.MenuTransition.SetDecoration(this.lblUsername, BunifuAnimatorNS.DecorationType.None);
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(51, 15);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(103, 20);
-            this.lblUsername.TabIndex = 4;
-            this.lblUsername.Text = "Bright Mwale";
-            // 
             // btnDashboard
             // 
             this.btnDashboard.Active = true;
@@ -342,7 +330,7 @@
             this.btnDashboard.DisabledColor = System.Drawing.Color.Gray;
             this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnDashboard.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.dashboard_layout;
+            this.btnDashboard.Iconimage = global::Prisoners_Management_System.Properties.Resources.dashboard_layout;
             this.btnDashboard.Iconimage_right = null;
             this.btnDashboard.Iconimage_right_Selected = null;
             this.btnDashboard.Iconimage_Selected = null;
@@ -382,7 +370,7 @@
             this.btnInmate.DisabledColor = System.Drawing.Color.Gray;
             this.btnInmate.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInmate.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnInmate.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.prisoner;
+            this.btnInmate.Iconimage = global::Prisoners_Management_System.Properties.Resources.prisoner;
             this.btnInmate.Iconimage_right = null;
             this.btnInmate.Iconimage_right_Selected = null;
             this.btnInmate.Iconimage_Selected = null;
@@ -421,7 +409,7 @@
             this.btnVisitors.DisabledColor = System.Drawing.Color.Gray;
             this.btnVisitors.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVisitors.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnVisitors.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.waiting_room;
+            this.btnVisitors.Iconimage = global::Prisoners_Management_System.Properties.Resources.waiting_room;
             this.btnVisitors.Iconimage_right = null;
             this.btnVisitors.Iconimage_right_Selected = null;
             this.btnVisitors.Iconimage_Selected = null;
@@ -500,7 +488,7 @@
             this.btnBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MenuTransition.SetDecoration(this.btnBack, BunifuAnimatorNS.DecorationType.None);
-            this.btnBack.Image = global::Roll_Call_And_Management_System.Properties.Resources.back;
+            this.btnBack.Image = global::Prisoners_Management_System.Properties.Resources.back;
             this.btnBack.ImageActive = null;
             this.btnBack.Location = new System.Drawing.Point(20, 7);
             this.btnBack.Margin = new System.Windows.Forms.Padding(20, 7, 3, 3);
@@ -588,7 +576,7 @@
             this.btnNotification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNotification.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MenuTransition.SetDecoration(this.btnNotification, BunifuAnimatorNS.DecorationType.None);
-            this.btnNotification.Image = global::Roll_Call_And_Management_System.Properties.Resources.notification;
+            this.btnNotification.Image = global::Prisoners_Management_System.Properties.Resources.notification;
             this.btnNotification.ImageActive = null;
             this.btnNotification.Location = new System.Drawing.Point(543, 12);
             this.btnNotification.Name = "btnNotification";
@@ -604,7 +592,7 @@
             this.btnProfile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProfile.Cursor = System.Windows.Forms.Cursors.Hand;
             this.MenuTransition.SetDecoration(this.btnProfile, BunifuAnimatorNS.DecorationType.None);
-            this.btnProfile.Image = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.btnProfile.Image = global::Prisoners_Management_System.Properties.Resources.user;
             this.btnProfile.ImageActive = null;
             this.btnProfile.Location = new System.Drawing.Point(583, 12);
             this.btnProfile.Name = "btnProfile";
@@ -654,6 +642,7 @@
             // pnlBody
             // 
             this.pnlBody.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.pnlBody.Controls.Add(this.cpbLoader);
             this.MenuTransition.SetDecoration(this.pnlBody, BunifuAnimatorNS.DecorationType.None);
             this.pnlBody.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBody.Location = new System.Drawing.Point(170, 101);
@@ -661,6 +650,30 @@
             this.pnlBody.Size = new System.Drawing.Size(629, 349);
             this.pnlBody.TabIndex = 3;
             this.pnlBody.MouseHover += new System.EventHandler(this.pnlBody_MouseHover);
+            // 
+            // cpbLoader
+            // 
+            this.cpbLoader.animated = true;
+            this.cpbLoader.animationIterval = 5;
+            this.cpbLoader.animationSpeed = 10;
+            this.cpbLoader.BackColor = System.Drawing.Color.Transparent;
+            this.cpbLoader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpbLoader.BackgroundImage")));
+            this.cpbLoader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.MenuTransition.SetDecoration(this.cpbLoader, BunifuAnimatorNS.DecorationType.None);
+            this.cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.cpbLoader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.LabelVisible = false;
+            this.cpbLoader.LineProgressThickness = 8;
+            this.cpbLoader.LineThickness = 5;
+            this.cpbLoader.Location = new System.Drawing.Point(0, 1);
+            this.cpbLoader.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.cpbLoader.MaxValue = 100;
+            this.cpbLoader.Name = "cpbLoader";
+            this.cpbLoader.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.cpbLoader.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.Size = new System.Drawing.Size(100, 100);
+            this.cpbLoader.TabIndex = 42;
+            this.cpbLoader.Value = 25;
             // 
             // timer
             // 
@@ -706,7 +719,6 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.Shown += new System.EventHandler(this.Dashboard_Shown);
             this.pnlMenu.ResumeLayout(false);
-            this.pnlMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnToggleMenu)).EndInit();
             this.pnlHeader.ResumeLayout(false);
@@ -716,6 +728,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnBack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNotification)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnProfile)).EndInit();
+            this.pnlBody.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -735,7 +748,6 @@
         private Bunifu.Framework.UI.BunifuImageButton btnProfile;
         private System.Windows.Forms.Label label1;
         private BunifuAnimatorNS.BunifuTransition MenuTransition;
-        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Timer SidebarTimer;
         private System.Windows.Forms.Timer menuTimer;
@@ -753,5 +765,6 @@
         private System.Windows.Forms.Timer SearchTimer;
         public System.Windows.Forms.Label PathSeparator;
         private Bunifu.Framework.UI.BunifuImageButton btnBack;
+        private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
     }
 }

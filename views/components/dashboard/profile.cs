@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.SqlServer.Dac.Model;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Roll_Call_And_Management_System.classes.User;
+using static Prisoners_Management_System.classes.User;
 using Color = System.Drawing.Color;
 
-namespace Roll_Call_And_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.dashboard
 {
     public partial class profile : UserControl
     {
@@ -34,13 +34,13 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
                         if (row[0].ToString() == dashboard.Prison.User.Auth[0].ToString())
                         {
                             Id = Convert.ToInt32(row["id"]);
-                            lblUsername.Text = ini.AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtEmail.Text = ini.AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = ini.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = ini.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = ini.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            lblUsername.Text = config.config.AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtEmail.Text = config.config.AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
+                            txtFirstName.Text = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtMiddleName.Text = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            txtLastName.Text = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
                             dtpDateOfBirth.Value = Convert.ToDateTime(row["dob"]); ;
-                            dpnGender.Text = ini.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
                             lblRole.Text = row["role"].ToString();
                         }
         }
@@ -55,10 +55,10 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
             {
                 if (!Validate.IsNull(txtPassword.Text))
                     User.ChangePassword(dashboard.Prison.User.Auth, txtPassword.Text);
-                ini.Alerts.Popup("Profile Updated Successfully.", alert.enmType.Success);
+                config.config.Alerts.Popup("Profile Updated Successfully.", alert.enmType.Success);
             }
             else
-                ini.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
+                config.config.Alerts.Popup("Something Went Wrong.", alert.enmType.Error);
         }
 
         ErrorProvider erroremailProvider = new ErrorProvider();

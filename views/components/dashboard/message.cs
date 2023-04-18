@@ -1,5 +1,4 @@
 ﻿using DocumentFormat.OpenXml.Presentation;
-using Roll_Call_And_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,13 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.dashboard
 {
     public partial class message : UserControl
     {
         views.dashboard dashboard;
         inmates inmates;
-        ColorScheme scheme = new ColorScheme();
         public message(views.dashboard dashboard, inmates inmates)
         {
             InitializeComponent();
@@ -36,8 +34,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         {
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 11.50F, System.Drawing.FontStyle.Bold);
             
-            if (File.Exists(scheme.Path)) 
-                if (Convert.ToBoolean(File.ReadAllText(scheme.Path)))
+            if (File.Exists(config.ColorScheme.Path)) 
+                if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
                 {
                     this.BackColor = Color.FromArgb(26, 104, 255);
                     lblTitle.BackColor = Color.FromArgb(26, 104, 255);
@@ -61,8 +59,8 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
         {
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
             
-            if (File.Exists(scheme.Path))
-                if (Convert.ToBoolean(File.ReadAllText(scheme.Path)))
+            if (File.Exists(config.ColorScheme.Path))
+                if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
                 {
                     this.BackColor = Color.WhiteSmoke;
                     lblTitle.BackColor = Color.WhiteSmoke;

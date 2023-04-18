@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.view
+namespace Prisoners_Management_System.views.components.view
 {
     public partial class user : UserControl
     {

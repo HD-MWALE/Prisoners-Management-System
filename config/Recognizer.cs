@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System;
 using Emgu.CV;
 
-namespace Roll_Call_And_Management_System.config
+namespace Prisoners_Management_System.config
 {
     /// <summary>
     /// An object recognizer using PCA (Principle Components Analysis)

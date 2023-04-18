@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.facial
+﻿namespace Prisoners_Management_System.views.components.facial
 {
     partial class capture
     {
@@ -104,7 +104,7 @@
             this.btnCapture.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCapture.DisabledColor = System.Drawing.Color.Gray;
             this.btnCapture.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCapture.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.camera;
+            this.btnCapture.Iconimage = global::Prisoners_Management_System.Properties.Resources.camera;
             this.btnCapture.Iconimage_right = null;
             this.btnCapture.Iconimage_right_Selected = null;
             this.btnCapture.Iconimage_Selected = null;
@@ -133,7 +133,7 @@
             // 
             this.imageBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.imageBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.imageBox1.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.imageBox1.BackgroundImage = global::Prisoners_Management_System.Properties.Resources.user;
             this.imageBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.imageBox1.Location = new System.Drawing.Point(86, 469);
             this.imageBox1.Name = "imageBox1";
@@ -145,7 +145,7 @@
             // 
             this.ImageBoxFrameGrabber.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ImageBoxFrameGrabber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
-            this.ImageBoxFrameGrabber.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.camera_identification;
+            this.ImageBoxFrameGrabber.BackgroundImage = global::Prisoners_Management_System.Properties.Resources.camera_identification;
             this.ImageBoxFrameGrabber.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ImageBoxFrameGrabber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ImageBoxFrameGrabber.Location = new System.Drawing.Point(74, 17);

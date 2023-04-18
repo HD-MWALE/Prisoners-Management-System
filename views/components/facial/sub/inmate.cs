@@ -1,5 +1,4 @@
-﻿using Roll_Call_And_Management_System.config;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.facial.sub
+namespace Prisoners_Management_System.views.components.facial.sub
 {
     public partial class inmate : UserControl
     {
@@ -22,7 +21,7 @@ namespace Roll_Call_And_Management_System.views.components.facial.sub
 
         private void Cancel_Click(object sender, EventArgs e)
         {
-            ini.Sound.RemoveSound(); 
+            config.Sound.RemoveSound(); 
             this.Cancel.Visible = false;
             this.btnCheck.Visible = true;
             this.Icon.Image = Properties.Resources.human_head;
@@ -33,7 +32,7 @@ namespace Roll_Call_And_Management_System.views.components.facial.sub
 
         public void btnCheck_Click(object sender, EventArgs e)
         {
-            ini.Sound.CaptureSound();
+            config.Sound.Capture();
             this.Cancel.Visible = true;
             this.btnCheck.Visible = false;
             this.Icon.Image = Properties.Resources.facial_recognition1;

@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.config;
+﻿using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Roll_Call_And_Management_System.classes.Crime;
+using static Prisoners_Management_System.classes.Crime;
 
-namespace Roll_Call_And_Management_System.views.components.inputs
+namespace Prisoners_Management_System.views.components.inputs
 {
     public partial class crime : UserControl
     {
@@ -32,7 +32,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         public int Id = 0;
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             switch (dpnType.Text)
             {
                 case "Minor":
@@ -45,16 +45,16 @@ namespace Roll_Call_And_Management_System.views.components.inputs
             if (btnSave.Text != "Update")
                 if(!dashboard.Prison.Crime.CheckCrime(txtName.Text))
                     if (dashboard.Prison.Crime.Save())
-                        ini.Alerts.Popup("New Crime Saved.", views.components.dashboard.alert.enmType.Success);
+                        config.config.Alerts.Popup("New Crime Saved.", views.components.dashboard.alert.enmType.Success);
                     else
-                        ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
+                        config.config.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
                 else
-                    ini.Alerts.Popup("Crime Already Exist.", views.components.dashboard.alert.enmType.Warning);
+                    config.config.Alerts.Popup("Crime Already Exist.", views.components.dashboard.alert.enmType.Warning);
             else
                 if (dashboard.Prison.Crime.Update(Id))
-                    ini.Alerts.Popup("Crime Updated.", views.components.dashboard.alert.enmType.Success);
+                config.config.Alerts.Popup("Crime Updated.", views.components.dashboard.alert.enmType.Success);
                 else
-                    ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
+                config.config.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
         }
         ErrorProvider errornameProvider = new ErrorProvider();
         ErrorProvider errordescriptionProvider = new ErrorProvider();

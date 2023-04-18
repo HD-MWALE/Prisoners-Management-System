@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.facial
+﻿namespace Prisoners_Management_System.views.components.facial
 {
     partial class scan
     {
@@ -50,7 +50,7 @@
             // ImageBoxFrameGrabber
             // 
             this.ImageBoxFrameGrabber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(18)))));
-            this.ImageBoxFrameGrabber.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.camera_identification;
+            this.ImageBoxFrameGrabber.BackgroundImage = global::Prisoners_Management_System.Properties.Resources.camera_identification;
             this.ImageBoxFrameGrabber.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ImageBoxFrameGrabber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ImageBoxFrameGrabber.Location = new System.Drawing.Point(17, 21);
@@ -117,7 +117,7 @@
             this.btnCapture.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCapture.DisabledColor = System.Drawing.Color.Gray;
             this.btnCapture.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCapture.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.camera;
+            this.btnCapture.Iconimage = global::Prisoners_Management_System.Properties.Resources.camera;
             this.btnCapture.Iconimage_right = null;
             this.btnCapture.Iconimage_right_Selected = null;
             this.btnCapture.Iconimage_Selected = null;

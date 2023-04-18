@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class show_more : UserControl
     {

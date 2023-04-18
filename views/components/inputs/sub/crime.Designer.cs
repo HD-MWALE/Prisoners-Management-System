@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.inputs.sub
+﻿namespace Prisoners_Management_System.views.components.inputs.sub
 {
     partial class crime
     {
@@ -39,7 +39,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Image = global::Roll_Call_And_Management_System.Properties.Resources.cancel;
+            this.btnCancel.Image = global::Prisoners_Management_System.Properties.Resources.cancel;
             this.btnCancel.ImageActive = null;
             this.btnCancel.Location = new System.Drawing.Point(225, 8);
             this.btnCancel.Name = "btnCancel";

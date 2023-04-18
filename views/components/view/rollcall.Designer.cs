@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.view
+﻿namespace Prisoners_Management_System.views.components.view
 {
     partial class rollcall
     {
@@ -342,7 +342,7 @@
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
             this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
             this.btnSearch.Iconimage_right = null;
             this.btnSearch.Iconimage_right_Selected = null;
             this.btnSearch.Iconimage_Selected = null;

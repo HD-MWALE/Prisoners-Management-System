@@ -6,38 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Sentence
     {
+        // declaring private globe variables
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
         private DateTime _StartDate;
-        public DateTime StartDate 
-        {
-            get { return _StartDate; }
-            set { _StartDate = value; }
-        }
-
         private DateTime _EndDate;
-        public DateTime EndDate
-        {
-            get { return _EndDate; }
-            set { _EndDate = value; }
-        }
-
         private int _Status;
-        public int Status
-        {
-            get { return _Status; }
-            set { _Status = value; }
-        }
-
+        private DataSet dataSet = new DataSet();
+        // get and set globe variables
+        public int Id { get { return _Id; } set { _Id = value; } }
+        public DateTime StartDate { get { return _StartDate; } set { _StartDate = value; } }
+        public DateTime EndDate { get { return _EndDate; } set { _EndDate = value; } }
+        public int Status { get { return _Status; } set { _Status = value; } }
+        // setting globe variables
         public Sentence(DateTime startDate, DateTime endDate, int status)
         {
             _StartDate = startDate; ;
@@ -48,8 +32,7 @@ namespace Roll_Call_And_Management_System.classes
         {
 
         }
-
-        public DataSet dataSet = new DataSet();
+        // save inmate sentence
         public bool Save(int inmateid)
         {
             string fields = "`start_date`, `end_date`, `status`, `inmate_id`";
@@ -58,6 +41,7 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
+        // get all sentences
         public DataSet GetSentences()
         {
             string data = "*";
@@ -70,6 +54,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
+        // get sentence id by inmate id
         public int GetId(int inmateid)
         {
             string data = "`id`";
@@ -84,6 +69,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return 0;
         }
+        // get sentence details by id
         public DataSet GetSentenceDetails(int id) 
         {
             string data = "`id`, `name`, `type`";
@@ -96,6 +82,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
+        // update sentence
         public bool Update(int inmateid)
         {
             string data = "`start_date` = '" + StartDate + "', `end_date` = '" + EndDate + "', `status` = " + Status;
@@ -103,6 +90,7 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
+        // delete sentence
         public bool Delete(int id)
         {
             if (database.Execute.Delete("sentence", id))

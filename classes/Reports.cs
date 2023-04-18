@@ -1,18 +1,18 @@
 ﻿using LiveCharts.Wpf;
 using LiveCharts.WinForms;
 using LiveCharts;
-using Roll_Call_And_Management_System.database;
-using Roll_Call_And_Management_System.views;
-using Roll_Call_And_Management_System.views.components;
+using Prisoners_Management_System.database;
+using Prisoners_Management_System.views;
+using Prisoners_Management_System.views.components;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using CartesianChart = LiveCharts.WinForms.CartesianChart;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Reports
     {
@@ -20,6 +20,8 @@ namespace Roll_Call_And_Management_System.classes
         public Reports() { }
         reports reports;
         dashboardControl dashboardControl;
+        DataSet dsDormitories = new DataSet();
+        DataSet dsRollCall = new DataSet(); 
 
         public void LoadReports(UserControl control)  
         {
@@ -33,7 +35,7 @@ namespace Roll_Call_And_Management_System.classes
                 DataSet dataSet = new DataSet();
                 
 
-                Dormitory.dataSet = Dormitory.GetDormitories();
+                dsDormitories = Dormitory.GetDormitories();
                 //dataSet = GetRollCall();
                 IChartValues valuesInPrison = new ChartValues<double>(); 
                 IChartValues valuesInDorms = new ChartValues<double>();
@@ -101,7 +103,7 @@ namespace Roll_Call_And_Management_System.classes
                     }
                 });
 
-                Roll_Call.dataSet = GetRollCall(); 
+                dsRollCall = GetRollCall(); 
                 //dataSet = GetRollCall();
                 IChartValues valuesInRollCall = new ChartValues<double>();
                 IList<string> rollcallmonth = new List<string>(); 
@@ -110,7 +112,7 @@ namespace Roll_Call_And_Management_System.classes
                 reports.cartesianChartrollcall.AxisX.Clear();
                 reports.cartesianChartrollcall.AxisY.Clear();
 
-                foreach (DataRow data in Roll_Call.dataSet.Tables["result"].Rows)
+                foreach (DataRow data in dsRollCall.Tables["result"].Rows)
                 {
                     rollcallmonth.Add(data["month"].ToString());
                     valuesInRollCall.Add(Convert.ToDouble(data["total"]));
@@ -320,7 +322,7 @@ namespace Roll_Call_And_Management_System.classes
             {
                 reports = (reports)control;
                 DataSet dataSet = GetDormsPopulation();
-                Dormitory.dataSet = Dormitory.GetDormitories();
+                dsDormitories = Dormitory.GetDormitories();
 
                 IChartValues valuesDorms = new ChartValues<double>();
                 IList<string> labelsDorms = new List<string>();
@@ -332,9 +334,9 @@ namespace Roll_Call_And_Management_System.classes
                 // Bar Graph
                 reports.DormitoryPopulationBar.Series = new SeriesCollection();
 
-                foreach (DataRow data in Dormitory.dataSet.Tables["result"].Rows)
+                foreach (DataRow data in dsDormitories.Tables["result"].Rows)
                 {
-                    labelsDorms.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsDorms.Add(config.config.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     dataSet = GetInmatesPopulation(Convert.ToInt32(data["id"]));
                     foreach (DataRow row in dataSet.Tables["result"].Rows)
                     {
@@ -395,7 +397,7 @@ namespace Roll_Call_And_Management_System.classes
 
                     myPieSeries.Foreground = System.Windows.Media.Brushes.Black;
 
-                    myPieSeries.Title = ini.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                    myPieSeries.Title = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
                     reports.DormitoryPopulationPie.Series.Add(myPieSeries);
 
                     myChartValues = new ChartValues<double>
@@ -406,7 +408,7 @@ namespace Roll_Call_And_Management_System.classes
                     myPieSeries.Values = myChartValues;
 
                     // set the labels of the slices to the categories in the dataset
-                    myPieSeries.LabelPoint = point => $"{point.Y} ({ini.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
+                    myPieSeries.LabelPoint = point => $"{point.Y} ({config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase)})";
 
                     // define the location of the legend and set the data labels to display
                     reports.DormitoryPopulationPie.LegendLocation = LegendLocation.Right;
@@ -422,7 +424,7 @@ namespace Roll_Call_And_Management_System.classes
 
                 foreach (DataRow data in dataSet.Tables["result"].Rows)
                 {
-                    labelsPrison.Add(ini.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
+                    labelsPrison.Add(config.config.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase));
                     valuesPrison.Add(Convert.ToDouble(data["count"]));
                 }
 

@@ -2,7 +2,7 @@
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Google.Protobuf.WellKnownTypes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.facial
+namespace Prisoners_Management_System.views.components.facial
 {
     public partial class capture : UserControl
     {
@@ -74,7 +74,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
             }
             catch (Exception ex) 
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
             }
         }
         public void FrameGrabber(object sender, EventArgs e)
@@ -121,13 +121,13 @@ namespace Roll_Call_And_Management_System.views.components.facial
                     MCvTermCriteria termCrit = new MCvTermCriteria(Countface, 0.001);
 
                     //Eigen face recognizer
-                    ini.Recognizer = new Recognizer( 
+                    config.config.Recognizer = new Recognizer(
                     CapturingImages.ToArray(),
                     inmates.ToArray(),
                     2500,
                     ref termCrit);
 
-                    name = ini.Recognizer.Recognize(result);
+                    name = config.config.Recognizer.Recognize(result);
 
                     //Draw the label for each face detected and recognized
                     currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.FromArgb(26, 104, 255)));
@@ -178,7 +178,7 @@ namespace Roll_Call_And_Management_System.views.components.facial
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             try
             {
                 //Captured face counter
@@ -229,14 +229,14 @@ namespace Roll_Call_And_Management_System.views.components.facial
                     }
                     inmate.pictureBox1.Image = imageBox1.Image.Bitmap;*/
                 }
-                ini.Alerts.Popup("Face Characteristics Captured.", dashboard.alert.enmType.Success);
+                config.config.Alerts.Popup("Face Characteristics Captured.", dashboard.alert.enmType.Success);
             }
             catch
             {
                 this.Enabled = false;
                 MessageBox.Show(" :(");
                 this.Enabled = true;
-                ini.Alerts.Popup("Enable the face detection first.", dashboard.alert.enmType.Error);
+                config.config.Alerts.Popup("Enable the face detection first.", dashboard.alert.enmType.Error);
             }
             inmate.popup.btnClose_Click(sender, new EventArgs());
         }

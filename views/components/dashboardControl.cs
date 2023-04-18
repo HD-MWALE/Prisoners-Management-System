@@ -1,6 +1,6 @@
-﻿using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components.dashboard;
+﻿using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.dashboard;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,19 +14,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace Roll_Call_And_Management_System.views.components
+namespace Prisoners_Management_System.views.components
 {
     public partial class dashboardControl : UserControl 
-    {
-        views.dashboard dashboard;
+    { 
         public dashboardControl(views.dashboard dashboard) 
         {
             InitializeComponent();
+            // initialize dashboard layout
             this.dashboard = dashboard;
             LoadDashboard();
         }
-
+        // declaring globe variables
+        views.dashboard dashboard;
+        DataSet dsVisitors = new DataSet();
+        DataSet dsUsers = new DataSet();
+        DataSet dsInmates = new DataSet();
+        DataSet dsDormitories = new DataSet();
+        DataSet dsCrimes = new DataSet();
         card card = new card();
+        // user control loading
         public void dashboardControl_Load(object sender, EventArgs e)
         {
             Mouth();
@@ -78,37 +85,34 @@ namespace Roll_Call_And_Management_System.views.components
         {
             flowLayoutPanelTop.Controls.Clear();
             flowLayoutPanelRight.Controls.Clear();
-            
-            dashboard.Prison.Inmate.dataSet = dashboard.Prison.Inmate.GetInmates();
-            if (dashboard.Prison.Inmate.dataSet != null)
+
+            dsInmates = dashboard.Prison.Inmate.GetInmates();
+            if (dsInmates != null)
             {
                 int i = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Inmates";
                 card.Icon.Image = Properties.Resources.prisoner;
                 flowLayoutPanelTop.Controls.Add(card);
-                foreach (DataRow dataRow in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsInmates.Tables["result"].Rows)
                     i++;
                 card.lblTitle.Text = i + " Inmates";
             }
 
-            dashboard.Prison.Dormitory.dataSet = dashboard.Prison.Dormitory.GetDormitories();
-            if (dashboard.Prison.Dormitory.dataSet != null)
+            dsDormitories = dashboard.Prison.Dormitory.GetDormitories();
+            if (dsDormitories != null)
             {
-                int i = 0, j = 0;
+                int j = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Dormitories";
                 card.Icon.Image = Properties.Resources.prison_building;
                 flowLayoutPanelRight.Controls.Add(card);
-                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
-                {
-                    i++;
-                }
-                card.lblTitle.Text = i + " Dormitories";
-                foreach (DataRow dataRow in dashboard.Prison.Dormitory.dataSet.Tables["result"].Rows)
+                
+                card.lblTitle.Text = dsDormitories.Tables["result"].Rows.Count + " Dormitories";
+                foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
                 {
                     j = 0;
-                    foreach (DataRow row in dashboard.Prison.Inmate.dataSet.Tables["result"].Rows)
+                    foreach (DataRow row in dsInmates.Tables["result"].Rows)
                     {
                         if (dataRow["id"].ToString() == row["dormitory_id"].ToString())
                             j++;
@@ -117,51 +121,51 @@ namespace Roll_Call_And_Management_System.views.components
                     card.lblSubTitle.Text = "Total number of Inmates in Dormitory";
                     card.Icon.Image = Properties.Resources.prisoner;
                     flowLayoutPanelRight.Controls.Add(card);
-                    card.lblTitle.Text = j + " Inmates in " + ini.AES.Decrypt(dataRow["name"].ToString(),Properties.Resources.PassPhrase);
+                    card.lblTitle.Text = j + " Inmates in " + config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
                 }
             }
 
-            dashboard.Prison.Crime.dataSet = dashboard.Prison.Crime.GetCrimes();
-            if (dashboard.Prison.Crime.dataSet != null)
+            dsCrimes = dashboard.Prison.Crime.GetCrimes();
+            if (dsCrimes != null)
             {
                 int i = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Crimes";
                 card.Icon.Image = Properties.Resources.settings;
                 flowLayoutPanelTop.Controls.Add(card);
-                foreach (DataRow dataRow in dashboard.Prison.Crime.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsCrimes.Tables["result"].Rows)
                     i++;
                 card.lblTitle.Text = i + " Crimes";
             }
-            dashboard.Prison.Visitor.dataSet = dashboard.Prison.Visitor.GetVisitors();
-            if (dashboard.Prison.Visitor.dataSet != null)
+            dsVisitors = dashboard.Prison.Visitor.GetVisitors();
+            if (dsVisitors != null)
             {
                 int i = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Visitors";
                 card.Icon.Image = Properties.Resources.waiting_room;
                 flowLayoutPanelTop.Controls.Add(card);
-                foreach (DataRow dataRow in dashboard.Prison.Visitor.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsVisitors.Tables["result"].Rows)
                     i++;
                 card.lblTitle.Text = i + " Visitors";
             }
             (DataSet, string) response = dashboard.Prison.User.GetUsers();
-            dashboard.Prison.User.dataSet = response.Item1;
-            if (dashboard.Prison.User.dataSet != null)
+            dsUsers = response.Item1;
+            if (dsUsers != null)
             {
                 int i = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Wardens";
                 card.Icon.Image = Properties.Resources.users;
                 flowLayoutPanelTop.Controls.Add(card);
-                foreach (DataRow dataRow in dashboard.Prison.User.dataSet.Tables["result"].Rows)
+                foreach (DataRow dataRow in dsUsers.Tables["result"].Rows)
                     i++;
                 card.lblTitle.Text = i + " Wardens";
             }
             //Reports.LoadReports(this);
             dashboard.Prison.Reports.PrisonPopulation(this);
             dashboard.Prison.Reports.DormitoryPopulation(this);
-            ini.ColorScheme.LoadTheme(this.Controls); 
+            ColorScheme.LoadTheme(this.Controls); 
         }
 
         private void dpnMonth_SelectedIndexChanged(object sender, EventArgs e)

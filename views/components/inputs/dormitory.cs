@@ -1,11 +1,11 @@
-﻿using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
+﻿using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.inputs
+namespace Prisoners_Management_System.views.components.inputs
 {
     public partial class dormitory : UserControl
     {
@@ -26,24 +26,24 @@ namespace Roll_Call_And_Management_System.views.components.inputs
         public int Id = 0;
         private void btnSave_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             dashboard.Prison.Dormitory = new Dormitory(txtName.Text, txtDescription.Text, dpnGenderType.Text, dpnType.Text);
             if (btnSave.Text != "Update")
             {
                 if(!dashboard.Prison.Dormitory.CheckDormitory(txtName.Text))
                     if (dashboard.Prison.Dormitory.Save())
-                        ini.Alerts.Popup("New Dormitory Saved.", views.components.dashboard.alert.enmType.Success);
+                        config.config.Alerts.Popup("New Dormitory Saved.", views.components.dashboard.alert.enmType.Success);
                     else
-                        ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
+                        config.config.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
                 else
-                    ini.Alerts.Popup("Dormitory Already Exist.", views.components.dashboard.alert.enmType.Warning);
+                    config.config.Alerts.Popup("Dormitory Already Exist.", views.components.dashboard.alert.enmType.Warning);
             }
             else
             {
                 if (dashboard.Prison.Dormitory.Update(Id))
-                    ini.Alerts.Popup("Dormitory Updated.", views.components.dashboard.alert.enmType.Success);
+                    config.config.Alerts.Popup("Dormitory Updated.", views.components.dashboard.alert.enmType.Success);
                 else
-                    ini.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
+                    config.config.Alerts.Popup("Something Went Wrong.", views.components.dashboard.alert.enmType.Error);
             }   
         }
         ErrorProvider errornameProvider = new ErrorProvider(); 

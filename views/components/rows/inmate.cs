@@ -1,7 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Google.Protobuf.WellKnownTypes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class inmate : UserControl
     {
@@ -23,7 +23,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             this.dashboard = dashboard;
             this.inmates = inmates;
             Id = ActionId.Item2;
-            ini.ColorScheme.LoadTheme(this.Controls);
+            ColorScheme.LoadTheme(this.Controls);
         }
         public int Id = 0;
         public (string, int) ActionId = ("-", 0); 
@@ -112,7 +112,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnEdit_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             _inmate = new inputs.inmate(inmates);
             _inmate.Id = Id;
             dashboard.PathSeparator.Visible = true;
@@ -121,14 +121,14 @@ namespace Roll_Call_And_Management_System.views.components.rows
             this.inmates.Controls.Add(_inmate);
             _inmate.Dock = DockStyle.Fill;
             _inmate.BringToFront();
-            ini.ColorScheme.LoadTheme(this.inmates.Controls);
+            ColorScheme.LoadTheme(this.inmates.Controls);
             dashboard.SetLoading(false);
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             inmates.viewinmate.Id = Id;
             dashboard.PathSeparator.Visible = true;
             dashboard.lblAction.Visible = true;
@@ -143,7 +143,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e) 
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Inmate";
@@ -154,7 +154,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -163,7 +163,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         {
             dashboard.Prison.Inmate.Delete(Id);
             inmates.inmates_Load(sender, e);
-            ini.Alerts.Popup("Inmate Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            config.config.Alerts.Popup("Inmate Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
     }
 }

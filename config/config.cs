@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.config
+namespace Prisoners_Management_System.config 
 {
-    internal class ini
+    // configuration design factory
+    internal class config
     {
+        // declaring configuration static objects
         public static string Path = Application.StartupPath; 
         public static string UserRole = Path + "\\auth\\role.txt";
         public static string Backup = Path + "\\backup\\backup.sql";

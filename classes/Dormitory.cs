@@ -1,5 +1,5 @@
-﻿using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components;
+﻿using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,55 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Dormitory
     {
+        // declaring private globe variables
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
         private string _Code;
-        public string Code
-        {
-            get { return _Code; }
-            set { _Code = value; }
-        }
-         
         private string _Name;
-        public string Name
-        {
-            get { return _Name; }
-            set { _Name = value; }
-        }
-
         private string _Description;
-        public string Description
-        {
-            get { return _Description; }
-            set { _Description = value; }
-        }
-
         private string _GenderType;
-        public string GenderType
-        {
-            get { return _GenderType; }
-            set { _GenderType = value; }
-        }
-
         private string _Type;
-        public string Type
-        {
-            get { return _Type; }
-            set { _Type = value; }
-        }
+        // get and set globe variables
+        public int Id { get { return _Id; } set { _Id = value; } }
+        public string Code { get { return _Code; } set { _Code = value; } }
+        public string Name { get { return _Name; } set { _Name = value; } }
+        public string Description { get { return _Description; } set { _Description = value; } }
+        public string GenderType { get { return _GenderType; } set { _GenderType = value; } }
+        public string Type { get { return _Type; } set { _Type = value; } }
 
-        public Dormitory()
-        {
-        }
+        public Dormitory() { }
         public Dormitory(int id)
         {
             Id = id;
@@ -66,14 +37,15 @@ namespace Roll_Call_And_Management_System.classes
         }
         public Dormitory(string name, string description, string genderType, string type)
         {
-            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
-            Description = ini.AES.Encrypt(description, Properties.Resources.PassPhrase);
-            GenderType = ini.AES.Encrypt(genderType, Properties.Resources.PassPhrase);
-            Type = ini.AES.Encrypt(type, Properties.Resources.PassPhrase);
+            Name = config.config.AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Description = config.config.AES.Encrypt(description, Properties.Resources.PassPhrase);
+            GenderType = config.config.AES.Encrypt(genderType, Properties.Resources.PassPhrase);
+            Type = config.config.AES.Encrypt(type, Properties.Resources.PassPhrase);
         }
 
         public string[,] DormitoryList;
-        public DataSet dataSet = new DataSet();
+        private DataSet dataSet = new DataSet();
+        // save dormitory function
         public bool Save()
         {
             string fields = "`name`, `description`, `gendertype`, `type`";
@@ -82,26 +54,27 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
-
+        // check dormitory by name function
         public bool CheckDormitory(string name) 
         {
             dataSet = GetDormitories();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return true;
             return false;
         }
-
+        // get id by dormitory name function
         public int GetId(string name)
         {
             dataSet = GetDormitories();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (ini.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == name)
+                    if (config.config.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == name)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }
+        // get name by id function
         public string GetName(int id) 
         {
             dataSet = GetDormitories();
@@ -111,6 +84,7 @@ namespace Roll_Call_And_Management_System.classes
                         return dataRow["name"].ToString();
             return "-";
         }
+        // get dormitories function
         public DataSet GetDormitories() 
         {
             string data = "`id`, `name`, `description`, `gendertype`, `type`";
@@ -123,7 +97,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
-
+        // get dormitory details by id function
         public DataSet GetDormitoryDetails(int id) 
         {
             string data = "`id`, `name`, `description`, `gendertype`, `type`";
@@ -137,7 +111,7 @@ namespace Roll_Call_And_Management_System.classes
             }
             return null;
         }
-        
+        // update dormitory by id function
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `description` = '" + Description + "', `gendertype` = '" + GenderType + "', `type` = '" + Type + "'";
@@ -145,6 +119,7 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
+        // delete dormitory by id function
         public bool Delete(int id)
         {
             if (database.Execute.Delete("dormitory", id))

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System
+namespace Prisoners_Management_System
 {
 
     internal class AES

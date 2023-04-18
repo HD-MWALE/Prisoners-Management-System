@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System
+namespace Prisoners_Management_System
 {
     internal class Calculate
     {

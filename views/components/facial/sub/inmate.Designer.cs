@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.facial.sub
+﻿namespace Prisoners_Management_System.views.components.facial.sub
 {
     partial class inmate
     {
@@ -52,7 +52,7 @@
             // Icon
             // 
             this.Icon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Icon.Image = global::Roll_Call_And_Management_System.Properties.Resources.checked_user;
+            this.Icon.Image = global::Prisoners_Management_System.Properties.Resources.checked_user;
             this.Icon.ImageActive = null;
             this.Icon.Location = new System.Drawing.Point(2, 2);
             this.Icon.Name = "Icon";
@@ -65,7 +65,7 @@
             // Cancel
             // 
             this.Cancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Cancel.Image = global::Roll_Call_And_Management_System.Properties.Resources.cancel;
+            this.Cancel.Image = global::Prisoners_Management_System.Properties.Resources.cancel;
             this.Cancel.ImageActive = null;
             this.Cancel.Location = new System.Drawing.Point(262, 2);
             this.Cancel.Name = "Cancel";
@@ -79,7 +79,7 @@
             // btnCheck
             // 
             this.btnCheck.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCheck.Image = global::Roll_Call_And_Management_System.Properties.Resources.ok;
+            this.btnCheck.Image = global::Prisoners_Management_System.Properties.Resources.ok;
             this.btnCheck.ImageActive = null;
             this.btnCheck.Location = new System.Drawing.Point(133, 3);
             this.btnCheck.Name = "btnCheck";

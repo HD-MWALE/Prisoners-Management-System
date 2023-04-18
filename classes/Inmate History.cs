@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components;
+using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,81 +10,48 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Inmate_History
     {
+        // declaring private globe variables
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
         private string _Action;
-        public string Action
-        {
-            get { return _Action; }
-            set { _Action = value; }
-        }
-
         private int _Status;
-        public int Status
-        {
-            get { return _Status; }
-            set { _Status = value; }
-        }
-
         private DateTime _Date;
-        public DateTime Date
-        {
-            get { return _Date; }
-            set { _Date = value; }
-        }
-
         private string _Remarks;
-        public string Remarks 
-        {
-            get { return _Remarks; }
-            set { _Remarks = value; }
-        }
-
         private int _InmateId;
-        public int InmateId
-        {
-            get { return _InmateId; }
-            set { _InmateId = value; }
-        }
-
         private Inmate _Inmate;
-        public Inmate Inmate
-        {
-            get { return _Inmate; }
-            set { _Inmate = value; }
-        }
+        private DataSet dataSet = new DataSet();
+        public ArrayList History = new ArrayList();
+        // get and set globe variables
+        public int Id { get { return _Id; } set { _Id = value; } }
+        public string Action { get { return _Action; } set { _Action = value; } }
+        public int Status { get { return _Status; } set { _Status = value; } }
+        public DateTime Date { get { return _Date; } set { _Date = value; } }
+        public string Remarks { get { return _Remarks; } set { _Remarks = value; } }
+        public int InmateId { get { return _InmateId; } set { _InmateId = value; } }
+        public Inmate Inmate { get { return _Inmate; } set { _Inmate = value; } }
 
-        public DataSet dataSet = new DataSet();
-        public ArrayList History = new ArrayList(); 
-        public Inmate_History()
-        {
-        }
+        public Inmate_History() { }
 
         public Inmate_History(string action, int status, DateTime date, string remarks, Inmate inmate)
         {
-            Action = ini.AES.Encrypt(action, Properties.Resources.PassPhrase);
+            Action = config.config.AES.Encrypt(action, Properties.Resources.PassPhrase);
             Status = status;
             Date = date;
-            Remarks = ini.AES.Encrypt(remarks, Properties.Resources.PassPhrase);
+            Remarks = config.config.AES.Encrypt(remarks, Properties.Resources.PassPhrase);
             Inmate = inmate;
         }
         public Inmate_History(string action, int status, DateTime date, string remarks, int inmateId) 
         {
-            Action = ini.AES.Encrypt(action, Properties.Resources.PassPhrase);
+            Action = config.config.AES.Encrypt(action, Properties.Resources.PassPhrase);
             Status = status;
             Date = Convert.ToDateTime(date.ToString("yyyy/MM/dd hh:mm:ss tt"));
-            Remarks = ini.AES.Encrypt(remarks, Properties.Resources.PassPhrase); 
+            Remarks = config.config.AES.Encrypt(remarks, Properties.Resources.PassPhrase); 
             InmateId = inmateId; 
         }
+        // save inmate history function
         public bool Save()
         {
             string fields = "`action`, `status`, `date`, `remarks`, `inmate_id`";
@@ -93,17 +60,17 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
-
+        // get id by action function
         public int GetId(string action) 
         {
             dataSet = GetHistories(); 
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (ini.AES.Decrypt(dataRow["action"].ToString(), Properties.Resources.PassPhrase) == action)
+                    if (config.config.AES.Decrypt(dataRow["action"].ToString(), Properties.Resources.PassPhrase) == action)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }
-
+        // get inmate history by inmate id function
         public DataSet GetHistoriesByInmateId(int inmateid) 
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history WHERE `inmate_id` = " + inmateid);
@@ -111,7 +78,7 @@ namespace Roll_Call_And_Management_System.classes
                 return response.Item1;
             return null;
         }
-
+        // get inmate history function
         public DataSet GetHistories() 
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history");
@@ -119,7 +86,7 @@ namespace Roll_Call_And_Management_System.classes
                 return response.Item1;
             return null;
         }
-
+        // get inmate history by id function
         public ArrayList GetHistory(int id) 
         {
             dataSet = GetHistories();
@@ -137,7 +104,7 @@ namespace Roll_Call_And_Management_System.classes
                     }
             return null;
         }
-
+        // update inmate history by id
         public bool Update(int id)
         {
             string data = "`action` = '" + Action + "', `status` = " + Status + ", `date` = '" + Date + "', `remarks` = '" + Remarks + "', `inmate_id` = " + Inmate.Id;
@@ -145,7 +112,7 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
-
+        // delete inmate history by id
         public bool Delete(int id)
         {
             if (database.Execute.Delete("inmate_history", id))

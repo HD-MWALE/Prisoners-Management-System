@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.config;
+﻿using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class crime : UserControl
     {
@@ -18,7 +18,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             InitializeComponent();
             this.dashboard = dashboard;
             this.crimes = crimes;
-            ini.ColorScheme.LoadTheme(this.Controls);
+            ColorScheme.LoadTheme(this.Controls);
         }
         public int Id = 0;
         views.dashboard dashboard;
@@ -35,7 +35,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             viewCrime = new view.viewcrime();
             viewCrime.Id = Id;
             viewCrime.lblName.Text = lblName.Text;
@@ -43,7 +43,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             viewCrime.txtDescription.Text = lblDescription.Text;
             modal.popup popup = new modal.popup(viewCrime);
             popup.Size = viewCrime.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -51,7 +51,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Crime";
@@ -62,7 +62,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -70,13 +70,13 @@ namespace Roll_Call_And_Management_System.views.components.rows
         {
             dashboard.Prison.Crime.Delete(Id);
             crimes.crimes_Load(sender, e);
-            ini.Alerts.Popup("Crime Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            config.config.Alerts.Popup("Crime Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             Crime = new inputs.crime(dashboard);
             Crime.Id = Id;
             Crime.txtName.Text = lblName.Text;
@@ -84,7 +84,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Crime.txtDescription.Text = lblDescription.Text;
             modal.popup popup = new modal.popup(Crime);
             popup.Size = Crime.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             crimes.crimes_Load(sender, e);
             dashboard.SetLoading(false);

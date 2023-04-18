@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class forgot_password
     {
@@ -64,7 +64,7 @@
             this.btnSend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSend.DisabledColor = System.Drawing.Color.Gray;
             this.btnSend.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSend.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.email_send;
+            this.btnSend.Iconimage = global::Prisoners_Management_System.Properties.Resources.email_send;
             this.btnSend.Iconimage_right = null;
             this.btnSend.Iconimage_right_Selected = null;
             this.btnSend.Iconimage_Selected = null;
@@ -124,7 +124,7 @@
             this.txtUserName.DefaultText = "";
             this.txtUserName.FillColor = System.Drawing.Color.White;
             this.txtUserName.HideSelection = true;
-            this.txtUserName.IconLeft = global::Roll_Call_And_Management_System.Properties.Resources.username;
+            this.txtUserName.IconLeft = global::Prisoners_Management_System.Properties.Resources.username;
             this.txtUserName.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtUserName.IconPadding = 5;
             this.txtUserName.IconRight = null;

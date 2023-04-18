@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.config;
+﻿using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.modal
+namespace Prisoners_Management_System.views.components.modal
 {
     public partial class dialog : UserControl
     {
@@ -21,12 +21,12 @@ namespace Roll_Call_And_Management_System.views.components.modal
         public string Title = ""; 
         private void SecondaryButton_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
         }
 
         private void PrimaryButton_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
         }
     }
 }

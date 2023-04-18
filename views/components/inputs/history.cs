@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Roll_Call_And_Management_System;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System;
+using Prisoners_Management_System.config;
 
-namespace Roll_Call_And_Management_System.views.components.inputs
+namespace Prisoners_Management_System.views.components.inputs
 {
     public partial class history : UserControl
     {
@@ -52,7 +52,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(ini.Validate.IsText(txtAction.Text) && ini.Validate.IsText(txtRemarks.Text))
+            if(config.config.Validate.IsText(txtAction.Text) && config.config.Validate.IsText(txtRemarks.Text))
             {
                 dashboard.Prison.Inmate_History = new classes.Inmate_History(txtAction.Text, 0, DateTime.Now, txtRemarks.Text, Convert.ToInt32(InmateId));
                 if (btnSave.Text != "Update")
@@ -68,7 +68,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtAction_Validating(object sender, CancelEventArgs e)
         {
-            if (!ini.Validate.IsText(txtAction.Text))
+            if (!config.config.Validate.IsText(txtAction.Text))
             {
                 erroractionProvider.SetError(txtAction, actionError);
                 txtAction.BorderColorActive = Color.Firebrick;
@@ -82,7 +82,7 @@ namespace Roll_Call_And_Management_System.views.components.inputs
 
         private void txtRemarks_Validating(object sender, CancelEventArgs e)
         {
-            if (!ini.Validate.IsNull(txtRemarks.Text))
+            if (!config.config.Validate.IsNull(txtRemarks.Text))
             {
                 errorremarksProvider.SetError(txtRemarks, remarksError);
                 txtRemarks.BorderColorActive = Color.Firebrick;

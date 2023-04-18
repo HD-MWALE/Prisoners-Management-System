@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components
+﻿namespace Prisoners_Management_System.views.components
 {
     partial class reports
     {

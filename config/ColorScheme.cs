@@ -11,77 +11,78 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System
+namespace Prisoners_Management_System.config
 {
     public class ColorScheme
     {
-        public string Path = Application.StartupPath + "\\settings\\theme.txt"; 
-
-        public Color PanelBG;
-        public Color PanelFG;
-
-        public Color ButtonBG;
-        public Color ButtonFG;
-
-        public Color TextBoxBG;
-        public Color TextBoxFG;
-
-        public Color BunifuTextBoxFC;
-        public Color BunifuTextBoxFG;
-        public Color BunifuTextBoxBG;
-
-        public Color FlowLayoutPanelBG;
-        public Color FlowLayoutPanelFG;
-
-        public Color SearchUserControlBG;
-        public Color NotificationUserControlBG;
-        public Color CardUserControlBG;
-        public Color UserControlBG;
-        public Color UserControlFG;
-
-        public Color BunifuFlatButtonAC;
-        public Color BunifuFlatButtonTC;
-        public Color BunifuFlatButtonBG;
-        public Color BunifuFlatButtonNC;
-        public Color BunifuFlatButtonFG;
-        public Color BunifuFlatButtonHC;
-
-        public Color CardBunifuImageButtonBG;
-        public Color CardBunifuImageButtonFG;
-        public Color BunifuImageButtonBG;
-        public Color BunifuImageButtonFG;
-
-        public Color BunifuMetroTextboxBG;
-        public Color BunifuMetroTextboxFG;
-
-        public Color BunifuSeparatorBG;
-        public Color BunifuSeparatorFG;
-
-        public Color BunifuDatePickerBG;
-        public Color BunifuDatePickerFG;
-
-        public Color BunifuDropdownC;
-        public Color BunifuDropdownBG;
-        public Color BunifuDropdownFG;
-
-        public Color GroupBoxBG;
-        public Color GroupBoxFG;
-
-        public Color RichTextBoxBG;
-        public Color RichTextBoxFG;
-
-        public Color PictureBoxBG;
-        public Color PictureBoxFG;
-
-        public Color CardLabelBG;
-        public Color CardLabelFG;
-        public Color LabelBG;
-        public Color LabelFG;
-
-        public Color BG;
-        public Color FG;
-
-        public void LightTheme()
+        // declare and initialize theme text file
+        public static string Path = config.Path + "\\settings\\theme.txt";
+        // color variables for panels
+        public static Color PanelBG;
+        public static Color PanelFG;
+        // color variables for buttons
+        public static Color ButtonBG;
+        public static Color ButtonFG;
+        // color variables for textboxes
+        public static Color TextBoxBG;
+        public static Color TextBoxFG;
+        // color variables for bunifu textboxes
+        public static Color BunifuTextBoxFC;
+        public static Color BunifuTextBoxFG;
+        public static Color BunifuTextBoxBG;
+        // color variables for flow layout panels
+        public static Color FlowLayoutPanelBG;
+        public static Color FlowLayoutPanelFG;
+        // color variables for user control
+        public static Color SearchUserControlBG;
+        public static Color NotificationUserControlBG;
+        public static Color CardUserControlBG;
+        public static Color UserControlBG;
+        public static Color UserControlFG;
+        // color variables for bunifu flat button
+        public static Color BunifuFlatButtonAC;
+        public static Color BunifuFlatButtonTC;
+        public static Color BunifuFlatButtonBG;
+        public static Color BunifuFlatButtonNC;
+        public static Color BunifuFlatButtonFG;
+        public static Color BunifuFlatButtonHC;
+        // color variables for bunifu image button
+        public static Color CardBunifuImageButtonBG;
+        public static Color CardBunifuImageButtonFG;
+        public static Color BunifuImageButtonBG;
+        public static Color BunifuImageButtonFG;
+        // color variables for bunifu metro textbox
+        public static Color BunifuMetroTextboxBG;
+        public static Color BunifuMetroTextboxFG;
+        // color variables for bunifu separator
+        public static Color BunifuSeparatorBG;
+        public static Color BunifuSeparatorFG;
+        // color variables for bunifu date picker
+        public static Color BunifuDatePickerBG;
+        public static Color BunifuDatePickerFG;
+        // color variables for bunifu dropdown
+        public static Color BunifuDropdownC;
+        public static Color BunifuDropdownBG;
+        public static Color BunifuDropdownFG;
+        // color variables for group box
+        public static Color GroupBoxBG;
+        public static Color GroupBoxFG;
+        // color variables for rich text box
+        public static Color RichTextBoxBG;
+        public static Color RichTextBoxFG;
+        // color variables for picture box
+        public static Color PictureBoxBG;
+        public static Color PictureBoxFG;
+        // color variables for labels
+        public static Color CardLabelBG;
+        public static Color CardLabelFG;
+        public static Color LabelBG;
+        public static Color LabelFG;
+        // color variables for whole system
+        public static Color BG;
+        public static Color FG;
+        // set light theme function
+        public static void LightTheme()
         {
             PanelFG = Color.FromArgb(42, 42, 49);
             PanelBG = Color.WhiteSmoke;
@@ -147,7 +148,8 @@ namespace Roll_Call_And_Management_System
             FG = Color.FromArgb(42, 42, 49);
             BG = Color.White;
         }
-        public void DarkTheme()
+        // set dark theme function
+        public static void DarkTheme()
         {
             PanelFG = Color.White;
             PanelBG = Color.FromArgb(32, 32, 36);
@@ -213,209 +215,217 @@ namespace Roll_Call_And_Management_System
             BG = Color.FromArgb(42, 42, 49);
             FG = Color.White;
         }
-
-        public void BunifuFlatButton(ColorScheme scheme, BunifuFlatButton flatButton)
+        // set color on bunifu flat button 
+        public static void BunifuFlatButton(BunifuFlatButton flatButton)
         {
-            flatButton.Activecolor = scheme.BunifuFlatButtonAC;
-            flatButton.Textcolor = scheme.BunifuFlatButtonTC;
-            flatButton.BackColor = scheme.BunifuFlatButtonBG;
-            flatButton.ForeColor = scheme.BunifuFlatButtonFG;
-            flatButton.Normalcolor = scheme.BunifuFlatButtonBG;
-            flatButton.OnHovercolor = scheme.BunifuFlatButtonHC;
+            flatButton.Activecolor = BunifuFlatButtonAC;
+            flatButton.Textcolor = BunifuFlatButtonTC;
+            flatButton.BackColor = BunifuFlatButtonBG;
+            flatButton.ForeColor = BunifuFlatButtonFG;
+            flatButton.Normalcolor = BunifuFlatButtonBG;
+            flatButton.OnHovercolor = BunifuFlatButtonHC;
         }
-        public void SearchTheme(ColorScheme scheme, Control.ControlCollection container)
+        // set color on search user control
+        public static void SearchTheme(Control.ControlCollection container)
         {
             foreach (Control component in container)
                 if (component is FlowLayoutPanel)
                 {
-                    SearchTheme(scheme, component.Controls);
-                    component.BackColor = scheme.SearchUserControlBG;
-                    component.ForeColor = scheme.FlowLayoutPanelFG;
+                    SearchTheme(component.Controls);
+                    component.BackColor = SearchUserControlBG;
+                    component.ForeColor = FlowLayoutPanelFG;
                 }
         }
-        public void notificationTheme(ColorScheme scheme, Control.ControlCollection container)
+        // set color on notification user control
+        public static void notificationTheme(Control.ControlCollection container)
         {
             foreach (Control component in container)
                 if (component is FlowLayoutPanel)
                 {
-                    notificationTheme(scheme, component.Controls);
-                    component.BackColor = scheme.NotificationUserControlBG;
-                    component.ForeColor = scheme.FlowLayoutPanelFG;
+                    notificationTheme(component.Controls);
+                    component.BackColor = NotificationUserControlBG;
+                    component.ForeColor = FlowLayoutPanelFG;
                 }
                 else if (component is Panel)
                 {
-                    notificationTheme(scheme, component.Controls);
-                    component.BackColor = scheme.NotificationUserControlBG;
-                    component.ForeColor = scheme.PanelFG;
+                    notificationTheme(component.Controls);
+                    component.BackColor = NotificationUserControlBG;
+                    component.ForeColor = PanelFG;
                 }
                 else if (component is Label)
                 {
-                    component.BackColor = scheme.NotificationUserControlBG;
-                    component.ForeColor = scheme.LabelFG;
+                    component.BackColor = NotificationUserControlBG;
+                    component.ForeColor = LabelFG;
                 }
         }
-
-        public void Card(ColorScheme scheme, Control.ControlCollection container)
+        // set color on card user control
+        public static void Card(Control.ControlCollection container)
         {
             foreach (Control component in container)
                 if (component is Label)
                 {
-                    component.BackColor = scheme.CardLabelBG;
-                    component.ForeColor = scheme.CardLabelFG;
+                    component.BackColor = CardLabelBG;
+                    component.ForeColor = CardLabelFG;
                 }
                 else if (component is Bunifu.Framework.UI.BunifuImageButton)
                 {
-                    component.BackColor = scheme.CardBunifuImageButtonBG;
-                    component.ForeColor = scheme.CardBunifuImageButtonFG;
+                    component.BackColor = CardBunifuImageButtonBG;
+                    component.ForeColor = CardBunifuImageButtonFG;
                 }
         }
-        public void UserControl(ColorScheme scheme, UserControl userControl)
+        // set color on user control
+        public static void UserControl(UserControl userControl)
         {
             if (userControl.Name == "search")
             {
-                SearchTheme(scheme, userControl.Controls);
-                userControl.BackColor = scheme.SearchUserControlBG;
-                userControl.ForeColor = scheme.UserControlFG;
+                SearchTheme(userControl.Controls);
+                userControl.BackColor = SearchUserControlBG;
+                userControl.ForeColor = UserControlFG;
             }
             else if (userControl.Name == "notifications")
             {
-                notificationTheme(scheme, userControl.Controls);
-                userControl.BackColor = scheme.NotificationUserControlBG;
-                userControl.ForeColor = scheme.UserControlFG;
+                notificationTheme(userControl.Controls);
+                userControl.BackColor = NotificationUserControlBG;
+                userControl.ForeColor = UserControlFG;
             }
             else if (userControl.Name == "menu")
             {
-                ChangeTheme(scheme, userControl.Controls);
-                userControl.BackColor = scheme.SearchUserControlBG;
-                userControl.ForeColor = scheme.UserControlFG;
+                ChangeTheme(userControl.Controls);
+                userControl.BackColor = SearchUserControlBG;
+                userControl.ForeColor = UserControlFG;
             }
             else if (userControl.Name == "card")
             {
-                Card(scheme, userControl.Controls);
-                userControl.BackColor = scheme.CardUserControlBG;
-                userControl.ForeColor = scheme.UserControlFG;
+                Card(userControl.Controls);
+                userControl.BackColor = CardUserControlBG;
+                userControl.ForeColor = UserControlFG;
             }
             else
             {
-                ChangeTheme(scheme, userControl.Controls);
-                userControl.BackColor = scheme.UserControlBG;
-                userControl.ForeColor = scheme.UserControlFG;
+                ChangeTheme(userControl.Controls);
+                userControl.BackColor = UserControlBG;
+                userControl.ForeColor = UserControlFG;
             }
         }
-        public void BunifuDropdown(ColorScheme scheme, Bunifu.UI.WinForms.BunifuDropdown bunifuDropdown)
+        // set color on bunifu dropdown
+        public static void BunifuDropdown(Bunifu.UI.WinForms.BunifuDropdown bunifuDropdown)
         {
-            bunifuDropdown.Color = scheme.BunifuDropdownC;
-            bunifuDropdown.BackColor = scheme.BunifuDropdownBG;
-            bunifuDropdown.IndicatorColor = scheme.BunifuDropdownFG;
-            bunifuDropdown.ForeColor = scheme.BunifuDropdownFG;
+            bunifuDropdown.Color = BunifuDropdownC;
+            bunifuDropdown.BackColor = BunifuDropdownBG;
+            bunifuDropdown.IndicatorColor = BunifuDropdownFG;
+            bunifuDropdown.ForeColor = BunifuDropdownFG;
         }
-        public void BunifuDatePicker(ColorScheme scheme, BunifuDatePicker bunifuDatePicker)
+        // set color on bunifu date picker
+        public static void BunifuDatePicker(BunifuDatePicker bunifuDatePicker)
         {
-            bunifuDatePicker.Color = scheme.BunifuDropdownC;
-            bunifuDatePicker.BackColor = scheme.BunifuDatePickerBG;
-            bunifuDatePicker.ForeColor = scheme.BunifuDatePickerFG;
+            bunifuDatePicker.Color = BunifuDropdownC;
+            bunifuDatePicker.BackColor = BunifuDatePickerBG;
+            bunifuDatePicker.ForeColor = BunifuDatePickerFG;
             bunifuDatePicker.Icon = Properties.Resources.calendar;
         }
-        public void BunifuTextBox(ColorScheme scheme, BunifuTextBox bunifuTextBox)
+        // set color on bunifu textbox
+        public static void BunifuTextBox(BunifuTextBox bunifuTextBox)
         {
-            bunifuTextBox.FillColor = scheme.BunifuTextBoxFC;
-            bunifuTextBox.BackColor = scheme.BunifuTextBoxBG;
-            bunifuTextBox.ForeColor = scheme.BunifuTextBoxFG;
+            bunifuTextBox.FillColor = BunifuTextBoxFC;
+            bunifuTextBox.BackColor = BunifuTextBoxBG;
+            bunifuTextBox.ForeColor = BunifuTextBoxFG;
         }
-        public void ChangeTheme(ColorScheme scheme, Control.ControlCollection container)
+        // change theme function
+        public static void ChangeTheme(Control.ControlCollection container)
         {
             foreach (Control component in container)
                 if (component is Panel)
                 {
-                    ChangeTheme(scheme, component.Controls);
-                    component.BackColor = scheme.PanelBG;
-                    component.ForeColor = scheme.PanelFG;
+                    ChangeTheme(component.Controls);
+                    component.BackColor = PanelBG;
+                    component.ForeColor = PanelFG;
                 }
                 else if (component is FlowLayoutPanel)
                 {
-                    ChangeTheme(scheme, component.Controls);
-                    component.BackColor = scheme.FlowLayoutPanelBG;
-                    component.ForeColor = scheme.FlowLayoutPanelFG;
+                    ChangeTheme(component.Controls);
+                    component.BackColor = FlowLayoutPanelBG;
+                    component.ForeColor = FlowLayoutPanelFG;
                 }
                 else if (component is GroupBox)
                 {
-                    ChangeTheme(scheme, component.Controls);
-                    component.BackColor = scheme.GroupBoxBG;
-                    component.ForeColor = scheme.GroupBoxFG;
+                    ChangeTheme(component.Controls);
+                    component.BackColor = GroupBoxBG;
+                    component.ForeColor = GroupBoxFG;
                 }
                 else if (component is BunifuFlatButton)
                 {
-                    BunifuFlatButton(scheme, (BunifuFlatButton)component);
+                    BunifuFlatButton((BunifuFlatButton)component);
                 }
                 else if (component is Bunifu.Framework.UI.BunifuImageButton)
                 {
-                    component.BackColor = scheme.BunifuImageButtonBG;
-                    component.ForeColor = scheme.BunifuImageButtonFG;
+                    component.BackColor = BunifuImageButtonBG;
+                    component.ForeColor = BunifuImageButtonFG;
                 }
                 else if (component is BunifuMetroTextbox)
                 {
-                    component.BackColor = scheme.BunifuMetroTextboxBG;
-                    component.ForeColor = scheme.BunifuMetroTextboxFG;
+                    component.BackColor = BunifuMetroTextboxBG;
+                    component.ForeColor = BunifuMetroTextboxFG;
                 }
                 else if (component is BunifuTextBox)
                 {
-                    BunifuTextBox(scheme, (BunifuTextBox)component);
+                    BunifuTextBox((BunifuTextBox)component);
                 }
                 else if (component is BunifuSeparator)
                 {
-                    //(BunifuSeparator)component.LineColor = scheme.BunifuSeparatorBG;
-                    component.ForeColor = scheme.BunifuSeparatorFG;
+                    //(BunifuSeparator)component.LineColor = BunifuSeparatorBG;
+                    component.ForeColor = BunifuSeparatorFG;
                 }
                 else if (component is BunifuDatePicker)
                 {
-                    BunifuDatePicker(scheme, (BunifuDatePicker)component);
+                    BunifuDatePicker((BunifuDatePicker)component);
                 }
                 else if (component is Bunifu.UI.WinForms.BunifuDropdown)
                 {
-                    BunifuDropdown(scheme, (Bunifu.UI.WinForms.BunifuDropdown)component);
+                    BunifuDropdown((Bunifu.UI.WinForms.BunifuDropdown)component);
                 }
                 else if (component is RichTextBox)
                 {
-                    component.BackColor = scheme.RichTextBoxBG;
-                    component.ForeColor = scheme.RichTextBoxFG;
+                    component.BackColor = RichTextBoxBG;
+                    component.ForeColor = RichTextBoxFG;
                 }
                 else if (component is Button)
                 {
-                    component.BackColor = scheme.ButtonBG;
-                    component.ForeColor = scheme.ButtonFG;
+                    component.BackColor = ButtonBG;
+                    component.ForeColor = ButtonFG;
                 }
                 else if (component is TextBox)
                 {
-                    component.BackColor = scheme.TextBoxBG;
-                    component.ForeColor = scheme.TextBoxFG;
+                    component.BackColor = TextBoxBG;
+                    component.ForeColor = TextBoxFG;
                 }
                 else if (component is PictureBox)
                 {
-                    component.BackColor = scheme.PictureBoxBG;
-                    component.ForeColor = scheme.PictureBoxFG;
+                    component.BackColor = PictureBoxBG;
+                    component.ForeColor = PictureBoxFG;
                 }
                 else if (component is Label)
                 {
-                    component.BackColor = scheme.LabelBG;
-                    component.ForeColor = scheme.LabelFG;
+                    component.BackColor = LabelBG;
+                    component.ForeColor = LabelFG;
                 }
                 else if (component is UserControl)
                 {
-                    UserControl(scheme, (UserControl)component);
+                    UserControl((UserControl)component);
                 }
                 else
                 {
-                    component.BackColor = scheme.BG;
-                    component.ForeColor = scheme.FG;
+                    component.BackColor = BG;
+                    component.ForeColor = FG;
                 }
         }
-        public void LoadTheme(Control.ControlCollection container)
+        // load current theme
+        public static void LoadTheme(Control.ControlCollection container)
         {
             if (Convert.ToBoolean(File.ReadAllText(Path)))
                 LightTheme();
             else
                 DarkTheme();
-            ChangeTheme(this, container);
+            ChangeTheme(container);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.view
+﻿namespace Prisoners_Management_System.views.components.view
 {
     partial class viewcrime
     {

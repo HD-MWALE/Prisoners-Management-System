@@ -1,5 +1,5 @@
-﻿using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.Properties;
+﻿using Prisoners_Management_System.config;
+using Prisoners_Management_System.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.dashboard
 {
     public partial class alert : Form 
     {
@@ -80,7 +80,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
         private void PbxClose_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             timer1.Interval = 1;
             action = enmAction.close;
         }
@@ -131,7 +131,7 @@ namespace Roll_Call_And_Management_System.views.components.dashboard
 
             this.lblMsg.Text = msg;
 
-            ini.Sound.AlertSound(type);
+            config.config.Sound.Alert(type);
             this.Show();
             this.action = enmAction.start;
             this.timer1.Interval = 1;

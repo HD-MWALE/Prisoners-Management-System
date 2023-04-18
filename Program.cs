@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.views;
+using Prisoners_Management_System.classes;
+using Prisoners_Management_System.views;
 
-namespace Roll_Call_And_Management_System
+namespace Prisoners_Management_System
 {
     internal static class Program
     {
@@ -16,14 +16,7 @@ namespace Roll_Call_And_Management_System
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            //Thread thread = new Thread(Dummy.RollCallOnInmate);
-            //thread.Start();
-            //Dummy.RollCall();
-            //Dummy.Get();
-            //Dummy.SetYear();
-            //Dummy.Sentence(); 
-
+            // starting application
             Application.Run(new login(new User()));
         }
     }

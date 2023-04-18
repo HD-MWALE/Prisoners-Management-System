@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views
+﻿namespace Prisoners_Management_System.views
 {
     partial class login
     {
@@ -76,7 +76,7 @@
             this.btnLogin.DisabledColor = System.Drawing.Color.Gray;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold);
             this.btnLogin.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnLogin.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.enter;
+            this.btnLogin.Iconimage = global::Prisoners_Management_System.Properties.Resources.enter;
             this.btnLogin.Iconimage_right = null;
             this.btnLogin.Iconimage_right_Selected = null;
             this.btnLogin.Iconimage_Selected = null;
@@ -106,7 +106,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnClose.Image = global::Roll_Call_And_Management_System.Properties.Resources.close;
+            this.btnClose.Image = global::Prisoners_Management_System.Properties.Resources.close;
             this.btnClose.ImageActive = null;
             this.btnClose.Location = new System.Drawing.Point(561, 11);
             this.btnClose.Name = "btnClose";
@@ -169,7 +169,7 @@
             // pbxIcon
             // 
             this.pbxIcon.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pbxIcon.Image = global::Roll_Call_And_Management_System.Properties.Resources.prison_icon;
+            this.pbxIcon.Image = global::Prisoners_Management_System.Properties.Resources.prison_icon;
             this.pbxIcon.Location = new System.Drawing.Point(260, 60);
             this.pbxIcon.Name = "pbxIcon";
             this.pbxIcon.Size = new System.Drawing.Size(89, 118);
@@ -199,7 +199,7 @@
             this.txtUserName.DefaultText = "";
             this.txtUserName.FillColor = System.Drawing.Color.White;
             this.txtUserName.HideSelection = true;
-            this.txtUserName.IconLeft = global::Roll_Call_And_Management_System.Properties.Resources.username;
+            this.txtUserName.IconLeft = global::Prisoners_Management_System.Properties.Resources.username;
             this.txtUserName.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtUserName.IconPadding = 5;
             this.txtUserName.IconRight = null;
@@ -275,7 +275,7 @@
             this.txtPassword.DefaultText = "";
             this.txtPassword.FillColor = System.Drawing.Color.White;
             this.txtPassword.HideSelection = true;
-            this.txtPassword.IconLeft = global::Roll_Call_And_Management_System.Properties.Resources.password;
+            this.txtPassword.IconLeft = global::Prisoners_Management_System.Properties.Resources.password;
             this.txtPassword.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtPassword.IconPadding = 5;
             this.txtPassword.IconRight = null;
@@ -333,7 +333,7 @@
             // btnSettings
             // 
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Image = global::Roll_Call_And_Management_System.Properties.Resources.popup_window;
+            this.btnSettings.Image = global::Prisoners_Management_System.Properties.Resources.popup_window;
             this.btnSettings.ImageActive = null;
             this.btnSettings.Location = new System.Drawing.Point(11, 11);
             this.btnSettings.Name = "btnSettings";

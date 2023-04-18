@@ -1,9 +1,8 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
-using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components.facial;
-using Roll_Call_And_Management_System.views.components.inputs;
+using Prisoners_Management_System.classes;
+using Prisoners_Management_System.views.components.facial;
+using Prisoners_Management_System.views.components.inputs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.modal
+namespace Prisoners_Management_System.views.components.modal
 {
     public partial class popup : Form
     {
@@ -52,8 +51,6 @@ namespace Roll_Call_And_Management_System.views.components.modal
         public int Id;
 
         string startupPath = Environment.CurrentDirectory;
-
-        ColorScheme scheme = new ColorScheme();
         private void popup_Load(object sender, EventArgs e) 
         {
             if (control != null)
@@ -105,7 +102,7 @@ namespace Roll_Call_And_Management_System.views.components.modal
                     default : break;
                 }
             }
-            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
+            if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
             {
                 Header.BackColor = Color.WhiteSmoke;
                 Body.BackColor = Color.White;
@@ -113,12 +110,12 @@ namespace Roll_Call_And_Management_System.views.components.modal
                 Title.BackColor = Color.FromArgb(26, 104, 255);
                 Title.ForeColor = Color.White;
             }
-            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
-                scheme.LightTheme();
+            if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
+                config.ColorScheme.LightTheme();
             else
-                scheme.DarkTheme();
-            ini.ColorScheme.ChangeTheme(scheme, this.Controls);
-            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
+                config.ColorScheme.DarkTheme();
+            config.ColorScheme.ChangeTheme(this.Controls);
+            if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
             {
                 Header.BackColor = Color.FromArgb(26, 104, 255);
                 Title.ForeColor = Color.White;
@@ -128,7 +125,7 @@ namespace Roll_Call_And_Management_System.views.components.modal
                 IconMenu.BackColor = Color.FromArgb(26, 104, 255);
 
             }
-            if (Convert.ToBoolean(File.ReadAllText(ini.ColorScheme.Path)))
+            if (Convert.ToBoolean(File.ReadAllText(config.ColorScheme.Path)))
             {
                 if (this.dialog == control)
                 {
@@ -479,7 +476,7 @@ namespace Roll_Call_And_Management_System.views.components.modal
 
         public void btnClose_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            config.Sound.Click();
             this.Close();
         }
     }

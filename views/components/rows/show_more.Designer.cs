@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.rows
+﻿namespace Prisoners_Management_System.views.components.rows
 {
     partial class show_more
     {

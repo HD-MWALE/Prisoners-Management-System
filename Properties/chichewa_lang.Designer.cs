@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Roll_Call_And_Management_System.Properties {
+namespace Prisoners_Management_System.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Roll_Call_And_Management_System.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Roll_Call_And_Management_System.Properties.chichewa_lang", typeof(chichewa_lang).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Prisoners_Management_System.Properties.chichewa_lang", typeof(chichewa_lang).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

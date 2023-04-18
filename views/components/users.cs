@@ -1,6 +1,6 @@
-﻿using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components.rows;
+﻿using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.rows;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +12,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components
+namespace Prisoners_Management_System.views.components
 {
     public partial class users : UserControl
     {
         public views.dashboard dashboard;
+        DataSet dsUsers = new DataSet();
         public users(views.dashboard dashboard)
         { 
             InitializeComponent();
@@ -25,89 +26,45 @@ namespace Roll_Call_And_Management_System.views.components
 
         public void users_Load(object sender, EventArgs e)
         {
-            dashboard.Prison.User.dataSet = dashboard.Prison.User.GetUsers().Item1; 
-            this.InmateflowLayoutPanel.Controls.Clear();
-            if (dashboard.Prison.User.dataSet != null)
-            {
-                int number = 1;
-                foreach (DataRow dataRow in dashboard.Prison.User.dataSet.Tables["result"].Rows)
-                {
-                    user row = new user(dashboard, this);
-                    row.Id = Convert.ToInt32(dataRow["id"]);
-                    row.lblNo.Text = number.ToString();
-                    row.lblEmail.Text = ini.AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblUsername.Text = ini.AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblFullname.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblGender.Text = ini.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                    row.lblRole.Text = dataRow["role"].ToString();
-                    //row.lblPrison.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                    row.btnDelete.Click += BtnDelete_Click;
-                    this.InmateflowLayoutPanel.Controls.Add(row);
-                    if (File.Exists(ini.UserRole))
-                        if (File.ReadAllText(ini.UserRole) != "Admin")
-                        {
-                            row.btnEdit.Visible = false;
-                            row.btnDelete.Visible = false;
-                        }
-                    number++;
-                }
-            }
-            else
-            {
-                user row = new user(dashboard, this);
-                row.Id = 0;
-                row.lblNo.Text = "";
-                row.lblEmail.Text = "";
-                row.lblUsername.Text = "";
-                row.lblFullname.Text = "No Records Found";
-                row.lblGender.Text = "";
-                row.lblDoB.Text = "";
-                row.lblRole.Text = "";
-                //row.lblPrison.Text = "";
-                this.InmateflowLayoutPanel.Controls.Add(row);
-                row.btnEdit.Visible = false;
-                row.btnView.Visible = false;
-                row.btnDelete.Visible = false;
-            }
-            ini.ColorScheme.LoadTheme(this.Controls);
+            UsersPageList(1);
         }
 
         private void UsersPageList(int pageNumber) 
         {
             lblPageNumber.Text = pageNumber.ToString();
-            dashboard.Prison.Visitor.dataSet = dashboard.Prison.Visitor.GetVisitors();
+            dsUsers = dashboard.Prison.User.GetUsers().Item1;
             int pageSize = 25;
-            var query = dashboard.Prison.Visitor.dataSet.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsUsers.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
-            this.VisitorflowLayoutPanel.Controls.Clear();
+            this.UsersflowLayoutPanel.Controls.Clear();
 
             foreach (var dataRow in query)
             {
-                visitor row = new visitor(dashboard, this);
-                row.Id = (int)dataRow["id"];
+                user row = new user(dashboard, this);
+                row.Id = Convert.ToInt32(dataRow["id"]);
                 row.lblNo.Text = number.ToString();
-                row.lblName.Text = ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblRelation.Text = ini.AES.Decrypt(dataRow["relation"].ToString(), Properties.Resources.PassPhrase);
-                row.lblContact.Text = ini.AES.Decrypt(dataRow["contact"].ToString(), Properties.Resources.PassPhrase);
-                row.lblAddress.Text = ini.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                row.lblInmate.Text = ini.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + ini.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + ini.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy");
+                row.lblEmail.Text = config.config.AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
+                row.lblUsername.Text = config.config.AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblFullname.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
+                row.lblRole.Text = dataRow["role"].ToString();
+                //row.lblPrison.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
                 row.btnDelete.Click += BtnDelete_Click;
-                if (File.Exists(ini.UserRole))
-                    if (File.ReadAllText(ini.UserRole) != "Admin")
+                if (File.Exists(config.config.UserRole))
+                    if (File.ReadAllText(config.config.UserRole) != "Admin")
                     {
                         row.btnEdit.Visible = false;
                         row.btnDelete.Visible = false;
                     }
-                this.VisitorflowLayoutPanel.Controls.Add(row);
+                this.UsersflowLayoutPanel.Controls.Add(row);
                 number++;
             }
 
-            lblEntities.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dashboard.Prison.Inmate.dataSet.Tables["result"].Rows.Count + " entities";
+            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsUsers.Tables["result"].Rows.Count + " entries";
 
-            ini.ColorScheme.LoadTheme(this.VisitorflowLayoutPanel.Controls);
+            ColorScheme.LoadTheme(this.UsersflowLayoutPanel.Controls);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -121,7 +78,7 @@ namespace Roll_Call_And_Management_System.views.components
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             input = new inputs.user(dashboard, this);
             dashboard.PathSeparator.Visible = true;
             dashboard.lblAction.Visible = true;
@@ -135,7 +92,12 @@ namespace Roll_Call_And_Management_System.views.components
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            UsersPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
+        }
 
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            UsersPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
         }
     }
 }

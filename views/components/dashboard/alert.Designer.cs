@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.dashboard
+﻿namespace Prisoners_Management_System.views.components.dashboard
 {
     partial class alert
     {
@@ -53,7 +53,7 @@
             // 
             // pbxClose
             // 
-            this.pbxClose.Image = global::Roll_Call_And_Management_System.Properties.Resources.close_w;
+            this.pbxClose.Image = global::Prisoners_Management_System.Properties.Resources.close_w;
             this.pbxClose.Location = new System.Drawing.Point(321, 8);
             this.pbxClose.Name = "pbxClose";
             this.pbxClose.Size = new System.Drawing.Size(20, 20);
@@ -64,7 +64,7 @@
             // 
             // pbxIcon
             // 
-            this.pbxIcon.Image = global::Roll_Call_And_Management_System.Properties.Resources.ok;
+            this.pbxIcon.Image = global::Prisoners_Management_System.Properties.Resources.ok;
             this.pbxIcon.Location = new System.Drawing.Point(12, 14);
             this.pbxIcon.Name = "pbxIcon";
             this.pbxIcon.Size = new System.Drawing.Size(41, 39);

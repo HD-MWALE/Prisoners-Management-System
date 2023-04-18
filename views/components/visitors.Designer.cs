@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components
+﻿namespace Prisoners_Management_System.views.components
 {
     partial class visitors
     {
@@ -39,7 +39,7 @@
             this.lblContact = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.lblEntities = new System.Windows.Forms.Label();
+            this.lblentries = new System.Windows.Forms.Label();
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
@@ -60,7 +60,7 @@
             this.btnAddNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddNew.DisabledColor = System.Drawing.Color.Gray;
             this.btnAddNew.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAddNew.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnAddNew.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnAddNew.Iconimage_right = null;
             this.btnAddNew.Iconimage_right_Selected = null;
             this.btnAddNew.Iconimage_Selected = null;
@@ -215,17 +215,17 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // lblEntities
+            // lblentries
             // 
-            this.lblEntities.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblEntities.AutoSize = true;
-            this.lblEntities.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblEntities.ForeColor = System.Drawing.Color.White;
-            this.lblEntities.Location = new System.Drawing.Point(45, 408);
-            this.lblEntities.Name = "lblEntities";
-            this.lblEntities.Size = new System.Drawing.Size(140, 21);
-            this.lblEntities.TabIndex = 103;
-            this.lblEntities.Text = "25 of 100 entities";
+            this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblentries.AutoSize = true;
+            this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblentries.ForeColor = System.Drawing.Color.White;
+            this.lblentries.Location = new System.Drawing.Point(45, 408);
+            this.lblentries.Name = "lblentries";
+            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.TabIndex = 103;
+            this.lblentries.Text = "25 of 100 entries";
             // 
             // lblPageNumber
             // 
@@ -243,7 +243,7 @@
             // 
             this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPrevious.Image = global::Roll_Call_And_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
             this.btnPrevious.ImageActive = null;
             this.btnPrevious.Location = new System.Drawing.Point(943, 404);
             this.btnPrevious.Name = "btnPrevious";
@@ -258,7 +258,7 @@
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNext.Image = global::Roll_Call_And_Management_System.Properties.Resources.circled_right;
+            this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
             this.btnNext.ImageActive = null;
             this.btnNext.Location = new System.Drawing.Point(1022, 404);
             this.btnNext.Name = "btnNext";
@@ -274,7 +274,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.Controls.Add(this.lblEntities);
+            this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
@@ -307,7 +307,7 @@
         public System.Windows.Forms.Label lblInmate;
         public System.Windows.Forms.Label lblContact;
         public System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label lblEntities;
+        private System.Windows.Forms.Label lblentries;
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;

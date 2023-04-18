@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.view
+﻿namespace Prisoners_Management_System.views.components.view
 {
     partial class inmate
     {
@@ -55,20 +55,36 @@
             this.lblEyeColour = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblCodeIMG = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label31 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblCrimeCommitted = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.lblContact = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
             this.lblRelation = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.lblSentence = new System.Windows.Forms.Label();
-            this.lblCrimeCommitted = new System.Windows.Forms.Label();
             this.lblTimeServedStart = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.lblTimeServedEnd = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.HistoryflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.bunifuSeparator8 = new Bunifu.Framework.UI.BunifuSeparator();
             this.btnAddRecord = new Bunifu.Framework.UI.BunifuFlatButton();
@@ -76,33 +92,23 @@
             this.VisitingPrivilege = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label31 = new System.Windows.Forms.Label();
-            this.lblCodeIMG = new System.Windows.Forms.Label();
+            this.lblentries = new System.Windows.Forms.Label();
+            this.lblPageNumber = new System.Windows.Forms.Label();
+            this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
             ((System.ComponentModel.ISupportInitialize)(this.ibxFace)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisitingPrivilege)).BeginInit();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisitingPrivilege)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             this.SuspendLayout();
             // 
             // ibxFace
             // 
             this.ibxFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.ibxFace.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.ibxFace.BackgroundImage = global::Prisoners_Management_System.Properties.Resources.user;
             this.ibxFace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ibxFace.Location = new System.Drawing.Point(628, 41);
             this.ibxFace.Name = "ibxFace";
@@ -410,6 +416,98 @@
             this.panel1.Size = new System.Drawing.Size(765, 520);
             this.panel1.TabIndex = 72;
             // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(23, 392);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(165, 23);
+            this.label4.TabIndex = 114;
+            this.label4.Text = "Emergency Contact";
+            // 
+            // lblCodeIMG
+            // 
+            this.lblCodeIMG.AutoSize = true;
+            this.lblCodeIMG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lblCodeIMG.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCodeIMG.ForeColor = System.Drawing.Color.White;
+            this.lblCodeIMG.Location = new System.Drawing.Point(624, 144);
+            this.lblCodeIMG.Name = "lblCodeIMG";
+            this.lblCodeIMG.Size = new System.Drawing.Size(68, 21);
+            this.lblCodeIMG.TabIndex = 117;
+            this.lblCodeIMG.Text = "Inmate1";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(23, 234);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(142, 23);
+            this.label10.TabIndex = 116;
+            this.label10.Text = "Sentence Details";
+            // 
+            // panel3
+            // 
+            this.panel3.AutoScroll = true;
+            this.panel3.Controls.Add(this.label31);
+            this.panel3.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.panel3.Location = new System.Drawing.Point(202, 286);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(526, 23);
+            this.panel3.TabIndex = 107;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label31.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.label31.ForeColor = System.Drawing.Color.White;
+            this.label31.Location = new System.Drawing.Point(1, 1);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(108, 20);
+            this.label31.TabIndex = 81;
+            this.label31.Text = "Murder, Fraud";
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.Controls.Add(this.lblCrimeCommitted);
+            this.panel2.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.panel2.Location = new System.Drawing.Point(202, 286);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(422, 23);
+            this.panel2.TabIndex = 107;
+            // 
+            // lblCrimeCommitted
+            // 
+            this.lblCrimeCommitted.AutoSize = true;
+            this.lblCrimeCommitted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lblCrimeCommitted.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.lblCrimeCommitted.ForeColor = System.Drawing.Color.White;
+            this.lblCrimeCommitted.Location = new System.Drawing.Point(1, 1);
+            this.lblCrimeCommitted.Name = "lblCrimeCommitted";
+            this.lblCrimeCommitted.Size = new System.Drawing.Size(108, 20);
+            this.lblCrimeCommitted.TabIndex = 81;
+            this.lblCrimeCommitted.Text = "Murder, Fraud";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(21, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(177, 23);
+            this.label9.TabIndex = 115;
+            this.label9.Text = "Personal Information";
+            // 
             // lblContact
             // 
             this.lblContact.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -460,6 +558,18 @@
             this.lblName.TabIndex = 104;
             this.lblName.Text = "John Doe";
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.BackColor = System.Drawing.Color.Silver;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label30.ForeColor = System.Drawing.Color.Black;
+            this.label30.Location = new System.Drawing.Point(31, 309);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(92, 23);
+            this.label30.TabIndex = 74;
+            this.label30.Text = "Sentence :";
+            // 
             // lblRelation
             // 
             this.lblRelation.AutoSize = true;
@@ -484,6 +594,18 @@
             this.label19.TabIndex = 74;
             this.label19.Text = "Sentence :";
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.Silver;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label29.ForeColor = System.Drawing.Color.Black;
+            this.label29.Location = new System.Drawing.Point(31, 286);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(165, 23);
+            this.label29.TabIndex = 75;
+            this.label29.Text = "Crime Committed :";
+            // 
             // label20
             // 
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -498,6 +620,18 @@
             this.label20.TabIndex = 102;
             this.label20.Text = "Contact # :";
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.BackColor = System.Drawing.Color.Silver;
+            this.label28.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label28.ForeColor = System.Drawing.Color.Black;
+            this.label28.Location = new System.Drawing.Point(31, 332);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(166, 23);
+            this.label28.TabIndex = 76;
+            this.label28.Text = "Time Served Start :";
+            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -510,6 +644,20 @@
             this.label21.TabIndex = 75;
             this.label21.Text = "Crime Committed :";
             // 
+            // label27
+            // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.Silver;
+            this.label27.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label27.ForeColor = System.Drawing.Color.Black;
+            this.label27.Location = new System.Drawing.Point(31, 355);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(156, 23);
+            this.label27.TabIndex = 77;
+            this.label27.Text = "Time Served End :";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -521,6 +669,18 @@
             this.label23.Size = new System.Drawing.Size(166, 23);
             this.label23.TabIndex = 76;
             this.label23.Text = "Time Served Start :";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label26.ForeColor = System.Drawing.Color.White;
+            this.label26.Location = new System.Drawing.Point(129, 309);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(66, 23);
+            this.label26.TabIndex = 80;
+            this.label26.Text = "2 years";
             // 
             // label25
             // 
@@ -536,6 +696,18 @@
             this.label25.TabIndex = 77;
             this.label25.Text = "Time Served End :";
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(203, 332);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(106, 23);
+            this.label24.TabIndex = 82;
+            this.label24.Text = "20/06/2000";
+            // 
             // lblSentence
             // 
             this.lblSentence.AutoSize = true;
@@ -548,18 +720,6 @@
             this.lblSentence.TabIndex = 80;
             this.lblSentence.Text = "2 years";
             // 
-            // lblCrimeCommitted
-            // 
-            this.lblCrimeCommitted.AutoSize = true;
-            this.lblCrimeCommitted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.lblCrimeCommitted.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.lblCrimeCommitted.ForeColor = System.Drawing.Color.White;
-            this.lblCrimeCommitted.Location = new System.Drawing.Point(1, 1);
-            this.lblCrimeCommitted.Name = "lblCrimeCommitted";
-            this.lblCrimeCommitted.Size = new System.Drawing.Size(108, 20);
-            this.lblCrimeCommitted.TabIndex = 81;
-            this.lblCrimeCommitted.Text = "Murder, Fraud";
-            // 
             // lblTimeServedStart
             // 
             this.lblTimeServedStart.AutoSize = true;
@@ -571,6 +731,20 @@
             this.lblTimeServedStart.Size = new System.Drawing.Size(106, 23);
             this.lblTimeServedStart.TabIndex = 82;
             this.lblTimeServedStart.Text = "20/06/2000";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label22.AutoSize = true;
+            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label22.ForeColor = System.Drawing.Color.White;
+            this.label22.Location = new System.Drawing.Point(193, 355);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(106, 23);
+            this.label22.TabIndex = 83;
+            this.label22.Text = "20/06/2002";
             // 
             // lblTimeServedEnd
             // 
@@ -586,13 +760,41 @@
             this.lblTimeServedEnd.TabIndex = 83;
             this.lblTimeServedEnd.Text = "20/06/2002";
             // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.Silver;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(31, 262);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(105, 23);
+            this.label18.TabIndex = 53;
+            this.label18.Text = "Dormitory :";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(142, 262);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(97, 23);
+            this.label13.TabIndex = 62;
+            this.label13.Text = "Male Ward";
+            // 
             // HistoryflowLayoutPanel
             // 
             this.HistoryflowLayoutPanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.HistoryflowLayoutPanel.AutoScroll = true;
             this.HistoryflowLayoutPanel.Location = new System.Drawing.Point(104, 663);
             this.HistoryflowLayoutPanel.Name = "HistoryflowLayoutPanel";
-            this.HistoryflowLayoutPanel.Size = new System.Drawing.Size(712, 102);
+            this.HistoryflowLayoutPanel.Size = new System.Drawing.Size(712, 84);
             this.HistoryflowLayoutPanel.TabIndex = 111;
             // 
             // bunifuSeparator8
@@ -621,7 +823,7 @@
             this.btnAddRecord.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddRecord.DisabledColor = System.Drawing.Color.Gray;
             this.btnAddRecord.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnAddRecord.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnAddRecord.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnAddRecord.Iconimage_right = null;
             this.btnAddRecord.Iconimage_right_Selected = null;
             this.btnAddRecord.Iconimage_Selected = null;
@@ -686,7 +888,7 @@
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
             this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSearch.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
             this.btnSearch.Iconimage_right = null;
             this.btnSearch.Iconimage_right_Selected = null;
             this.btnSearch.Iconimage_Selected = null;
@@ -784,201 +986,59 @@
             this.txtSearch.UseSystemPasswordChar = false;
             this.txtSearch.WordWrap = true;
             // 
-            // panel2
+            // lblentries
             // 
-            this.panel2.AutoScroll = true;
-            this.panel2.Controls.Add(this.lblCrimeCommitted);
-            this.panel2.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.panel2.Location = new System.Drawing.Point(202, 286);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(422, 23);
-            this.panel2.TabIndex = 107;
+            this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblentries.AutoSize = true;
+            this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblentries.ForeColor = System.Drawing.Color.White;
+            this.lblentries.Location = new System.Drawing.Point(102, 757);
+            this.lblentries.Name = "lblentries";
+            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.TabIndex = 132;
+            this.lblentries.Text = "25 of 100 entries";
             // 
-            // label4
+            // lblPageNumber
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(23, 392);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(165, 23);
-            this.label4.TabIndex = 114;
-            this.label4.Text = "Emergency Contact";
+            this.lblPageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPageNumber.AutoSize = true;
+            this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPageNumber.ForeColor = System.Drawing.Color.White;
+            this.lblPageNumber.Location = new System.Drawing.Point(743, 757);
+            this.lblPageNumber.Name = "lblPageNumber";
+            this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
+            this.lblPageNumber.TabIndex = 129;
+            this.lblPageNumber.Text = "100";
             // 
-            // label9
+            // btnPrevious
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(21, 13);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(177, 23);
-            this.label9.TabIndex = 115;
-            this.label9.Text = "Personal Information";
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.ImageActive = null;
+            this.btnPrevious.Location = new System.Drawing.Point(703, 753);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(34, 30);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 131;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Zoom = 5;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
-            // label10
+            // btnNext
             // 
-            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(23, 234);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(142, 23);
-            this.label10.TabIndex = 116;
-            this.label10.Text = "Sentence Details";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label13.ForeColor = System.Drawing.Color.White;
-            this.label13.Location = new System.Drawing.Point(142, 262);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(97, 23);
-            this.label13.TabIndex = 62;
-            this.label13.Text = "Male Ward";
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.Silver;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(31, 262);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(105, 23);
-            this.label18.TabIndex = 53;
-            this.label18.Text = "Dormitory :";
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label22.ForeColor = System.Drawing.Color.White;
-            this.label22.Location = new System.Drawing.Point(193, 355);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(106, 23);
-            this.label22.TabIndex = 83;
-            this.label22.Text = "20/06/2002";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.label24.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(203, 332);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(106, 23);
-            this.label24.TabIndex = 82;
-            this.label24.Text = "20/06/2000";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.label26.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label26.ForeColor = System.Drawing.Color.White;
-            this.label26.Location = new System.Drawing.Point(129, 309);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(66, 23);
-            this.label26.TabIndex = 80;
-            this.label26.Text = "2 years";
-            // 
-            // label27
-            // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label27.AutoSize = true;
-            this.label27.BackColor = System.Drawing.Color.Silver;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label27.ForeColor = System.Drawing.Color.Black;
-            this.label27.Location = new System.Drawing.Point(31, 355);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(156, 23);
-            this.label27.TabIndex = 77;
-            this.label27.Text = "Time Served End :";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.Color.Silver;
-            this.label28.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Location = new System.Drawing.Point(31, 332);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(166, 23);
-            this.label28.TabIndex = 76;
-            this.label28.Text = "Time Served Start :";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.BackColor = System.Drawing.Color.Silver;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label29.ForeColor = System.Drawing.Color.Black;
-            this.label29.Location = new System.Drawing.Point(31, 286);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(165, 23);
-            this.label29.TabIndex = 75;
-            this.label29.Text = "Crime Committed :";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.BackColor = System.Drawing.Color.Silver;
-            this.label30.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.label30.ForeColor = System.Drawing.Color.Black;
-            this.label30.Location = new System.Drawing.Point(31, 309);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(92, 23);
-            this.label30.TabIndex = 74;
-            this.label30.Text = "Sentence :";
-            // 
-            // panel3
-            // 
-            this.panel3.AutoScroll = true;
-            this.panel3.Controls.Add(this.label31);
-            this.panel3.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold);
-            this.panel3.Location = new System.Drawing.Point(202, 286);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(526, 23);
-            this.panel3.TabIndex = 107;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.label31.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.label31.ForeColor = System.Drawing.Color.White;
-            this.label31.Location = new System.Drawing.Point(1, 1);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(108, 20);
-            this.label31.TabIndex = 81;
-            this.label31.Text = "Murder, Fraud";
-            // 
-            // lblCodeIMG
-            // 
-            this.lblCodeIMG.AutoSize = true;
-            this.lblCodeIMG.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.lblCodeIMG.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodeIMG.ForeColor = System.Drawing.Color.White;
-            this.lblCodeIMG.Location = new System.Drawing.Point(624, 144);
-            this.lblCodeIMG.Name = "lblCodeIMG";
-            this.lblCodeIMG.Size = new System.Drawing.Size(68, 21);
-            this.lblCodeIMG.TabIndex = 117;
-            this.lblCodeIMG.Text = "Inmate1";
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
+            this.btnNext.ImageActive = null;
+            this.btnNext.Location = new System.Drawing.Point(782, 753);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(34, 30);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 130;
+            this.btnNext.TabStop = false;
+            this.btnNext.Zoom = 5;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // inmate
             // 
@@ -986,6 +1046,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.Controls.Add(this.lblentries);
+            this.Controls.Add(this.lblPageNumber);
+            this.Controls.Add(this.btnPrevious);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.VisitingPrivilege);
             this.Controls.Add(this.label8);
@@ -1001,11 +1065,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.ibxFace)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.VisitingPrivilege)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisitingPrivilege)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1070,5 +1136,9 @@
         public System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.Label lblCodeIMG;
+        private System.Windows.Forms.Label lblentries;
+        private System.Windows.Forms.Label lblPageNumber;
+        private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
+        private Bunifu.Framework.UI.BunifuImageButton btnNext;
     }
 }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
-    public class Prison
+    // design factory
+    public class PrisonFactory
     {
+        // declaring classes
         public Crime Crime = new Crime();
         public Crimes_Committed Crimes_Committed = new Crimes_Committed();
         public Dormitory Dormitory = new Dormitory();

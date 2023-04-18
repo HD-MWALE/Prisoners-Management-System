@@ -1,4 +1,4 @@
-﻿using Roll_Call_And_Management_System.config;
+﻿using Prisoners_Management_System.config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class dormitory : UserControl
     {
@@ -18,7 +18,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             InitializeComponent();
             this.dashboard = dashboard;
             this.dormitories = dormitories;
-            ini.ColorScheme.LoadTheme(this.Controls);
+            ColorScheme.LoadTheme(this.Controls);
         }
         public int Id = 0;
         public views.dashboard dashboard;
@@ -30,13 +30,13 @@ namespace Roll_Call_And_Management_System.views.components.rows
         {
             dashboard.Prison.Dormitory.Delete(Id);
             dormitories.dormitories_Load(sender, e);
-            ini.Alerts.Popup("Dormitory Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            config.config.Alerts.Popup("Dormitory Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             Dormitory = new inputs.dormitory(dashboard);
             Dormitory.Id = Id;
             Dormitory.txtName.Text = lblName.Text;
@@ -45,7 +45,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             Dormitory.dpnType.Text = lblType.Text;
             modal.popup popup = new modal.popup(Dormitory);
             popup.Size = Dormitory.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dormitories.dormitories_Load(sender, e);
             dashboard.SetLoading(false);
@@ -54,7 +54,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dormitories._dormitory = new view.dormitory(this.dashboard, dormitories);
             dormitories._dormitory.Id = Id;
             dashboard.PathSeparator.Visible = true;
@@ -70,7 +70,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e) 
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Dormitory";
@@ -81,7 +81,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }

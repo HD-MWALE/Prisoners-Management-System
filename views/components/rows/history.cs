@@ -1,5 +1,5 @@
-﻿using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.views.components.view;
+﻿using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.view;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views.components.rows
+namespace Prisoners_Management_System.views.components.rows
 {
     public partial class history : UserControl
     {
@@ -31,12 +31,12 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnEdit_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             GetHistory = new inputs.history(dashboard);
             GetHistory.Id = Id;
             modal.popup popup = new modal.popup( GetHistory);
             popup.Size = GetHistory.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             inmate.inmate_Load(sender, e);
             dashboard.SetLoading(false);
@@ -45,13 +45,13 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             ViewHistory = new view.history(dashboard, this);
             ViewHistory.Id = Id;
             ViewHistory.InmateId = inmate.Id;
             modal.popup popup = new modal.popup( ViewHistory);
             popup.Size = ViewHistory.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
@@ -59,7 +59,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         private void btnDelete_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            ini.Sound.ClickSound();
+            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Inmate History";
@@ -70,7 +70,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
             dialog.PrimaryButton.Click += Yes_Click;
             modal.popup popup = new modal.popup( dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             inmate.inmate_Load(sender, e);
             dashboard.SetLoading(false);
@@ -79,7 +79,7 @@ namespace Roll_Call_And_Management_System.views.components.rows
         {
             dashboard.Prison.Inmate_History.Delete(Id);
             inmate.inmate_Load(sender, e);
-            ini.Alerts.Popup("Inmate History Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
+            config.config.Alerts.Popup("Inmate History Deleted Successfully.", views.components.dashboard.alert.enmType.Success);
         }
     }
 }

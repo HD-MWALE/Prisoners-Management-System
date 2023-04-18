@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Google.Protobuf.WellKnownTypes;
-using Roll_Call_And_Management_System.config;
+using Prisoners_Management_System.config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,63 +9,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Crime
     {
+        // declaring crime type variable
+        public enum CrimeType { Minor = 0, Major = 1, }
+        // declaring private globe variables
         private int _Id;
-        public int Id
-        {
-            get { return _Id; }
-            set { _Id = value; }
-        }
-
         private string _Name;
-        public string Name
-        {
-            get { return _Name; }
-            set { _Name = value; }
-        }
-
         private string _Description;
-        public string Description 
-        {
-            get { return _Description; }
-            set { _Description = value; }
-        }
-
-        public enum CrimeType
-        {
-            Minor = 0, 
-            Major = 1, 
-        }
         private CrimeType _Type;
-        public CrimeType Type 
-        {
-            get { return _Type; }
-            set { _Type = value; }
-        }
-
         private ArrayList _Committed = new ArrayList();
-        public ArrayList Committed
-        {
-            get { return _Committed; }
-            set { _Committed = value; }
-        }
-
-        public Crime()
-        {
-        }
+        // get and set globe variables
+        public int Id { get { return _Id; } set { _Id = value; } }
+        public string Name { get { return _Name; } set { _Name = value; } }
+        public string Description { get { return _Description; } set { _Description = value; } }
+        public ArrayList Committed { get { return _Committed; } set { _Committed = value; } }
+        public CrimeType Type { get { return _Type; } set { _Type = value; } }
+         
+        public Crime() { }
 
         public Crime(string name, CrimeType type, string description)
         {
-            Name = ini.AES.Encrypt(name, Properties.Resources.PassPhrase);
+            Name = config.config.AES.Encrypt(name, Properties.Resources.PassPhrase);
             Type = type;
-            Description = ini.AES.Encrypt(description, Properties.Resources.PassPhrase);
+            Description = config.config.AES.Encrypt(description, Properties.Resources.PassPhrase);
         }
 
-        public DataSet dataSet = new DataSet();
-       
+        private DataSet dataSet = new DataSet();
+        // save crime function
         public bool Save()
         {
             string fields = "`name`, `type`, `description`";
@@ -74,27 +47,27 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
-
+        // ckeck crime function
         public bool CheckCrime(string name) 
         {
             dataSet = GetCrimes();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return true;
             return false;
         }
-
+        // get id by crime name
         public int GetId(string name)
         {
             dataSet = GetCrimes();
             if (dataSet != null)
                 foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
-                    if (ini.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
+                    if (config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == name)
                         return Convert.ToInt32(dataRow["id"]);
             return 0;
         }
-
+        // get crimes function
         public DataSet GetCrimes()
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `name`, `type`, `description` FROM " + "crime");
@@ -102,7 +75,7 @@ namespace Roll_Call_And_Management_System.classes
                 return response.Item1;
             return null;
         }
-
+        // crime details by id function
         public ArrayList CrimeDetails(int id)  
         {
             dataSet = GetCrimes();
@@ -118,7 +91,7 @@ namespace Roll_Call_And_Management_System.classes
                     }
             return null;
         }
-
+        // update crime function
         public bool Update(int id)
         {
             string data = "`name` = '" + Name + "', `type` = '" + Type + "', `description` = '" + Description + "'";
@@ -126,7 +99,7 @@ namespace Roll_Call_And_Management_System.classes
                 return true;
             return false;
         }
-
+        // delete crime by id function
         public bool Delete(int id)
         {
             if (database.Execute.Delete("crime", id))

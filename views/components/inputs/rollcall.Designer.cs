@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.inputs
+﻿namespace Prisoners_Management_System.views.components.inputs
 {
     partial class rollcall
     {
@@ -58,7 +58,7 @@
             this.btnStart.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStart.DisabledColor = System.Drawing.Color.Gray;
             this.btnStart.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnStart.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.facial_recognition;
+            this.btnStart.Iconimage = global::Prisoners_Management_System.Properties.Resources.facial_recognition;
             this.btnStart.Iconimage_right = null;
             this.btnStart.Iconimage_right_Selected = null;
             this.btnStart.Iconimage_Selected = null;

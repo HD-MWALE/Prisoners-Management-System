@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.modal
+﻿namespace Prisoners_Management_System.views.components.modal
 {
     partial class dialog
     {
@@ -75,7 +75,7 @@
             // Icon
             // 
             this.Icon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Icon.Image = global::Roll_Call_And_Management_System.Properties.Resources.info;
+            this.Icon.Image = global::Prisoners_Management_System.Properties.Resources.info;
             this.Icon.ImageActive = null;
             this.Icon.Location = new System.Drawing.Point(13, 13);
             this.Icon.Name = "Icon";

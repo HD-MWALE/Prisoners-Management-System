@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Roll_Call_And_Management_System.classes
+namespace Prisoners_Management_System.classes
 {
     public class Crimes_Committed
     {
@@ -67,7 +67,7 @@ namespace Roll_Call_And_Management_System.classes
             InmateId = inmateid;
         }
 
-        public DataSet dataSet = new DataSet();
+        private DataSet dataSet = new DataSet();
 
         public bool Save()
         {

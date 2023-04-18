@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.inputs
+﻿namespace Prisoners_Management_System.views.components.inputs
 {
     partial class dormitory
     {
@@ -71,7 +71,7 @@
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DisabledColor = System.Drawing.Color.Gray;
             this.btnSave.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSave.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnSave.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnSave.Iconimage_right = null;
             this.btnSave.Iconimage_right_Selected = null;
             this.btnSave.Iconimage_Selected = null;

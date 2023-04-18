@@ -1,30 +1,18 @@
-﻿using Bunifu.Core;
-using crypto;
-using Google.Protobuf.WellKnownTypes;
-using Org.BouncyCastle.Ocsp;
-using Roll_Call_And_Management_System.classes;
-using Roll_Call_And_Management_System.config;
-using Roll_Call_And_Management_System.database;
-using Roll_Call_And_Management_System.Properties;
-using Roll_Call_And_Management_System.views.components.dashboard;
-using Roll_Call_And_Management_System.views.components.modal;
+﻿using Prisoners_Management_System.classes;
+using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.dashboard;
+using Prisoners_Management_System.views.components.modal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Media;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Roll_Call_And_Management_System.views
+namespace Prisoners_Management_System.views
 {
     public partial class login : Form
     {
@@ -41,7 +29,7 @@ namespace Roll_Call_And_Management_System.views
             cpbLoader.Location = new Point((this.Size.Width / 2) - (cpbLoader.Size.Width / 2), (this.Size.Height / 2) - (cpbLoader.Size.Width / 2));
             cpbLoader.BringToFront();
 
-            ini.ColorScheme.LoadTheme(this.Controls);
+            ColorScheme.LoadTheme(this.Controls);
             this.Paint += login_Paint;
         }
 
@@ -60,7 +48,7 @@ namespace Roll_Call_And_Management_System.views
         //PictureBox pictureBox = new PictureBox();
 
         Panel panel = new Panel();
-        Prison Prison = new Prison();
+        PrisonFactory Prison = new PrisonFactory();
         private int attempts = 3;
         private int seconds = 10;
         ErrorProvider ErrorUsername = new ErrorProvider();
@@ -116,7 +104,7 @@ namespace Roll_Call_And_Management_System.views
             }
             catch (Exception ex)
             {
-                ini.Alerts.ServerMessage(ex.ToString());
+                config.config.Alerts.ServerMessage(ex.ToString());
             }
         }
 
@@ -130,7 +118,7 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             SetLoading(true);
             dialog = new dialog();
             dialog.Id = 0;
@@ -142,7 +130,7 @@ namespace Roll_Call_And_Management_System.views
             dialog.PrimaryButton.Click += Yes_Click;
             popup popup = new popup(dialog);
             popup.Size = dialog.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
             SetLoading(false);
         }
@@ -154,13 +142,13 @@ namespace Roll_Call_And_Management_System.views
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
-            if (ini.Validate.IsNull(txtUserName.Text))
+            Sound.Click();
+            if (config.config.Validate.IsNull(txtUserName.Text))
             {
                 ErrorUsername.SetError(txtUserName, "User Name can not be null.");
                 txtUserName.BorderColorActive = Color.Firebrick;
             }
-            else if (ini.Validate.IsNull(txtPassword.Text))
+            else if (config.config.Validate.IsNull(txtPassword.Text))
             {
                 ErrorPassword.SetError(txtPassword, "Password can not be null.");
                 txtPassword.BorderColorActive = Color.Firebrick;
@@ -236,11 +224,11 @@ namespace Roll_Call_And_Management_System.views
         }
         private void GiveAccess()
         {
-            ini.Alerts.Popup("You Logged in Successfully.", alert.enmType.Success);
-            if (File.Exists(ini.UserRole))
+            config.config.Alerts.Popup("You Logged in Successfully.", alert.enmType.Success);
+            if (File.Exists(config.config.UserRole))
             {
-                File.WriteAllText(ini.UserRole, string.Empty);
-                File.WriteAllText(ini.UserRole, Prison.User.Auth[8].ToString());
+                File.WriteAllText(config.config.UserRole, string.Empty);
+                File.WriteAllText(config.config.UserRole, Prison.User.Auth[8].ToString());
             }
             dashboard dashboard = new dashboard(Prison.User);
             dashboard.Show();
@@ -280,14 +268,14 @@ namespace Roll_Call_And_Management_System.views
 
         private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!ini.Validate.IsTextNumber(Password))
+            if (!config.config.Validate.IsTextNumber(Password))
                 txtPassword.PasswordChar = '\0';
             else
                 txtPassword.PasswordChar = '*';
             string error = "The password must be of length between 8-16 characters, and contain at least ONE 1 Lowercase and ONE 1 Uppercase letter.";
             if (btnLogin.Text == "Save")
             {
-                if (!ini.Validate.IsPassword(Password))
+                if (!config.config.Validate.IsPassword(Password))
                 {
                     errorProvider.SetError(txtPassword, error);
                     txtPassword.BorderColorActive = Color.Firebrick;
@@ -376,12 +364,12 @@ namespace Roll_Call_And_Management_System.views
         
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            ini.Sound.ClickSound();
+            Sound.Click();
             SetLoading(true);
             settings = new settings(this, false);
             popup = new popup(settings);
             popup.Size = settings.Size;
-            popup.Location = ini.Orientation.GetLocation(ini.AppSize, popup.Size, ini.AppLocation);
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.IconMenu.Image = Properties.Resources.settings;
             popup.ShowDialog();
             SetLoading(false);

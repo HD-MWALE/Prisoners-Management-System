@@ -1,4 +1,4 @@
-﻿namespace Roll_Call_And_Management_System.views.components.inputs
+﻿namespace Prisoners_Management_System.views.components.inputs
 {
     partial class inmate
     {
@@ -728,7 +728,7 @@
             this.btnCapture.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCapture.DisabledColor = System.Drawing.Color.Gray;
             this.btnCapture.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCapture.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.facial_recognition;
+            this.btnCapture.Iconimage = global::Prisoners_Management_System.Properties.Resources.facial_recognition;
             this.btnCapture.Iconimage_right = null;
             this.btnCapture.Iconimage_right_Selected = null;
             this.btnCapture.Iconimage_Selected = null;
@@ -757,7 +757,7 @@
             // 
             this.ibxFace.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ibxFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(40)))));
-            this.ibxFace.BackgroundImage = global::Roll_Call_And_Management_System.Properties.Resources.user;
+            this.ibxFace.BackgroundImage = global::Prisoners_Management_System.Properties.Resources.user;
             this.ibxFace.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ibxFace.Location = new System.Drawing.Point(82, 1009);
             this.ibxFace.Name = "ibxFace";
@@ -778,7 +778,7 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DisabledColor = System.Drawing.Color.Gray;
             this.btnCancel.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnCancel.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.cancel;
+            this.btnCancel.Iconimage = global::Prisoners_Management_System.Properties.Resources.cancel;
             this.btnCancel.Iconimage_right = null;
             this.btnCancel.Iconimage_right_Selected = null;
             this.btnCancel.Iconimage_Selected = null;
@@ -816,7 +816,7 @@
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.DisabledColor = System.Drawing.Color.Gray;
             this.btnSave.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnSave.Iconimage = global::Roll_Call_And_Management_System.Properties.Resources.add;
+            this.btnSave.Iconimage = global::Prisoners_Management_System.Properties.Resources.add;
             this.btnSave.Iconimage_right = null;
             this.btnSave.Iconimage_right_Selected = null;
             this.btnSave.Iconimage_Selected = null;
