@@ -28,6 +28,7 @@ namespace Prisoners_Management_System.config
         public static Internet Internet = new Internet();
         public static Orientation Orientation = new Orientation();
         public static Sound Sound = new Sound();
-        public static Validate Validate = new Validate();
+        public static FilterData FilterData = new FilterData();
+        public static Validate Validate = new Validate(); 
     }
 }

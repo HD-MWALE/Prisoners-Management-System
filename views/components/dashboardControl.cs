@@ -1,4 +1,6 @@
-﻿using Prisoners_Management_System.classes;
+﻿using LiveCharts.Wpf;
+using LiveCharts;
+using Prisoners_Management_System.classes;
 using Prisoners_Management_System.config;
 using Prisoners_Management_System.views.components.dashboard;
 using System;
@@ -13,6 +15,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using SeriesCollection = LiveCharts.SeriesCollection;
+using Axis = LiveCharts.Wpf.Axis;
 
 namespace Prisoners_Management_System.views.components
 {
@@ -27,6 +31,7 @@ namespace Prisoners_Management_System.views.components
         }
         // declaring globe variables
         views.dashboard dashboard;
+        PrisonFactory Prison = new PrisonFactory();
         DataSet dsVisitors = new DataSet();
         DataSet dsUsers = new DataSet();
         DataSet dsInmates = new DataSet();
@@ -36,50 +41,7 @@ namespace Prisoners_Management_System.views.components
         // user control loading
         public void dashboardControl_Load(object sender, EventArgs e)
         {
-            Mouth();
-            //Reports.Report(this);
-        }
-        void Mouth() 
-        {/*
-            switch (DateTime.Now.Month)
-            {
-                case 1:
-                    dpnMonth.Text = "JANUARY";
-                    break; 
-                case 2:
-                    dpnMonth.Text = "FEBRUARY";
-                    break;
-                case 3:
-                    dpnMonth.Text = "MARCH";
-                    break;
-                case 4:
-                    dpnMonth.Text = "APRIL";
-                    break;
-                case 5:
-                    dpnMonth.Text = "MAY";
-                    break;
-                case 6:
-                    dpnMonth.Text = "JUNE";
-                    break;
-                case 7:
-                    dpnMonth.Text = "JULY";
-                    break;
-                case 8:
-                    dpnMonth.Text = "AUGUST";
-                    break;
-                case 9:
-                    dpnMonth.Text = "SEPTEMBER";
-                    break;
-                case 10: 
-                    dpnMonth.Text = "OCTOBER";
-                    break;
-                case 11: 
-                    dpnMonth.Text = "NOVEMBER";
-                    break;
-                case 12: 
-                    dpnMonth.Text = "DECEMBER";
-                    break;
-            }*/
+            LoadDashboard();
         }
         public void LoadDashboard()
         {
@@ -121,7 +83,7 @@ namespace Prisoners_Management_System.views.components
                     card.lblSubTitle.Text = "Total number of Inmates in Dormitory";
                     card.Icon.Image = Properties.Resources.prisoner;
                     flowLayoutPanelRight.Controls.Add(card);
-                    card.lblTitle.Text = j + " Inmates in " + config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                    card.lblTitle.Text = j + " Inmates in " + dataRow["name"].ToString();
                 }
             }
 
@@ -131,7 +93,7 @@ namespace Prisoners_Management_System.views.components
                 int i = 0;
                 card = new card();
                 card.lblSubTitle.Text = "Total number of Crimes";
-                card.Icon.Image = Properties.Resources.settings;
+                card.Icon.Image = Properties.Resources.handcuffs;
                 flowLayoutPanelTop.Controls.Add(card);
                 foreach (DataRow dataRow in dsCrimes.Tables["result"].Rows)
                     i++;
@@ -162,17 +124,11 @@ namespace Prisoners_Management_System.views.components
                     i++;
                 card.lblTitle.Text = i + " Wardens";
             }
-            //Reports.LoadReports(this);
-            dashboard.Prison.Reports.PrisonPopulation(this);
-            dashboard.Prison.Reports.DormitoryPopulation(this);
+            Reports.PieCharts(dashboard, PopulationPie, DormitoryPopulationPie);
+            Reports.Population(dashboard, PopulationLine);
+            Reports.DormitoryPopulation(dashboard, DormitoryPopulationBar);
+            Reports.CrimesCommitted(CrimesCommittedReport);
             ColorScheme.LoadTheme(this.Controls); 
-        }
-
-        private void dpnMonth_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dashboard.SetLoading(true);
-            LoadDashboard();
-            dashboard.SetLoading(false);
         }
     }
 }

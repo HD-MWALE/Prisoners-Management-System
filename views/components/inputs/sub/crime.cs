@@ -26,7 +26,7 @@ namespace Prisoners_Management_System.views.components.inputs.sub
             inmate.Crimes.Remove(txtCrime.Text);
             inmate.pnlCrimeCommitted.Controls.Remove(this);
             foreach (DataRow dataRow in inmate.dsCrimes.Tables["result"].Rows)
-                if (config.config.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == txtCrime.Text)
+                if ((string)dataRow["name"] == txtCrime.Text)
                     inmate.CrimeTypes.Remove((string)dataRow["type"]);
             inmate.Allocate();
         }

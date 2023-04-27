@@ -67,7 +67,7 @@ namespace Prisoners_Management_System.views.components.dashboard
             Sound.Click(); 
             dashboard.SetLoading(true);
             profile = new profile(dashboard);
-            popup = new modal.popup( profile);
+            popup = new modal.popup(profile);
             popup.Size = profile.Size;
             popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
@@ -79,7 +79,7 @@ namespace Prisoners_Management_System.views.components.dashboard
             Sound.Click();
             dashboard.SetLoading(true);
             help = new help(dashboard, login);
-            popup = new modal.popup( help);
+            popup = new modal.popup(help);
             popup.Size = help.Size;
             popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
@@ -91,7 +91,7 @@ namespace Prisoners_Management_System.views.components.dashboard
             Sound.Click();
             dashboard.SetLoading(true);
             about = new about(dashboard, login);
-            popup = new modal.popup( about);
+            popup = new modal.popup(about);
             popup.Size = about.Size;
             popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
@@ -110,7 +110,7 @@ namespace Prisoners_Management_System.views.components.dashboard
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Yes_Click;
-            modal.popup popup = new modal.popup( dialog);
+            modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();
@@ -141,7 +141,7 @@ namespace Prisoners_Management_System.views.components.dashboard
             dialog.PrimaryButton.Text = "Yes";
             dialog.SecondaryButton.Text = "No";
             dialog.PrimaryButton.Click += Exit; 
-            modal.popup popup = new modal.popup( dialog);
+            modal.popup popup = new modal.popup(dialog);
             popup.Size = dialog.Size;
             popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
             popup.ShowDialog();

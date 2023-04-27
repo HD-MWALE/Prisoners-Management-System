@@ -16,6 +16,7 @@ namespace Prisoners_Management_System.views.components.view
         public dormitory(views.dashboard dashboard, dormitories dormitories)
         {
             InitializeComponent();
+            // initializing objects
             this.dashboard = dashboard;
             this.dormitories = dormitories;
         }
@@ -32,16 +33,17 @@ namespace Prisoners_Management_System.views.components.view
             {
                 foreach (DataRow dataRow in dsDormitory.Tables["result"].Rows)
                 {
-                    Id = (int)dataRow[0];
-                    lblDormitoryName.Text = config.config.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
-                    lblCapacity.Text = dataRow[2].ToString();
-                    rtxtDescrption.Text = config.config.AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
-                    lblPrison.Text = config.config.AES.Decrypt((string)dataRow[4], Properties.Resources.PassPhrase);
+                    Id = (int)dataRow["id"];
+                    lblDormitoryName.Text = dataRow["name"].ToString();
+                    lblDescription.Text = (string)dataRow["description"];
+                    lblGenderType.Text = dataRow["gendertype"].ToString();
+                    lblType.Text = (string)dataRow["type"];
                 }
             }
             inmates = new inmates(dashboard);
 
             InmatesPageList(1);
+            ColorScheme.LoadTheme(this.dormitories.Controls);
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
@@ -50,28 +52,43 @@ namespace Prisoners_Management_System.views.components.view
             dormitories.Controls.Remove(this);
             dashboard.SetLoading(false);
         }
-
+        
         private void InmatesPageList(int pageNumber) 
         {
             lblPageNumber.Text = pageNumber.ToString();
             dsInmate = dashboard.Prison.Inmate.GetInmates();
+            var filteredRows =
+              from row in dsInmate.Tables["result"].Rows.OfType<DataRow>()
+              where (int)row["dormitory_id"] <= Id
+              select row;
+
+            var filteredTable = dsInmate.Tables["result"].Clone();
+
+            filteredRows.ToList().ForEach(r => filteredTable.ImportRow(r));
+
             int pageSize = 25;
-            var query = dsInmate.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = filteredTable.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.InmateflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query)
+            foreach (var currentRow in query)
             {
                 rows.inmate row = new rows.inmate(dashboard, this.inmates);
-                row.Id = (int)dataRow["id"];
+                row.Id = (int)currentRow["id"];
                 row.lblNo.Text = number.ToString();
-                row.lblCode.Text = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                row.lblFullname.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
-                row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                row.lblAddress.Text = config.config.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                row.lblMaritalStatus.Text = config.config.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                row.lblCode.Text = currentRow["code"].ToString();
+                row.lblFullname.Text = currentRow["last_name"].ToString() + ", " + currentRow["first_name"].ToString() + " " + currentRow["middle_name"].ToString();
+                row.lblGender.Text = currentRow["gender"].ToString();
+                row.lblDoB.Text = Convert.ToDateTime(currentRow["dob"]).ToString("dd/MM/yyyy");
+                row.lblAddress.Text = currentRow["address"].ToString();
+                DateTimePicker Start = new DateTimePicker();
+                DateTimePicker End = new DateTimePicker();
+                Start.Value = Convert.ToDateTime(currentRow["start_date"]);
+                End.Value = Convert.ToDateTime(currentRow["end_date"]);
+                row.lblSentence.Text = config.config.Calculate.Sentence(Start, End) + "\n" +
+                    Convert.ToDateTime(currentRow["start_date"]).ToString("dd/MM/yyyy") + " to " +
+                    Convert.ToDateTime(currentRow["end_date"]).ToString("dd/MM/yyyy");
                 row.btnEdit.Visible = false;
                 row.btnView.Visible = false;
                 row.btnDelete.Visible = false;
@@ -79,7 +96,10 @@ namespace Prisoners_Management_System.views.components.view
                 number++;
             }
 
-            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsInmate.Tables["result"].Rows.Count + " entries";
+            if (dsInmate.Tables["result"].Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + filteredTable.Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + filteredTable.Rows.Count + " of " + filteredTable.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.InmateflowLayoutPanel.Controls);
         }

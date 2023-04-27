@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace Prisoners_Management_System.views.components
 {
@@ -21,23 +22,20 @@ namespace Prisoners_Management_System.views.components
             InitializeComponent();
             this.dashboard = dashboard;
         }
-
+       
         public void reports_Load(object sender, EventArgs e)
         {
-            //Reports.LoadReports(this);
-            dashboard.Prison.Reports.PrisonPopulation(this);
-            dashboard.Prison.Reports.DormitoryPopulation(this);
+            Reports.PieCharts(dashboard, PopulationPie, DormitoryPopulationPie);
+            Reports.Population(dashboard, PopulationLine);
+            Reports.DormitoryPopulation(dashboard, DormitoryPopulationBar);
+            Reports.CrimesCommitted(CrimesCommittedReport);
+            config.ColorScheme.LoadTheme(this.Controls);
+        }
+        
 
-            //this.CellBlock1Line = Reports.DormitoriesPopulation(CellBlock1Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock2Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock3Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock4Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock5Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock6Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock7Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock8Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock9Line);
-            dashboard.Prison.Reports.DormitoriesPopulation(CellBlock10Line);
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

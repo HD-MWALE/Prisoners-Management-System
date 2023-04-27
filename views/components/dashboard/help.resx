@@ -118,27 +118,63 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label1.Text" xml:space="preserve">
-    <value>Background
-Malawi Prisons Service (MPS) is a government department established under Chapter XVII 
-of the Constitution of Malawi,1994 and the Prisons Act (Cap 9:02) of the Laws of Malawi. 
-We exist to rehabilitate offenders for their reintegration as law abiding citizens. 
-We contribute towards public safety and security by working together with other 
-stakeholders in the criminal justice system and the community in general. MPS has four 
-administrative regions; South, East, Central and North. Prisons in Malawi are categorized 
-into Maximum Security Prisons and Medium Security.
+    <value>User Manual
+This user manual provides detailed information and instructions on how to use the Prisoners
+Management System for Maula Prison. This system is designed to capture facial 
+characteristics of inmates, conduct roll call, allocate new inmates in dormitories, show 
+inmates who are near to be released and generate statistical reports.
+This manual covers the following topics:
 
-Mandate
-The mandate of the MPS is stated in section 163 of the 1994 Republican Constitution 
-which reads 'there shall be the Malawi Prisons Service which shall consist of all Penal 
-institutions, Labour camps, special and secure schools and other institutions that are used 
-to house, detain and rehabilitate persons sentenced to imprisonment in whatever form 
-such imprisonment may take, but shall not include holding cells in police stations'
+1. System requirements
+2. Installation
+3. Login
+4. Main menu
+5. Inmate management
+6. Roll call management
+7. Dormitory management
+8. Report generation
+9. Troubleshooting
 
-Vision
-Professional and excellent correctional service that contributes to public security
-
-Mission
-To contribute to public security and safety through effective rehabilitation, reformation, 
-development and community reintegration of offenders.</value>
+1.              System Requirements
+* To use this system, you need:
+* A Windows-based computer with at least 4 GB of RAM and 500 GB of hard disk space
+* A webcam or a camera device that can connect to the computer
+* An internet connection
+2.	Installation
+* To install this system on your computer, follow these steps:
+* Insert the installation CD into your CD-ROM drive or download the installation file 
+from the website.
+* Run the setup.exe file and follow the instructions on the screen.
+Accept the license agreement and choose the destination folder for the installation.
+Wait for the installation to complete and click Finish.
+3.	Login
+To access this system, you need to login with your username and password. 
+Follow these steps:
+* Launch the system by double-clicking on the icon on your desktop or by selecting it 
+from the Start menu.
+* Enter your username and password in the login screen and click Login.
+* If you have forgotten your password, click on Forgot Password and follow the 
+instructions to reset it.
+* If you are logging in for the first time you will have to use your One-Time Password 
+(OTP) to login, then you will need to change your password and follow the 
+instructions to set a new password.
+4.	Main Menu
+After logging in, you will see the main menu screen at the left side bar that shows you 
+different options to use this system. The main menu consists of eight buttons:
+* Dashboard: This is the landing page.
+* Inmate: This button allows you to manage inmate information such as adding new 
+inmates, editing inmate details, viewing inmate history, searching for inmates by 
+name or code, etc.
+* Visitors: This button allows you to manage visitations information such as adding 
+visitations, editing visitor details, viewing visitor history, searching for visitors by name, etc.
+* Roll Call: This button allows you to conduct roll call using face detection technology. 
+You can also view roll call history, feedback reports, attendance statistics, etc.
+* Dormitory: This button allows you to manage dormitory information such as adding 
+new dormitories.
+* Users: This button allows you to manage user’s information such as adding new users, 
+editing user details, viewing users, searching for visitors by name, etc.
+* Crimes: This button allows you to manage crimes information such as adding new crimes.
+* Reports: This button allows you to view statistical reports such as inmate’s population, roll call history.
+</value>
   </data>
 </root>

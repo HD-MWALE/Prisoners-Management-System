@@ -61,7 +61,6 @@
             this.SidebarTimer = new System.Windows.Forms.Timer(this.components);
             this.menuTimer = new System.Windows.Forms.Timer(this.components);
             this.NotificationIconTimer = new System.Windows.Forms.Timer(this.components);
-            this.SearchTimer = new System.Windows.Forms.Timer(this.components);
             this.pnlMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnToggleMenu)).BeginInit();
@@ -561,6 +560,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bunifuSeparator2.BackColor = System.Drawing.Color.Transparent;
             this.MenuTransition.SetDecoration(this.bunifuSeparator2, BunifuAnimatorNS.DecorationType.None);
+            this.bunifuSeparator2.Enabled = false;
             this.bunifuSeparator2.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator2.LineThickness = 1;
             this.bunifuSeparator2.Location = new System.Drawing.Point(14, 48);
@@ -695,11 +695,6 @@
             this.NotificationIconTimer.Interval = 10;
             this.NotificationIconTimer.Tick += new System.EventHandler(this.NotificationIconTimer_Tick);
             // 
-            // SearchTimer
-            // 
-            this.SearchTimer.Interval = 10;
-            this.SearchTimer.Tick += new System.EventHandler(this.SearchTimer_Tick);
-            // 
             // dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -762,7 +757,6 @@
         public System.Windows.Forms.Label lblAction;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator2;
         public System.Windows.Forms.PictureBox bar;
-        private System.Windows.Forms.Timer SearchTimer;
         public System.Windows.Forms.Label PathSeparator;
         private Bunifu.Framework.UI.BunifuImageButton btnBack;
         private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;

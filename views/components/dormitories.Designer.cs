@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dormitories));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,11 +45,11 @@
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
-            this.dpnGender = new Bunifu.UI.WinForms.BunifuDropdown();
             this.lblentries = new System.Windows.Forms.Label();
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
@@ -62,7 +62,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(47, 135);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(47, 158);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(832, 10);
             this.bunifuSeparator1.TabIndex = 85;
@@ -78,7 +78,7 @@
             this.panel1.Controls.Add(this.lblType);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(45, 111);
+            this.panel1.Location = new System.Drawing.Point(45, 134);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(832, 27);
             this.panel1.TabIndex = 84;
@@ -154,10 +154,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DormitoryflowLayoutPanel.AutoScroll = true;
-            this.DormitoryflowLayoutPanel.Location = new System.Drawing.Point(46, 144);
+            this.DormitoryflowLayoutPanel.Location = new System.Drawing.Point(46, 169);
             this.DormitoryflowLayoutPanel.Name = "DormitoryflowLayoutPanel";
             this.DormitoryflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.DormitoryflowLayoutPanel.Size = new System.Drawing.Size(832, 163);
+            this.DormitoryflowLayoutPanel.Size = new System.Drawing.Size(832, 138);
             this.DormitoryflowLayoutPanel.TabIndex = 83;
             // 
             // label17
@@ -200,7 +200,7 @@
             this.btnAddNew.OnHovercolor = System.Drawing.Color.Green;
             this.btnAddNew.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAddNew.selected = false;
-            this.btnAddNew.Size = new System.Drawing.Size(177, 32);
+            this.btnAddNew.Size = new System.Drawing.Size(177, 45);
             this.btnAddNew.TabIndex = 82;
             this.btnAddNew.Text = "New Dormitory";
             this.btnAddNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -231,13 +231,13 @@
             this.btnSearch.IconVisible = true;
             this.btnSearch.IconZoom = 50D;
             this.btnSearch.IsTab = true;
-            this.btnSearch.Location = new System.Drawing.Point(784, 73);
+            this.btnSearch.Location = new System.Drawing.Point(784, 82);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
             this.btnSearch.OnHoverTextColor = System.Drawing.Color.White;
             this.btnSearch.selected = false;
-            this.btnSearch.Size = new System.Drawing.Size(93, 32);
+            this.btnSearch.Size = new System.Drawing.Size(93, 45);
             this.btnSearch.TabIndex = 89;
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -273,32 +273,32 @@
             this.txtSearch.IconRight = null;
             this.txtSearch.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSearch.Lines = new string[0];
-            this.txtSearch.Location = new System.Drawing.Point(506, 73);
+            this.txtSearch.Location = new System.Drawing.Point(506, 82);
             this.txtSearch.MaxLength = 32767;
             this.txtSearch.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties5.FillColor = System.Drawing.Color.Empty;
-            stateProperties5.ForeColor = System.Drawing.Color.Empty;
-            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties5;
-            stateProperties6.BorderColor = System.Drawing.Color.Empty;
-            stateProperties6.FillColor = System.Drawing.Color.White;
-            stateProperties6.ForeColor = System.Drawing.Color.Empty;
-            stateProperties6.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties6;
-            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties7.FillColor = System.Drawing.Color.Empty;
-            stateProperties7.ForeColor = System.Drawing.Color.Empty;
-            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties7;
-            stateProperties8.BorderColor = System.Drawing.Color.Silver;
-            stateProperties8.FillColor = System.Drawing.Color.White;
-            stateProperties8.ForeColor = System.Drawing.Color.Empty;
-            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties8;
+            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties1.FillColor = System.Drawing.Color.Empty;
+            stateProperties1.ForeColor = System.Drawing.Color.Empty;
+            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties1;
+            stateProperties2.BorderColor = System.Drawing.Color.Empty;
+            stateProperties2.FillColor = System.Drawing.Color.White;
+            stateProperties2.ForeColor = System.Drawing.Color.Empty;
+            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties2;
+            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties3.FillColor = System.Drawing.Color.Empty;
+            stateProperties3.ForeColor = System.Drawing.Color.Empty;
+            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties3;
+            stateProperties4.BorderColor = System.Drawing.Color.Silver;
+            stateProperties4.FillColor = System.Drawing.Color.White;
+            stateProperties4.ForeColor = System.Drawing.Color.Empty;
+            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties4;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -308,7 +308,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(277, 32);
+            this.txtSearch.Size = new System.Drawing.Size(277, 45);
             this.txtSearch.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
             this.txtSearch.TabIndex = 88;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -319,55 +319,6 @@
             this.txtSearch.UseSystemPasswordChar = false;
             this.txtSearch.WordWrap = true;
             // 
-            // dpnGender
-            // 
-            this.dpnGender.AutoCompleteCustomSource.AddRange(new string[] {
-            "Male",
-            "Female",
-            "Underage"});
-            this.dpnGender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.dpnGender.BorderRadius = 1;
-            this.dpnGender.Color = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.dpnGender.Direction = Bunifu.UI.WinForms.BunifuDropdown.Directions.Down;
-            this.dpnGender.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.dpnGender.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dpnGender.DropdownBorderThickness = Bunifu.UI.WinForms.BunifuDropdown.BorderThickness.Thin;
-            this.dpnGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dpnGender.DropDownTextAlign = Bunifu.UI.WinForms.BunifuDropdown.TextAlign.Left;
-            this.dpnGender.FillDropDown = true;
-            this.dpnGender.FillIndicator = false;
-            this.dpnGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dpnGender.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dpnGender.ForeColor = System.Drawing.Color.White;
-            this.dpnGender.FormattingEnabled = true;
-            this.dpnGender.Icon = null;
-            this.dpnGender.IndicatorColor = System.Drawing.Color.White;
-            this.dpnGender.IndicatorLocation = Bunifu.UI.WinForms.BunifuDropdown.Indicator.Right;
-            this.dpnGender.ItemBackColor = System.Drawing.Color.White;
-            this.dpnGender.ItemBorderColor = System.Drawing.Color.White;
-            this.dpnGender.ItemForeColor = System.Drawing.Color.Black;
-            this.dpnGender.ItemHeight = 26;
-            this.dpnGender.ItemHighLightColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.dpnGender.Items.AddRange(new object[] {
-            "JANUARY",
-            "FEBRUARY",
-            "MARCH",
-            "APRIL",
-            "MAY",
-            "JUNE",
-            "JULY",
-            "AUGUST",
-            "SEPTEMBER",
-            "OCTOBER",
-            "NOVEMBER",
-            "DECEMBER"});
-            this.dpnGender.Location = new System.Drawing.Point(45, 73);
-            this.dpnGender.Name = "dpnGender";
-            this.dpnGender.Size = new System.Drawing.Size(174, 32);
-            this.dpnGender.TabIndex = 90;
-            this.dpnGender.Text = "Select";
-            this.dpnGender.SelectedIndexChanged += new System.EventHandler(this.dpnGender_SelectedIndexChanged);
-            // 
             // lblentries
             // 
             this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -376,7 +327,7 @@
             this.lblentries.ForeColor = System.Drawing.Color.White;
             this.lblentries.Location = new System.Drawing.Point(47, 317);
             this.lblentries.Name = "lblentries";
-            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
             this.lblentries.TabIndex = 103;
             this.lblentries.Text = "25 of 100 entries";
             // 
@@ -422,16 +373,52 @@
             this.btnNext.Zoom = 5;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(45, 82);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
+            this.btnRefresh.TabIndex = 133;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // dormitories
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.dpnGender);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.bunifuSeparator1);
@@ -464,11 +451,11 @@
         public System.Windows.Forms.Label lblGenderType;
         public Bunifu.Framework.UI.BunifuFlatButton btnSearch;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtSearch;
-        public Bunifu.UI.WinForms.BunifuDropdown dpnGender;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblentries;
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
     }
 }

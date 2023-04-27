@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(rollcall));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties17 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties18 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties19 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties20 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.label17 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,7 +43,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.bunifuSeparator5 = new Bunifu.Framework.UI.BunifuSeparator();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
-            this.label8 = new System.Windows.Forms.Label();
             this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -51,16 +50,22 @@
             this.lblDormitoryName = new System.Windows.Forms.Label();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.lblentries = new System.Windows.Forms.Label();
+            this.lblPageNumber = new System.Windows.Forms.Label();
+            this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             this.SuspendLayout();
             // 
             // label17
             // 
-            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(68, 29);
+            this.label17.Location = new System.Drawing.Point(39, 29);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(155, 24);
             this.label17.TabIndex = 113;
@@ -76,7 +81,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.label14);
-            this.panel2.Location = new System.Drawing.Point(29, 179);
+            this.panel2.Location = new System.Drawing.Point(29, 195);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(934, 27);
             this.panel2.TabIndex = 121;
@@ -101,11 +106,11 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(511, 5);
+            this.label5.Location = new System.Drawing.Point(614, 5);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 16);
+            this.label5.Size = new System.Drawing.Size(72, 16);
             this.label5.TabIndex = 129;
-            this.label5.Text = "Marital Status";
+            this.label5.Text = "Sentence";
             // 
             // label16
             // 
@@ -178,7 +183,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 157;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(29, 208);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(29, 224);
             this.bunifuSeparator1.Margin = new System.Windows.Forms.Padding(9, 12, 9, 12);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(934, 1);
@@ -186,24 +191,13 @@
             this.bunifuSeparator1.Transparency = 255;
             this.bunifuSeparator1.Vertical = false;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(39, 146);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 20);
-            this.label8.TabIndex = 112;
-            this.label8.Text = "Inmates";
-            // 
             // InmateflowLayoutPanel
             // 
             this.InmateflowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InmateflowLayoutPanel.AutoScroll = true;
-            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(29, 213);
+            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(29, 229);
             this.InmateflowLayoutPanel.Name = "InmateflowLayoutPanel";
             this.InmateflowLayoutPanel.Size = new System.Drawing.Size(934, 277);
             this.InmateflowLayoutPanel.TabIndex = 111;
@@ -284,32 +278,32 @@
             this.txtSearch.IconRight = null;
             this.txtSearch.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSearch.Lines = new string[0];
-            this.txtSearch.Location = new System.Drawing.Point(579, 127);
+            this.txtSearch.Location = new System.Drawing.Point(579, 143);
             this.txtSearch.MaxLength = 32767;
             this.txtSearch.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.Empty;
-            stateProperties2.FillColor = System.Drawing.Color.White;
-            stateProperties2.ForeColor = System.Drawing.Color.Empty;
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.White;
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties4;
+            stateProperties17.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties17.FillColor = System.Drawing.Color.Empty;
+            stateProperties17.ForeColor = System.Drawing.Color.Empty;
+            stateProperties17.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties17;
+            stateProperties18.BorderColor = System.Drawing.Color.Empty;
+            stateProperties18.FillColor = System.Drawing.Color.White;
+            stateProperties18.ForeColor = System.Drawing.Color.Empty;
+            stateProperties18.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties18;
+            stateProperties19.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties19.FillColor = System.Drawing.Color.Empty;
+            stateProperties19.ForeColor = System.Drawing.Color.Empty;
+            stateProperties19.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties19;
+            stateProperties20.BorderColor = System.Drawing.Color.Silver;
+            stateProperties20.FillColor = System.Drawing.Color.White;
+            stateProperties20.ForeColor = System.Drawing.Color.Empty;
+            stateProperties20.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties20;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -353,7 +347,7 @@
             this.btnSearch.IconVisible = true;
             this.btnSearch.IconZoom = 50D;
             this.btnSearch.IsTab = true;
-            this.btnSearch.Location = new System.Drawing.Point(857, 128);
+            this.btnSearch.Location = new System.Drawing.Point(857, 144);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
@@ -365,12 +359,109 @@
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSearch.Textcolor = System.Drawing.Color.White;
             this.btnSearch.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // lblentries
+            // 
+            this.lblentries.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblentries.AutoSize = true;
+            this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblentries.ForeColor = System.Drawing.Color.White;
+            this.lblentries.Location = new System.Drawing.Point(36, 516);
+            this.lblentries.Name = "lblentries";
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
+            this.lblentries.TabIndex = 128;
+            this.lblentries.Text = "25 of 100 entries";
+            // 
+            // lblPageNumber
+            // 
+            this.lblPageNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPageNumber.AutoSize = true;
+            this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.lblPageNumber.ForeColor = System.Drawing.Color.White;
+            this.lblPageNumber.Location = new System.Drawing.Point(886, 516);
+            this.lblPageNumber.Name = "lblPageNumber";
+            this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
+            this.lblPageNumber.TabIndex = 125;
+            this.lblPageNumber.Text = "100";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
+            this.btnPrevious.ImageActive = null;
+            this.btnPrevious.Location = new System.Drawing.Point(846, 512);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(34, 30);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 127;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Zoom = 5;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
+            this.btnNext.ImageActive = null;
+            this.btnNext.Location = new System.Drawing.Point(925, 512);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(34, 30);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 126;
+            this.btnNext.TabStop = false;
+            this.btnNext.Zoom = 5;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(37, 143);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
+            this.btnRefresh.TabIndex = 129;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // rollcall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.lblentries);
+            this.Controls.Add(this.lblPageNumber);
+            this.Controls.Add(this.btnPrevious);
+            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.panel2);
@@ -380,7 +471,6 @@
             this.Controls.Add(this.lblDormitoryName);
             this.Controls.Add(this.bunifuSeparator1);
             this.Controls.Add(this.lblCode);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.InmateflowLayoutPanel);
             this.Name = "rollcall";
@@ -388,6 +478,8 @@
             this.Load += new System.EventHandler(this.rollcall_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,7 +490,6 @@
         private System.Windows.Forms.Panel panel2;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator5;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label lblCode;
@@ -412,5 +503,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblentries;
+        private System.Windows.Forms.Label lblPageNumber;
+        private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
+        private Bunifu.Framework.UI.BunifuImageButton btnNext;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
     }
 }

@@ -273,6 +273,16 @@ namespace Prisoners_Management_System.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap feedly {
+            get {
+                object obj = ResourceManager.GetObject("feedly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap forgot_password {
             get {
                 object obj = ResourceManager.GetObject("forgot_password", resourceCulture);
@@ -504,6 +514,16 @@ namespace Prisoners_Management_System.Properties {
         internal static System.Drawing.Bitmap prisoner {
             get {
                 object obj = ResourceManager.GetObject("prisoner", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

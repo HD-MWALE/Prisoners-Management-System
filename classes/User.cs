@@ -128,8 +128,21 @@ namespace Prisoners_Management_System.classes
         // get all users
         public (DataSet, string) GetUsers() 
         {
-            string fields = "`id`, `email`, `user_name`, `first_name`, `middle_name`, `last_name`, `gender`, `dob`, `role`";
-            return database.Execute.Retrieve("SELECT " + fields + " FROM user");
+            string fields = "`id`, `email`, `user_name`, `first_name`, `last_name`, `middle_name`, `gender`, `dob`, `role`, `password`, `otp`";
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + fields + " FROM user order by date_created DESC");
+            foreach (DataRow row in response.Item1.Tables["result"].Rows)
+            {
+                // decrypting inmate details
+                row["email"] = config.config.AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
+                row["user_name"] = config.config.AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
+                row["first_name"] = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                row["middle_name"] = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                row["last_name"] = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                row["gender"] = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                row["password"] = config.config.AES.Decrypt(row["password"].ToString(), Properties.Resources.PassPhrase);
+                row["otp"] = config.config.AES.Decrypt(row["otp"].ToString(), Properties.Resources.PassPhrase);
+            }
+            return (response.Item1, response.Item2);
         }
         // get id by username
         public int GetId(string username) 
@@ -138,9 +151,9 @@ namespace Prisoners_Management_System.classes
             if (response.Item1 != null)
             {
                 foreach (DataRow data in response.Item1.Tables["result"].Rows)
-                    if (config.config.AES.Decrypt(Convert.ToString(data["user_name"]), Properties.Resources.PassPhrase) == username)
+                    if ( Convert.ToString(data["user_name"]) == username)
                     {
-                        Email = config.config.AES.Decrypt(Convert.ToString(data["email"]), Properties.Resources.PassPhrase);
+                        Email =  Convert.ToString(data["email"]) ;
                         return Convert.ToInt32(data["id"]);
                     }
             }
@@ -161,8 +174,7 @@ namespace Prisoners_Management_System.classes
         // login function
         public (ArrayList, string) Login()
         {
-            string fields = "`id`, `email`, `user_name`, `first_name`, `last_name`, `middle_name`, `gender`, `dob`, `role`, `password`, `otp`";
-            (DataSet, string) responce = database.Execute.Retrieve("SELECT " + fields + " FROM user");
+            (DataSet, string) responce = GetUsers();
             if (responce.Item2 != "server-error")
             {
                 dataSet = responce.Item1;
@@ -171,23 +183,22 @@ namespace Prisoners_Management_System.classes
                     foreach (DataRow dataRow in dataSet.Tables["result"].Rows)
                     {
                         Auth = new ArrayList();
-                        if (UserName == config.config.AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase)
-                            || Email == config.config.AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase))
+                        if (UserName == (string)dataRow["user_name"] || Email == (string)dataRow["email"])
                         {
                             Auth.Add(dataRow["id"]);
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["email"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["user_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["first_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["last_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["middle_name"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["gender"], Properties.Resources.PassPhrase));
+                            Auth.Add((string)dataRow["email"]);
+                            Auth.Add((string)dataRow["user_name"]);
+                            Auth.Add((string)dataRow["first_name"]);
+                            Auth.Add((string)dataRow["last_name"]);
+                            Auth.Add((string)dataRow["middle_name"]);
+                            Auth.Add((string)dataRow["gender"]);
                             Auth.Add(Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy"));
                             Auth.Add((string)dataRow["role"]);
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase));
-                            Auth.Add(config.config.AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase));
-                            if (config.config.AES.Decrypt((string)dataRow["password"], Properties.Resources.PassPhrase) == Password)
+                            Auth.Add((string)dataRow["password"]);
+                            Auth.Add((string)dataRow["otp"] );
+                            if ( (string)dataRow["password"] == Password)
                                 Auth.Add("regular");
-                            else if (config.config.AES.Decrypt((string)dataRow["otp"], Properties.Resources.PassPhrase) == Password)
+                            else if ( (string)dataRow["otp"] == Password)
                                 Auth.Add("new");
                             else
                                 Auth = null;

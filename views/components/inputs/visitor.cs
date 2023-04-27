@@ -54,13 +54,11 @@ namespace Prisoners_Management_System.views.components.inputs
             {
                 foreach (DataRow dataRow in dsVisitor.Tables["result"].Rows)
                 {
-                    txtinmate.AutoCompleteCustomSource.Add(config.config.AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
-                    txtinmate.AutoCompleteCustomSource.Add(config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase));
-                    //this.dpnCode.Items.Add(AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase));
-                    //this.dpnFullname.Items.Add(AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase));
+                    txtinmate.AutoCompleteCustomSource.Add((string)dataRow["code"]);
+                    txtinmate.AutoCompleteCustomSource.Add(dataRow["last_name"].ToString() + ", " + dataRow["first_name"].ToString()  + " " + dataRow["middle_name"].ToString());
+                    txtinmate.AutoCompleteCustomSource.Add(dataRow["first_name"].ToString());
+                    txtinmate.AutoCompleteCustomSource.Add(dataRow["middle_name"].ToString());
+                    txtinmate.AutoCompleteCustomSource.Add(dataRow["last_name"].ToString());
                 }
             }
         }
@@ -164,18 +162,18 @@ namespace Prisoners_Management_System.views.components.inputs
                 this.Cursor = Cursors.WaitCursor;
                 foreach (DataRow dataRow in dsVisitor.Tables["result"].Rows)
                 {
-                    if (config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text ||
-                        config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase)
-                        + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase)
-                        + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase) == txtinmate.Text)
+                    if (dataRow["code"].ToString() == txtinmate.Text ||
+                        dataRow["first_name"].ToString() == txtinmate.Text ||
+                        dataRow["middle_name"].ToString() == txtinmate.Text ||
+                        dataRow["last_name"].ToString() == txtinmate.Text ||
+                        dataRow["last_name"].ToString()
+                        + ", " + dataRow["first_name"].ToString()
+                        + " " + dataRow["middle_name"].ToString() == txtinmate.Text)
                     {
-                        Code = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
+                        Code = dataRow["code"].ToString();
                         lblFullName.Text = "Inmate Details";
-                        lblFullName.Text += "\nCode : " + config.config.AES.Decrypt((string)dataRow["code"], Properties.Resources.PassPhrase);
-                        lblFullName.Text += "\nName : " + config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        lblFullName.Text += "\nCode : " + (string)dataRow["code"];
+                        lblFullName.Text += "\nName : " + dataRow["last_name"].ToString() + ", " + dataRow["first_name"].ToString() + " " + dataRow["middle_name"].ToString();
                         if (dataRow["visiting_privilege"].ToString() == "0")
                         {
                             lblFullName.Text += "\nVisiting Privilege : Not Allowed";

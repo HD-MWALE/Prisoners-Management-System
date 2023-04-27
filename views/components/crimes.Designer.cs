@@ -48,6 +48,7 @@
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
@@ -60,7 +61,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(49, 174);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(49, 152);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(832, 10);
             this.bunifuSeparator1.TabIndex = 85;
@@ -75,7 +76,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(47, 150);
+            this.panel1.Location = new System.Drawing.Point(47, 127);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(832, 27);
             this.panel1.TabIndex = 84;
@@ -138,10 +139,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CrimeflowLayoutPanel.AutoScroll = true;
-            this.CrimeflowLayoutPanel.Location = new System.Drawing.Point(48, 183);
+            this.CrimeflowLayoutPanel.Location = new System.Drawing.Point(48, 160);
             this.CrimeflowLayoutPanel.Name = "CrimeflowLayoutPanel";
             this.CrimeflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.CrimeflowLayoutPanel.Size = new System.Drawing.Size(832, 139);
+            this.CrimeflowLayoutPanel.Size = new System.Drawing.Size(832, 162);
             this.CrimeflowLayoutPanel.TabIndex = 83;
             // 
             // label17
@@ -311,7 +312,7 @@
             this.lblentries.ForeColor = System.Drawing.Color.White;
             this.lblentries.Location = new System.Drawing.Point(62, 332);
             this.lblentries.Name = "lblentries";
-            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
             this.lblentries.TabIndex = 103;
             this.lblentries.Text = "25 of 100 entries";
             // 
@@ -357,11 +358,47 @@
             this.btnNext.Zoom = 5;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(48, 74);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
+            this.btnRefresh.TabIndex = 134;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            // 
             // crimes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
@@ -402,5 +439,6 @@
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
     }
 }

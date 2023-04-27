@@ -28,6 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(visitors));
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label17 = new System.Windows.Forms.Label();
             this.VisitorflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -43,6 +48,9 @@
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
@@ -71,13 +79,13 @@
             this.btnAddNew.IconVisible = true;
             this.btnAddNew.IconZoom = 50D;
             this.btnAddNew.IsTab = true;
-            this.btnAddNew.Location = new System.Drawing.Point(901, 36);
+            this.btnAddNew.Location = new System.Drawing.Point(901, 23);
             this.btnAddNew.Name = "btnAddNew";
             this.btnAddNew.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnAddNew.OnHovercolor = System.Drawing.Color.Green;
             this.btnAddNew.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAddNew.selected = false;
-            this.btnAddNew.Size = new System.Drawing.Size(153, 32);
+            this.btnAddNew.Size = new System.Drawing.Size(153, 45);
             this.btnAddNew.TabIndex = 68;
             this.btnAddNew.Text = "New Visitor";
             this.btnAddNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -102,10 +110,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.VisitorflowLayoutPanel.AutoScroll = true;
-            this.VisitorflowLayoutPanel.Location = new System.Drawing.Point(40, 122);
+            this.VisitorflowLayoutPanel.Location = new System.Drawing.Point(40, 160);
             this.VisitorflowLayoutPanel.Name = "VisitorflowLayoutPanel";
             this.VisitorflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.VisitorflowLayoutPanel.Size = new System.Drawing.Size(1017, 276);
+            this.VisitorflowLayoutPanel.Size = new System.Drawing.Size(1017, 294);
             this.VisitorflowLayoutPanel.TabIndex = 70;
             // 
             // panel1
@@ -118,7 +126,7 @@
             this.panel1.Controls.Add(this.lblInmate);
             this.panel1.Controls.Add(this.lblContact);
             this.panel1.Controls.Add(this.lblName);
-            this.panel1.Location = new System.Drawing.Point(40, 89);
+            this.panel1.Location = new System.Drawing.Point(40, 127);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1017, 27);
             this.panel1.TabIndex = 79;
@@ -208,7 +216,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 113);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 151);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(1017, 10);
             this.bunifuSeparator1.TabIndex = 80;
@@ -221,9 +229,9 @@
             this.lblentries.AutoSize = true;
             this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblentries.ForeColor = System.Drawing.Color.White;
-            this.lblentries.Location = new System.Drawing.Point(45, 408);
+            this.lblentries.Location = new System.Drawing.Point(45, 464);
             this.lblentries.Name = "lblentries";
-            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
             this.lblentries.TabIndex = 103;
             this.lblentries.Text = "25 of 100 entries";
             // 
@@ -233,7 +241,7 @@
             this.lblPageNumber.AutoSize = true;
             this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblPageNumber.ForeColor = System.Drawing.Color.White;
-            this.lblPageNumber.Location = new System.Drawing.Point(983, 408);
+            this.lblPageNumber.Location = new System.Drawing.Point(983, 464);
             this.lblPageNumber.Name = "lblPageNumber";
             this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
             this.lblPageNumber.TabIndex = 100;
@@ -245,7 +253,7 @@
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
             this.btnPrevious.ImageActive = null;
-            this.btnPrevious.Location = new System.Drawing.Point(943, 404);
+            this.btnPrevious.Location = new System.Drawing.Point(943, 460);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(34, 30);
             this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -260,7 +268,7 @@
             this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
             this.btnNext.ImageActive = null;
-            this.btnNext.Location = new System.Drawing.Point(1022, 404);
+            this.btnNext.Location = new System.Drawing.Point(1022, 460);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(34, 30);
             this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -269,11 +277,161 @@
             this.btnNext.Zoom = 5;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(40, 74);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
+            this.btnRefresh.TabIndex = 130;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Active = false;
+            this.btnSearch.Activecolor = System.Drawing.Color.Green;
+            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearch.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearch.BorderRadius = 5;
+            this.btnSearch.ButtonText = "Search";
+            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearch.DisabledColor = System.Drawing.Color.Gray;
+            this.btnSearch.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnSearch.Iconimage = global::Prisoners_Management_System.Properties.Resources.search;
+            this.btnSearch.Iconimage_right = null;
+            this.btnSearch.Iconimage_right_Selected = null;
+            this.btnSearch.Iconimage_Selected = null;
+            this.btnSearch.IconMarginLeft = 5;
+            this.btnSearch.IconMarginRight = 0;
+            this.btnSearch.IconRightVisible = true;
+            this.btnSearch.IconRightZoom = 0D;
+            this.btnSearch.IconVisible = true;
+            this.btnSearch.IconZoom = 50D;
+            this.btnSearch.IsTab = true;
+            this.btnSearch.Location = new System.Drawing.Point(961, 74);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
+            this.btnSearch.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnSearch.selected = false;
+            this.btnSearch.Size = new System.Drawing.Size(93, 45);
+            this.btnSearch.TabIndex = 132;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearch.Textcolor = System.Drawing.Color.White;
+            this.btnSearch.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.AcceptsReturn = false;
+            this.txtSearch.AcceptsTab = false;
+            this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearch.AnimationSpeed = 200;
+            this.txtSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtSearch.BackColor = System.Drawing.Color.White;
+            this.txtSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("txtSearch.BackgroundImage")));
+            this.txtSearch.BorderColorActive = System.Drawing.Color.DodgerBlue;
+            this.txtSearch.BorderColorDisabled = System.Drawing.Color.FromArgb(((int)(((byte)(161)))), ((int)(((byte)(161)))), ((int)(((byte)(161)))));
+            this.txtSearch.BorderColorHover = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            this.txtSearch.BorderColorIdle = System.Drawing.Color.Silver;
+            this.txtSearch.BorderRadius = 1;
+            this.txtSearch.BorderThickness = 1;
+            this.txtSearch.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.txtSearch.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtSearch.DefaultFont = new System.Drawing.Font("Segoe UI Semibold", 9.75F);
+            this.txtSearch.DefaultText = "";
+            this.txtSearch.FillColor = System.Drawing.Color.White;
+            this.txtSearch.HideSelection = true;
+            this.txtSearch.IconLeft = null;
+            this.txtSearch.IconLeftCursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtSearch.IconPadding = 10;
+            this.txtSearch.IconRight = null;
+            this.txtSearch.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtSearch.Lines = new string[0];
+            this.txtSearch.Location = new System.Drawing.Point(678, 74);
+            this.txtSearch.MaxLength = 32767;
+            this.txtSearch.MinimumSize = new System.Drawing.Size(1, 1);
+            this.txtSearch.Modified = false;
+            this.txtSearch.Multiline = false;
+            this.txtSearch.Name = "txtSearch";
+            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties5.FillColor = System.Drawing.Color.Empty;
+            stateProperties5.ForeColor = System.Drawing.Color.Empty;
+            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties5;
+            stateProperties6.BorderColor = System.Drawing.Color.Empty;
+            stateProperties6.FillColor = System.Drawing.Color.White;
+            stateProperties6.ForeColor = System.Drawing.Color.Empty;
+            stateProperties6.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties6;
+            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties7.FillColor = System.Drawing.Color.Empty;
+            stateProperties7.ForeColor = System.Drawing.Color.Empty;
+            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties7;
+            stateProperties8.BorderColor = System.Drawing.Color.Silver;
+            stateProperties8.FillColor = System.Drawing.Color.White;
+            stateProperties8.ForeColor = System.Drawing.Color.Empty;
+            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties8;
+            this.txtSearch.PasswordChar = '\0';
+            this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.PlaceholderText = "Search here...";
+            this.txtSearch.ReadOnly = false;
+            this.txtSearch.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSearch.SelectedText = "";
+            this.txtSearch.SelectionLength = 0;
+            this.txtSearch.SelectionStart = 0;
+            this.txtSearch.ShortcutsEnabled = true;
+            this.txtSearch.Size = new System.Drawing.Size(277, 45);
+            this.txtSearch.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
+            this.txtSearch.TabIndex = 131;
+            this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.txtSearch.TextMarginBottom = 0;
+            this.txtSearch.TextMarginLeft = 5;
+            this.txtSearch.TextMarginTop = 0;
+            this.txtSearch.TextPlaceholder = "Search here...";
+            this.txtSearch.UseSystemPasswordChar = false;
+            this.txtSearch.WordWrap = true;
+            // 
             // visitors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtSearch);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
@@ -284,7 +442,7 @@
             this.Controls.Add(this.label17);
             this.Controls.Add(this.btnAddNew);
             this.Name = "visitors";
-            this.Size = new System.Drawing.Size(1100, 461);
+            this.Size = new System.Drawing.Size(1100, 517);
             this.Load += new System.EventHandler(this.visitors_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -311,5 +469,8 @@
         private System.Windows.Forms.Label lblPageNumber;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
+        public Bunifu.Framework.UI.BunifuFlatButton btnSearch;
+        public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtSearch;
     }
 }

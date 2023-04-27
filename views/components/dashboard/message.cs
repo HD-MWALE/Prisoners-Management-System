@@ -1,4 +1,6 @@
-﻿using DocumentFormat.OpenXml.Presentation;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Presentation;
+using Org.BouncyCastle.Asn1.Cmp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,10 +26,19 @@ namespace Prisoners_Management_System.views.components.dashboard
         }
 
         public int Id = 0;
-
+        public int RollCall_Id = 0; 
+        public int RollCallInmate_Id = 0;
+        feedbacks feedbacks;
         private void message_Click(object sender, EventArgs e)
         {
-            dashboard.Notification(sender, Id);
+            dashboard.Prison.Roll_Call.SaveFeedback(Id, RollCall_Id, RollCallInmate_Id);
+            dashboard.lblModel.Text = "Roll Call";
+            dashboard.lblAction.Text = "Feedback";
+            dashboard.Clear();
+            feedbacks = new components.feedbacks(dashboard);
+            dashboard.pnlBody.Controls.Add(feedbacks);
+            feedbacks.Dock = DockStyle.Fill;
+            feedbacks.BringToFront();
         }
 
         private void message_MouseHover(object sender, EventArgs e)
@@ -42,6 +53,8 @@ namespace Prisoners_Management_System.views.components.dashboard
                     lblTitle.ForeColor = Color.WhiteSmoke;
                     lblMessage.BackColor = Color.FromArgb(26, 104, 255);
                     lblMessage.ForeColor = Color.WhiteSmoke;
+                    lblDate.BackColor = Color.FromArgb(26, 104, 255);
+                    lblDate.ForeColor = Color.WhiteSmoke;
                     Icon.BackColor = Color.FromArgb(26, 104, 255);
                 }
                 else
@@ -51,6 +64,8 @@ namespace Prisoners_Management_System.views.components.dashboard
                     lblTitle.ForeColor = Color.FromArgb(26, 104, 255);
                     lblMessage.BackColor = Color.WhiteSmoke;
                     lblMessage.ForeColor = Color.FromArgb(26, 104, 255);
+                    lblDate.BackColor = Color.WhiteSmoke;
+                    lblDate.ForeColor = Color.FromArgb(26, 104, 255);
                     Icon.BackColor = Color.WhiteSmoke;
                 }
         }
@@ -67,6 +82,8 @@ namespace Prisoners_Management_System.views.components.dashboard
                     lblTitle.ForeColor = Color.FromArgb(42, 42, 49);
                     lblMessage.BackColor = Color.WhiteSmoke;
                     lblMessage.ForeColor = Color.FromArgb(42, 42, 49);
+                    lblDate.BackColor = Color.WhiteSmoke;
+                    lblDate.ForeColor = Color.FromArgb(42, 42, 49);
                     Icon.BackColor = Color.WhiteSmoke;
                 }
                 else
@@ -76,6 +93,8 @@ namespace Prisoners_Management_System.views.components.dashboard
                     lblTitle.ForeColor = Color.WhiteSmoke;
                     lblMessage.BackColor = Color.FromArgb(42, 42, 49);
                     lblMessage.ForeColor = Color.WhiteSmoke;
+                    lblDate.BackColor = Color.FromArgb(42, 42, 49);
+                    lblDate.ForeColor = Color.WhiteSmoke;
                     Icon.BackColor = Color.FromArgb(42, 42, 49);
                 }
         }

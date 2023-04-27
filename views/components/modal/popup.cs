@@ -33,7 +33,8 @@ namespace Prisoners_Management_System.views.components.modal
             this.control = control;
         }
         private UserControl control;
-        private crime crime; 
+        private inmate inmate;  
+        private crime crime;
         private view.user user;
         private history history;
         private view.history viewhistory;  
@@ -48,6 +49,7 @@ namespace Prisoners_Management_System.views.components.modal
         private dashboard.settings settings; 
         private dashboard.profile profile; 
         private dashboard.about about; 
+        private dashboard.help help; 
         public int Id;
 
         string startupPath = Environment.CurrentDirectory;
@@ -57,6 +59,9 @@ namespace Prisoners_Management_System.views.components.modal
             {
                 switch (control.Name)
                 {
+                    case "inmate":
+                        Inmate_Load();
+                        break;
                     case "profile":
                         Profile_Load();
                         break;
@@ -98,6 +103,9 @@ namespace Prisoners_Management_System.views.components.modal
                         break;
                     case "about":
                         About_Load(); 
+                        break;
+                    case "help":
+                        Help_Load();
                         break;
                     default : break;
                 }
@@ -275,6 +283,22 @@ namespace Prisoners_Management_System.views.components.modal
             btnClose_Click(sender, e);
         }
 
+        private void Inmate_Load() 
+        {
+            if (control != null)
+            {
+                this.inmate = (inputs.inmate)control;
+                this.inmate.Dock = DockStyle.Fill;
+                this.inmate.BackColor = Color.FromArgb(42, 42, 49);
+                if (inmate.Id == 0)
+                    Title.Text = "Add Inmate";
+                else
+                    Title.Text = "Edit Inmate";
+                this.Body.Controls.Add(inmate);
+                this.inmate.btnSave.Click += BtnSave_Click;
+            }
+        }
+
         private void Crime_Load() 
         {
             if (control != null)
@@ -337,12 +361,19 @@ namespace Prisoners_Management_System.views.components.modal
             if (control != null)
             {
                 this.scan = (facial.scan)control;
+                this.scan.btnCapture.Click += BtnCapture_Click;
                 this.scan.Dock = DockStyle.Fill;
                 this.scan.BackColor = Color.FromArgb(42, 42, 49);
                 this.Title.Text = "Face Detection";
                 this.Body.Controls.Add(scan);
             }
         }
+
+        private void BtnCapture_Click(object sender, EventArgs e)
+        {
+            btnClose_Click(sender, e);
+        }
+
         private void Rollcall_Load() 
         {
             if (control != null)
@@ -388,6 +419,17 @@ namespace Prisoners_Management_System.views.components.modal
                 this.about.BackColor = Color.FromArgb(42, 42, 49);
                 this.Title.Text = "About";
                 this.Body.Controls.Add(about);
+            }
+        }
+
+        private void Help_Load() 
+        {
+            if (control != null)
+            {
+                this.help = (dashboard.help)control;
+                this.help.BackColor = Color.FromArgb(42, 42, 49);
+                this.Title.Text = "Help";
+                this.Body.Controls.Add(help);
             }
         }
 

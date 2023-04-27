@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Spreadsheet;
 using MySqlX.XDevAPI.Relational;
+using Org.BouncyCastle.Asn1.Cmp;
 using Prisoners_Management_System.classes;
 using Prisoners_Management_System.config;
 using System;
@@ -17,17 +18,19 @@ namespace Prisoners_Management_System.views.components
 {
     public partial class rollcall : UserControl
     {
-        public views.dashboard dashboard;
-        inputs.rollcall _rollcall;
-        DataSet dsRoll_Call = new DataSet();
         public rollcall(views.dashboard dashboard)
         {
             InitializeComponent();
             this.dashboard = dashboard;
         }
+        public views.dashboard dashboard;
+        feedbacks feedbacks;
+        inputs.rollcall _rollcall;
+        DataTable dsRoll_Call = new DataTable();
 
         public void rollcall_Load(object sender, EventArgs e)
         {
+            dsRoll_Call = dashboard.Prison.Roll_Call.GetRollCalls().Tables["result"];
             RollCallPageList(1);
         }
 
@@ -46,28 +49,27 @@ namespace Prisoners_Management_System.views.components
 
         private void RollCallPageList(int pageNumber) 
         {
+            dashboard.SetLoading(true);
             lblPageNumber.Text = pageNumber.ToString();
-            dsRoll_Call = dashboard.Prison.Roll_Call.GetRollCalls();
             int pageSize = 25;
-            var query = dsRoll_Call.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsRoll_Call.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.RollcallflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query)
+            foreach (var currentRow in query)
             {
                 rows.rollcall row = new rows.rollcall(dashboard, this);
-                row.Id = (int)dataRow["id"];
+                row.Id = (int)currentRow["id"];
                 row.lblNo.Text = number.ToString();
-                row.lblCode.Text = dataRow["code"].ToString();
-                row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy hh:mm:ss tt");
-                row.lblDormitory.Text = config.config.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
-                row.lblStatus.Text = dataRow["status"].ToString();
-                row.lblTotalInmates.Text = dataRow["total_inmates"].ToString();
-                row.lblScannedInmates.Text = dataRow["total_inmates"].ToString();
+                row.lblCode.Text = currentRow["code"].ToString();
+                row.lblDate.Text = Convert.ToDateTime(currentRow["date_created"]).ToString("dd/MM/yyyy hh:mm:ss tt");
+                row.lblDormitory.Text = config.config.AES.Decrypt(currentRow["name"].ToString(), Properties.Resources.PassPhrase);
+                row.lblStatus.Text = currentRow["status"].ToString();
+                row.lblTotalInmates.Text = currentRow["total_inmates"].ToString();
+                row.lblScannedInmates.Text = currentRow["total_inmates"].ToString();
                 txtSearch.AutoCompleteCustomSource.Add(row.lblCode.Text);
                 txtSearch.AutoCompleteCustomSource.Add(row.lblDormitory.Text);
-                txtSearch.AutoCompleteCustomSource.Add(row.lblStatus.Text);
                 if (File.Exists(config.config.UserRole))
                     if (File.ReadAllText(config.config.UserRole) != "Admin")
                     {
@@ -77,21 +79,57 @@ namespace Prisoners_Management_System.views.components
                 number++;
             }
 
-            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsRoll_Call.Tables["result"].Rows.Count + " entries";
+            if (dsRoll_Call.Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsRoll_Call.Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + dsRoll_Call.Rows.Count + " of " + dsRoll_Call.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.RollcallflowLayoutPanel.Controls);
+            dashboard.SetLoading(false);
         }
-
-
+        // go to next page button
         private void btnNext_Click(object sender, EventArgs e)
         {
+            // calling function to load roll call next page
             RollCallPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
-
         }
-
+        // go to previous page button
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            // calling function to load roll call previous page
             RollCallPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            // getting all roll call 
+            dsRoll_Call = dashboard.Prison.Roll_Call.GetRollCalls().Tables["result"];
+            // calling function to filter datatable
+            dsRoll_Call = FilterData.SearchRollCall(dsRoll_Call, txtSearch.Text);
+            // calling function to load visitors
+            RollCallPageList(1);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            rollcall_Load(sender, e);
+        }
+
+        private void btnFeedback_Click(object sender, EventArgs e)
+        {
+            dashboard.SetLoading(true);
+            dashboard.bar.Top = (this.dashboard.btnReports).Top;
+            dashboard.lblModel.Text = dashboard.btnReports.Text.Trim();
+            dashboard.Path(true);
+            dashboard.lblAction.Text = "Statistical Reports";
+            dashboard.Clear();
+            feedbacks = new components.feedbacks(dashboard);
+            dashboard.pnlBody.Controls.Add(feedbacks);
+            feedbacks.Dock = DockStyle.Fill;
+            feedbacks.BringToFront();
+
+            // Setting theme (Dark/Light)
+            ColorScheme.LoadTheme(this.dashboard.Controls);
         }
     }
 }

@@ -1,16 +1,6 @@
-﻿using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Google.Protobuf.WellKnownTypes;
-using Prisoners_Management_System.config;
+﻿using Prisoners_Management_System.config;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Prisoners_Management_System.views.components.rows
@@ -20,36 +10,42 @@ namespace Prisoners_Management_System.views.components.rows
         public inmate(views.dashboard dashboard, inmates inmates)
         {
             InitializeComponent();
+            // initializing objects
             this.dashboard = dashboard;
             this.inmates = inmates;
             Id = ActionId.Item2;
+            // setting theme
             ColorScheme.LoadTheme(this.Controls);
         }
+        // declaring and initializing objects
         public int Id = 0;
         public (string, int) ActionId = ("-", 0); 
         public int status = 1;
         private views.dashboard dashboard;
         private inmates inmates;
-
+        inputs.inmate _inmate;
+        public string specifier = "";
+        modal.dialog dialog;
+        // user control on loading
         private void inmate_Load(object sender, EventArgs e) 
         {
             if(ActionId.Item2 != 0)
             {
                 if (ActionId.Item1 == "Edit")
-                    btnEdit_Click(sender, e);
+                    btnEdit_Click(sender, e); // go to editing section
                 else if(ActionId.Item1 == "View")
-                    btnView_Click(sender, e);
+                    btnView_Click(sender, e); // go to viewing section
                 ActionId.Item2 = 0;
                 ActionId.Item1 = "-";
                 specifier = "-";
             }
         }
-
+        // user control on mouse hover
         private void inmate_MouseHover(object sender, EventArgs e) 
         {
             RowHover();
         }
-
+        // user control on mouse leave
         private void inmate_MouseLeave(object sender, EventArgs e) 
         {
             RowLeave();
@@ -60,31 +56,7 @@ namespace Prisoners_Management_System.views.components.rows
         private void RowLeave()
         {
         }
-        inputs.inmate _inmate;
-        public string specifier = "";
-        modal.dialog dialog;
-       
-
-        private void btnDelete_MouseHover(object sender, EventArgs e)
-        {
-            RowHover();
-        }
-
-        private void btnEdit_MouseHover(object sender, EventArgs e)
-        {
-            RowHover();
-        }
-
-        private void btnEdit_MouseLeave(object sender, EventArgs e)
-        {
-            RowLeave();
-        }
-
-        private void btnDelete_MouseLeave(object sender, EventArgs e)
-        {
-            RowLeave();
-        }
-
+        // user control on click
         private void inmate_Click(object sender, EventArgs e) 
         {
             View_Inmate();
@@ -107,10 +79,19 @@ namespace Prisoners_Management_System.views.components.rows
             popup.ShowDialog();
             Dashboard.Blur(true);*/
         }
-        ArrayList Crimes = new ArrayList();
-        
+        // go to editing section
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            dashboard.SetLoading(true);
+            Sound.Click();
+            inputs.inmate inmate = new inputs.inmate(this.inmates);
+            modal.popup popup = new modal.popup(inmate);
+            popup.Size = inmate.Size;
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
+            popup.ShowDialog();
+            inmates.inmates_Load(sender, e);
+            dashboard.SetLoading(false);
+            /*
             dashboard.SetLoading(true);
             Sound.Click();
             _inmate = new inputs.inmate(inmates);
@@ -122,13 +103,12 @@ namespace Prisoners_Management_System.views.components.rows
             _inmate.Dock = DockStyle.Fill;
             _inmate.BringToFront();
             ColorScheme.LoadTheme(this.inmates.Controls);
-            dashboard.SetLoading(false);
+            dashboard.SetLoading(false);*/
         }
-
+        // go to viewing section
         private void btnView_Click(object sender, EventArgs e)
         {
             dashboard.SetLoading(true);
-            Sound.Click();
             inmates.viewinmate.Id = Id;
             dashboard.PathSeparator.Visible = true;
             dashboard.lblAction.Visible = true;
@@ -139,11 +119,10 @@ namespace Prisoners_Management_System.views.components.rows
             inmates.viewinmate.BringToFront();
             dashboard.SetLoading(false);
         }
-
+        // delete an inmate
         private void btnDelete_Click(object sender, EventArgs e) 
         {
             dashboard.SetLoading(true);
-            Sound.Click();
             dialog = new modal.dialog();
             dialog.Id = Id;
             dialog.Title = "Delete Inmate";
@@ -158,7 +137,7 @@ namespace Prisoners_Management_System.views.components.rows
             popup.ShowDialog();
             dashboard.SetLoading(false);
         }
-
+        // confirm deleting an inmate
         private void Yes_Click(object sender, EventArgs e)
         {
             dashboard.Prison.Inmate.Delete(Id);

@@ -3,6 +3,7 @@ using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using Prisoners_Management_System.config;
 using Prisoners_Management_System.views.components;
+using SQLitePCL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using static Prisoners_Management_System.classes.Crime;
 
 namespace Prisoners_Management_System.classes
 {
@@ -147,10 +149,71 @@ namespace Prisoners_Management_System.classes
             return 0;
         }
         // get all inmates
-        public DataSet GetInmates() 
+        public DataSet GetInmates()
         {
             string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`, sentence.`start_date`, sentence.`end_date`, sentence.`status`";
-            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate LEFT JOIN sentence ON inmate.id = sentence.inmate_id");
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate LEFT JOIN sentence ON inmate.id = sentence.inmate_id order by inmate.date_created");
+            if (response.Item2 != "server-error")
+            {
+                if (response.Item1 != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting inmate details
+                        row["code"] = config.config.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
+                        row["first_name"] = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["middle_name"] = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["last_name"] = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["gender"] = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                        row["address"] = config.config.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
+                        row["marital_status"] = config.config.AES.Decrypt(row["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                        row["eye_color"] = config.config.AES.Decrypt(row["eye_color"].ToString(), Properties.Resources.PassPhrase);
+                        row["complexion"] = config.config.AES.Decrypt(row["complexion"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_name"] = config.config.AES.Decrypt(row["emergency_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_contact"] = config.config.AES.Decrypt(row["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_relation"] = config.config.AES.Decrypt(row["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
+                    }
+                    return response.Item1;
+                }
+            }
+            return null;
+        }
+        // get inmate by id
+        public DataSet GetInmates(int id) 
+        {
+            string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`, sentence.`start_date`, sentence.`end_date`, sentence.`status`";
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM inmate LEFT JOIN sentence ON inmate.id = sentence.inmate_id WHERE inmate.id = " + id + " order by inmate.date_created");
+            if (response.Item2 != "server-error")
+            {
+                if (response.Item1 != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting inmate details
+                        row["code"] = config.config.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
+                        row["first_name"] = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["middle_name"] = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["last_name"] = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["gender"] = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                        row["address"] = config.config.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
+                        row["marital_status"] = config.config.AES.Decrypt(row["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                        row["eye_color"] = config.config.AES.Decrypt(row["eye_color"].ToString(), Properties.Resources.PassPhrase);
+                        row["complexion"] = config.config.AES.Decrypt(row["complexion"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_name"] = config.config.AES.Decrypt(row["emergency_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_contact"] = config.config.AES.Decrypt(row["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
+                        row["emergency_relation"] = config.config.AES.Decrypt(row["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
+                    }
+                    return response.Item1;
+                }
+            }
+            return null;
+        }
+        // get all inmates for a dormitory
+        public DataSet GetInmates(string name)
+        {
+            _Dormitory = new Dormitory();
+            string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`, sentence.`start_date`, sentence.`end_date`, sentence.`status`, dormitory.name";
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM dormitory INNER JOIN inmate ON dormitory.id = inmate.dormitory_id INNER JOIN sentence ON inmate.id = sentence.inmate_id WHERE inmate.dormitory_id = " + _Dormitory.GetId(name));
             if (response.Item2 != "server-error")
             {
                 if (response.Item1 != null)
@@ -167,6 +230,45 @@ namespace Prisoners_Management_System.classes
                         row["marital_status"] = config.config.AES.Decrypt(row["marital_status"].ToString(), Properties.Resources.PassPhrase);
                     }
                     return response.Item1;
+                }
+            }
+            return null;
+        }
+
+        public DataTable GetInmates(DataSet crimes)
+        {
+            string data = "inmate.`id`, inmate.`code`, inmate.`first_name`, inmate.`middle_name`, inmate.`last_name`, inmate.`gender`, inmate.`dob`, inmate.`dormitory_id`, inmate.`date_created`, inmate.`address`, inmate.`marital_status`, inmate.`eye_color`, inmate.`complexion`, inmate.`emergency_name`, inmate.`emergency_contact`, inmate.`emergency_relation`, inmate.`visiting_privilege`, sentence.`start_date`, sentence.`end_date`, sentence.`status`, dormitory.name";
+            (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM dormitory INNER JOIN inmate ON dormitory.id = inmate.dormitory_id INNER JOIN sentence ON inmate.id = sentence.inmate_id");
+            if (response.Item2 != "server-error")
+            {
+                if (response.Item1 != null)
+                {
+                    var dataSet = response.Item1.Tables["result"].Clone();
+
+                    foreach (DataRow currentRow in response.Item1.Tables["result"].Rows)
+                    {
+                        var dataRows = crimes.Tables["result"].AsEnumerable()
+                            .Where(row =>
+                                row.Field<int>("inmate_id") == Convert.ToInt32(currentRow["id"])
+                            );
+                        var dataRows2 = dataRows.AsEnumerable() 
+                            .Where(row =>
+                                row.Field<String>("type") == CrimeType.Major.ToString()
+                            );
+                        if (dataRows2.AsEnumerable().Count() == 0)
+                        {
+                            // decrypting inmate details
+                            currentRow["code"] = config.config.AES.Decrypt(currentRow["code"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["first_name"] = config.config.AES.Decrypt(currentRow["first_name"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["middle_name"] = config.config.AES.Decrypt(currentRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["last_name"] = config.config.AES.Decrypt(currentRow["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["gender"] = config.config.AES.Decrypt(currentRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["address"] = config.config.AES.Decrypt(currentRow["address"].ToString(), Properties.Resources.PassPhrase);
+                            currentRow["marital_status"] = config.config.AES.Decrypt(currentRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                            dataSet.ImportRow(currentRow);
+                        }
+                    }
+                    return dataSet;
                 }
             }
             return null;

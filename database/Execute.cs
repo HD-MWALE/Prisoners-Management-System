@@ -33,6 +33,22 @@ namespace Prisoners_Management_System.database
                 return false;
             return IsSuccess;
         }
+        // insert query to mysql database
+        public static bool InsertRollCall(string table, string fields, string data) 
+        {
+            if (Mysql.Open())
+            {
+                Query = "INSERT INTO " + table + " (" + fields + ") VALUES " + data;
+                if (Mysql.ExecuteReader(Query) != null)
+                    IsSuccess = true;
+                else
+                    IsSuccess = false;
+                Mysql.Close();
+            }
+            else
+                return false;
+            return IsSuccess;
+        }
         // retrieve query from mysql database
         public static (DataSet, string) Retrieve(string query) 
         {

@@ -51,7 +51,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(26, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(604, 396);
+            this.label1.Size = new System.Drawing.Size(685, 1026);
             this.label1.TabIndex = 73;
             this.label1.Text = resources.GetString("label1.Text");
             // 
@@ -59,11 +59,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Name = "help";
-            this.Size = new System.Drawing.Size(664, 543);
+            this.Size = new System.Drawing.Size(647, 526);
             this.ResumeLayout(false);
             this.PerformLayout();
 

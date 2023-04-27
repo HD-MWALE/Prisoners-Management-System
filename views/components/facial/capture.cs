@@ -43,7 +43,8 @@ namespace Prisoners_Management_System.views.components.facial
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            ImageBoxFrameGrabber.Dispose();
+            grabber.Dispose();
         }
 
         string name, names = null;
@@ -98,29 +99,20 @@ namespace Prisoners_Management_System.views.components.facial
               Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT,
               new Size(20, 20));
 
-            /*
-                 //Profile Detector
-                 MCvAvgComp[][] profilefaceDetected = gray.DetectHaarCascade( 
-                   profileface,
-                   1.2,
-                   10,
-                   Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.,
-                   new Size(25, 25));*/
-
-            //Action for each element detected
+            // Action for each face detected
             foreach (MCvAvgComp f in facesDetected[0])
             {
                 t = t + 1;
                 result = currentFrame.Copy(f.rect).Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-                //draw the face detected in the 0th (gray) channel with blue color
+                // draw the face detected in the 0th (gray) channel with blue color
                 currentFrame.Draw(f.rect, new Bgr(Color.FromArgb(26, 104, 255)), 2);
 
                 if (CapturingImages.ToArray().Length != 0)
                 {
-                    //TermCriteria for face recognition with numbers of trained images like maxIteration
+                    // TermCriteria for face recognition with numbers of trained images like maxIteration
                     MCvTermCriteria termCrit = new MCvTermCriteria(Countface, 0.001);
 
-                    //Eigen face recognizer
+                    // Eigen face recognizer
                     config.config.Recognizer = new Recognizer(
                     CapturingImages.ToArray(),
                     inmates.ToArray(),
@@ -129,19 +121,14 @@ namespace Prisoners_Management_System.views.components.facial
 
                     name = config.config.Recognizer.Recognize(result);
 
-                    //Draw the label for each face detected and recognized
+                    // draw the label for each face detected and recognized
                     currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.FromArgb(26, 104, 255)));
                 }
 
                 NameInmates[t - 1] = name;
                 NameInmates.Add("");
 
-
-                //Set the number of faces detected on the scene
-                //label3.Text = facesDetected[0].Length.ToString();
-
-
-                //Set the region of interest on the faces
+                // set the region of interest on the faces
 
                 gray.ROI = f.rect;
                 MCvAvgComp[][] eyesDetected = gray.DetectHaarCascade(
@@ -163,16 +150,15 @@ namespace Prisoners_Management_System.views.components.facial
             }
             t = 0;
 
-            //Names concatenation of persons recognized
+            // names concatenation of inmates recognized
             for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
             {
                 names = names + NameInmates[nnn] + ", ";
             }
-            //Show the faces procesed and recognized
+            // show the faces procesed and recognized
             ImageBoxFrameGrabber.Image = currentFrame;
-            //label4.Text = names;
             names = "Unknown Face";
-            //Clear the list(vector) of names
+            // clear the list of names
             NameInmates.Clear();
 
         }
@@ -181,16 +167,16 @@ namespace Prisoners_Management_System.views.components.facial
             Sound.Click();
             try
             {
-                //Captured face counter
+                // captured face counter
                 Countface = Countface + 1;
 
-                //Get a gray frame from capture device
+                // get a gray frame from capture device
                 gray = grabber.QueryGrayFrame().Resize(600, 440, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
 
                 //Face Detector
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(face, 1.2, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(20, 20));
 
-                //Action for each element detected
+                // action for each face detected
                 foreach (MCvAvgComp f in facesDetected[0])
                 {
                     FaceCaptured = currentFrame.Copy(f.rect).Convert<Gray, byte>();
@@ -206,7 +192,7 @@ namespace Prisoners_Management_System.views.components.facial
                 //Show face added in gray scale
                 imageBox1.Image = FaceCaptured;
 
-                //inmate.ibxFace.Image = FaceCaptured;
+                inmate.ibxFace.Image = FaceCaptured;
 
                 //Write the number of triained faces in a file text for further load
                 File.WriteAllText(Application.StartupPath + "/Face/Inmates.txt", CapturingImages.ToArray().Length.ToString() + "%");
@@ -216,26 +202,11 @@ namespace Prisoners_Management_System.views.components.facial
                 {
                     CapturingImages.ToArray()[i - 1].Save(Application.StartupPath + "/Face/Inmate" + i + ".bmp");
                     File.AppendAllText(Application.StartupPath + "/Face/Inmates.txt", inmates.ToArray()[i - 1] + "%");
-
-                    //string src = Application.StartupPath + "/Face/" + lblCode.Text + " - " + lblFullname.Text + " - " + i + ".bmp";
-                    /*Color[] colors = ColorBuilder.GetColorDiagram(new List<ControlPoint>());
-                    for (int ii = 0; ii < imageBox1.Image.Bitmap.Width; ii++)
-                    {
-                        for (int j = 0; j < imageBox1.Image.Bitmap.Height; j++)
-                        {
-                            int level = imageBox1.Image.Bitmap.GetPixel(ii, j).B;
-                            imageBox1.Image.Bitmap.SetPixel(ii, j, colors[level]);
-                        }
-                    }
-                    inmate.pictureBox1.Image = imageBox1.Image.Bitmap;*/
                 }
                 config.config.Alerts.Popup("Face Characteristics Captured.", dashboard.alert.enmType.Success);
             }
             catch
             {
-                this.Enabled = false;
-                MessageBox.Show(" :(");
-                this.Enabled = true;
                 config.config.Alerts.Popup("Enable the face detection first.", dashboard.alert.enmType.Error);
             }
             inmate.popup.btnClose_Click(sender, new EventArgs());

@@ -19,7 +19,7 @@ namespace Prisoners_Management_System.views.components
     {
         public views.dashboard dashboard;
         public visitor visitor;
-        DataSet dsVisitor = new DataSet();
+        DataTable dsVisitor = new DataTable();
         public visitors(views.dashboard dashboard)
         {
             InitializeComponent();
@@ -28,30 +28,37 @@ namespace Prisoners_Management_System.views.components
 
         public void visitors_Load(object sender, EventArgs e)
         {
+            dsVisitor = dashboard.Prison.Visitor.GetVisitors().Tables["result"];
             VisitorsPageList(1);
         }
 
         private void VisitorsPageList(int pageNumber) 
         {
             lblPageNumber.Text = pageNumber.ToString();
-            dsVisitor = dashboard.Prison.Visitor.GetVisitors();
             int pageSize = 25;
-            var query = dsVisitor.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsVisitor.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.VisitorflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query) 
+            foreach (var currentRow in query) 
             {
                 visitor row = new visitor(dashboard, this);
-                row.Id = (int)dataRow["id"];
+                row.Id = (int)currentRow["id"];
                 row.lblNo.Text = number.ToString();
-                row.lblName.Text = config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblRelation.Text = config.config.AES.Decrypt(dataRow["relation"].ToString(), Properties.Resources.PassPhrase);
-                row.lblContact.Text = config.config.AES.Decrypt(dataRow["contact"].ToString(), Properties.Resources.PassPhrase);
-                row.lblAddress.Text = config.config.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                row.lblInmate.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblDate.Text = Convert.ToDateTime(dataRow["date_created"]).ToString("dd/MM/yyyy");
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["relation"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["contact"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["address"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["first_name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["middle_name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["last_name"].ToString());
+                row.lblName.Text = currentRow["name"].ToString();
+                row.lblRelation.Text = currentRow["relation"].ToString();
+                row.lblContact.Text = currentRow["contact"].ToString();
+                row.lblAddress.Text = currentRow["address"].ToString();
+                row.lblInmate.Text = currentRow["last_name"].ToString() + ", " + currentRow["first_name"].ToString() + " " + currentRow["middle_name"].ToString();
+                row.lblDate.Text = Convert.ToDateTime(currentRow["date_created"]).ToString("dd/MM/yyyy");
                 row.btnDelete.Click += BtnDelete_Click;
                 if (File.Exists(config.config.UserRole))
                     if (File.ReadAllText(config.config.UserRole) != "Admin")
@@ -63,7 +70,10 @@ namespace Prisoners_Management_System.views.components
                 number++;
             }
 
-            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsVisitor.Tables["result"].Rows.Count + " entries";
+            if (dsVisitor.Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsVisitor.Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + dsVisitor.Rows.Count + " of " + dsVisitor.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.VisitorflowLayoutPanel.Controls);
         }
@@ -88,15 +98,32 @@ namespace Prisoners_Management_System.views.components
             visitors_Load(sender, e);
             dashboard.SetLoading(false);
         }
-
+        // go to next page button
         private void btnNext_Click(object sender, EventArgs e)
         {
-            VisitorsPageList((Convert.ToInt32(lblPageNumber.Text) + 1)); 
+            // calling function to load visitors next page
+            VisitorsPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
         }
-
+        // go to previous page button
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            // calling function to load visitors previous page
             VisitorsPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            // getting all visitors 
+            dsVisitor = dashboard.Prison.Visitor.GetVisitors().Tables["result"];
+            // calling function to filter datatable
+            dsVisitor = FilterData.SearchVisitor(dsVisitor, txtSearch.Text);
+            // calling function to load visitors
+            VisitorsPageList(1);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            visitors_Load(sender, e);
         }
     }
 }

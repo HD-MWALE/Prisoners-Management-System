@@ -15,6 +15,7 @@ using Emgu.CV.CvEnum;
 using System.IO;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using Prisoners_Management_System.config;
+using Prisoners_Management_System.views.components.dashboard;
 
 namespace Prisoners_Management_System.views.components.facial
 {
@@ -31,6 +32,7 @@ namespace Prisoners_Management_System.views.components.facial
             InitializeComponent();
             this.dashboard = dashboard;
             this.rollcall = rollcall;
+            dsRollCall = rollcall.dsRoll_Call;
             dsInmates = dashboard.Prison.Inmate.GetInmates();
             if (dsInmates != null)
                 foreach (DataRow dataRow in dsInmates.Tables["result"].Rows)
@@ -42,11 +44,11 @@ namespace Prisoners_Management_System.views.components.facial
                         row.btnCheck.Location = row.Cancel.Location;
                         row.Icon.Image = Properties.Resources.human_head;
                         lblRemaining.Text = (Convert.ToInt32(lblRemaining.Text) + 1).ToString();
-                        row.Name = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += " - " + config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                        row.lblInmate.Text += " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row.Name = dataRow["code"].ToString();
+                        row.lblInmate.Text = dataRow["code"].ToString();
+                        row.lblInmate.Text += " - " + dataRow["last_name"].ToString();
+                        row.lblInmate.Text += ", " + dataRow["first_name"].ToString();
+                        row.lblInmate.Text += " " + dataRow["middle_name"].ToString();
                         this.flowLayoutPanelRemaining.Controls.Add(row);
                     }
                 }
@@ -88,29 +90,34 @@ namespace Prisoners_Management_System.views.components.facial
         string name, names = null;
         private void btnFinish_Click(object sender, EventArgs e) 
         {
-            foreach (sub.inmate control in flowLayoutPanelScanned.Controls)
+            dashboard.Prison.Roll_Call = new Roll_Call(lblCode.Text, dashboard.Prison.User.Auth);
+            if (dashboard.Prison.Roll_Call.SaveInmate(flowLayoutPanelScanned, flowLayoutPanelRemaining))
             {
-                dashboard.Prison.Roll_Call = new Roll_Call(lblCode.Text, dashboard.Prison.Inmate.GetId(control.Name), 1, "Scanned", dashboard.Prison.User.Auth);
-                dashboard.Prison.Roll_Call.SaveInmate();
+                if (flowLayoutPanelRemaining.Controls.Count == 0)
+                    config.config.Alerts.Popup("Roll Call was Successful...", alert.enmType.Success);
+                else
+                    config.config.Alerts.Popup(flowLayoutPanelRemaining.Controls.Count + " Inmate(s) not scanned.", alert.enmType.Warning);
             }
-            foreach (sub.inmate control in flowLayoutPanelRemaining.Controls)
+            else
             {
-                dashboard.Prison.Roll_Call = new Roll_Call(lblCode.Text, dashboard.Prison.Inmate.GetId(control.Name), 0, "Not Scanned", dashboard.Prison.User.Auth);
-                dashboard.Prison.Roll_Call.SaveInmate();
+                config.config.Alerts.Popup("An error occured.", alert.enmType.Error);
             }
+            grabber.Dispose();
+            ImageBoxFrameGrabber.Dispose();
+            Application.Idle -= new EventHandler(FrameGrabber);
         }
 
         inputs.inmate inmate;
         int Id = 0;
         private void scan_Load(object sender, EventArgs e)
         {
-            foreach(DataRow data in dsRollCall.Tables["result"].Rows) 
+            foreach (DataRow data in dsRollCall.Tables["result"].Rows) 
             {
                 Id = (int)data["id"];
                 lblCode.Text = (string)data["code"];
                 dsDormitories = dashboard.Prison.Dormitory.GetDormitoryDetails((int)data["dormitory_id"]);
                 foreach (DataRow row in dsDormitories.Tables["result"].Rows)
-                    lblDormitory.Text = config.config.AES.Decrypt((string)row[1], Properties.Resources.PassPhrase);
+                    lblDormitory.Text = (string)row[1];
                 //Id = (string)data["status"];
                 //Id = data["date_created"];
             }

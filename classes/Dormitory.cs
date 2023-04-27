@@ -93,7 +93,17 @@ namespace Prisoners_Management_System.classes
             {
                 dataSet = response.Item1;
                 if (dataSet != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting dormitory details
+                        row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                        row["description"] = config.config.AES.Decrypt(row["description"].ToString(), Properties.Resources.PassPhrase);
+                        row["gendertype"] = config.config.AES.Decrypt(row["gendertype"].ToString(), Properties.Resources.PassPhrase);
+                        row["type"] = config.config.AES.Decrypt(row["type"].ToString(), Properties.Resources.PassPhrase);
+                    }
                     return dataSet;
+                }
             }
             return null;
         }
@@ -107,7 +117,17 @@ namespace Prisoners_Management_System.classes
             {
                 dataSet = response.Item1;
                 if (dataSet != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting dormitory details
+                        row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                        row["description"] = config.config.AES.Decrypt(row["description"].ToString(), Properties.Resources.PassPhrase);
+                        row["gendertype"] = config.config.AES.Decrypt(row["gendertype"].ToString(), Properties.Resources.PassPhrase);
+                        row["type"] = config.config.AES.Decrypt(row["type"].ToString(), Properties.Resources.PassPhrase);
+                    }
                     return dataSet;
+                }
             }
             return null;
         }

@@ -31,6 +31,7 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.Icon = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Icon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,16 +81,29 @@
             this.lblTitle.MouseEnter += new System.EventHandler(this.message_MouseHover);
             this.lblTitle.MouseHover += new System.EventHandler(this.message_MouseLeave);
             // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.ForeColor = System.Drawing.Color.White;
+            this.lblDate.Location = new System.Drawing.Point(43, 50);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(36, 17);
+            this.lblDate.TabIndex = 66;
+            this.lblDate.Text = "Date";
+            // 
             // message
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
+            this.Controls.Add(this.lblDate);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.Icon);
             this.Controls.Add(this.lblMessage);
             this.Name = "message";
-            this.Size = new System.Drawing.Size(300, 58);
+            this.Size = new System.Drawing.Size(300, 75);
             this.Load += new System.EventHandler(this.message_Load);
             this.Click += new System.EventHandler(this.message_Click);
             this.MouseLeave += new System.EventHandler(this.message_MouseLeave);
@@ -105,5 +119,6 @@
         public System.Windows.Forms.Label lblMessage;
         public Bunifu.Framework.UI.BunifuImageButton Icon;
         public System.Windows.Forms.Label lblTitle;
+        public System.Windows.Forms.Label lblDate;
     }
 }

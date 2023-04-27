@@ -41,23 +41,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.dpnDormitory = new Bunifu.UI.WinForms.BunifuDropdown();
             this.btnPList = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.btnPrint = new Bunifu.Framework.UI.BunifuFlatButton();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblTotalInmates = new System.Windows.Forms.Label();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.lblentries = new System.Windows.Forms.Label();
+            this.btnNear = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
@@ -122,7 +123,6 @@
             this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 199);
             this.InmateflowLayoutPanel.TabIndex = 70;
-            this.InmateflowLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.InmateflowLayoutPanel_Paint);
             // 
             // label3
             // 
@@ -131,7 +131,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(426, 5);
+            this.label3.Location = new System.Drawing.Point(431, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 21);
             this.label3.TabIndex = 74;
@@ -180,8 +180,8 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
@@ -190,6 +190,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(845, 27);
             this.panel1.TabIndex = 79;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(652, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 21);
+            this.label2.TabIndex = 83;
+            this.label2.Text = "Sentence";
             // 
             // label4
             // 
@@ -203,19 +216,6 @@
             this.label4.Size = new System.Drawing.Size(33, 21);
             this.label4.TabIndex = 82;
             this.label4.Text = "No";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(608, 5);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 21);
-            this.label5.TabIndex = 80;
-            this.label5.Text = "Marital Status";
             // 
             // bunifuSeparator1
             // 
@@ -398,7 +398,7 @@
             this.btnPList.IconVisible = true;
             this.btnPList.IconZoom = 50D;
             this.btnPList.IsTab = true;
-            this.btnPList.Location = new System.Drawing.Point(390, 87);
+            this.btnPList.Location = new System.Drawing.Point(283, 87);
             this.btnPList.Name = "btnPList";
             this.btnPList.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnPList.OnHovercolor = System.Drawing.Color.Green;
@@ -412,46 +412,6 @@
             this.btnPList.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnPList.Click += new System.EventHandler(this.btnPList_Click);
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Active = false;
-            this.btnPrint.Activecolor = System.Drawing.Color.Green;
-            this.btnPrint.BackColor = System.Drawing.Color.DarkGreen;
-            this.btnPrint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPrint.BorderRadius = 5;
-            this.btnPrint.ButtonText = "Print";
-            this.btnPrint.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPrint.DisabledColor = System.Drawing.Color.Gray;
-            this.btnPrint.Iconcolor = System.Drawing.Color.Transparent;
-            this.btnPrint.Iconimage = global::Prisoners_Management_System.Properties.Resources.print;
-            this.btnPrint.Iconimage_right = null;
-            this.btnPrint.Iconimage_right_Selected = null;
-            this.btnPrint.Iconimage_Selected = null;
-            this.btnPrint.IconMarginLeft = 20;
-            this.btnPrint.IconMarginRight = 0;
-            this.btnPrint.IconRightVisible = true;
-            this.btnPrint.IconRightZoom = 0D;
-            this.btnPrint.IconVisible = true;
-            this.btnPrint.IconZoom = 50D;
-            this.btnPrint.IsTab = true;
-            this.btnPrint.Location = new System.Drawing.Point(275, 87);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Normalcolor = System.Drawing.Color.DarkGreen;
-            this.btnPrint.OnHovercolor = System.Drawing.Color.Green;
-            this.btnPrint.OnHoverTextColor = System.Drawing.Color.White;
-            this.btnPrint.selected = false;
-            this.btnPrint.Size = new System.Drawing.Size(109, 45);
-            this.btnPrint.TabIndex = 94;
-            this.btnPrint.Text = "Print";
-            this.btnPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Textcolor = System.Drawing.Color.White;
-            this.btnPrint.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // printPreviewDialog1
             // 
             this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
@@ -461,11 +421,6 @@
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
-            this.printPreviewDialog1.Load += new System.EventHandler(this.printPreviewDialog1_Load);
-            // 
-            // printDialog1
-            // 
-            this.printDialog1.UseEXDialog = true;
             // 
             // label1
             // 
@@ -479,17 +434,6 @@
             this.label1.Size = new System.Drawing.Size(90, 21);
             this.label1.TabIndex = 95;
             this.label1.Text = "Dormitory";
-            // 
-            // lblTotalInmates
-            // 
-            this.lblTotalInmates.AutoSize = true;
-            this.lblTotalInmates.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTotalInmates.ForeColor = System.Drawing.Color.White;
-            this.lblTotalInmates.Location = new System.Drawing.Point(41, 147);
-            this.lblTotalInmates.Name = "lblTotalInmates";
-            this.lblTotalInmates.Size = new System.Drawing.Size(102, 21);
-            this.lblTotalInmates.TabIndex = 96;
-            this.lblTotalInmates.Text = "200 Inmates";
             // 
             // btnNext
             // 
@@ -532,7 +476,6 @@
             this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
             this.lblPageNumber.TabIndex = 83;
             this.lblPageNumber.Text = "100";
-            this.lblPageNumber.Click += new System.EventHandler(this.lblPageNumber_Click);
             // 
             // lblentries
             // 
@@ -545,20 +488,115 @@
             this.lblentries.Size = new System.Drawing.Size(135, 21);
             this.lblentries.TabIndex = 99;
             this.lblentries.Text = "25 of 100 entries";
-            this.lblentries.Click += new System.EventHandler(this.lblentries_Click);
+            // 
+            // btnNear
+            // 
+            this.btnNear.Active = false;
+            this.btnNear.Activecolor = System.Drawing.Color.Green;
+            this.btnNear.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnNear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnNear.BorderRadius = 5;
+            this.btnNear.ButtonText = "Inmates near to be released";
+            this.btnNear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNear.DisabledColor = System.Drawing.Color.Gray;
+            this.btnNear.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnNear.Iconimage = global::Prisoners_Management_System.Properties.Resources.users;
+            this.btnNear.Iconimage_right = null;
+            this.btnNear.Iconimage_right_Selected = null;
+            this.btnNear.Iconimage_Selected = null;
+            this.btnNear.IconMarginLeft = 20;
+            this.btnNear.IconMarginRight = 0;
+            this.btnNear.IconRightVisible = true;
+            this.btnNear.IconRightZoom = 0D;
+            this.btnNear.IconVisible = true;
+            this.btnNear.IconZoom = 50D;
+            this.btnNear.IsTab = true;
+            this.btnNear.Location = new System.Drawing.Point(451, 87);
+            this.btnNear.Name = "btnNear";
+            this.btnNear.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnNear.OnHovercolor = System.Drawing.Color.Green;
+            this.btnNear.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnNear.selected = false;
+            this.btnNear.Size = new System.Drawing.Size(252, 45);
+            this.btnNear.TabIndex = 100;
+            this.btnNear.Text = "Inmates near to be released";
+            this.btnNear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNear.Textcolor = System.Drawing.Color.White;
+            this.btnNear.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnNear.Click += new System.EventHandler(this.btnNear_Click);
+            // 
+            // cpbLoader
+            // 
+            this.cpbLoader.animated = true;
+            this.cpbLoader.animationIterval = 5;
+            this.cpbLoader.animationSpeed = 10;
+            this.cpbLoader.BackColor = System.Drawing.Color.Transparent;
+            this.cpbLoader.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpbLoader.BackgroundImage")));
+            this.cpbLoader.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cpbLoader.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F);
+            this.cpbLoader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.LabelVisible = false;
+            this.cpbLoader.LineProgressThickness = 8;
+            this.cpbLoader.LineThickness = 5;
+            this.cpbLoader.Location = new System.Drawing.Point(480, 0);
+            this.cpbLoader.Margin = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.cpbLoader.MaxValue = 100;
+            this.cpbLoader.Name = "cpbLoader";
+            this.cpbLoader.ProgressBackColor = System.Drawing.Color.Gainsboro;
+            this.cpbLoader.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
+            this.cpbLoader.Size = new System.Drawing.Size(100, 100);
+            this.cpbLoader.TabIndex = 101;
+            this.cpbLoader.Value = 25;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(46, 131);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 40);
+            this.btnRefresh.TabIndex = 130;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // inmates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.cpbLoader);
+            this.Controls.Add(this.btnNear);
             this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.btnNext);
-            this.Controls.Add(this.lblTotalInmates);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnPList);
             this.Controls.Add(this.dpnDormitory);
             this.Controls.Add(this.btnSearch);
@@ -589,22 +627,23 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label5;
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.Label label4;
         public Bunifu.Framework.UI.BunifuFlatButton btnSearch;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtSearch;
         private Bunifu.UI.WinForms.BunifuDropdown dpnDormitory;
         public Bunifu.Framework.UI.BunifuFlatButton btnPList;
-        public Bunifu.Framework.UI.BunifuFlatButton btnPrint;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblTotalInmates;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private System.Windows.Forms.Label lblPageNumber;
         private System.Windows.Forms.Label lblentries;
+        public Bunifu.Framework.UI.BunifuFlatButton btnNear;
+        private System.Windows.Forms.Label label2;
+        private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
     }
 }

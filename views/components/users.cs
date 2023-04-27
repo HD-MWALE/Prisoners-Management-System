@@ -17,7 +17,7 @@ namespace Prisoners_Management_System.views.components
     public partial class users : UserControl
     {
         public views.dashboard dashboard;
-        DataSet dsUsers = new DataSet();
+        DataTable dsUsers = new DataTable();
         public users(views.dashboard dashboard)
         { 
             InitializeComponent();
@@ -26,31 +26,35 @@ namespace Prisoners_Management_System.views.components
 
         public void users_Load(object sender, EventArgs e)
         {
+            dsUsers = dashboard.Prison.User.GetUsers().Item1.Tables["result"];
             UsersPageList(1);
         }
 
         private void UsersPageList(int pageNumber) 
         {
             lblPageNumber.Text = pageNumber.ToString();
-            dsUsers = dashboard.Prison.User.GetUsers().Item1;
             int pageSize = 25;
-            var query = dsUsers.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsUsers.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.UsersflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query)
+            foreach (var currentRow in query)
             {
                 user row = new user(dashboard, this);
-                row.Id = Convert.ToInt32(dataRow["id"]);
+                row.Id = Convert.ToInt32(currentRow["id"]);
                 row.lblNo.Text = number.ToString();
-                row.lblEmail.Text = config.config.AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
-                row.lblUsername.Text = config.config.AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblFullname.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                row.lblGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
-                row.lblDoB.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                row.lblRole.Text = dataRow["role"].ToString();
-                //row.lblPrison.Text = AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["email"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["user_name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["first_name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["last_name"].ToString());
+                txtSearch.AutoCompleteCustomSource.Add(currentRow["middle_name"].ToString());
+                row.lblEmail.Text = currentRow["email"].ToString();
+                row.lblUsername.Text = currentRow["user_name"].ToString();
+                row.lblFullname.Text = currentRow["last_name"].ToString() + ", " + currentRow["first_name"].ToString() + " " + currentRow["middle_name"].ToString();
+                row.lblGender.Text = currentRow["gender"].ToString();
+                row.lblDoB.Text = Convert.ToDateTime(currentRow["dob"]).ToString("dd/MM/yyyy");
+                row.lblRole.Text = currentRow["role"].ToString();
                 row.btnDelete.Click += BtnDelete_Click;
                 if (File.Exists(config.config.UserRole))
                     if (File.ReadAllText(config.config.UserRole) != "Admin")
@@ -62,7 +66,10 @@ namespace Prisoners_Management_System.views.components
                 number++;
             }
 
-            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsUsers.Tables["result"].Rows.Count + " entries";
+            if (dsUsers.Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsUsers.Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + dsUsers.Rows.Count + " of " + dsUsers.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.UsersflowLayoutPanel.Controls);
         }
@@ -89,15 +96,32 @@ namespace Prisoners_Management_System.views.components
             users_Load(sender, e);
             dashboard.SetLoading(false);
         }
-
+        // go to next page button
         private void btnNext_Click(object sender, EventArgs e)
         {
+            // calling function to load users next page
             UsersPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
         }
-
+        // go to previous page button
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            // calling function to load users previous page
             UsersPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            // getting all users 
+            dsUsers = dashboard.Prison.User.GetUsers().Item1.Tables["result"];
+            // calling function to filter datatable
+            dsUsers = FilterData.SearchUser(dsUsers, txtSearch.Text);
+            // calling function to load users
+            UsersPageList(1);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            users_Load(sender, e);
         }
     }
 }

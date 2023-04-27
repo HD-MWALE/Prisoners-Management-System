@@ -33,17 +33,24 @@ namespace Prisoners_Management_System.views.components.inputs
         private void btnSave_Click(object sender, EventArgs e)
         {
             Sound.Click();
+            bool IsMinor = false;
             switch (dpnType.Text)
             {
                 case "Minor":
-                    dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Minor, txtDescription.Text);
+                    IsMinor = true;
                     break;
                 case "Major":
-                    dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Major, txtDescription.Text);
+                    IsMinor = false;
                     break;
             }
+
+            if (IsMinor) 
+                dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Minor, txtDescription.Text);
+            else
+                dashboard.Prison.Crime = new classes.Crime(txtName.Text, CrimeType.Major, txtDescription.Text);
+
             if (btnSave.Text != "Update")
-                if(!dashboard.Prison.Crime.CheckCrime(txtName.Text))
+                if (!dashboard.Prison.Crime.CheckCrime(txtName.Text))
                     if (dashboard.Prison.Crime.Save())
                         config.config.Alerts.Popup("New Crime Saved.", views.components.dashboard.alert.enmType.Success);
                     else

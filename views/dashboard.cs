@@ -29,26 +29,12 @@ namespace Prisoners_Management_System.views
             panel.Location = new Point(0, 0);
             panel.Dock = DockStyle.Fill;
             panel.BringToFront();
-            cpbLoader.Location = new Point((this.Size.Width / 2) - (cpbLoader.Size.Width / 2), (this.Size.Height / 2) - (cpbLoader.Size.Width / 2));
+            cpbLoader.Location = new Point((this.Size.Width / 2) + 75, (this.Size.Height / 2) - (cpbLoader.Size.Width / 2));
             cpbLoader.BringToFront();
             
             // Adding Controls to dashboard control collection
             this.Controls.Add(menu);
             this.Controls.Add(notifications);
-            /*
-            // Adding PictureBox to panel control collection
-            panel.Controls.Add(cpbLoader);
-
-            // Docking the panel to dasboard to fill
-            panel.Dock = DockStyle.Fill;
-
-            // Setting PictureBox location to be centered
-            cpbLoader.Location = new Point((cpbLoader.Size.Width / 2) - (this.Size.Width / 2), (this.Size.Height / 2));
-
-            this.pnlBody.Controls.Add(panel);*/
-
-            // bring the panel to front of all other controls
-            // panel.BringToFront();
 
             panel.Visible = true;
 
@@ -86,14 +72,13 @@ namespace Prisoners_Management_System.views
         visitors visitors;
         dashboardControl dashboardControl;
         users users;
-        reports reports;
+        components.reports reports;
         crimes crimes;
         dormitories dormitories;
         components.rollcall rollcall;
         public menu menu;
         public notifications notifications;
-        public search search;
-        bool sidebar = true, ProfileExpand = false, NotificationExpand = false, SearchExpand = false;
+        bool sidebar = true, ProfileExpand = false, NotificationExpand = false;
         int inmateid = 0;
         Panel panel = new Panel();
         DataSet dsRoll_Call = new DataSet();
@@ -109,23 +94,19 @@ namespace Prisoners_Management_System.views
             {
                 config.config.Alerts.ServerMessage(ex.ToString());
             }
-           
             // Start notifications timer
             timer.Start();
-
+            btnDashboard_Click(new object(), new EventArgs());
             // Setting Username to label 
             // lblUsername.Text = (string)Prison.User.Auth[2];
-
-            btnDashboard_Click(new object(), new EventArgs());
         }
 
         private void OnLoad() 
         {
             // Set Loader
             SetLoading(true);
-
             // Suspend thread for one second
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             SetLoading(false);
         }
 
@@ -145,8 +126,6 @@ namespace Prisoners_Management_System.views
             menuTimer.Start();
             if (NotificationExpand)
                 NotificationIconTimer.Start();
-            if (SearchExpand)
-                SearchTimer.Start();
         }
 
         private void btnToggleMenu_Click(object sender, EventArgs e)
@@ -155,7 +134,7 @@ namespace Prisoners_Management_System.views
             SidebarTimer.Start();
         }
 
-        private void Clear()
+        public void Clear()
         {
             pnlBody.Controls.Clear();
             rollcall = null;
@@ -209,41 +188,13 @@ namespace Prisoners_Management_System.views
             SetLoading(false);
         }
 
-        public void Notification(object sender, int id) 
-        {
-            inmateid = id;
-            btnInmate_Click(sender, new EventArgs());
-        }
-        
         public void btnInmate_Click(object sender, EventArgs e)
         {
             SetLoading(true);
             bar.Top = (this.btnInmate).Top;
             bar.BackColor = Color.FromArgb(26, 104, 255);
             lblModel.Text = btnInmate.Text.Trim();
-            Path(true);/*
-            if (pnlBody.Contains(inmates))
-            {
-                foreach (Control component in inmates.Controls)
-                    if(component.Name == inmates.viewinmate.Name)
-                        inmates.Controls.Remove(component);
-                //inmates.Controls.Remove(inmates.row.viewinmate);
-                inmates.Controls.Remove(inmates.inmate);
-                if (inmateid != 0)
-                {
-                    viewinmate = new components.view.inmate(this, this.inmates);
-                    viewinmate.Id = inmateid;
-                    this.PathSeparator.Visible = true;
-                    this.lblAction.Visible = true;
-                    this.lblAction.Text = "View";
-                    this.inmates.Controls.Add(viewinmate);
-                    viewinmate.Dock = DockStyle.Fill;
-                    viewinmate.AutoScroll = true;
-                    viewinmate.BringToFront();
-                }
-                inmates.inmates_Load(sender, e);
-                inmates.BringToFront();
-            }*/
+            Path(true);
             Clear();
             inmates = new inmates(this);
             pnlBody.Controls.Add(inmates);
@@ -334,8 +285,9 @@ namespace Prisoners_Management_System.views
             bar.BackColor = Color.FromArgb(26, 104, 255);
             lblModel.Text = btnReports.Text.Trim();
             Path(true);
+            lblAction.Text = "Statistical Reports";
             Clear();
-            reports = new reports(this);
+            reports = new components.reports(this);
             pnlBody.Controls.Add(reports);
             // Set Mouse Hover on Button
             reports.MouseHover += IsMouseHover;
@@ -381,8 +333,6 @@ namespace Prisoners_Management_System.views
                 menuTimer.Start();
             if(NotificationExpand)
                 NotificationIconTimer.Start();
-            if(SearchExpand)
-                SearchTimer.Start();
         }
 
         private void Dashboard_Shown(object sender, EventArgs e)
@@ -449,30 +399,32 @@ namespace Prisoners_Management_System.views
 
         private void btnNotification_Click(object sender, EventArgs e)
         {
-            // Config.ClickSound();
-            timer.Start();
+            Sound.Click();
+            dsRoll_Call = Prison.Roll_Call.GetFeedBack();
             if (dsRoll_Call != null)
             {
+                this.notifications.NotificationflowLayoutPanel.Visible = false;
                 this.notifications.NotificationflowLayoutPanel.Controls.Clear();
                 foreach (DataRow data in dsRoll_Call.Tables["result"].Rows)
                 {
-                    if (data["status"].ToString() == "0")
-                    {
-                        message = new message(this, inmates);
-                        message.Id = Convert.ToInt32(data["id"]);
-                        message.lblTitle.Text = "Roll Call";
-                        message.lblMessage.Text = config.config.AES.Decrypt(data["code"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += " - " + config.config.AES.Decrypt(data["last_name"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += ", " + config.config.AES.Decrypt(data["first_name"].ToString(), Properties.Resources.PassPhrase);
-                        message.lblMessage.Text += " " + config.config.AES.Decrypt(data["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                        message.Icon.Image = Properties.Resources.prisoner;
-                        this.notifications.NotificationflowLayoutPanel.Controls.Add(message);
-                    }
+                    message = new message(this, inmates);
+                    message.Id = Convert.ToInt32(data["id"]);
+                    message.RollCall_Id = Convert.ToInt32(data["roll_call_id"]); 
+                    message.RollCallInmate_Id = Convert.ToInt32(data["roll_call_inmate_id"]); 
+                    message.lblTitle.Text = "Roll Call FeedBack";
+                    message.lblDate.Text = "Date : " + data["date_created"].ToString();
+                    message.lblMessage.Text = data["code"].ToString();
+                    message.lblMessage.Text += " - " + data["last_name"].ToString();
+                    message.lblMessage.Text += ", " + data["first_name"].ToString();
+                    message.lblMessage.Text += " " + data["middle_name"].ToString();
+                    message.Icon.Image = Properties.Resources.prisoner;
+                    this.notifications.NotificationflowLayoutPanel.Controls.Add(message);
                 }
                 ColorScheme.LoadTheme(this.notifications.Controls);
                 this.notifications.lblModel.BackColor = Color.White;  
                 this.notifications.panel2.BackColor = Color.White;
                 this.notifications.NotificationflowLayoutPanel.BackColor = Color.White;
+                this.notifications.NotificationflowLayoutPanel.Visible = true;
             }
             if (sidebar)
                 notifications.Location = new Point(btnNotification.Location.X - 100, btnNotification.Location.Y + 32);
@@ -481,8 +433,6 @@ namespace Prisoners_Management_System.views
             NotificationIconTimer.Start();
             if (ProfileExpand)
                 menuTimer.Start();
-            if (SearchExpand)
-                SearchTimer.Start();
         }
         private void NotificationIconTimer_Tick(object sender, EventArgs e)
         {
@@ -523,43 +473,10 @@ namespace Prisoners_Management_System.views
             MouseHoverleave();
         }
 
-        private void SearchTimer_Tick(object sender, EventArgs e)
-        {
-            if (SearchExpand)
-            {
-                search.SendToBack();
-                search.Width += 10;
-                if (search.Width == search.MaximumSize.Width)
-                {
-                    SearchExpand = false;
-                    SearchTimer.Stop();
-                }
-            }
-            else
-            {
-                search.BringToFront();
-                search.Width -= 10;
-                if (search.Width == search.MinimumSize.Width)
-                {
-                    SearchExpand = true;
-                    SearchTimer.Stop();
-                }
-            }
-        }
-
         private void timer_Tick(object sender, EventArgs e)
         {
-            Prison.Roll_Call = new Roll_Call();
-            dsRoll_Call = Prison.Roll_Call.GetFeedBack();
-            if (dsRoll_Call != null)
-            {
-                int count = 0;
-                foreach (DataRow data in dsRoll_Call.Tables["result"].Rows)
-                    if (data["status"].ToString() == "0")
-                        count++;
-                lblAlert.Text = count.ToString();
-                //timer.Stop();
-            }
+            lblAlert.Text = Prison.Roll_Call.CheckFeedBack().ToString();
+            lblAlert.ForeColor = Color.Firebrick;
         }
 
         private void btnBack_Click(object sender, EventArgs e)

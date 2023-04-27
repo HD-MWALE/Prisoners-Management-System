@@ -29,7 +29,7 @@ namespace Prisoners_Management_System.views.components.inputs
             {
                 this.dpnCrimes.Items.Clear();
                 foreach (DataRow dataRow in dsCrimes.Tables["result"].Rows)
-                    this.dpnCrimes.Items.Add(config.config.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase));
+                    this.dpnCrimes.Items.Add((string)dataRow["name"]);
             }
            ColorScheme.LoadTheme(this.inmates.Controls);
         }
@@ -51,23 +51,23 @@ namespace Prisoners_Management_System.views.components.inputs
                     {
                         if ((int)dataRow["id"] == Id)
                         {
-                            dpnDormitory.Text = config.config.AES.Decrypt(inmates.dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
-                            txtCode.Text = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                            dpnGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dpnDormitory.Text = inmates.dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"]));
+                            txtCode.Text = dataRow["code"].ToString();
+                            txtFirstName.Text = dataRow["first_name"].ToString();
+                            txtMiddleName.Text = dataRow["middle_name"].ToString();
+                            txtLastName.Text = dataRow["last_name"].ToString();
+                            dpnGender.Text = dataRow["gender"].ToString();
                             dtpDateOfBirth.MaxDate = Convert.ToDateTime(dataRow["dob"]);
                             dtpDateOfBirth.Value = Convert.ToDateTime(dataRow["dob"]);
-                            txtEyeColour.Text = config.config.AES.Decrypt((string)dataRow["eye_color"], Properties.Resources.PassPhrase);
-                            txtComplexion.Text = config.config.AES.Decrypt((string)dataRow["complexion"], Properties.Resources.PassPhrase);
-                            txtAddress.Text = config.config.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                            dpnMaritalStatus.Text = config.config.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
+                            txtEyeColour.Text = (string)dataRow["eye_color"];
+                            txtComplexion.Text = (string)dataRow["complexion"];
+                            txtAddress.Text = dataRow["address"].ToString();
+                            dpnMaritalStatus.Text = dataRow["marital_status"].ToString();
                             dtpTimeServedStart.Value = Convert.ToDateTime((DateTime)dataRow["start_date"]);
                             dtpTimeServedEnd.Value = Convert.ToDateTime(Convert.ToDateTime(dataRow["end_date"]).ToString("yyyy/MM/dd hh:mm:ss tt"));
-                            txtName.Text = config.config.AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtRelation.Text = config.config.AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
-                            txtContact.Text = config.config.AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
+                            txtName.Text = dataRow["emergency_name"].ToString();
+                            txtRelation.Text = dataRow["emergency_relation"].ToString();
+                            txtContact.Text = dataRow["emergency_contact"].ToString();
                             break;
                         }
                     }
@@ -198,8 +198,8 @@ namespace Prisoners_Management_System.views.components.inputs
                 {
                     this.dpnDormitory.Items.Clear();
                     foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                        if(config.config.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                            this.dpnDormitory.Items.Add(config.config.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                        if(Convert.ToString(dataRow["gendertype"]) == dpnGender.Text)
+                            this.dpnDormitory.Items.Add(Convert.ToString(dataRow["name"]));
                 }
             }
         }
@@ -228,7 +228,7 @@ namespace Prisoners_Management_System.views.components.inputs
                 if (dsCrimes != null)
                 {
                     foreach (DataRow dataRow in dsCrimes.Tables["result"].Rows)
-                        if (config.config.AES.Decrypt((string)dataRow["name"], Properties.Resources.PassPhrase) == dpnCrimes.Text)
+                        if ((string)dataRow["name"] == dpnCrimes.Text)
                             CrimeTypes.Add(dataRow["type"]);
                 }
             }
@@ -243,16 +243,16 @@ namespace Prisoners_Management_System.views.components.inputs
                 if (CrimeTypes.Contains("Major"))
                 {
                     foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                        if (config.config.AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Major Crimes" &&
-                            config.config.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                                this.dpnDormitory.Items.Add(config.config.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                        if (Convert.ToString(dataRow["type"]) == "Major Crimes" &&
+                            Convert.ToString(dataRow["gendertype"]) == dpnGender.Text)
+                                this.dpnDormitory.Items.Add(Convert.ToString(dataRow["name"]));
                 }
                 else
                 {
                     foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                        if (config.config.AES.Decrypt(Convert.ToString(dataRow["type"]), Properties.Resources.PassPhrase) == "Minor Crimes" &&
-                            config.config.AES.Decrypt(Convert.ToString(dataRow["gendertype"]), Properties.Resources.PassPhrase) == dpnGender.Text)
-                                this.dpnDormitory.Items.Add(config.config.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                        if (Convert.ToString(dataRow["type"]) == "Minor Crimes" &&
+                            Convert.ToString(dataRow["gendertype"]) == dpnGender.Text)
+                                this.dpnDormitory.Items.Add(Convert.ToString(dataRow["name"]));
                 }
             }
         }
@@ -271,7 +271,7 @@ namespace Prisoners_Management_System.views.components.inputs
         {
             if (dsDormitories != null)
                 foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                    if (dpnDormitory.Text == config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
+                    if (dpnDormitory.Text == dataRow["name"].ToString())
                     {
                         DormitoryId = Convert.ToInt32(dataRow["id"].ToString());
                         break;

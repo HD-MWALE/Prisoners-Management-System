@@ -67,16 +67,16 @@ namespace Prisoners_Management_System.views.components
             this.CrimeflowLayoutPanel.Controls.Clear();
             foreach (DataRow dataRow in dsCrimes.Tables["result"].Rows)
             {
-                if (config.config.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
+                if (dataRow[1].ToString() == txtSearch.Text ||
                     dataRow[2].ToString() == txtSearch.Text)
                 {
                     rows.crime row = new rows.crime(dashboard, this);
                     row.Id = (int)dataRow[0];
-                    row.lblName.Text = config.config.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
+                    row.lblName.Text = dataRow[1].ToString();
                     row.lblType.Text = dataRow[2].ToString();
                     txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
                     txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
-                    row.lblDescription.Text = config.config.AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
+                    row.lblDescription.Text = (string)dataRow[3];
                     row.lblDescription.MaximumSize = new Size(340, 16);
                     row.lblDescription.AutoSize = true;
                     this.CrimeflowLayoutPanel.Controls.Add(row);
@@ -105,15 +105,15 @@ namespace Prisoners_Management_System.views.components
 
             this.CrimeflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query)
+            foreach (var currentRow in query)
             {
                 rows.crime row = new rows.crime(dashboard, this);
-                row.Id = Convert.ToInt32(dataRow[0]);
-                row.lblName.Text = config.config.AES.Decrypt(dataRow[1].ToString(), Properties.Resources.PassPhrase);
-                row.lblType.Text = dataRow[2].ToString();
+                row.Id = Convert.ToInt32(currentRow[0]);
+                row.lblName.Text = currentRow[1].ToString();
+                row.lblType.Text = currentRow[2].ToString();
                 txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
-                txtSearch.AutoCompleteCustomSource.Add(dataRow[2].ToString());
-                row.lblDescription.Text = config.config.AES.Decrypt((string)dataRow[3], Properties.Resources.PassPhrase);
+                txtSearch.AutoCompleteCustomSource.Add(currentRow[2].ToString());
+                row.lblDescription.Text = (string)currentRow[3];
                 row.lblDescription.MaximumSize = new Size(340, 16);
                 row.lblDescription.AutoSize = true;
                 if (File.Exists(config.config.UserRole))
@@ -130,7 +130,10 @@ namespace Prisoners_Management_System.views.components
                 number++;
             }
 
-            lblentries.Text = (((pageNumber - 1) * pageSize) + 1) + " - " + (((pageNumber - 1) * pageSize + 25) + 1) + " of " + dsCrimes.Tables["result"].Rows.Count + " entries";
+            if (dsCrimes.Tables["result"].Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsCrimes.Tables["result"].Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + dsCrimes.Tables["result"].Rows.Count + " of " + dsCrimes.Tables["result"].Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.CrimeflowLayoutPanel.Controls);
         }

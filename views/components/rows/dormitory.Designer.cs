@@ -81,6 +81,7 @@
             // 
             this.btnDelete.Active = false;
             this.btnDelete.Activecolor = System.Drawing.Color.Green;
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDelete.BackColor = System.Drawing.Color.DarkGreen;
             this.btnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDelete.BorderRadius = 5;
@@ -99,7 +100,7 @@
             this.btnDelete.IconVisible = true;
             this.btnDelete.IconZoom = 40D;
             this.btnDelete.IsTab = true;
-            this.btnDelete.Location = new System.Drawing.Point(910, 2);
+            this.btnDelete.Location = new System.Drawing.Point(959, 2);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnDelete.OnHovercolor = System.Drawing.Color.Green;
@@ -117,6 +118,7 @@
             // 
             this.btnView.Active = false;
             this.btnView.Activecolor = System.Drawing.Color.Green;
+            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnView.BackColor = System.Drawing.Color.DarkGreen;
             this.btnView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnView.BorderRadius = 5;
@@ -135,7 +137,7 @@
             this.btnView.IconVisible = true;
             this.btnView.IconZoom = 40D;
             this.btnView.IsTab = true;
-            this.btnView.Location = new System.Drawing.Point(819, 2);
+            this.btnView.Location = new System.Drawing.Point(868, 2);
             this.btnView.Name = "btnView";
             this.btnView.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnView.OnHovercolor = System.Drawing.Color.Green;
@@ -153,6 +155,7 @@
             // 
             this.btnEdit.Active = false;
             this.btnEdit.Activecolor = System.Drawing.Color.Green;
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEdit.BackColor = System.Drawing.Color.DarkGreen;
             this.btnEdit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnEdit.BorderRadius = 5;
@@ -171,7 +174,7 @@
             this.btnEdit.IconVisible = true;
             this.btnEdit.IconZoom = 40D;
             this.btnEdit.IsTab = true;
-            this.btnEdit.Location = new System.Drawing.Point(728, 2);
+            this.btnEdit.Location = new System.Drawing.Point(777, 2);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnEdit.OnHovercolor = System.Drawing.Color.Green;
@@ -225,7 +228,7 @@
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.lblName);
             this.Name = "dormitory";
-            this.Size = new System.Drawing.Size(1000, 50);
+            this.Size = new System.Drawing.Size(1050, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 

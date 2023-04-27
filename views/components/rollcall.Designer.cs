@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(rollcall));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties13 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties14 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties15 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties16 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.bunifuSeparator1 = new Bunifu.Framework.UI.BunifuSeparator();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblNo = new System.Windows.Forms.Label();
@@ -51,6 +51,8 @@
             this.lblPageNumber = new System.Windows.Forms.Label();
             this.btnPrevious = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnNext = new Bunifu.Framework.UI.BunifuImageButton();
+            this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnFeedback = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
@@ -63,7 +65,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(42, 135);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(42, 162);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(880, 10);
             this.bunifuSeparator1.TabIndex = 85;
@@ -81,7 +83,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(42, 111);
+            this.panel1.Location = new System.Drawing.Point(42, 138);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(880, 27);
             this.panel1.TabIndex = 84;
@@ -183,7 +185,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RollcallflowLayoutPanel.AutoScroll = true;
-            this.RollcallflowLayoutPanel.Location = new System.Drawing.Point(42, 144);
+            this.RollcallflowLayoutPanel.Location = new System.Drawing.Point(42, 171);
             this.RollcallflowLayoutPanel.Name = "RollcallflowLayoutPanel";
             this.RollcallflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.RollcallflowLayoutPanel.Size = new System.Drawing.Size(880, 223);
@@ -229,7 +231,7 @@
             this.btnAddNew.OnHovercolor = System.Drawing.Color.Green;
             this.btnAddNew.OnHoverTextColor = System.Drawing.Color.White;
             this.btnAddNew.selected = false;
-            this.btnAddNew.Size = new System.Drawing.Size(112, 32);
+            this.btnAddNew.Size = new System.Drawing.Size(112, 45);
             this.btnAddNew.TabIndex = 82;
             this.btnAddNew.Text = "New";
             this.btnAddNew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -260,18 +262,19 @@
             this.btnSearch.IconVisible = true;
             this.btnSearch.IconZoom = 50D;
             this.btnSearch.IsTab = true;
-            this.btnSearch.Location = new System.Drawing.Point(826, 73);
+            this.btnSearch.Location = new System.Drawing.Point(826, 85);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnSearch.OnHovercolor = System.Drawing.Color.Green;
             this.btnSearch.OnHoverTextColor = System.Drawing.Color.White;
             this.btnSearch.selected = false;
-            this.btnSearch.Size = new System.Drawing.Size(93, 32);
+            this.btnSearch.Size = new System.Drawing.Size(93, 45);
             this.btnSearch.TabIndex = 93;
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSearch.Textcolor = System.Drawing.Color.White;
             this.btnSearch.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch
             // 
@@ -301,32 +304,32 @@
             this.txtSearch.IconRight = null;
             this.txtSearch.IconRightCursor = System.Windows.Forms.Cursors.IBeam;
             this.txtSearch.Lines = new string[0];
-            this.txtSearch.Location = new System.Drawing.Point(548, 73);
+            this.txtSearch.Location = new System.Drawing.Point(548, 85);
             this.txtSearch.MaxLength = 32767;
             this.txtSearch.MinimumSize = new System.Drawing.Size(1, 1);
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties13.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties13.FillColor = System.Drawing.Color.Empty;
-            stateProperties13.ForeColor = System.Drawing.Color.Empty;
-            stateProperties13.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties13;
-            stateProperties14.BorderColor = System.Drawing.Color.Empty;
-            stateProperties14.FillColor = System.Drawing.Color.White;
-            stateProperties14.ForeColor = System.Drawing.Color.Empty;
-            stateProperties14.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties14;
-            stateProperties15.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties15.FillColor = System.Drawing.Color.Empty;
-            stateProperties15.ForeColor = System.Drawing.Color.Empty;
-            stateProperties15.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties15;
-            stateProperties16.BorderColor = System.Drawing.Color.Silver;
-            stateProperties16.FillColor = System.Drawing.Color.White;
-            stateProperties16.ForeColor = System.Drawing.Color.Empty;
-            stateProperties16.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties16;
+            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties1.FillColor = System.Drawing.Color.Empty;
+            stateProperties1.ForeColor = System.Drawing.Color.Empty;
+            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties1;
+            stateProperties2.BorderColor = System.Drawing.Color.Empty;
+            stateProperties2.FillColor = System.Drawing.Color.White;
+            stateProperties2.ForeColor = System.Drawing.Color.Empty;
+            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties2;
+            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties3.FillColor = System.Drawing.Color.Empty;
+            stateProperties3.ForeColor = System.Drawing.Color.Empty;
+            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties3;
+            stateProperties4.BorderColor = System.Drawing.Color.Silver;
+            stateProperties4.FillColor = System.Drawing.Color.White;
+            stateProperties4.ForeColor = System.Drawing.Color.Empty;
+            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties4;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -336,7 +339,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(277, 32);
+            this.txtSearch.Size = new System.Drawing.Size(277, 45);
             this.txtSearch.Style = Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox._Style.Material;
             this.txtSearch.TabIndex = 92;
             this.txtSearch.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
@@ -353,9 +356,9 @@
             this.lblentries.AutoSize = true;
             this.lblentries.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblentries.ForeColor = System.Drawing.Color.White;
-            this.lblentries.Location = new System.Drawing.Point(42, 377);
+            this.lblentries.Location = new System.Drawing.Point(42, 404);
             this.lblentries.Name = "lblentries";
-            this.lblentries.Size = new System.Drawing.Size(140, 21);
+            this.lblentries.Size = new System.Drawing.Size(135, 21);
             this.lblentries.TabIndex = 103;
             this.lblentries.Text = "25 of 100 entries";
             // 
@@ -365,7 +368,7 @@
             this.lblPageNumber.AutoSize = true;
             this.lblPageNumber.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblPageNumber.ForeColor = System.Drawing.Color.White;
-            this.lblPageNumber.Location = new System.Drawing.Point(846, 377);
+            this.lblPageNumber.Location = new System.Drawing.Point(846, 404);
             this.lblPageNumber.Name = "lblPageNumber";
             this.lblPageNumber.Size = new System.Drawing.Size(37, 21);
             this.lblPageNumber.TabIndex = 100;
@@ -377,7 +380,7 @@
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrevious.Image = global::Prisoners_Management_System.Properties.Resources.go_back;
             this.btnPrevious.ImageActive = null;
-            this.btnPrevious.Location = new System.Drawing.Point(806, 373);
+            this.btnPrevious.Location = new System.Drawing.Point(806, 400);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(34, 30);
             this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -392,7 +395,7 @@
             this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNext.Image = global::Prisoners_Management_System.Properties.Resources.circled_right;
             this.btnNext.ImageActive = null;
-            this.btnNext.Location = new System.Drawing.Point(885, 373);
+            this.btnNext.Location = new System.Drawing.Point(885, 400);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(34, 30);
             this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -401,11 +404,85 @@
             this.btnNext.Zoom = 5;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Active = false;
+            this.btnRefresh.Activecolor = System.Drawing.Color.Green;
+            this.btnRefresh.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRefresh.BorderRadius = 5;
+            this.btnRefresh.ButtonText = "Refresh";
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.DisabledColor = System.Drawing.Color.Gray;
+            this.btnRefresh.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnRefresh.Iconimage = global::Prisoners_Management_System.Properties.Resources.refresh;
+            this.btnRefresh.Iconimage_right = null;
+            this.btnRefresh.Iconimage_right_Selected = null;
+            this.btnRefresh.Iconimage_Selected = null;
+            this.btnRefresh.IconMarginLeft = 15;
+            this.btnRefresh.IconMarginRight = 0;
+            this.btnRefresh.IconRightVisible = true;
+            this.btnRefresh.IconRightZoom = 0D;
+            this.btnRefresh.IconVisible = true;
+            this.btnRefresh.IconZoom = 50D;
+            this.btnRefresh.IsTab = true;
+            this.btnRefresh.Location = new System.Drawing.Point(42, 85);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
+            this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnRefresh.selected = false;
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
+            this.btnRefresh.TabIndex = 132;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefresh.Textcolor = System.Drawing.Color.White;
+            this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnFeedback
+            // 
+            this.btnFeedback.Active = false;
+            this.btnFeedback.Activecolor = System.Drawing.Color.Green;
+            this.btnFeedback.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnFeedback.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFeedback.BorderRadius = 5;
+            this.btnFeedback.ButtonText = "Feedbacks";
+            this.btnFeedback.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFeedback.DisabledColor = System.Drawing.Color.Gray;
+            this.btnFeedback.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnFeedback.Iconimage = global::Prisoners_Management_System.Properties.Resources.feedly;
+            this.btnFeedback.Iconimage_right = null;
+            this.btnFeedback.Iconimage_right_Selected = null;
+            this.btnFeedback.Iconimage_Selected = null;
+            this.btnFeedback.IconMarginLeft = 15;
+            this.btnFeedback.IconMarginRight = 0;
+            this.btnFeedback.IconRightVisible = true;
+            this.btnFeedback.IconRightZoom = 0D;
+            this.btnFeedback.IconVisible = true;
+            this.btnFeedback.IconZoom = 50D;
+            this.btnFeedback.IsTab = true;
+            this.btnFeedback.Location = new System.Drawing.Point(160, 85);
+            this.btnFeedback.Name = "btnFeedback";
+            this.btnFeedback.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnFeedback.OnHovercolor = System.Drawing.Color.Green;
+            this.btnFeedback.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnFeedback.selected = false;
+            this.btnFeedback.Size = new System.Drawing.Size(131, 45);
+            this.btnFeedback.TabIndex = 133;
+            this.btnFeedback.Text = "Feedbacks";
+            this.btnFeedback.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFeedback.Textcolor = System.Drawing.Color.White;
+            this.btnFeedback.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnFeedback.Click += new System.EventHandler(this.btnFeedback_Click);
+            // 
             // rollcall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnFeedback);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblentries);
             this.Controls.Add(this.lblPageNumber);
             this.Controls.Add(this.btnPrevious);
@@ -449,5 +526,7 @@
         private Bunifu.Framework.UI.BunifuImageButton btnPrevious;
         private Bunifu.Framework.UI.BunifuImageButton btnNext;
         private System.Windows.Forms.FlowLayoutPanel RollcallflowLayoutPanel;
+        public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
+        public Bunifu.Framework.UI.BunifuFlatButton btnFeedback;
     }
 }

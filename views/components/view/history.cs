@@ -36,15 +36,15 @@ namespace Prisoners_Management_System.views.components.view
                 if (arrHistory != null)
                 {
                     Id = Convert.ToInt32(arrHistory[0]);
-                    lblAction.Text = config.config.AES.Decrypt(arrHistory[1].ToString(), Properties.Resources.PassPhrase);
+                    lblAction.Text = arrHistory[1].ToString();
                     lblStatus.Text = arrHistory[2].ToString();
                     lblDate.Text = arrHistory[3].ToString();
-                    lblRemarks.Text = config.config.AES.Decrypt(arrHistory[4].ToString(), Properties.Resources.PassPhrase);
+                    lblRemarks.Text = arrHistory[4].ToString();
                     dashboard.Prison.Inmate.arrayList = dashboard.Prison.Inmate.GetInmate(Convert.ToInt32(arrHistory[5]));
-                    lblInmate.Text = config.config.AES.Decrypt(dashboard.Prison.Inmate.arrayList[0].ToString(), Properties.Resources.PassPhrase) + " - " +
-                        config.config.AES.Decrypt(dashboard.Prison.Inmate.arrayList[1].ToString(), Properties.Resources.PassPhrase) + ", " +
-                        config.config.AES.Decrypt(dashboard.Prison.Inmate.arrayList[2].ToString(), Properties.Resources.PassPhrase) + " " +
-                        config.config.AES.Decrypt(dashboard.Prison.Inmate.arrayList[3].ToString(), Properties.Resources.PassPhrase); 
+                    lblInmate.Text = dashboard.Prison.Inmate.arrayList[0].ToString() + " - " +
+                        dashboard.Prison.Inmate.arrayList[1].ToString() + ", " +
+                        dashboard.Prison.Inmate.arrayList[2].ToString() + " " +
+                        dashboard.Prison.Inmate.arrayList[3].ToString(); 
                     arrHistory[5].ToString();
                 }
             }

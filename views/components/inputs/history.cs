@@ -42,7 +42,7 @@ namespace Prisoners_Management_System.views.components.inputs
                 {
                     Id = Convert.ToInt32(dashboard.Prison.Inmate_History.History[0]);
                     txtAction.Text = dashboard.Prison.Inmate_History.History[1].ToString();
-                    dpnStatus.Text = dashboard.Prison.Inmate_History.History[2].ToString();
+                    //dpnStatus.Text = dashboard.Prison.Inmate_History.History[2].ToString();
                     Date = dashboard.Prison.Inmate_History.History[3].ToString();
                     txtRemarks.Text = dashboard.Prison.Inmate_History.History[4].ToString();
                     InmateId = dashboard.Prison.Inmate_History.History[5].ToString();
@@ -91,20 +91,6 @@ namespace Prisoners_Management_System.views.components.inputs
             {
                 errorremarksProvider.Clear();
                 txtRemarks.BorderColorActive = Color.FromArgb(26, 104, 200);
-            }
-        }
-
-        private void dpnStatus_Validating(object sender, CancelEventArgs e)
-        {
-            if (dpnStatus.Text == "Select")
-            {
-                errorstatusProvider.SetError(dpnStatus, statusError);
-                dpnStatus.IndicatorColor = Color.Firebrick;
-            }
-            else
-            {
-                errorstatusProvider.Clear();
-                dpnStatus.IndicatorColor = Color.FromArgb(26, 104, 255);
             }
         }
     }

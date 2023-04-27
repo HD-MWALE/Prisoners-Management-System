@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prisoners_Management_System.views.components.dashboard
+namespace Prisoners_Management_System.views.components.view
 {
-    public partial class searchresult : UserControl
+    public partial class reports : UserControl
     {
-        public searchresult()
+        public reports()
         {
             InitializeComponent();
         }

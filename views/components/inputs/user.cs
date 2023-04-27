@@ -103,12 +103,12 @@ namespace Prisoners_Management_System.views.components.inputs
                         if (Id == Convert.ToInt32(dataRow["id"]))
                         {
                             Id = Convert.ToInt32(dataRow["id"]);
-                            txtEmail.Text = config.config.AES.Decrypt(dataRow["email"].ToString(), Properties.Resources.PassPhrase);
-                            txtUsername.Text = config.config.AES.Decrypt(dataRow["user_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase);
-                            dpnGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            txtEmail.Text = dataRow["email"].ToString();
+                            txtUsername.Text = dataRow["user_name"].ToString();
+                            txtFirstName.Text = dataRow["first_name"].ToString();
+                            txtMiddleName.Text = dataRow["middle_name"].ToString();
+                            txtLastName.Text = dataRow["last_name"].ToString();
+                            dpnGender.Text = dataRow["gender"].ToString();
                             dtpDateOfBirth.Value = Convert.ToDateTime(dataRow["dob"]);
                             dpnRole.Text = dataRow["role"].ToString();
                         }

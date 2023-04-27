@@ -21,7 +21,7 @@ namespace Prisoners_Management_System.views.components.inputs
         }
         views.dashboard dashboard;
         DataSet dsDormitories = new DataSet();
-        DataSet dsRoll_Call = new DataSet();
+        public DataSet dsRoll_Call = new DataSet();
 
 
         private void rollcall_Load(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace Prisoners_Management_System.views.components.inputs
             {
                 this.dpnDormitory.Items.Clear();
                 foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                    this.dpnDormitory.Items.Add(config.config.AES.Decrypt(Convert.ToString(dataRow["name"]), Properties.Resources.PassPhrase));
+                    this.dpnDormitory.Items.Add(Convert.ToString(dataRow["name"]));
             }
         }
         public int DormitoryId = 0;
@@ -40,7 +40,7 @@ namespace Prisoners_Management_System.views.components.inputs
         {
             if (dsDormitories != null)
                 foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-                    if (dpnDormitory.Text == config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase))
+                    if (dpnDormitory.Text == dataRow["name"].ToString())
                     {
                         DormitoryId = Convert.ToInt32(dataRow["id"].ToString());
                         break;

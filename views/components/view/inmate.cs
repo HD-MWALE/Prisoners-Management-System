@@ -31,7 +31,7 @@ namespace Prisoners_Management_System.views.components.view
         inputs.history history;
         DataSet dsInmate = new DataSet(); 
         DataSet dsCrimesCommitted = new DataSet(); 
-        DataSet dsInmateHistory = new DataSet(); 
+        DataTable dsInmateHistory = new DataTable(); 
         public void inmate_Load(object sender, EventArgs e)
         {
             if (Id != 0)
@@ -44,15 +44,15 @@ namespace Prisoners_Management_System.views.components.view
                         if (Convert.ToInt32(dataRow["id"]) == Id)
                         {
                             Id = Convert.ToInt32(dataRow["id"].ToString());
-                            lblCode.Text = config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase);
-                            lblDormitory.Text = config.config.AES.Decrypt(dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"])), Properties.Resources.PassPhrase);
-                            lblFullname.Text = config.config.AES.Decrypt(dataRow["last_name"].ToString(), Properties.Resources.PassPhrase) + ", " + config.config.AES.Decrypt(dataRow["first_name"].ToString(), Properties.Resources.PassPhrase) + " " + config.config.AES.Decrypt(dataRow["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            lblGender.Text = config.config.AES.Decrypt(dataRow["gender"].ToString(), Properties.Resources.PassPhrase);
+                            lblCode.Text = dataRow["code"].ToString();
+                            lblDormitory.Text = dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"]));
+                            lblFullname.Text = dataRow["last_name"].ToString() + ", " + dataRow["first_name"].ToString() + " " + dataRow["middle_name"].ToString();
+                            lblGender.Text = dataRow["gender"].ToString();
                             lblDateOfBirth.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                            lblAddress.Text = config.config.AES.Decrypt(dataRow["address"].ToString(), Properties.Resources.PassPhrase);
-                            lblMaritalStatus.Text = config.config.AES.Decrypt(dataRow["marital_status"].ToString(), Properties.Resources.PassPhrase);
-                            lblEyeColour.Text = config.config.AES.Decrypt(dataRow["eye_color"].ToString(), Properties.Resources.PassPhrase);
-                            lblComplexion.Text = config.config.AES.Decrypt(dataRow["complexion"].ToString(), Properties.Resources.PassPhrase);
+                            lblAddress.Text = dataRow["address"].ToString();
+                            lblMaritalStatus.Text = dataRow["marital_status"].ToString();
+                            lblEyeColour.Text = dataRow["eye_color"].ToString();
+                            lblComplexion.Text = dataRow["complexion"].ToString();
                             bool Isfirst = true;
                             dsCrimesCommitted = dashboard.Prison.Crimes_Committed.GetAll();
                             if(dsCrimesCommitted != null)
@@ -62,15 +62,13 @@ namespace Prisoners_Management_System.views.components.view
                                     {
                                         if (Isfirst)
                                         {
-                                            lblCrimeCommitted.Text = config.config.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
+                                            lblCrimeCommitted.Text = data["name"].ToString();
                                             Isfirst = false;
                                         }
                                         else
-                                            lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + config.config.AES.Decrypt(data["name"].ToString(), Properties.Resources.PassPhrase);
+                                            lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + data["name"].ToString();
                                     }
                                 }
-                            //lblSentence.Text = AES.Decrypt(dataRow["sentence"].ToString(), Properties.Resources.PassPhrase);
-                            //lblTimeServedStart.Text = Convert.ToDateTime(dataRow["start_date"]).ToString("dd/MM/yyyy hh:mm:ss tt");
                             lblTimeServedStart.Text = Convert.ToDateTime(dataRow["start_date"]).ToString("dd/MM/yyyy");
                             lblTimeServedEnd.Text = Convert.ToDateTime(dataRow["end_date"]).ToString("dd/MM/yyyy");
                             DateTimePicker Start = new DateTimePicker();
@@ -78,10 +76,10 @@ namespace Prisoners_Management_System.views.components.view
                             Start.Value = Convert.ToDateTime(dataRow["start_date"]);
                             End.Value = Convert.ToDateTime(dataRow["end_date"]);
                             lblSentence.Text = config.config.Calculate.Sentence(Start, End);
-                            lblName.Text = config.config.AES.Decrypt(dataRow["emergency_name"].ToString(), Properties.Resources.PassPhrase);
-                            lblContact.Text = config.config.AES.Decrypt(dataRow["emergency_contact"].ToString(), Properties.Resources.PassPhrase);
-                            lblRelation.Text = config.config.AES.Decrypt(dataRow["emergency_relation"].ToString(), Properties.Resources.PassPhrase);
-                            ibxFace.ImageLocation = config.config.Path + "\\Face\\" + config.config.AES.Decrypt(dataRow["code"].ToString(), Properties.Resources.PassPhrase) + ".bmp";
+                            lblName.Text = dataRow["emergency_name"].ToString();
+                            lblContact.Text = dataRow["emergency_contact"].ToString();
+                            lblRelation.Text = dataRow["emergency_relation"].ToString();
+                            ibxFace.ImageLocation = config.config.Path + "\\Face\\" + dataRow["code"].ToString() + ".bmp";
                             if (Convert.ToInt32(dataRow["visiting_privilege"]) == 1)
                                 IsAllowed = true;
                             else
@@ -95,8 +93,9 @@ namespace Prisoners_Management_System.views.components.view
                     }
                 }
             }
-
-            ColorScheme.LoadTheme(this.inmates.dashboard.Controls);
+            dsInmateHistory = dashboard.Prison.Inmate_History.GetHistoriesByInmateId(Id).Tables["result"];
+            InmatesPageList(1);
+            ColorScheme.LoadTheme(this.dashboard.Controls);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -148,9 +147,8 @@ namespace Prisoners_Management_System.views.components.view
         private void InmatesPageList(int pageNumber)
         {
             lblPageNumber.Text = pageNumber.ToString();
-            dsInmateHistory = dashboard.Prison.Inmate_History.GetHistoriesByInmateId(Id);
             int pageSize = 25;
-            var query = dsInmateHistory.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsInmateHistory.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.HistoryflowLayoutPanel.Controls.Clear();
@@ -160,7 +158,7 @@ namespace Prisoners_Management_System.views.components.view
                 rows.history history = new rows.history(dashboard, this);
                 history.Id = Convert.ToInt32(data["id"]);
                 history.lblNo.Text = number.ToString();
-                history.lblAction.Text = config.config.AES.Decrypt(data["action"].ToString(), Properties.Resources.PassPhrase);
+                history.lblAction.Text = data["action"].ToString();
                 history.lblDate.Text = Convert.ToDateTime(data["date"]).ToString("dd/MM/yyyy hh:mm:ss tt");
                 txtSearch.AutoCompleteCustomSource.Add(history.lblAction.Text);
                 if (File.Exists(config.config.UserRole))
@@ -174,7 +172,7 @@ namespace Prisoners_Management_System.views.components.view
                 number++;
             }
 
-            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 25) + " of " + dsInmateHistory.Tables["result"].Rows.Count + " entries";
+            lblentries.Text = (pageNumber - 1) * pageSize + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsInmateHistory.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.HistoryflowLayoutPanel.Controls);
         }
@@ -189,5 +187,14 @@ namespace Prisoners_Management_System.views.components.view
             InmatesPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            // getting all inmate histories
+            dsInmateHistory = dashboard.Prison.Inmate.GetInmates().Tables["result"];
+            // calling function to filter datatable
+            dsInmateHistory = FilterData.SearchInmate(dsInmateHistory, txtSearch.Text);
+            // calling function to load inmate histories
+            InmatesPageList(1);
+        }
     }
 }

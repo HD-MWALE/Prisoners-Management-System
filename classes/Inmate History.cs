@@ -75,7 +75,15 @@ namespace Prisoners_Management_System.classes
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history WHERE `inmate_id` = " + inmateid);
             if (response.Item2 != "server-error")
+            {
+                foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                {
+                    // decrypting inmate history details
+                    row["action"] = config.config.AES.Decrypt(row["action"].ToString(), Properties.Resources.PassPhrase);
+                    row["remarks"] = config.config.AES.Decrypt(row["remarks"].ToString(), Properties.Resources.PassPhrase);
+                }
                 return response.Item1;
+            }
             return null;
         }
         // get inmate history function
@@ -83,7 +91,15 @@ namespace Prisoners_Management_System.classes
         {
             (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `action`, `status`, `date`, `remarks`, `inmate_id` FROM inmate_history");
             if (response.Item2 != "server-error")
+            {
+                foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                {
+                    // decrypting inmate history details
+                    row["action"] = config.config.AES.Decrypt(row["action"].ToString(), Properties.Resources.PassPhrase);
+                    row["remarks"] = config.config.AES.Decrypt(row["remarks"].ToString(), Properties.Resources.PassPhrase);
+                }
                 return response.Item1;
+            }
             return null;
         }
         // get inmate history by id function

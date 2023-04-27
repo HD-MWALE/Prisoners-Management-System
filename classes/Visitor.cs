@@ -86,7 +86,21 @@ namespace Prisoners_Management_System.classes
             {
                 dataSet = response.Item1;
                 if (dataSet != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting visitors details
+                        row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                        row["relation"] = config.config.AES.Decrypt(row["relation"].ToString(), Properties.Resources.PassPhrase);
+                        row["contact"] = config.config.AES.Decrypt(row["contact"].ToString(), Properties.Resources.PassPhrase);
+                        row["address"] = config.config.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
+                        row["code"] = config.config.AES.Decrypt(row["code"].ToString(), Properties.Resources.PassPhrase);
+                        row["first_name"] = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["middle_name"] = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
+                        row["last_name"] = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                    }
                     return dataSet;
+                }
             }
             return null;
         }
@@ -99,7 +113,17 @@ namespace Prisoners_Management_System.classes
             {
                 dataSet = response.Item1;
                 if (dataSet != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting visitors details
+                        row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                        row["relation"] = config.config.AES.Decrypt(row["relation"].ToString(), Properties.Resources.PassPhrase);
+                        row["contact"] = config.config.AES.Decrypt(row["contact"].ToString(), Properties.Resources.PassPhrase);
+                        row["address"] = config.config.AES.Decrypt(row["address"].ToString(), Properties.Resources.PassPhrase);
+                    }
                     return dataSet;
+                }
             }
             return null;
         }

@@ -37,49 +37,12 @@
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            this.dpnStatus = new Bunifu.UI.WinForms.BunifuDropdown();
             this.txtRemarks = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.txtAction = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSave = new Bunifu.Framework.UI.BunifuFlatButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // dpnStatus
-            // 
-            this.dpnStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.dpnStatus.BorderRadius = 1;
-            this.dpnStatus.Color = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.dpnStatus.Direction = Bunifu.UI.WinForms.BunifuDropdown.Directions.Down;
-            this.dpnStatus.DisabledColor = System.Drawing.Color.Gray;
-            this.dpnStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.dpnStatus.DropdownBorderThickness = Bunifu.UI.WinForms.BunifuDropdown.BorderThickness.Thin;
-            this.dpnStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.dpnStatus.DropDownTextAlign = Bunifu.UI.WinForms.BunifuDropdown.TextAlign.Left;
-            this.dpnStatus.FillDropDown = false;
-            this.dpnStatus.FillIndicator = false;
-            this.dpnStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dpnStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.dpnStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.dpnStatus.FormattingEnabled = true;
-            this.dpnStatus.Icon = null;
-            this.dpnStatus.IndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.dpnStatus.IndicatorLocation = Bunifu.UI.WinForms.BunifuDropdown.Indicator.Right;
-            this.dpnStatus.ItemBackColor = System.Drawing.Color.White;
-            this.dpnStatus.ItemBorderColor = System.Drawing.Color.White;
-            this.dpnStatus.ItemForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(104)))), ((int)(((byte)(255)))));
-            this.dpnStatus.ItemHeight = 26;
-            this.dpnStatus.ItemHighLightColor = System.Drawing.Color.Thistle;
-            this.dpnStatus.Items.AddRange(new object[] {
-            "Minor",
-            "Major"});
-            this.dpnStatus.Location = new System.Drawing.Point(44, 254);
-            this.dpnStatus.Name = "dpnStatus";
-            this.dpnStatus.Size = new System.Drawing.Size(365, 32);
-            this.dpnStatus.TabIndex = 56;
-            this.dpnStatus.Text = "Select";
-            this.dpnStatus.Validating += new System.ComponentModel.CancelEventHandler(this.dpnStatus_Validating);
             // 
             // txtRemarks
             // 
@@ -263,7 +226,7 @@
             this.btnSave.IconVisible = true;
             this.btnSave.IconZoom = 50D;
             this.btnSave.IsTab = true;
-            this.btnSave.Location = new System.Drawing.Point(302, 322);
+            this.btnSave.Location = new System.Drawing.Point(302, 267);
             this.btnSave.Name = "btnSave";
             this.btnSave.Normalcolor = System.Drawing.Color.DarkGreen;
             this.btnSave.OnHovercolor = System.Drawing.Color.Green;
@@ -276,18 +239,6 @@
             this.btnSave.Textcolor = System.Drawing.Color.White;
             this.btnSave.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(41, 230);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 21);
-            this.label1.TabIndex = 51;
-            this.label1.Text = "Status";
             // 
             // label2
             // 
@@ -306,15 +257,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(36)))));
-            this.Controls.Add(this.dpnStatus);
             this.Controls.Add(this.txtRemarks);
             this.Controls.Add(this.txtAction);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Name = "history";
-            this.Size = new System.Drawing.Size(450, 478);
+            this.Size = new System.Drawing.Size(450, 421);
             this.Load += new System.EventHandler(this.history_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -322,13 +271,10 @@
         }
 
         #endregion
-
-        public Bunifu.UI.WinForms.BunifuDropdown dpnStatus;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtRemarks;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtAction;
         private System.Windows.Forms.Label label3;
         public Bunifu.Framework.UI.BunifuFlatButton btnSave;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
     }
 }

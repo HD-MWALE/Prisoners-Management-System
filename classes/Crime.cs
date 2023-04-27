@@ -42,7 +42,7 @@ namespace Prisoners_Management_System.classes
         public bool Save()
         {
             string fields = "`name`, `type`, `description`";
-            string data = "'" + Name + "','" + Type + "','" + Description + "'";
+            string data = "'" + _Name + "','" + _Type + "','" + _Description + "'";
             if (database.Execute.Insert("crime", fields, data))
                 return true;
             return false;
@@ -70,9 +70,17 @@ namespace Prisoners_Management_System.classes
         // get crimes function
         public DataSet GetCrimes()
         {
-            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `name`, `type`, `description` FROM " + "crime");
-            if(response.Item2 != "server-error")
+            (DataSet, string) response = database.Execute.Retrieve("SELECT `id`, `name`, `type`, `description` FROM " + "crime order by date_created DESC;");
+            if (response.Item2 != "server-error")
+            {
+                foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                {
+                    // decrypting crime details
+                    row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                    row["description"] = config.config.AES.Decrypt(row["description"].ToString(), Properties.Resources.PassPhrase);
+                }
                 return response.Item1;
+            }
             return null;
         }
         // crime details by id function
@@ -94,7 +102,7 @@ namespace Prisoners_Management_System.classes
         // update crime function
         public bool Update(int id)
         {
-            string data = "`name` = '" + Name + "', `type` = '" + Type + "', `description` = '" + Description + "'";
+            string data = "`name` = '" + _Name + "', `type` = '" + _Type + "', `description` = '" + _Description + "'";
             if (database.Execute.Update("crime", data, id))
                 return true;
             return false;

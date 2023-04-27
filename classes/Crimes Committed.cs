@@ -95,7 +95,7 @@ namespace Prisoners_Management_System.classes
         public bool CheckCrimeCommitted(int crimeid, int inmateid)
         {
             string data = "`id`";
-            string condition = "`crime_id` = " + crimeid + ", `inmate_id` = " + inmateid + ";";
+            string condition = "`crime_id` = " + crimeid + ", `inmate_id` = " + inmateid + "";
             (DataSet, string) response = database.Execute.Retrieve("SELECT " + data + " FROM crimes_committed, inmate WHERE " + condition);
             if (response.Item2 != "server-error")
             {
@@ -113,7 +113,15 @@ namespace Prisoners_Management_System.classes
             {
                 dataSet = response.Item1;
                 if (dataSet != null)
+                {
+                    foreach (DataRow row in response.Item1.Tables["result"].Rows)
+                    {
+                        // decrypting crime committed details
+                        row["name"] = config.config.AES.Decrypt(row["name"].ToString(), Properties.Resources.PassPhrase);
+                        row["description"] = config.config.AES.Decrypt(row["description"].ToString(), Properties.Resources.PassPhrase);
+                    }
                     return dataSet;
+                }
             }
             return null;
         }

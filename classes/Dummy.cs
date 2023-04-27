@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
+using DocumentFormat.OpenXml.Spreadsheet;
 using MySql.Data.MySqlClient;
 using Prisoners_Management_System.config;
 using Prisoners_Management_System.database;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using DataTable = System.Data.DataTable;
 
 namespace Prisoners_Management_System.classes
 {
@@ -152,6 +154,60 @@ namespace Prisoners_Management_System.classes
             return IsSuccess;
         }
 
+        public static void SetYearForRollCall() 
+        {
+            //DataSet dataSet = Retrieve("SELECT COUNT(roll_calloninmate.inmate_id) AS total, YEAR(roll_call.date_created) AS year, MONTH(roll_call.date_created) AS month, DAY(roll_call.date_created) AS day FROM roll_call INNER JOIN roll_calloninmate ON roll_call.id = roll_calloninmate.roll_call_id GROUP BY DAY(roll_call.date_created);");
+            DataSet dataSet = Retrieve("SELECT `id`, `code`, `dormitory_id`, `total_inmates`, `status`, `date_created` FROM `roll_call`");
+            int year = 2019;
+            int count = 1;
+            foreach (DataRow row in dataSet.Tables["result"].Rows)
+            {
+                int id = Convert.ToInt32(row["id"]);
+                if (count > 0 && count < 1092)
+                {
+                    Update("roll_call", "`date_created` = '" + year + "-" + Convert.ToDateTime(row["date_created"]).Month + "-" + Convert.ToDateTime(row["date_created"]).Day + "'", id);
+                    //Update("inmate", "`date_created` = '" + Convert.ToDateTime(row["date_created"]).ToString("dd/MM/yyyy hh:mm:ss tt") + "'", id);
+                    if (count == 1091)
+                    {
+                        year++;
+                    }
+                }
+                else if (count > 1091 && count < 2184)
+                {
+                    Update("roll_call", "`date_created` = '" + year + "-" + Convert.ToDateTime(row["date_created"]).Month + "-" + Convert.ToDateTime(row["date_created"]).Day + "'", id);
+                    if (count == 2183)
+                    {
+                        year++;
+                    }
+                }
+                else if (count > 2183 && count < 3276)
+                {
+                    Update("roll_call", "`date_created` = '" + year + "-" + Convert.ToDateTime(row["date_created"]).Month + "-" + Convert.ToDateTime(row["date_created"]).Day + "'", id);
+                    if (count == 3275)
+                    {
+                        year++;
+                    }
+                }
+                else if (count > 3275 && count < 4368)
+                {
+                    Update("roll_call", "`date_created` = '" + year + "-" + Convert.ToDateTime(row["date_created"]).Month + "-" + Convert.ToDateTime(row["date_created"]).Day + "'", id);
+                    if (count == 4367)
+                    {
+                        year++;
+                    }
+                }
+                else if (count > 4367 && count < 5460)
+                {
+                    Update("roll_call", "`date_created` = '" + year + "-" + Convert.ToDateTime(row["date_created"]).Month + "-" + Convert.ToDateTime(row["date_created"]).Day + "'", id);
+                    if (count == 5459)
+                    {
+                        year++;
+                    }
+                }
+                count++;
+            }
+        }
+
         public static void SetYear()
         {
             DataSet dataSet = Retrieve("SELECT `id`, `date_created` FROM `inmate`");
@@ -203,6 +259,10 @@ namespace Prisoners_Management_System.classes
                 }
                 count++;
             }
+        }
+        public static void Name()
+        {
+            Update("inmate", "`first_name` = '" + config.config.AES.Encrypt("Bright", Properties.Resources.PassPhrase) + "', `middle_name` = '" + config.config.AES.Encrypt("H", Properties.Resources.PassPhrase) + "', `last_name` = '" + config.config.AES.Encrypt("Mwale", Properties.Resources.PassPhrase), 33);
         }
 
         public static void RollCall() 

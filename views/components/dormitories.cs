@@ -26,10 +26,11 @@ namespace Prisoners_Management_System.views.components
         public views.dashboard dashboard;
         public inputs.dormitory dormitory;
         public view.dormitory _dormitory;
-        DataSet dsDormitories = new DataSet();
+        DataTable dsDormitories = new DataTable();
         // user control loading
         public void dormitories_Load(object sender, EventArgs e)
         {
+            dsDormitories = dashboard.Prison.Dormitory.GetDormitories().Tables["result"];
             DormitoriesPageList(1);
         } 
         // delete button click
@@ -55,60 +56,37 @@ namespace Prisoners_Management_System.views.components
         // search button click
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            dashboard.SetLoading(true);
-            this.DormitoryflowLayoutPanel.Controls.Clear();
-            foreach (DataRow dataRow in dsDormitories.Tables["result"].Rows)
-            {
-                if (config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    config.config.AES.Decrypt(dataRow["gendertype"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text ||
-                    config.config.AES.Decrypt(dataRow["type"].ToString(), Properties.Resources.PassPhrase) == txtSearch.Text)
-                {
-                    rows.dormitory row = new rows.dormitory(dashboard, this);
-                    row.Id = Convert.ToInt32(dataRow["id"]);
-                    row.lblName.Text = config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
-                    row.lblDescription.Text = config.config.AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
-                    row.lblGenderType.Text = config.config.AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
-                    row.lblType.Text = config.config.AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
-                    if (File.Exists(config.config.UserRole))
-                        if (File.ReadAllText(config.config.UserRole) != "Admin")
-                        {
-                            row.btnEdit.Visible = false;
-                            row.btnDelete.Visible = false;
-                        }
-                    this.DormitoryflowLayoutPanel.Controls.Add(row);
-                }
-            }
-            ColorScheme.LoadTheme(this.Controls);
-            dashboard.SetLoading(false);
-        }
-        // on gender selected dropdown
-        private void dpnGender_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            // getting all dormitories 
+            dsDormitories = dashboard.Prison.User.GetUsers().Item1.Tables["result"];
+            // calling function to filter datatable
+            dsDormitories = FilterData.SearchDormitory(dsDormitories, txtSearch.Text);
+            // calling function to load dormitories
+            DormitoriesPageList(1);
         }
         // load dormitories in paged list
         private void DormitoriesPageList(int pageNumber) 
         {
             lblPageNumber.Text = pageNumber.ToString();
-            dsDormitories = dashboard.Prison.Dormitory.GetDormitories();
             int pageSize = 25;
-            var query = dsDormitories.Tables["result"].AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            var query = dsDormitories.AsEnumerable().Skip((pageNumber - 1) * pageSize).Take(pageSize);
             int number = 1;
 
             this.DormitoryflowLayoutPanel.Controls.Clear();
 
-            foreach (var dataRow in query)
+            foreach (var currentRow in query)
             {
                 rows.dormitory row = new rows.dormitory(dashboard, this);
                 row.lblNo.Text = number.ToString();
-                row.Id = Convert.ToInt32(dataRow["id"]);
-                row.lblName.Text = config.config.AES.Decrypt(dataRow["name"].ToString(), Properties.Resources.PassPhrase);
+                row.Id = Convert.ToInt32(currentRow["id"]);
+                row.lblName.Text = currentRow["name"].ToString();
                 txtSearch.AutoCompleteCustomSource.Add(row.lblName.Text);
-                row.lblDescription.Text = config.config.AES.Decrypt((string)dataRow["description"], Properties.Resources.PassPhrase);
+                txtSearch.AutoCompleteCustomSource.Add((string)currentRow["gendertype"]);
+                txtSearch.AutoCompleteCustomSource.Add((string)currentRow["type"]);
+                row.lblDescription.Text = (string)currentRow["description"];
                 row.lblDescription.MaximumSize = new Size(250, 16);
                 row.lblDescription.AutoSize = true;
-                row.lblGenderType.Text = config.config.AES.Decrypt((string)dataRow["gendertype"], Properties.Resources.PassPhrase);
-                row.lblType.Text = config.config.AES.Decrypt((string)dataRow["type"], Properties.Resources.PassPhrase);
+                row.lblGenderType.Text = (string)currentRow["gendertype"];
+                row.lblType.Text = (string)currentRow["type"];
                 txtSearch.AutoCompleteCustomSource.Add(row.lblGenderType.Text);
                 txtSearch.AutoCompleteCustomSource.Add(row.lblType.Text);
                 if (File.Exists(config.config.UserRole))
@@ -122,19 +100,29 @@ namespace Prisoners_Management_System.views.components
                 number++;
             }
 
-            lblentries.Text = (((pageNumber) * pageSize) +1) + " - " + (((pageNumber) * pageSize + 25) +1) + " of " + dsDormitories.Tables["result"].Rows.Count + " entries";
+            if (dsDormitories.Rows.Count > 25)
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + ((pageNumber - 1) * pageSize + 26) + " of " + dsDormitories.Rows.Count + " entries";
+            else
+                lblentries.Text = ((pageNumber - 1) * pageSize + 1) + " - " + dsDormitories.Rows.Count + " of " + dsDormitories.Rows.Count + " entries";
 
             ColorScheme.LoadTheme(this.DormitoryflowLayoutPanel.Controls);
         }
         // go to next page
         private void btnNext_Click(object sender, EventArgs e)
         {
+            // calling function to load dormitory next page
             DormitoriesPageList((Convert.ToInt32(lblPageNumber.Text) + 1));
         }
         // go to previous page
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            // calling function to load dormitory previous page
             DormitoriesPageList((Convert.ToInt32(lblPageNumber.Text) - 1));
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            dormitories_Load(sender, e);
         }
     }
 }

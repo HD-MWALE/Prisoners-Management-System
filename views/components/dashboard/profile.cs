@@ -34,13 +34,13 @@ namespace Prisoners_Management_System.views.components.dashboard
                         if (row[0].ToString() == dashboard.Prison.User.Auth[0].ToString())
                         {
                             Id = Convert.ToInt32(row["id"]);
-                            lblUsername.Text = config.config.AES.Decrypt(row["user_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtEmail.Text = config.config.AES.Decrypt(row["email"].ToString(), Properties.Resources.PassPhrase);
-                            txtFirstName.Text = config.config.AES.Decrypt(row["first_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtMiddleName.Text = config.config.AES.Decrypt(row["middle_name"].ToString(), Properties.Resources.PassPhrase);
-                            txtLastName.Text = config.config.AES.Decrypt(row["last_name"].ToString(), Properties.Resources.PassPhrase);
+                            lblUsername.Text = row["user_name"].ToString();
+                            txtEmail.Text = row["email"].ToString();
+                            txtFirstName.Text = row["first_name"].ToString();
+                            txtMiddleName.Text = row["middle_name"].ToString();
+                            txtLastName.Text = row["last_name"].ToString();
                             dtpDateOfBirth.Value = Convert.ToDateTime(row["dob"]); ;
-                            dpnGender.Text = config.config.AES.Decrypt(row["gender"].ToString(), Properties.Resources.PassPhrase);
+                            dpnGender.Text = row["gender"].ToString();
                             lblRole.Text = row["role"].ToString();
                         }
         }
