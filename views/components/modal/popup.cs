@@ -45,7 +45,8 @@ namespace Prisoners_Management_System.views.components.modal
         private dialog dialog; 
         private capture capture; 
         private scan scan; 
-        private inputs.rollcall rollcall; 
+        private inputs.rollcall rollcall;
+        private inputs.pardonedlist pardonedlist;  
         private dashboard.settings settings; 
         private dashboard.profile profile; 
         private dashboard.about about; 
@@ -88,6 +89,9 @@ namespace Prisoners_Management_System.views.components.modal
                         break; 
                     case "rollcall":
                         Rollcall_Load();  
+                        break;
+                    case "pardonedlist":
+                        Pardoned_Load();
                         break;
                     case "scan":
                         Scan_Load(); 
@@ -372,6 +376,20 @@ namespace Prisoners_Management_System.views.components.modal
         private void BtnCapture_Click(object sender, EventArgs e)
         {
             btnClose_Click(sender, e);
+        }
+
+        private void Pardoned_Load() 
+        {
+            if (control != null)
+            {
+                this.pardonedlist = (inputs.pardonedlist)control;
+                this.pardonedlist.btnComeUpWithList.Click += btnClose_Click;
+                this.pardonedlist.btnView.Click += btnClose_Click;
+                this.pardonedlist.Dock = DockStyle.Fill;
+                this.pardonedlist.BackColor = Color.FromArgb(42, 42, 49);
+                this.Title.Text = "Pardon Inmate";
+                this.Body.Controls.Add(pardonedlist);
+            }
         }
 
         private void Rollcall_Load() 

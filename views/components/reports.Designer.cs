@@ -40,6 +40,9 @@
             this.bunifuSeparator2 = new Bunifu.Framework.UI.BunifuSeparator();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.RollCallReport = new LiveCharts.WinForms.CartesianChart();
+            this.bunifuSeparator3 = new Bunifu.Framework.UI.BunifuSeparator();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +63,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.bunifuSeparator3);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.RollCallReport);
             this.panel1.Controls.Add(this.bunifuSeparator1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.CrimesCommittedReport);
@@ -96,7 +102,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(315, 699);
+            this.label1.Location = new System.Drawing.Point(312, 1037);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(323, 24);
             this.label1.TabIndex = 107;
@@ -107,7 +113,7 @@
             this.CrimesCommittedReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CrimesCommittedReport.BackColorTransparent = true;
-            this.CrimesCommittedReport.Location = new System.Drawing.Point(3, 726);
+            this.CrimesCommittedReport.Location = new System.Drawing.Point(0, 1064);
             this.CrimesCommittedReport.Name = "CrimesCommittedReport";
             this.CrimesCommittedReport.Size = new System.Drawing.Size(905, 250);
             this.CrimesCommittedReport.TabIndex = 106;
@@ -191,6 +197,43 @@
             this.label2.TabIndex = 84;
             this.label2.Text = "Population of Prison Inmates in Dormitories";
             // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(325, 705);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(250, 24);
+            this.label3.TabIndex = 110;
+            this.label3.Text = "Inmates Roll Call By Rear ";
+            // 
+            // RollCallReport
+            // 
+            this.RollCallReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RollCallReport.BackColorTransparent = true;
+            this.RollCallReport.Location = new System.Drawing.Point(0, 732);
+            this.RollCallReport.Name = "RollCallReport";
+            this.RollCallReport.Size = new System.Drawing.Size(905, 250);
+            this.RollCallReport.TabIndex = 109;
+            this.RollCallReport.Text = "cartesianChart3";
+            // 
+            // bunifuSeparator3
+            // 
+            this.bunifuSeparator3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bunifuSeparator3.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuSeparator3.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
+            this.bunifuSeparator3.LineThickness = 1;
+            this.bunifuSeparator3.Location = new System.Drawing.Point(-24, 1000);
+            this.bunifuSeparator3.Name = "bunifuSeparator3";
+            this.bunifuSeparator3.Size = new System.Drawing.Size(968, 10);
+            this.bunifuSeparator3.TabIndex = 111;
+            this.bunifuSeparator3.Transparency = 255;
+            this.bunifuSeparator3.Vertical = false;
+            // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,5 +264,8 @@
         private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator1;
         private System.Windows.Forms.Label label1;
         public LiveCharts.WinForms.CartesianChart CrimesCommittedReport;
+        private Bunifu.Framework.UI.BunifuSeparator bunifuSeparator3;
+        private System.Windows.Forms.Label label3;
+        public LiveCharts.WinForms.CartesianChart RollCallReport;
     }
 }

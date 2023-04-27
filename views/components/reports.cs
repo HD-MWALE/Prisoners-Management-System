@@ -28,6 +28,7 @@ namespace Prisoners_Management_System.views.components
             Reports.PieCharts(dashboard, PopulationPie, DormitoryPopulationPie);
             Reports.Population(dashboard, PopulationLine);
             Reports.DormitoryPopulation(dashboard, DormitoryPopulationBar);
+            Reports.RollCallReport(dashboard, RollCallReport);
             Reports.CrimesCommitted(CrimesCommittedReport);
             config.ColorScheme.LoadTheme(this.Controls);
         }

@@ -34,7 +34,7 @@ namespace Prisoners_Management_System.database
             return IsSuccess;
         }
         // insert query to mysql database
-        public static bool InsertRollCall(string table, string fields, string data) 
+        public static bool InsertMore(string table, string fields, string data) 
         {
             if (Mysql.Open())
             {

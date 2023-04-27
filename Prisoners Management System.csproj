@@ -579,6 +579,12 @@
     <Compile Include="views\components\inputs\inmate.Designer.cs">
       <DependentUpon>inmate.cs</DependentUpon>
     </Compile>
+    <Compile Include="views\components\inputs\pardonedlist.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="views\components\inputs\pardonedlist.Designer.cs">
+      <DependentUpon>pardonedlist.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\components\inputs\rollcall.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -614,6 +620,12 @@
     </Compile>
     <Compile Include="views\components\modal\popup.Designer.cs">
       <DependentUpon>popup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\components\pardonedlist.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="views\components\pardonedlist.Designer.cs">
+      <DependentUpon>pardonedlist.cs</DependentUpon>
     </Compile>
     <Compile Include="views\components\reports.cs">
       <SubType>UserControl</SubType>
@@ -817,6 +829,9 @@
     <EmbeddedResource Include="views\components\inputs\inmate.resx">
       <DependentUpon>inmate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="views\components\inputs\pardonedlist.resx">
+      <DependentUpon>pardonedlist.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="views\components\inputs\rollcall.resx">
       <DependentUpon>rollcall.cs</DependentUpon>
     </EmbeddedResource>
@@ -834,6 +849,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\components\modal\popup.resx">
       <DependentUpon>popup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\components\pardonedlist.resx">
+      <DependentUpon>pardonedlist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\components\reports.resx">
       <DependentUpon>reports.cs</DependentUpon>
@@ -914,6 +932,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appicon.ico" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\add_list.png" />
     <None Include="Resources\feedly.png" />
     <None Include="Resources\refresh.png" />
     <None Include="Resources\circled_right.png" />

@@ -10,12 +10,16 @@ using System.IO;
 using System.Threading;
 using Prisoners_Management_System.config;
 using static Prisoners_Management_System.classes.Crime;
+using Prisoners_Management_System.views.components.inputs;
+using inmate = Prisoners_Management_System.views.components.rows.inmate;
 
 namespace Prisoners_Management_System.views.components
 {
     public partial class inmates : UserControl
     {
         public views.dashboard dashboard;
+        components.pardonedlist pardonedList;
+        inputs.pardonedlist pardonedlist;
         public inmates(views.dashboard dashboard)
         {
             InitializeComponent();
@@ -165,18 +169,18 @@ namespace Prisoners_Management_System.views.components
         // Pardoned List button
         private void btnPList_Click(object sender, EventArgs e)
         {
+            dashboard.SetLoading(true);
+            Sound.Click();
             // getting all crimes committed
             dsCrimes = dashboard.Prison.Crimes_Committed.GetAll();
             // getting all inmates
             dsInmates = dashboard.Prison.Inmate.GetInmates(dsCrimes);
-            // calling function to filter datatable
-            dsInmates = FilterData.InmatesTable(dsInmates);
-            // calling function to load inmates
-            InmatesPageList(1);
-            // setting text on dormitory dropdown menu
-            dpnDormitory.Text = btnPList.Text;
-            // setting theme to the ui
-            ColorScheme.LoadTheme(this.Controls);
+            pardonedlist = new inputs.pardonedlist(dashboard, dsInmates);
+            modal.popup popup = new modal.popup(pardonedlist);
+            popup.Size = pardonedlist.Size;
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
+            popup.ShowDialog();
+            dashboard.SetLoading(false);
         }
         // loading inmates function with parameter page number
         private void InmatesPageList(int pageNumber)
@@ -242,6 +246,22 @@ namespace Prisoners_Management_System.views.components
             dsInmates = dashboard.Prison.Inmate.GetInmates().Tables["result"];
             // calling function to load inmates
             InmatesPageList(1);
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            dashboard.SetLoading(true);
+            dashboard.bar.Top = (this.dashboard.btnReports).Top;
+            dashboard.lblModel.Text = "Pardorned";
+            dashboard.Path(true);
+            dashboard.Clear();
+            pardonedList = new components.pardonedlist(dashboard);
+            dashboard.pnlBody.Controls.Add(pardonedList);
+            pardonedList.Dock = DockStyle.Fill;
+            pardonedList.BringToFront();
+
+            // Setting theme (Dark/Light)
+            ColorScheme.LoadTheme(this.dashboard.Controls);
         }
     }
 }

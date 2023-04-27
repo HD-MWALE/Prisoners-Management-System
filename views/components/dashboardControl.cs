@@ -86,7 +86,7 @@ namespace Prisoners_Management_System.views.components
                     card.lblTitle.Text = j + " Inmates in " + dataRow["name"].ToString();
                 }
             }
-
+            
             dsCrimes = dashboard.Prison.Crime.GetCrimes();
             if (dsCrimes != null)
             {

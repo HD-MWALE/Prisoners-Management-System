@@ -109,7 +109,7 @@ namespace Prisoners_Management_System.classes
             }
             if (config.config.Internet.IsInternetConnectionAvailable() && flowLayoutPanelRemaining.Controls.Count == 0)
                 config.config.Internet.FeedBack(Code, Warden[1].ToString());
-            if (database.Execute.InsertRollCall("roll_calloninmate", fields, data))
+            if (database.Execute.InsertMore("roll_calloninmate", fields, data))
                 return true; 
             return false;
         }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(inmates));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties5 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties6 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties7 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties8 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.btnAddNew = new Bunifu.Framework.UI.BunifuFlatButton();
             this.label17 = new System.Windows.Forms.Label();
             this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -59,6 +59,7 @@
             this.btnNear = new Bunifu.Framework.UI.BunifuFlatButton();
             this.cpbLoader = new Bunifu.Framework.UI.BunifuCircleProgressbar();
             this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
+            this.btnView = new Bunifu.Framework.UI.BunifuFlatButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
@@ -118,10 +119,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.InmateflowLayoutPanel.AutoScroll = true;
-            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 211);
+            this.InmateflowLayoutPanel.Location = new System.Drawing.Point(40, 223);
             this.InmateflowLayoutPanel.Name = "InmateflowLayoutPanel";
             this.InmateflowLayoutPanel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 199);
+            this.InmateflowLayoutPanel.Size = new System.Drawing.Size(845, 187);
             this.InmateflowLayoutPanel.TabIndex = 70;
             // 
             // label3
@@ -186,7 +187,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(40, 178);
+            this.panel1.Location = new System.Drawing.Point(40, 190);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(845, 27);
             this.panel1.TabIndex = 79;
@@ -224,7 +225,7 @@
             this.bunifuSeparator1.BackColor = System.Drawing.Color.Transparent;
             this.bunifuSeparator1.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(105)))), ((int)(((byte)(105)))));
             this.bunifuSeparator1.LineThickness = 1;
-            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 202);
+            this.bunifuSeparator1.Location = new System.Drawing.Point(40, 214);
             this.bunifuSeparator1.Name = "bunifuSeparator1";
             this.bunifuSeparator1.Size = new System.Drawing.Size(845, 10);
             this.bunifuSeparator1.TabIndex = 80;
@@ -302,26 +303,26 @@
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties1.FillColor = System.Drawing.Color.Empty;
-            stateProperties1.ForeColor = System.Drawing.Color.Empty;
-            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties1;
-            stateProperties2.BorderColor = System.Drawing.Color.Empty;
-            stateProperties2.FillColor = System.Drawing.Color.White;
-            stateProperties2.ForeColor = System.Drawing.Color.Empty;
-            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties2;
-            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties3.FillColor = System.Drawing.Color.Empty;
-            stateProperties3.ForeColor = System.Drawing.Color.Empty;
-            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties3;
-            stateProperties4.BorderColor = System.Drawing.Color.Silver;
-            stateProperties4.FillColor = System.Drawing.Color.White;
-            stateProperties4.ForeColor = System.Drawing.Color.Empty;
-            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties4;
+            stateProperties5.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties5.FillColor = System.Drawing.Color.Empty;
+            stateProperties5.ForeColor = System.Drawing.Color.Empty;
+            stateProperties5.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties5;
+            stateProperties6.BorderColor = System.Drawing.Color.Empty;
+            stateProperties6.FillColor = System.Drawing.Color.White;
+            stateProperties6.ForeColor = System.Drawing.Color.Empty;
+            stateProperties6.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties6;
+            stateProperties7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties7.FillColor = System.Drawing.Color.Empty;
+            stateProperties7.ForeColor = System.Drawing.Color.Empty;
+            stateProperties7.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties7;
+            stateProperties8.BorderColor = System.Drawing.Color.Silver;
+            stateProperties8.FillColor = System.Drawing.Color.White;
+            stateProperties8.ForeColor = System.Drawing.Color.Empty;
+            stateProperties8.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties8;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -576,7 +577,7 @@
             this.btnRefresh.OnHovercolor = System.Drawing.Color.Green;
             this.btnRefresh.OnHoverTextColor = System.Drawing.Color.White;
             this.btnRefresh.selected = false;
-            this.btnRefresh.Size = new System.Drawing.Size(112, 40);
+            this.btnRefresh.Size = new System.Drawing.Size(112, 45);
             this.btnRefresh.TabIndex = 130;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -584,11 +585,49 @@
             this.btnRefresh.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // btnView
+            // 
+            this.btnView.Active = false;
+            this.btnView.Activecolor = System.Drawing.Color.Green;
+            this.btnView.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnView.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnView.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnView.BorderRadius = 5;
+            this.btnView.ButtonText = "View Pardoned List";
+            this.btnView.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnView.DisabledColor = System.Drawing.Color.Gray;
+            this.btnView.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnView.Iconimage = global::Prisoners_Management_System.Properties.Resources.list;
+            this.btnView.Iconimage_right = null;
+            this.btnView.Iconimage_right_Selected = null;
+            this.btnView.Iconimage_Selected = null;
+            this.btnView.IconMarginLeft = 20;
+            this.btnView.IconMarginRight = 0;
+            this.btnView.IconRightVisible = true;
+            this.btnView.IconRightZoom = 0D;
+            this.btnView.IconVisible = true;
+            this.btnView.IconZoom = 50D;
+            this.btnView.IsTab = true;
+            this.btnView.Location = new System.Drawing.Point(683, 138);
+            this.btnView.Name = "btnView";
+            this.btnView.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnView.OnHovercolor = System.Drawing.Color.Green;
+            this.btnView.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnView.selected = false;
+            this.btnView.Size = new System.Drawing.Size(199, 45);
+            this.btnView.TabIndex = 143;
+            this.btnView.Text = "View Pardoned List";
+            this.btnView.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnView.Textcolor = System.Drawing.Color.White;
+            this.btnView.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
             // inmates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnView);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.cpbLoader);
             this.Controls.Add(this.btnNear);
@@ -645,5 +684,6 @@
         private System.Windows.Forms.Label label2;
         private Bunifu.Framework.UI.BunifuCircleProgressbar cpbLoader;
         public Bunifu.Framework.UI.BunifuFlatButton btnRefresh;
+        public Bunifu.Framework.UI.BunifuFlatButton btnView;
     }
 }

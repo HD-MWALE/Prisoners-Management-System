@@ -164,25 +164,21 @@ namespace Prisoners_Management_System.views.components.facial
         }
         private void btnCapture_Click(object sender, EventArgs e)
         {
-            Sound.Click();
+            Sound.Capture();
             try
             {
                 // captured face counter
                 Countface = Countface + 1;
-
                 // get a gray frame from capture device
                 gray = grabber.QueryGrayFrame().Resize(600, 440, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-
                 //Face Detector
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(face, 1.2, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(20, 20));
-
                 // action for each face detected
                 foreach (MCvAvgComp f in facesDetected[0])
                 {
                     FaceCaptured = currentFrame.Copy(f.rect).Convert<Gray, byte>();
                     break;
                 }
-
                 //resize face detected image for force to compare the same size with the 
                 //test image with cubic interpolation type method
                 FaceCaptured = result.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
@@ -194,10 +190,10 @@ namespace Prisoners_Management_System.views.components.facial
 
                 inmate.ibxFace.Image = FaceCaptured;
 
-                //Write the number of triained faces in a file text for further load
+                //Write the number of scanned faces in a file text for further load
                 File.WriteAllText(Application.StartupPath + "/Face/Inmates.txt", CapturingImages.ToArray().Length.ToString() + "%");
 
-                //Write the labels of triained faces in a file text for further load
+                //Write the labels of scanned faces in a file text for further load
                 for (int i = 1; i < CapturingImages.ToArray().Length + 1; i++)
                 {
                     CapturingImages.ToArray()[i - 1].Save(Application.StartupPath + "/Face/Inmate" + i + ".bmp");

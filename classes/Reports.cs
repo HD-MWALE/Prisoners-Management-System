@@ -166,7 +166,7 @@ namespace Prisoners_Management_System.classes
             });
             PopulationLine.AxisY.Add(new Axis
             {
-                Foreground = System.Windows.Media.Brushes.Black,
+                Foreground = Brushes.Black,
                 Title = "Number of Inmates",
                 FontSize = 18,
                 MinValue = 0,
@@ -228,6 +228,58 @@ namespace Prisoners_Management_System.classes
                 LabelFormatter = value => value.ToString("N")
             });
         }
+
+        // prison population report
+        public static void RollCallReport(dashboard dashboard, CartesianChart RollCallReport) 
+        {
+            DataSet dataSet = dashboard.Prison.Reports.GetRollCall();
+
+            IChartValues values = new ChartValues<double>();
+            IList<string> labels = new List<string>();
+
+            // Line Graph
+            RollCallReport.Series.Clear();
+            RollCallReport.AxisX.Clear();
+            RollCallReport.AxisY.Clear();
+
+            RollCallReport.Series = new SeriesCollection();
+
+            foreach (DataRow data in dataSet.Tables["result"].Rows)
+            {
+                labels.Add(data["year"].ToString());
+                values.Add(Convert.ToDouble(data["total"]));
+            }
+
+            RollCallReport.Series = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Title = "Number of Inmates",
+                        DataLabels = true,
+                        Values = values,
+                    }
+                };
+
+            RollCallReport.AxisX.Add(new Axis
+            {
+                Title = "Years",
+                FontSize = 18,
+                FontWeight = new System.Windows.FontWeight(),
+                Labels = labels,
+                IsMerged = true,
+                Separator = new Separator { Step = 1 },
+                Foreground = Brushes.Black,
+            });
+            RollCallReport.AxisY.Add(new Axis
+            {
+                Foreground = Brushes.Black,
+                Title = "Number of Inmates",
+                FontSize = 18,
+                MinValue = 0,
+                IsMerged = true,
+            });
+            // dormitory population
+        }
         public static DataSet GetDormitories(string query)
         {
             DataSet dataSet = Execute.ExecuteDataSet(query);
@@ -246,6 +298,13 @@ namespace Prisoners_Management_System.classes
             string query = "SELECT dormitory_id, COUNT(*) AS total, YEAR(date_created) AS year, MONTH(date_created) AS month, DAY(date_created) AS day";
             query += " FROM `inmate`";
             query += " GROUP BY YEAR(date_created)";
+            return Execute.ExecuteDataSet(query);
+        }
+        public DataSet GetRollCall() 
+        {
+            string query = "SELECT COUNT(roll_calloninmate.inmate_id) AS total, YEAR(roll_call.date_created) AS year, MONTH(roll_call.date_created) AS month, DAY(roll_call.date_created) AS day " +
+                "FROM roll_call INNER JOIN roll_calloninmate ON roll_call.id = roll_calloninmate.roll_call_id " +
+                "GROUP BY YEAR(roll_call.date_created)";
             return Execute.ExecuteDataSet(query);
         }
 
