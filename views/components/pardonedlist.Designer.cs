@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(pardonedlist));
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties29 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties30 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties31 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
-            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties32 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties3 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
+            Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties stateProperties4 = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox.StateProperties();
             this.label17 = new System.Windows.Forms.Label();
             this.btnRefresh = new Bunifu.Framework.UI.BunifuFlatButton();
             this.lblentries = new System.Windows.Forms.Label();
@@ -50,6 +50,7 @@
             this.InmateflowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSearch = new Bunifu.Framework.UI.BunifuFlatButton();
             this.txtSearch = new Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox();
+            this.btnPList = new Bunifu.Framework.UI.BunifuFlatButton();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             this.panel1.SuspendLayout();
@@ -346,26 +347,26 @@
             this.txtSearch.Modified = false;
             this.txtSearch.Multiline = false;
             this.txtSearch.Name = "txtSearch";
-            stateProperties29.BorderColor = System.Drawing.Color.DodgerBlue;
-            stateProperties29.FillColor = System.Drawing.Color.Empty;
-            stateProperties29.ForeColor = System.Drawing.Color.Empty;
-            stateProperties29.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnActiveState = stateProperties29;
-            stateProperties30.BorderColor = System.Drawing.Color.Empty;
-            stateProperties30.FillColor = System.Drawing.Color.White;
-            stateProperties30.ForeColor = System.Drawing.Color.Empty;
-            stateProperties30.PlaceholderForeColor = System.Drawing.Color.Silver;
-            this.txtSearch.OnDisabledState = stateProperties30;
-            stateProperties31.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
-            stateProperties31.FillColor = System.Drawing.Color.Empty;
-            stateProperties31.ForeColor = System.Drawing.Color.Empty;
-            stateProperties31.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnHoverState = stateProperties31;
-            stateProperties32.BorderColor = System.Drawing.Color.Silver;
-            stateProperties32.FillColor = System.Drawing.Color.White;
-            stateProperties32.ForeColor = System.Drawing.Color.Empty;
-            stateProperties32.PlaceholderForeColor = System.Drawing.Color.Empty;
-            this.txtSearch.OnIdleState = stateProperties32;
+            stateProperties1.BorderColor = System.Drawing.Color.DodgerBlue;
+            stateProperties1.FillColor = System.Drawing.Color.Empty;
+            stateProperties1.ForeColor = System.Drawing.Color.Empty;
+            stateProperties1.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnActiveState = stateProperties1;
+            stateProperties2.BorderColor = System.Drawing.Color.Empty;
+            stateProperties2.FillColor = System.Drawing.Color.White;
+            stateProperties2.ForeColor = System.Drawing.Color.Empty;
+            stateProperties2.PlaceholderForeColor = System.Drawing.Color.Silver;
+            this.txtSearch.OnDisabledState = stateProperties2;
+            stateProperties3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(181)))), ((int)(((byte)(255)))));
+            stateProperties3.FillColor = System.Drawing.Color.Empty;
+            stateProperties3.ForeColor = System.Drawing.Color.Empty;
+            stateProperties3.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnHoverState = stateProperties3;
+            stateProperties4.BorderColor = System.Drawing.Color.Silver;
+            stateProperties4.FillColor = System.Drawing.Color.White;
+            stateProperties4.ForeColor = System.Drawing.Color.Empty;
+            stateProperties4.PlaceholderForeColor = System.Drawing.Color.Empty;
+            this.txtSearch.OnIdleState = stateProperties4;
             this.txtSearch.PasswordChar = '\0';
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.Silver;
             this.txtSearch.PlaceholderText = "Search here...";
@@ -386,11 +387,48 @@
             this.txtSearch.UseSystemPasswordChar = false;
             this.txtSearch.WordWrap = true;
             // 
+            // btnPList
+            // 
+            this.btnPList.Active = false;
+            this.btnPList.Activecolor = System.Drawing.Color.Green;
+            this.btnPList.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnPList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnPList.BorderRadius = 5;
+            this.btnPList.ButtonText = "Come Up With List";
+            this.btnPList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPList.DisabledColor = System.Drawing.Color.Gray;
+            this.btnPList.Iconcolor = System.Drawing.Color.Transparent;
+            this.btnPList.Iconimage = global::Prisoners_Management_System.Properties.Resources.users;
+            this.btnPList.Iconimage_right = null;
+            this.btnPList.Iconimage_right_Selected = null;
+            this.btnPList.Iconimage_Selected = null;
+            this.btnPList.IconMarginLeft = 20;
+            this.btnPList.IconMarginRight = 0;
+            this.btnPList.IconRightVisible = true;
+            this.btnPList.IconRightZoom = 0D;
+            this.btnPList.IconVisible = true;
+            this.btnPList.IconZoom = 50D;
+            this.btnPList.IsTab = true;
+            this.btnPList.Location = new System.Drawing.Point(166, 69);
+            this.btnPList.Name = "btnPList";
+            this.btnPList.Normalcolor = System.Drawing.Color.DarkGreen;
+            this.btnPList.OnHovercolor = System.Drawing.Color.Green;
+            this.btnPList.OnHoverTextColor = System.Drawing.Color.White;
+            this.btnPList.selected = false;
+            this.btnPList.Size = new System.Drawing.Size(197, 40);
+            this.btnPList.TabIndex = 141;
+            this.btnPList.Text = "Come Up With List";
+            this.btnPList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPList.Textcolor = System.Drawing.Color.White;
+            this.btnPList.TextFont = new System.Drawing.Font("Segoe UI Semibold", 11F, System.Drawing.FontStyle.Bold);
+            this.btnPList.Click += new System.EventHandler(this.btnPList_Click);
+            // 
             // pardonedlist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(49)))));
+            this.Controls.Add(this.btnPList);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnRefresh);
@@ -433,5 +471,6 @@
         private System.Windows.Forms.FlowLayoutPanel InmateflowLayoutPanel;
         public Bunifu.Framework.UI.BunifuFlatButton btnSearch;
         public Bunifu.UI.WinForms.BunifuTextbox.BunifuTextBox txtSearch;
+        public Bunifu.Framework.UI.BunifuFlatButton btnPList;
     }
 }

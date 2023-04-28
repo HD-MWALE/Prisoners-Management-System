@@ -19,7 +19,9 @@ namespace Prisoners_Management_System.views.components
             this.dashboard = dashboard;
         }
         views.dashboard dashboard;
+        inputs.pardonedlist pardonedList;
         DataTable dsInmates = new DataTable();
+        DataSet dsCrimes = new DataSet();
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -48,6 +50,14 @@ namespace Prisoners_Management_System.views.components
         {
             pardonedlist_Load(sender, e);
         }
+
+        private void pardonedlist_Load(object sender, EventArgs e)
+        {
+            // getting all inmates
+            dsInmates = dashboard.Prison.Inmate.GetPardornedInmates().Tables["result"];
+            // calling function to load inmates
+            InmatesPageList(1);
+        }7
         // loading inmates function with parameter page number
         private void InmatesPageList(int pageNumber)
         {
@@ -100,12 +110,20 @@ namespace Prisoners_Management_System.views.components
             dashboard.SetLoading(false);
         }
 
-        private void pardonedlist_Load(object sender, EventArgs e)
+        private void btnPList_Click(object sender, EventArgs e)
         {
+            dashboard.SetLoading(true);
+            Sound.Click();
+            // getting all crimes committed
+            dsCrimes = dashboard.Prison.Crimes_Committed.GetAll();
             // getting all inmates
-            dsInmates = dashboard.Prison.Inmate.GetPardornedInmates().Tables["result"];
-            // calling function to load inmates
-            InmatesPageList(1);
+            dsInmates = dashboard.Prison.Inmate.GetInmates(dsCrimes);
+            pardonedList = new inputs.pardonedlist(dashboard, dsInmates);
+            modal.popup popup = new modal.popup(pardonedList);
+            popup.Size = pardonedList.Size;
+            popup.Location = config.config.Orientation.GetLocation(config.config.AppSize, popup.Size, config.config.AppLocation);
+            popup.ShowDialog();
+            dashboard.SetLoading(false);
         }
     }
 }

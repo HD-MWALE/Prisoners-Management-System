@@ -15,7 +15,9 @@ namespace Prisoners_Management_System.views.components.inputs
         public inmates inmates;
         DataSet dsDormitories = new DataSet();
         public DataSet dsCrimes = new DataSet(); 
-        DataSet dsInmates = new DataSet(); 
+        DataSet dsInmates = new DataSet();
+        public ArrayList Crimes = new ArrayList();
+        public ArrayList CrimeTypes = new ArrayList();
 
         public inmate(inmates inmates) 
         {
@@ -135,21 +137,10 @@ namespace Prisoners_Management_System.views.components.inputs
             if (Validate_Inputs())
             {
                 inmates.dashboard.Prison.Inmate = new Inmate(Id, txtCode.Text,
-                                    txtFirstName.Text,
-                                    txtMiddleName.Text,
-                                    txtLastName.Text,
-                                    dpnGender.Text,
-                                    dtpDateOfBirth.Value.Date,
-                                    txtAddress.Text,
-                                    dpnMaritalStatus.Text,
-                                    txtEyeColour.Text,
-                                    txtComplexion.Text,
-                                    new Crimes_Committed(Crimes),
-                                    txtName.Text,
-                                    txtContact.Text,
-                                    txtRelation.Text,
-                                    1, new Sentence(dtpTimeServedStart.Value.Date, dtpTimeServedEnd.Value.Date, 1),
-                                    new Dormitory(dpnDormitory.Text));
+                                    txtFirstName.Text, txtMiddleName.Text, txtLastName.Text, dpnGender.Text, dtpDateOfBirth.Value.Date,
+                                    txtAddress.Text, dpnMaritalStatus.Text, txtEyeColour.Text, txtComplexion.Text,
+                                    new Crimes_Committed(Crimes), txtName.Text, txtContact.Text,
+                                    txtRelation.Text, 1, new Sentence(dtpTimeServedStart.Value.Date, dtpTimeServedEnd.Value.Date, 1), new Dormitory(dpnDormitory.Text));
                 if (btnSave.Text != "Update")
                 {
                     if (inmates.dashboard.Prison.Inmate.Save())
@@ -203,9 +194,6 @@ namespace Prisoners_Management_System.views.components.inputs
                 }
             }
         }
-        public ArrayList Crimes = new ArrayList();
-        public ArrayList CrimeTypes = new ArrayList(); 
-
         private void dpnCrimes_SelectedIndexChanged(object sender, EventArgs e)
         {
             bool IsAdded = false;

@@ -68,7 +68,7 @@ namespace Prisoners_Management_System.classes
         { 
             Code = code;
         }
-        // setting globe valiables
+        // contructor function
         public Inmate(int id, string code,
                        string firstName,
                        string middleName,

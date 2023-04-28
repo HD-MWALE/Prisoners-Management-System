@@ -36,60 +36,57 @@ namespace Prisoners_Management_System.views.components.view
         {
             if (Id != 0)
             {
-                dsInmate = dashboard.Prison.Inmate.GetInmates();
+                dsInmate = dashboard.Prison.Inmate.GetInmates(Id);
                 if (dsInmate != null)
                 {
                     foreach (DataRow dataRow in dsInmate.Tables["result"].Rows)
                     {
-                        if (Convert.ToInt32(dataRow["id"]) == Id)
-                        {
-                            Id = Convert.ToInt32(dataRow["id"].ToString());
-                            lblCode.Text = dataRow["code"].ToString();
-                            lblDormitory.Text = dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"]));
-                            lblFullname.Text = dataRow["last_name"].ToString() + ", " + dataRow["first_name"].ToString() + " " + dataRow["middle_name"].ToString();
-                            lblGender.Text = dataRow["gender"].ToString();
-                            lblDateOfBirth.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
-                            lblAddress.Text = dataRow["address"].ToString();
-                            lblMaritalStatus.Text = dataRow["marital_status"].ToString();
-                            lblEyeColour.Text = dataRow["eye_color"].ToString();
-                            lblComplexion.Text = dataRow["complexion"].ToString();
-                            bool Isfirst = true;
-                            dsCrimesCommitted = dashboard.Prison.Crimes_Committed.GetAll();
-                            if(dsCrimesCommitted != null)
-                                foreach (DataRow data in dsCrimesCommitted.Tables["result"].Rows) 
+                        Id = Convert.ToInt32(dataRow["id"].ToString());
+                        lblCode.Text = dataRow["code"].ToString();
+                        lblDormitory.Text = dashboard.Prison.Dormitory.GetName(Convert.ToInt32(dataRow["dormitory_id"]));
+                        lblFullname.Text = dataRow["last_name"].ToString() + ", " + dataRow["first_name"].ToString() + " " + dataRow["middle_name"].ToString();
+                        lblGender.Text = dataRow["gender"].ToString();
+                        lblDateOfBirth.Text = Convert.ToDateTime(dataRow["dob"]).ToString("dd/MM/yyyy");
+                        lblAddress.Text = dataRow["address"].ToString();
+                        lblMaritalStatus.Text = dataRow["marital_status"].ToString();
+                        lblEyeColour.Text = dataRow["eye_color"].ToString();
+                        lblComplexion.Text = dataRow["complexion"].ToString();
+                        bool Isfirst = true;
+                        dsCrimesCommitted = dashboard.Prison.Crimes_Committed.GetAll();
+                        if(dsCrimesCommitted != null)
+                            foreach (DataRow data in dsCrimesCommitted.Tables["result"].Rows) 
+                            {
+                                if(Convert.ToInt32(dataRow["id"]) == Convert.ToInt32(data["inmate_id"]))
                                 {
-                                    if(Convert.ToInt32(dataRow["id"]) == Convert.ToInt32(data["inmate_id"]))
+                                    if (Isfirst)
                                     {
-                                        if (Isfirst)
-                                        {
-                                            lblCrimeCommitted.Text = data["name"].ToString();
-                                            Isfirst = false;
-                                        }
-                                        else
-                                            lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + data["name"].ToString();
+                                        lblCrimeCommitted.Text = data["name"].ToString();
+                                        Isfirst = false;
                                     }
+                                    else
+                                        lblCrimeCommitted.Text = lblCrimeCommitted.Text + ", " + data["name"].ToString();
                                 }
-                            lblTimeServedStart.Text = Convert.ToDateTime(dataRow["start_date"]).ToString("dd/MM/yyyy");
-                            lblTimeServedEnd.Text = Convert.ToDateTime(dataRow["end_date"]).ToString("dd/MM/yyyy");
-                            DateTimePicker Start = new DateTimePicker();
-                            DateTimePicker End = new DateTimePicker();
-                            Start.Value = Convert.ToDateTime(dataRow["start_date"]);
-                            End.Value = Convert.ToDateTime(dataRow["end_date"]);
-                            lblSentence.Text = config.config.Calculate.Sentence(Start, End);
-                            lblName.Text = dataRow["emergency_name"].ToString();
-                            lblContact.Text = dataRow["emergency_contact"].ToString();
-                            lblRelation.Text = dataRow["emergency_relation"].ToString();
-                            ibxFace.ImageLocation = config.config.Path + "\\Face\\" + dataRow["code"].ToString() + ".bmp";
-                            if (Convert.ToInt32(dataRow["visiting_privilege"]) == 1)
-                                IsAllowed = true;
-                            else
-                                IsAllowed = false;
-                            if (IsAllowed)
-                                VisitingPrivilege.Image = Properties.Resources.toggle_on;
-                            else
-                                VisitingPrivilege.Image = Properties.Resources.toggle_off;
-                            break;
-                        }
+                            }
+                        lblTimeServedStart.Text = Convert.ToDateTime(dataRow["start_date"]).ToString("dd/MM/yyyy");
+                        lblTimeServedEnd.Text = Convert.ToDateTime(dataRow["end_date"]).ToString("dd/MM/yyyy");
+                        DateTimePicker Start = new DateTimePicker();
+                        DateTimePicker End = new DateTimePicker();
+                        Start.Value = Convert.ToDateTime(dataRow["start_date"]);
+                        End.Value = Convert.ToDateTime(dataRow["end_date"]);
+                        lblSentence.Text = config.config.Calculate.Sentence(Start, End);
+                        lblName.Text = dataRow["emergency_name"].ToString();
+                        lblContact.Text = dataRow["emergency_contact"].ToString();
+                        lblRelation.Text = dataRow["emergency_relation"].ToString();
+                        ibxFace.ImageLocation = config.config.Path + "\\Face\\" + dataRow["code"].ToString() + ".bmp";
+                        if (Convert.ToInt32(dataRow["visiting_privilege"]) == 1)
+                            IsAllowed = true;
+                        else
+                            IsAllowed = false;
+                        if (IsAllowed)
+                            VisitingPrivilege.Image = Properties.Resources.toggle_on;
+                        else
+                            VisitingPrivilege.Image = Properties.Resources.toggle_off;
+                        break;
                     }
                 }
             }

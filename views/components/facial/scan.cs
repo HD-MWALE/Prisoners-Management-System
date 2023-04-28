@@ -130,34 +130,13 @@ namespace Prisoners_Management_System.views.components.facial
         string scannedface = "";
         public void FrameGrabber(object sender, EventArgs e)
         {
-            //label3.Text = "0";
-            //label4.Text = "";
             NameInmates.Add("");
-
-
             //Get the current frame form capture device
             currentFrame = grabber.QueryFrame().Resize(600, 440, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
-
             //Convert it to Grayscale
             gray = currentFrame.Convert<Gray, Byte>();
-
             //Face Detector
-            MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
-              face,
-              1.2,
-              10,
-              Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT,
-              new Size(20, 20));
-
-            /*
-                 //Profile Detector
-                 MCvAvgComp[][] profilefaceDetected = gray.DetectHaarCascade( 
-                   profileface,
-                   1.2,
-                   10,
-                   Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.,
-                   new Size(25, 25));*/
-
+            MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(face, 1.2, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.FIND_BIGGEST_OBJECT,  new Size(20, 20));
             //Action for each element detected
             foreach (MCvAvgComp f in facesDetected[0])
             {
@@ -165,64 +144,36 @@ namespace Prisoners_Management_System.views.components.facial
                 result = currentFrame.Copy(f.rect).Convert<Gray, byte>().Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                 //draw the face detected in the 0th (gray) channel with blue color
                 currentFrame.Draw(f.rect, new Bgr(Color.FromArgb(26, 104, 255)), 2);
-
-
                 if (CapturingImages.ToArray().Length != 0)
                 {
                     //TermCriteria for face recognition with numbers of trained images like maxIteration
                     MCvTermCriteria termCrit = new MCvTermCriteria(Countface, 0.001);
-
                     //Eigen face recognizer
-                    config.config.Recognizer = new Recognizer(
-                    CapturingImages.ToArray(),
-                    inmates.ToArray(),
-                    2500,
-                    ref termCrit);
-
+                    config.config.Recognizer = new Recognizer(CapturingImages.ToArray(), inmates.ToArray(), 2500, ref termCrit);
                     name = config.config.Recognizer.Recognize(result);
-
                     //Draw the label for each face detected and recognized
                     currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.FromArgb(26, 104, 255)));
                     foreach(sub.inmate control in flowLayoutPanelRemaining.Controls) 
                     {
                         scannedface = name.Split('-')[0].Trim();
                         if(control.Name == scannedface)
-                        {
                             control.btnCheck_Click(sender, new EventArgs());
-                        }
                     }
                 }
-
                 NameInmates[t - 1] = name;
                 NameInmates.Add("");
-
-
-                //Set the number of faces detected on the scene
-                //label3.Text = facesDetected[0].Length.ToString();
-
-
                 //Set the region of interest on the faces
-
                 gray.ROI = f.rect;
-                MCvAvgComp[][] eyesDetected = gray.DetectHaarCascade(
-                   eye,
-                   1.1,
-                   10,
-                   Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
-                   new Size(20, 20));
+                MCvAvgComp[][] eyesDetected = gray.DetectHaarCascade(eye, 1.1, 10, Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(20, 20));
                 gray.ROI = Rectangle.Empty;
-
                 foreach (MCvAvgComp ey in eyesDetected[0])
                 {
                     Rectangle eyeRect = ey.rect;
                     eyeRect.Offset(f.rect.X, f.rect.Y);
                     currentFrame.Draw(eyeRect, new Bgr(Color.FromArgb(26, 104, 255)), 2);
                 }
-
-
             }
             t = 0;
-
             //Names concatenation of persons recognized
             for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
             {

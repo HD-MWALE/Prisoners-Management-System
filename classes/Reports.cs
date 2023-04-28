@@ -38,13 +38,7 @@ namespace Prisoners_Management_System.classes
             {
                 labels.Add(data["name"].ToString());
                 values.Add(Convert.ToDouble(data["total"]));
-
-                CrimesCommittedReport.Series.Add(new ColumnSeries
-                {
-                    Title = data["name"].ToString(),
-                    DataLabels = false,
-                    Values = new ChartValues<double> { Convert.ToDouble(data["total"]) },
-                });
+                CrimesCommittedReport.Series.Add(new ColumnSeries { Title = data["name"].ToString(), DataLabels = false, Values = new ChartValues<double> { Convert.ToDouble(data["total"]) }, }); 
             }
 
             CrimesCommittedReport.AxisX.Add(new Axis
@@ -73,19 +67,15 @@ namespace Prisoners_Management_System.classes
         {
             DataSet dsDormitories = Reports.GetDormitories("SELECT dormitory.`name`, COUNT(inmate.`id`) AS count FROM `dormitory`, `inmate` WHERE inmate.dormitory_id = dormitory.id GROUP BY dormitory.name ORDER BY dormitory.`id`");
             DataSet dsInmates = dashboard.Prison.Reports.GetInmatesPopulation();
-
             PopulationPie.Series.Clear();
             DormitoryPopulationPie.Series.Clear();
-
             // Define the label that will appear over the piece of the chart
             // in this case we'll show the given value and the percentage e.g 123 (8%)
             Func<ChartPoint, string> labelPointinmates = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
             Func<ChartPoint, string> labelPointdormitory = chartPoint => string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
-
             // Define the collection of Values to display in the Pie Chart
             DormitoryPopulationPie.Series = new SeriesCollection();
             PopulationPie.Series = new SeriesCollection();
-
             // declaring local variable
             PieSeries PieSeriesInmates;
             PieSeries PieSeriesDormitory;
@@ -93,13 +83,8 @@ namespace Prisoners_Management_System.classes
             {
                 PieSeriesInmates = new PieSeries()
                 {
-                    Title = row["name"].ToString(),
-                    Values = new ChartValues<double> { Convert.ToDouble(row["count"]) },
-                    DataLabels = true,
-                    LabelPoint = labelPointinmates,
-                    Foreground = Brushes.Black,
+                    Title = row["name"].ToString(), Values = new ChartValues<double> { Convert.ToDouble(row["count"]) }, DataLabels = true, LabelPoint = labelPointinmates, Foreground = Brushes.Black,
                 };
-
                 DormitoryPopulationPie.Series.Add(PieSeriesInmates);
                 // define the location of the legend and set the data labels to display
                 DormitoryPopulationPie.LegendLocation = LegendLocation.Right;
@@ -110,13 +95,8 @@ namespace Prisoners_Management_System.classes
             {
                 PieSeriesDormitory = new PieSeries() {
 
-                    Title = row["year"].ToString(),
-                    Values = new ChartValues<double> { Convert.ToDouble(row["total"]) },
-                    DataLabels = true,
-                    LabelPoint = labelPointdormitory,
-                    Foreground = Brushes.Black,
+                    Title = row["year"].ToString(),Values = new ChartValues<double> { Convert.ToDouble(row["total"]) }, DataLabels = true, LabelPoint = labelPointdormitory, Foreground = Brushes.Black,
                 };
-
                 PopulationPie.Series.Add(PieSeriesDormitory);
                 // define the location of the legend and set the data labels to display
                 PopulationPie.LegendLocation = LegendLocation.Right;
@@ -143,17 +123,7 @@ namespace Prisoners_Management_System.classes
                 labels.Add(data["year"].ToString());
                 values.Add(Convert.ToDouble(data["total"]));
             }
-            
-            PopulationLine.Series = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Title = "Number of Inmates",
-                        DataLabels = true,
-                        Values = values,
-                    }
-                };
-
+            PopulationLine.Series = new SeriesCollection { new LineSeries { Title = "Number of Inmates", DataLabels = true, Values = values, } };
             PopulationLine.AxisX.Add(new Axis
             {
                 Title = "Years",
@@ -207,25 +177,17 @@ namespace Prisoners_Management_System.classes
                     break;
                 }
             }
-
             DormitoryPopulationBar.AxisX.Add(new Axis
             {
                 Title = "Dormitories",
-                Labels = labelsDorms,
-                LabelsRotation = 45,
-                ShowLabels = false,
-                FontSize = 16,
+                Labels = labelsDorms, LabelsRotation = 45,
+                ShowLabels = false,FontSize = 16,
                 Separator = new Separator { Step = 1 },
                 Foreground = System.Windows.Media.Brushes.Black,
             });
-
             DormitoryPopulationBar.AxisY.Add(new Axis
             {
-                FontSize = 18,
-                Title = "Total Number",
-                MinValue = 0,
-                Foreground = System.Windows.Media.Brushes.Black,
-                LabelFormatter = value => value.ToString("N")
+                FontSize = 18, Title = "Total Number", MinValue = 0, Foreground = Brushes.Black, LabelFormatter = value => value.ToString("N")
             });
         }
 
@@ -249,17 +211,7 @@ namespace Prisoners_Management_System.classes
                 labels.Add(data["year"].ToString());
                 values.Add(Convert.ToDouble(data["total"]));
             }
-
-            RollCallReport.Series = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Title = "Number of Inmates",
-                        DataLabels = true,
-                        Values = values,
-                    }
-                };
-
+            RollCallReport.Series = new SeriesCollection { new LineSeries { Title = "Number of Inmates", DataLabels = true, Values = values, } };
             RollCallReport.AxisX.Add(new Axis
             {
                 Title = "Years",
